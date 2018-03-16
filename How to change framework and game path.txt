@@ -1,0 +1,6 @@
+遊戲網頁需要載入load.js且要將load2.js保留於同一個目錄下
+並且更改
+LoadJS.definePath = 'start/js/define.js';
+LoadJS.defineLookFor = 'define';
+LoadJS.loadPath = 'start/js/load.js';
+以及修改define.js中的參數
