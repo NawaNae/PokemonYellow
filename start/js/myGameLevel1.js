@@ -62,6 +62,15 @@ var MyGame = Framework.Class(Framework.Level, {
         Framework.DebugInfo.Log.warning(e.key);
         
     },
+    keyup:function(e,list)
+    {
+        console.log("keyup"+e.key);
+    }
+    ,
+    keypress:function(e,list)
+    {
+        console.log("keypress"+e.key);
+    },
 
     touchstart: function (e) {
         //為了要讓Mouse和Touch都有一樣的事件
