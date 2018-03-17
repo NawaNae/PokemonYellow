@@ -46,8 +46,9 @@ var Framework = (function (Framework) {
 		that._currentTestScript = undefined;
 		that._currentReplay = undefined;
 
-		that._ideaWidth = 16;
-		that._ideaHeight = 9;
+		that._ideaWidth =that._config.canvasWidthRation||16;
+		that._ideaHeight = that._config.canvasHeightRation||9;
+		
 		that.timelist = [];
 		that._record = new Framework.Record();
 
@@ -917,6 +918,7 @@ var Framework = (function (Framework) {
 		};
 
 		that.resizeEvent = function() {
+			if(that._config.resizeCanvasAsRation){
 			var base = 0,
 				baseWidth = window.innerWidth / that._ideaWidth,
 				baseHeight = window.innerHeight / that._ideaHeight,
@@ -941,7 +943,7 @@ var Framework = (function (Framework) {
 			//that._canvasContainer.style.height = scaledHeight;
 			that._canvas.style.width = scaledWidth + 'px';    // 2017.02.20, from V3.1.1
 			that._canvas.style.height = scaledHeight + 'px';  // 2017.02.20, from V3.1.1
-	
+			}
 		};
 
 		that._pushGameObj = function(ele) {
