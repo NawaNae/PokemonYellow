@@ -14,7 +14,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         ctx.font ='20px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
-        ctx.fillText(Math.round(requestInfo.percent) + '%' , ctx.canvas.width / 2 , ctx.canvas.height / 2 + 10);
+        ctx.fillText(Math.round(requestInfo.percent) + '%' , ctx.canvas.width / 2 , ctx.canvas.height / 2 + 50);
     },
 
     load: function () {
@@ -37,12 +37,12 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
             x: Framework.Game.getCanvasWidth() / 2,
             y: Framework.Game.getCanvasHeight() / 2
         };
-        this.menu.scale = 2;
+        
         this.rootScene.attach(this.menu);
 
         this.rectPosition = { 
-            x: Framework.Game.getCanvasWidth() / 2 - 130,
-            y: Framework.Game.getCanvasHeight() / 2
+            x: Framework.Game.getCanvasWidth() / 2 ,
+            y: Framework.Game.getCanvasHeight() / 2+40
         };
     },
 
@@ -59,11 +59,11 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         this.menu.draw(parentCtx);
         //this.rootScene.draw();
         //可支援畫各種單純的圖形和字
-        parentCtx.font = '20pt bold';
+        parentCtx.font = '15px Arial';
         parentCtx.fillStyle = 'black';
         parentCtx.textBaseline = 'top';
         parentCtx.textAlign = 'center';
-        parentCtx.fillText('Click To Start', this.rectPosition.x + 10, this.rectPosition.y, 60);
+        parentCtx.fillText('Click To Start', this.rectPosition.x , this.rectPosition.y, 60);
     },
 
     mouseup: function(e) {
