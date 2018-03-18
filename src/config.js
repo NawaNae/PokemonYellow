@@ -19,7 +19,7 @@ var Framework = (function (Framework) {
 		this.canvasHeightRation = 9;
 
 		/*在視窗變化大小時自動resize */
-		this.resizeCanvasAsRation = false;
+		this.resizeCanvasAsRation = true;
 
 
 

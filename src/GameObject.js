@@ -28,7 +28,6 @@ Framework = (function (Framework) {
             this.rotation = 0;
             this.scale = 1;
             this.position = { x: 0, y: 0 };
-
             this._isRotate = true;
             this._isScale = true;
             this._isMove = true;
@@ -99,7 +98,27 @@ Framework = (function (Framework) {
             }
         },
         load: function() {},  
-        initialize: function() {},  
+        initialize: function() {},
+       
+        waitForInitializeThen:function(callBack)
+        {
+            
+            var me=this;
+            (function  waitForInitializeC()
+            {
+                if(me.width==0)
+                {
+                    setTimeout(waitForInitializeC,50);
+                }
+                else
+                    callBack(me);
+            })();
+        },
+        waitForInitialized:function()
+        {
+            this.waitForInitializeThen(this.initialized);
+        },
+        initialized:function(me){me.x=me.y=0},
         update: function() {},
         draw: function(ctx) {},        
         teardown:function() {},
@@ -171,7 +190,38 @@ Framework = (function (Framework) {
             }
         },
     });
+        /**
+    * 左上角位置getter/setter
+    * @property x、y
+    * @type {Object} 
+    * @default { x: 0, y: 0 }
+    */
+   Object.defineProperty(Framework.GameObject.prototype, 'x', {
+    get: function() {   
+        //this._isChanged = false;
+        return this.upperLeft.x;
+    },
 
+    set: function(newValue) {
+    
+            this.relativePosition.x = Math.floor(newValue+this.position.x-this.upperLeft.x);
+        
+        
+    },
+});
+Object.defineProperty(Framework.GameObject.prototype, 'y', {
+    get: function() {   
+        //this._isChanged = false;
+        return this.upperLeft.y;
+    },
+
+    set: function(newValue) {
+       
+            this.relativePosition.y = Math.floor(newValue+this.position.y-this.upperLeft.y);
+        
+        
+    },
+});
     /**
     * 相對旋轉角度的getter/setter
     * @property rotation

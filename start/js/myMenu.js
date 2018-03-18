@@ -11,19 +11,19 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     loadingProgress: function(ctx, requestInfo) {
         //console.log(Framework.ResourceManager.getFinishedRequestPercent())
         this.loading.draw(ctx);
-        ctx.font ='90px Arial';
+        ctx.font ='20px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
-        ctx.fillText(Math.round(requestInfo.percent) + '%' , ctx.canvas.width / 2 , ctx.canvas.height / 2 + 300);
+        ctx.fillText(Math.round(requestInfo.percent) + '%' , ctx.canvas.width / 2 , ctx.canvas.height / 2 + 10);
     },
 
     load: function () {
         this.menu = new Framework.Sprite(define.imagePath+"Title.png");//"https://imgur.com/6vHYJUz.png");
         Framework.Game._canvasContainer.classList.add('visualNovel');
-        this.vn = new VisualNovel(Framework.Game._canvasContainer, {
+      /*  this.vn = new VisualNovel(Framework.Game._canvasContainer, {
             content: '[[{"type":"character","url":"http://www.cc.ntut.edu.tw/~t105590029/pages/VisualNovelTest/HIBIKI1.png","name":"導覽員-喵喵","id":"喵喵"},{"type":"talk","text":"主人團子想要與您結婚"},{"type":"talk","text":"您意下如何"},{"type":"hide","object":"character"},{"type":"character","url":"http://www.cc.ntut.edu.tw/~t105590029/Images/tanko.png","name":"團子"},{"type":"select","option":[{"text":"嫑，我喜歡的是你R喵喵","tag":"NEXT_STEP"},{"text":"好","tag":"good"}]},{"type":"show","object":"text"},{"type":"text","text":"團子向你發動攻擊，請守護您的貞操"},{"type":"hide","object":"text"},{"type":"show","object":"character"},{"type":"talk","text":"敬酒不ㄘㄘ法酒"},{"type":"evalAndRemove","text":"Framework.Game.goToNextLevel();"},{"type":"jump","tag":"end"},{"type":"tag","tag":"good"},{"type":"show","object":"character"},{"type":"talk","text":"親愛的結婚吧"},{"type":"hide","object":"character"},{"type":"background","url":"https://imgur.com/LQcVEir.png"},{"type":"talk","text":"你被團子壓死ㄌ"},{"type":"tag","tag":"end"}]]'
         });
-        this.vn.gameLevel = this;
+        this.vn.gameLevel = this;*/
 
 
     },
@@ -59,11 +59,11 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         this.menu.draw(parentCtx);
         //this.rootScene.draw();
         //可支援畫各種單純的圖形和字
-        parentCtx.font = '65pt bold';
+        parentCtx.font = '20pt bold';
         parentCtx.fillStyle = 'black';
         parentCtx.textBaseline = 'top';
         parentCtx.textAlign = 'center';
-        parentCtx.fillText('Click To Start', this.rectPosition.x + 130, this.rectPosition.y, 260);
+        parentCtx.fillText('Click To Start', this.rectPosition.x + 10, this.rectPosition.y, 60);
     },
 
     mouseup: function(e) {
