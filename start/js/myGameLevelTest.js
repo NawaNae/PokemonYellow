@@ -1,5 +1,4 @@
 var MyGameTest = Framework.Class(Framework.Level, {
-    a: 20,
     load: function ()
     {
         /*bug 去除 */ 
@@ -9,32 +8,67 @@ var MyGameTest = Framework.Class(Framework.Level, {
         /*bug 去除 */ 
 
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
+        this.oneStepCount=new GameSystem.Classes.OneBlockCount();
+        this.oneStepCount.lastTimeOutCount=0;
         this.rootScene.attach(this.map);
+
 	},
 
     initialize: function () {
-       
-       
+        
+        this.map.waitForInitialized();
+        this.count=0;
     },
     update: function() {
         /*bug 去除 */ 
-        this.rootScene.update();
-        this.nullSprite.position.x++;
-        if (this.nullSprite.position.x > 1)
-            this.nullSprite.position.x = 0;
-        /*bug 去除 */ 
+       // this.rootScene.update();
+       this.nullSprite.position.x++;
+       if (this.nullSprite.position.x > 1)
+           this.nullSprite.position.x = 0;
+       /*bug 去除 */
         var mappos=this.map.position;
-        mappos.x -= GameSystem.Manager.Key.pressList.Right;
-        mappos.x += GameSystem.Manager.Key.pressList.Left;
-        mappos.y -= GameSystem.Manager.Key.pressList.Down;
-        mappos.y += GameSystem.Manager.Key.pressList.Up;
-        this.map.update();
+
+        var key=GameSystem.Manager.Key;
+
+     
+       
+            
+            
+
+        mappos.x -=  key.pressList.Right;
+            mappos.x += key.pressList.Left;
+            mappos.y -= key.pressList.Down;
+            mappos.y += key.pressList.Up;
+        /*
+        if(this.oneStepCount.enable)
+        {
+            this.oneStepCount.count++;
+            
+        }
+        else
+            if((key.lockPressKey!="" && key.timeOutCount==0) ||(this.oneStepCount.lastTimeOutCount !=key.timeOutCount) )
+            {
+
+                this.oneStepCount.reset();
+                this.oneStepCount.enable=true;
+            }
+       
+        this.oneStepCount.lastTimeOutCount=key.timeOutCount;*/
     },
 
     draw: function (parentCtx) {
+
+        
+
+        if( this.count==0) 
+            this.lastTime=Date.now();
+       
+        if(this.count==59)
+            console.log(Date.now()-this.lastTime);
+        this.count=(this.count+1)%60;
         parentCtx.fillStyle="black";
         parentCtx.fillRect(0,0,Framework.Game.getCanvasWidth(),Framework.Game.getCanvasHeight());
-        this.rootScene.draw(parentCtx);
+       this.rootScene.draw(parentCtx);
         
        // this.map.draw(parentCtx)
     },

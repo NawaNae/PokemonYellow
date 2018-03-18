@@ -3,7 +3,6 @@
 var list = {};
 list['menu'] = new MyMenu();
 Framework.Game.addNewLevel({ menu: list['menu'] });
-
 Framework.Game.addNewLevel({levelTest: new MyGameTest()});
 //Framework.Game.addNewLevel({level1: new MyGame()});
 

@@ -19,58 +19,75 @@ By NawaNawa
     ex
     Framework.Game.addNewLevel({levelN: new GameLevelN()});
  */
-var GameLevelN= Framework.Class(Framework.Level, {
-    load: function ()
+class GameLevelN extends Framework.Level
+{
+    load ()
     {
         /*bug 去除 */ 
         this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
         this.nullSprite.position = { x: 0, y: 0 };
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */ 
-
+        this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
+        this.oneStepCount=new GameSystem.Classes.OneBlockCount();
+        this.oneStepCount.lastTimeOutCount=0;
+        this.rootScene.attach(this.map);
        
-	},
+	}
 
-    initialize: function () {
+    initialize() {
        
        
-    },
-    update: function() {
-        /*bug 去除 */ 
-        this.rootScene.update();
-        this.nullSprite.position.x++;
-        if (this.nullSprite.position.x > 1)
-            this.nullSprite.position.x = 0;
-        /*bug 去除 */ 
-        this.outLevel.update();
-    },
+    }
+    update() {
+   /*bug 去除 */ 
+   this.nullSprite.position.x++;
+   if (this.nullSprite.position.x > 1)
+       this.nullSprite.position.x = 0;
+   /*bug 去除 */ 
+   var mappos=this.map.position;
 
-    draw: function (parentCtx) 
+   var key=GameSystem.Manager.Key;
+
+
+  
+       
+       
+
+   mappos.x -=  key.pressList.Right;
+       mappos.x += key.pressList.Left;
+       mappos.y -= key.pressList.Down;
+       mappos.y += key.pressList.Up;
+        
+    }
+
+    draw (parentCtx) 
     {
-    },
+        
+    }
 
-    keydown:function(e, list)
+    keydown(e, list)
     {
         //GameSystem.Manager.Key.pressList[e.key]=true;
-    },
-    keyup:function(e,list)
+    }
+    keyup(e,list)
     {
         //GameSystem.Manager.Key.pressList[e.key]=false;
     }
-    ,
+    
 
 
-    touchstart: function (e) {
+    touchstart(e) {
         //為了要讓Mouse和Touch都有一樣的事件
         //又要減少Duplicated code, 故在Touch事件被觸發時, 去Trigger Mouse事件
         this.click({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-    },
+    }
     
-    click: function (e) {  
+    click (e) {  
 
         if (!this.rectPosition) {
             return;
         }  
         
-    },
-});
+    }
+}
