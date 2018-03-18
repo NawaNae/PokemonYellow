@@ -41,9 +41,9 @@ class GameLevelN extends Framework.Level
     }
     update() {
    /*bug 去除 */ 
-   this.nullSprite.position.x++;
-   if (this.nullSprite.position.x > 1)
-       this.nullSprite.position.x = 0;
+   this.nullSprite.position.x--;
+   if (this.nullSprite.position.x < -2)
+       this.nullSprite.position.x =-1;
    /*bug 去除 */ 
    var mappos=this.map.position;
 

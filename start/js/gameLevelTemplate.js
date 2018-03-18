@@ -37,12 +37,11 @@ var GameLevelN= Framework.Class(Framework.Level, {
     },
     update: function() {
         /*bug 去除 */ 
-        this.rootScene.update();
-        this.nullSprite.position.x++;
-        if (this.nullSprite.position.x > 1)
-            this.nullSprite.position.x = 0;
+        this.nullSprite.position.x--;
+        if (this.nullSprite.position.x < -2)
+            this.nullSprite.position.x =-1;
         /*bug 去除 */ 
-        this.outLevel.update();
+
     },
 
     draw: function (parentCtx) 
