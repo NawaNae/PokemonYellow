@@ -1,3 +1,4 @@
+GameSystem.Classes.Text=
 class FText extends Framework.GameObject
 {
     constructor(txt="",font={size:"90pt",family:"UD Digi Kyokasho NK-R",color:"white"},textAlign="center",maxWidth)
