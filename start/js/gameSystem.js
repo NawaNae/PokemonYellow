@@ -29,7 +29,10 @@ class KeyManagerClass
         window.addEventListener("keydown",this._keydown);
         window.addEventListener("keyup",this._keyup);
     }
-    
+    removeEventListener()
+    {
+
+    }
     keyProcess(keyEvent)
     {
         var key=keyEvent.key;
@@ -74,7 +77,6 @@ class KeyManagerClass
     }
     _keydown(e)
     {
-
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
 
