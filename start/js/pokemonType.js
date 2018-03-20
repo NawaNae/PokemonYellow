@@ -10,6 +10,7 @@
 
 /**
  * @class PokemonType
+ * @extends GameSystem.Classes.StandardStat
  * @classdesc 寶可夢種類。紀錄了該種寶可夢的編號、名稱等等資料。
  */
 GameSystem.Classes.PokemonType =
