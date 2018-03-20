@@ -1,4 +1,4 @@
-GameSystem.Classes = 
+GameSystem.Classes.Character = 
 class Character {
     constructor(name = "", position, image) {
         this._name = name;
