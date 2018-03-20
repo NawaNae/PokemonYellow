@@ -23,15 +23,13 @@ class KeyManagerClass
         };
         this.lockOneKeyEveryTime=true;
         this.timeOutCount=0;
-        this.lockTime=1;//按一次鍵延遲(ms)
+        this.lockTime=500;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
-        this.nowPressKey="";//當前按下
+        this.nowPressKey="";//當
         window.addEventListener("keydown",this._keydown);
         window.addEventListener("keyup",this._keyup);
-    }
-    removeEventListener()
-    {
-
+        this.keyInput=(e)=>{};
+        this.keyInputEnd=(e)=>{};
     }
     keyProcess(keyEvent)
     {
@@ -41,13 +39,13 @@ class KeyManagerClass
             key=key.toUpperCase();
         return key;
     }
-    keyInput(e)
+    _keyInput(e)
     {
-
+        this.keyInput(e);
     }
-    keyInputEnd(e)
+    _keyInputEnd(e)
     {
-
+        this.keyInputEnd(e);
     }
     _lockTimeOut()
     {
@@ -56,21 +54,22 @@ class KeyManagerClass
         if(me.nowPressKey==me.lockPressKey)//持續按住同個鍵
        {
             setTimeout(me._lockTimeOut,me.lockTime);
-            me.keyInput({key:me.lockPressKey,keyPressList:me.pressList});
+            me._keyInput({key:me.lockPressKey,keyPressList:me.pressList});
         }
         else if(me.nowPressKey=="")//放開了
         {    
             me.pressList[me.lockPressKey]=false;//更新清單
             me.timeOutCount=0;
-            me.keyInputEnd({Key:me.lockPressKey,keyPressList:me.pressList});
+            me._keyInputEnd({key:me.lockPressKey,keyPressList:me.pressList});
             me.lockPressKey="";
   
         }
         else if(me.nowPressKey!=me.lockPressKey)//中途放開並換鍵
         {
             me.pressList[me.lockPressKey]=false;
-            me.keyInputEnd({Key:methis.lockPressKey,keyPressList:me.pressList});
             me.lockPressKey=me.nowPressKey;
+            me._keyInput({key:me.lockPressKey,keyPressList:me.pressList});
+
             me.pressList[me.lockPressKey]=true;
             setTimeout(me._lockTimeOut,me.lockTime);
         }
@@ -79,7 +78,6 @@ class KeyManagerClass
     {
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
-
         me.nowPressKey=key;
         if(!me.lockOneKeyEveryTime) 
         {
@@ -89,6 +87,7 @@ class KeyManagerClass
         {
             me.pressList[key]=true;
             me.lockPressKey=key;
+            me._keyInput({key:me.lockPressKey,keyPressList:me.pressList});
             setTimeout(me._lockTimeOut,me.lockTime);
         }
         else // lockOneKey and Pressed a key now
@@ -102,6 +101,7 @@ class KeyManagerClass
     _keyup(e)
     {
         var me=GameSystem.Manager.Key;
+        
         var key=me.keyProcess(e);
         me.nowPressKey="";
 
@@ -156,7 +156,7 @@ class Position  extends GameSystem.Classes.XYBase/*block 位置*/
     }
     isIn(rectangle)
     {
-        
+        return rectangle.topLeftPos.x <= this._x &&rectangle.topLeftPos.y <= this._y &&rectangle.bottomRightPos.x >= this._x &&rectangle.bottomRightPos.y >= this._y ;
     }
     get copy()
     {
@@ -166,8 +166,10 @@ class Position  extends GameSystem.Classes.XYBase/*block 位置*/
 GameSystem.Classes.Rectangle=
 class Rectangle
 {
-    constructor(pos1=new GameSystem.Classes.Position(0,0),pos2=new GameSystem.Classes.Position(0,0))
+    constructor(pos1,pos2)
     {
+        pos1=pos1|| new  GameSystem.Classes.Position(0,0);
+        pos2=pos2|| new  GameSystem.Classes.Position(0,0);
         var topLeftPos=new  GameSystem.Classes.Position(Math.min(pos1.x,pos2.x),Math.min(pos1.y,pos2.y));
         var bottomRightPos = new  GameSystem.Classes.Position(Math.max(pos1.x,pos2.x),Math.max(pos1.y,pos2.y));
         this.pos1=this.topLeftPos=topLeftPos;

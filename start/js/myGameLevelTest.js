@@ -16,7 +16,6 @@ class MyGameTest extends Framework.Level
 	}
 
     initialize() {
-        
         this.map.waitForInitialized();
         this.count=0;
     }
