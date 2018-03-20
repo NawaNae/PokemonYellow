@@ -21,9 +21,22 @@ class KeyManagerClass
             Space:false,
             Enter:false,
         };
+        this.keyMapping=
+        {
+            W:"Up",
+            Up:"Up",
+            A:"Left",
+            Left:"Left",
+            S:"Down",
+            Down:"Down",
+            D:"Right",
+            Right:"Right",
+            Space:"Space",
+            Enter:"Enter"
+        };
         this.lockOneKeyEveryTime=true;
         this.timeOutCount=0;
-        this.lockTime=300;//按一次鍵延遲(ms)
+        this.lockTime=500;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
         this.nowPressKey="";//當
         window.addEventListener("keydown",this._keydown);
@@ -41,6 +54,7 @@ class KeyManagerClass
     }
     _keyInput(e)
     {
+        //console.log(e.pressList);
         this.keyInput(e);
     }
     _keyInputEnd(e)
@@ -53,8 +67,8 @@ class KeyManagerClass
         var me=GameSystem.Manager.Key;
         if(me.nowPressKey==me.lockPressKey)//持續按住同個鍵
        {
-            setTimeout(me._lockTimeOut,me.lockTime);
             me._keyInput({key:me.lockPressKey,pressList:me.pressList});
+            setTimeout(me._lockTimeOut,me.lockTime);
         }
         else if(me.nowPressKey=="")//放開了
         {    
@@ -66,11 +80,12 @@ class KeyManagerClass
         }
         else if(me.nowPressKey!=me.lockPressKey)//中途放開並換鍵
         {
-            me.pressList[me.lockPressKey]=false;
             me.lockPressKey=me.nowPressKey;
+            me.pressList[me.lockPressKey]=false;
+            me.pressList[me.lockPressKey]=true;
             me._keyInput({key:me.lockPressKey,pressList:me.pressList});
 
-            me.pressList[me.lockPressKey]=true;
+            
             setTimeout(me._lockTimeOut,me.lockTime);
         }
     }

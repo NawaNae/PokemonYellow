@@ -5,71 +5,60 @@ class MapWalker
     {
         this.blockWidth=config.blockWidth||16;
         this.lockTime=config.lockTime||GameSystem.Manager.Key.lockTime||300;
-        this.movePeriod=0.9*(this.lockTime/this.blockWidth);
+        this.movePeriod=Math.floor(0.95*(this.lockTime/this.blockWidth));
         var mapWalker=this;
-        this.CounterClass=class Count
+        this.walkCounter=
         {
-            constructor()
-            {
-                this.counter={Up:0,Left:0,Down:0,Right:0};
-            }
-            Up(increase)
-            {
-                increase=increase||1;
-                this.counter.Up+=increase;
-                return this.counter.Up>mapWalker.blockWidth;
-            }
-            Left(increase)
-            {
-                increase=increase||1;
-                this.counter.Left+=increase;
-                return this.counter.Left>mapWalker.blockWidth;
-            }
-            Down(increase)
-            {
-                increase=increase||1;
-                this.counter.Down+=increase;
-                return this.counter.Down>mapWalker.blockWidth;
-            }
-            Right(increase)
-            {
-                increase=increase||1;
-                this.counter.Right+=increase;
-                return this.counter.Right>mapWalker.blockWidth;
-            }
-
-
+            Up:0,
+            Left:0,
+            Down:0,
+            Right:0
         };
-
         this.map=config.mapRef||Framework.Game._currentLevel.map;
+        this.map.game=this.map.game||{};
+        this.map.game.position=this.map.game.position||(new GameSystem.Classes.Point(this.map.x,this.map.y)).toPosition();
+        this.map.game.newPoint=new GameSystem.Classes.Point();
         this.speed=config.walkSpeed||1;
-        this.walkCounter=new this.CounterClass();
+        this.moveVector=
+        {
+            Up:new GameSystem.Classes.Point(0,-1),
+            Down:new GameSystem.Classes.Point(0,+1),
+            Right:new GameSystem.Classes.Point(+1,0),
+            Left:new GameSystem.Classes.Point(-1,0),
+        }
+        this.timeout;
         this.keyInput=(e)=>
         {
-            this.walkCounter.counter[e.key]=0;
-
-            var callback=()=>
+            this.timeout=()=>
             {
-                if(!this.walkCounter[e.key](1))
+                if(this.walkCounter[e.key]<this.blockWidth)//condition (Loop)
                 {
-                    setTimeout(callback,this.movePeriod);
-                    //console.log(this.walkCounter.counter[e.key]);
-                    this.mapmove(e);
+                    if(this.walkCounter[e.key]==0)//initialize(first loop)
+                    {
+                        this.map.game.newPoint.x=this.map.position.x+this.moveIncrease(e.key,this.blockWidth).x;
+                        this.map.game.newPoint.y=this.map.position.y+this.moveIncrease(e.key,this.blockWidth).y;
+                    }
+                    this.map.position.x+=this.moveIncrease(e.key).x;
+                    this.map.position.y+=this.moveIncrease(e.key).y;
+                    this.walkCounter[e.key]++;//increase
+                    setTimeout(this.timeout,this.movePeriod);//continue to next loop...
+                }
+                else
+                {    
+                    this.map.position.x=this.map.game.newPoint.x;
+                    this.map.position.y=this.map.game.newPoint.y;
+                    this.walkCounter[e.key]=0;//reset(initialize)
                 }
             };
-            setTimeout(callback,this.movePeriod);
-            this.mapmove(e);
-            this.walkCounter[e.key](1);
+            this.timeout();
         }
     }
-    
-    mapmove(e,increase)
+    moveIncrease(key,value)
     {
-        increase=increase||1;
-        var mappos=this.map.position;
-        mappos.x -=  increase*e.pressList.Right;
-        mappos.x +=  increase*e.pressList.Left;
-        mappos.y -=  increase*e.pressList.Down;
-         mappos.y +=  increase*e.pressList.Up;
+        value=value||1;
+        key=GameSystem.Manager.Key.keyMapping[key];
+        var aimVector=this.moveVector[key];
+        return new GameSystem.Classes.Point(-aimVector.x*value,-aimVector.y*value);
+
     }
 }
