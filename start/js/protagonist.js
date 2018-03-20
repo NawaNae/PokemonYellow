@@ -32,7 +32,7 @@ class Protagonist extends GameSystem.Classes.Character {
     /**
      * 增加目前身上的金錢量。
      * @param {number} money 增加的金錢量。
-     * @return 增加的金錢量是否成功。
+     * @return 
      */
     earnMoney(money) {
         this._money += money;
