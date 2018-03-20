@@ -1,4 +1,4 @@
-class MyGameTest extends Framework.Level
+class MyGameTest extends GameSystem.Classes.Level
 {
     load ()
     {
@@ -9,16 +9,12 @@ class MyGameTest extends Framework.Level
         /*bug 去除 */ 
 
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
-        this.oneStepCount=new GameSystem.Classes.OneBlockCount();
-        this.oneStepCount.lastTimeOutCount=0;
+        
         this.rootScene.attach(this.map);
+        this.walker=new GameSystem.Classes.MapWalker({mapRef:this.map});
         this.keyInput=(e)=>
         {
-            var mappos=this.map.position;
-            mappos.x -=  16*e.pressList.Right;
-            mappos.x += 16*e.pressList.Left;
-            mappos.y -= 16*e.pressList.Down;
-            mappos.y += 16*e.pressList.Up;
+            this.walker.keyInput(e);
         };
         GameSystem.Manager.Key.keyInput=this.keyInput;
     }
