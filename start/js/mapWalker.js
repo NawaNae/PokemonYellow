@@ -16,10 +16,9 @@ class MapWalker
         };
         this.map=config.mapRef||Framework.Game._currentLevel.map;
         this.map.game=this.map.game||{};
-        this.map.game.position=this.map.game.position||(new GameSystem.Classes.Point(this.map.x,this.map.y)).toPosition();
         this.map.game.newPoint=new GameSystem.Classes.Point();
         this.speed=config.walkSpeed||1;
-        this.moveVector=
+        this.moveVector=//地圖移動陣列
         {
             Up:new GameSystem.Classes.Point(0,-1),
             Down:new GameSystem.Classes.Point(0,+1),
@@ -35,18 +34,18 @@ class MapWalker
                 {
                     if(this.walkCounter[e.key]==0)//initialize(first loop)
                     {
-                        this.map.game.newPoint.x=this.map.position.x+this.moveIncrease(e.key,this.blockWidth).x;
-                        this.map.game.newPoint.y=this.map.position.y+this.moveIncrease(e.key,this.blockWidth).y;
+                        this.map.game.newPoint.x=this.map.x+this.moveIncrease(e.key,this.blockWidth).x;
+                        this.map.game.newPoint.y=this.map.y+this.moveIncrease(e.key,this.blockWidth).y;
                     }
-                    this.map.position.x+=this.moveIncrease(e.key).x;
-                    this.map.position.y+=this.moveIncrease(e.key).y;
+                    this.map.x+=this.moveIncrease(e.key).x;
+                    this.map.y+=this.moveIncrease(e.key).y;
                     this.walkCounter[e.key]++;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
                 }
                 else
                 {    
-                    this.map.position.x=this.map.game.newPoint.x;
-                    this.map.position.y=this.map.game.newPoint.y;
+                    this.map.x=this.map.game.newPoint.x;
+                    this.map.y=this.map.game.newPoint.y;
                     this.walkCounter[e.key]=0;//reset(initialize)
                 }
             };
