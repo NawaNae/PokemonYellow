@@ -4,6 +4,7 @@ Load.js.import(
 [
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' },
+        { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },
         { src: define.jsPath + 'walkCounter.js', lookFor: 'GameSystem.Classes.OneBlockCount' },
         { src: define.jsPath + 'myGameLevelTest.js', lookFor: 'MyGameTest' },
