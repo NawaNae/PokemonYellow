@@ -60,8 +60,13 @@ class MyGameTest extends GameSystem.Classes.Level
         this.count=(this.count+1)%60;
         parentCtx.fillStyle="black";
         parentCtx.fillRect(0,0,Framework.Game.getCanvasWidth(),Framework.Game.getCanvasHeight());
+
        this.rootScene.draw(parentCtx);
-        
+       parentCtx.fillStyle="rgba(0,0,0,0.5)";
+       parentCtx.fillRect(4*16,4*16,16,16);
+       parentCtx.fillStyle="white";
+       parentCtx.font="12px MBitmapSquareHK"
+       parentCtx.fillText("小智",4*16+8,4*16+12,16);
        // this.map.draw(parentCtx)
     }
 
