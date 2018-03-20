@@ -54,13 +54,13 @@ class KeyManagerClass
         if(me.nowPressKey==me.lockPressKey)//持續按住同個鍵
        {
             setTimeout(me._lockTimeOut,me.lockTime);
-            me._keyInput({key:me.lockPressKey,keyPressList:me.pressList});
+            me._keyInput({key:me.lockPressKey,pressList:me.pressList});
         }
         else if(me.nowPressKey=="")//放開了
         {    
             me.pressList[me.lockPressKey]=false;//更新清單
             me.timeOutCount=0;
-            me._keyInputEnd({key:me.lockPressKey,keyPressList:me.pressList});
+            me._keyInputEnd({key:me.lockPressKey,pressList:me.pressList});
             me.lockPressKey="";
   
         }
@@ -68,7 +68,7 @@ class KeyManagerClass
         {
             me.pressList[me.lockPressKey]=false;
             me.lockPressKey=me.nowPressKey;
-            me._keyInput({key:me.lockPressKey,keyPressList:me.pressList});
+            me._keyInput({key:me.lockPressKey,pressList:me.pressList});
 
             me.pressList[me.lockPressKey]=true;
             setTimeout(me._lockTimeOut,me.lockTime);
@@ -87,7 +87,7 @@ class KeyManagerClass
         {
             me.pressList[key]=true;
             me.lockPressKey=key;
-            me._keyInput({key:me.lockPressKey,keyPressList:me.pressList});
+            me._keyInput({key:me.lockPressKey,pressList:me.pressList});
             setTimeout(me._lockTimeOut,me.lockTime);
         }
         else // lockOneKey and Pressed a key now

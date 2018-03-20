@@ -12,9 +12,16 @@ class MyGameTest extends Framework.Level
         this.oneStepCount=new GameSystem.Classes.OneBlockCount();
         this.oneStepCount.lastTimeOutCount=0;
         this.rootScene.attach(this.map);
-
-	}
-
+        this.keyInput=(e)=>
+        {
+            var mappos=this.map.position;
+            mappos.x -=  16*e.pressList.Right;
+            mappos.x += 16*e.pressList.Left;
+            mappos.y -= 16*e.pressList.Down;
+            mappos.y += 16*e.pressList.Up;
+        };
+        GameSystem.Manager.Key.keyInput=this.keyInput;
+    }
     initialize() {
         this.map.waitForInitialized();
         this.count=0;
@@ -27,19 +34,7 @@ class MyGameTest extends Framework.Level
        if (this.nullSprite.position.x < -2)
            this.nullSprite.position.x =-1;
        /*bug 去除 */
-        var mappos=this.map.position;
-
-        var key=GameSystem.Manager.Key;
-
-     
-       
-            
-            
-
-        mappos.x -=  key.pressList.Right;
-            mappos.x += key.pressList.Left;
-            mappos.y -= key.pressList.Down;
-            mappos.y += key.pressList.Up;
+      
         /*
         if(this.oneStepCount.enable)
         {
