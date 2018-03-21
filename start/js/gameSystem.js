@@ -46,7 +46,6 @@ class KeyManagerClass
             Right:"Right"
         };
         this.lockOneKeyEveryTime=true;
-        this.timeOutCount=0;
         this.lockTime=400;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
         this.nowPressKey="";//當
@@ -76,60 +75,24 @@ class KeyManagerClass
         //console.log(e.pressList);
         this.keyInput(e);
     }
-    _keyInputEnd(e)
-    {
-        this.keyInputEnd(e);
-    }
     _lockTimeOut()
     {
-        this.timeOutCount++;
         var me=GameSystem.Manager.Key;
-        if(me.nowPressKey==me.lockPressKey)//持續按住同個鍵
-       {
-            me._keyInput({key:me.lockPressKey,pressList:me.pressList});
-            setTimeout(me._lockTimeOut,me.lockTime);
-        }
-        else if(me.nowPressKey=="")//放開了
-        {    
-            me.pressList[me.lockPressKey]=false;//更新清單
-            me.timeOutCount=0;
-            me._keyInputEnd({key:me.lockPressKey,pressList:me.pressList});
-            me.lockPressKey="";
-  
-        }
-        else if(me.nowPressKey!=me.lockPressKey)//中途放開並換鍵
-        {
-
-            me.pressList[me.lockPressKey]=false;
-            me.lockPressKey=me.nowPressKey;
-            me.pressList[me.lockPressKey]=true;
-            me._keyInput({key:me.lockPressKey,pressList:me.pressList});
-
-            
-            setTimeout(me._lockTimeOut,me.lockTime);
-        }
+        me.lockPressKey="";
     }
     _keydown(e)
     {
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
-        if(this.isGameKey(e.key))
+        console.log(e.key);
+        if(me.isGameKey(key))
         {
             me.nowPressKey=key;
-            if(!me.lockOneKeyEveryTime) 
+            if(me.lockPressKey=="")    
             {
-                me.pressList[key]=true;
-            }
-            else  if(me.lockPressKey=="")//new lock a key
-            {
-                me.pressList[key]=true;
                 me.lockPressKey=key;
-                me._keyInput({key:me.lockPressKey,pressList:me.pressList});
+                me._keyInput({key:key,pressList:e.pressList});
                 setTimeout(me._lockTimeOut,me.lockTime);
-            }
-            else // lockOneKey and Pressed a key now
-            {
-                
             }
         }
         
@@ -140,7 +103,7 @@ class KeyManagerClass
         var me=GameSystem.Manager.Key;
        
         var key=me.keyProcess(e);
-        if(this.isGameKey(e.key))
+        if(me.isGameKey(e.key))
             me.nowPressKey="";
 
     }
