@@ -10,13 +10,38 @@ class MyGameTest extends GameSystem.Classes.Level
 
         var GS=GameSystem;
         var CS=GS.Classes;
+        var KM=GS.Manager.Key;
+
+        this.obstacles.push(new CS.Rectangle({x:0,y:0},{x:12,y:3}));
+        this.obstacles.push(new CS.Rectangle({x:0,y:4},{x:3,y:23}));
+        this.obstacles.push(new CS.Rectangle({x:7,y:16},{x:10,y:23}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:19},{x:4,y:19}));        
+        this.obstacles.push(new CS.Rectangle({x:4,y:20},{x:6,y:23}));
+        this.obstacles.push(new CS.Rectangle({x:11,y:19},{x:21,y:23}));
+        this.obstacles.push(new CS.Rectangle({x:22,y:0},{x:26,y:23}));
+        this.obstacles.push(new CS.Rectangle({x:15,y:0},{x:21,y:3}));
+        this.obstacles.push(new CS.Rectangle({x:13,y:0},{x:14,y:2}));
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
         
         this.rootScene.attach(this.map);
         this.walker=new CS.MapWalker({mapRef:this.map});
         this.keyInput=(e)=>
         {
-            this.walker.keyInput(e);
+            if(KM.isMoveKey(e.key))
+            {
+                var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
+                    GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
+                );
+                if(this.isWalkableAt(newPosition))
+                {
+                    GS.protagonist.position=newPosition;
+                    console.log(GS.protagonist.position);
+                    this.walker.keyInput(e);
+                }
+
+
+            }
+            
         };
         
         GS.Manager.Key.keyInput=this.keyInput;
