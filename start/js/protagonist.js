@@ -6,6 +6,7 @@ class Protagonist extends GameSystem.Classes.Character {
         this._pokemons = [];
         this._props = [];
         this._money = 3000;
+        this._screenPosition=new GameSystem.Classes.Position(4,4);
     }
 
     set atMap(newMap) { this._atMap = newMap }

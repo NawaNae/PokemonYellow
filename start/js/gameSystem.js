@@ -84,7 +84,6 @@ class KeyManagerClass
     {
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
-        console.log(e.key);
         if(me.isGameKey(key))
         {
             me.nowPressKey=key;

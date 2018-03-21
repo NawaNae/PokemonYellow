@@ -8,55 +8,44 @@ class MyGameTest extends GameSystem.Classes.Level
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */ 
 
+        var GS=GameSystem;
+        var CS=GS.Classes;
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
         
         this.rootScene.attach(this.map);
-        this.walker=new GameSystem.Classes.MapWalker({mapRef:this.map});
+        this.walker=new CS.MapWalker({mapRef:this.map});
         this.keyInput=(e)=>
         {
             this.walker.keyInput(e);
         };
-        GameSystem.Manager.Key.keyInput=this.keyInput;
+        
+        GS.Manager.Key.keyInput=this.keyInput;
+        GS.protagonist.position.x=10;
+        GS.protagonist.position.y=10;
+        this.map.waitForLoad();
+        this.map.loaded=()=>
+        {
+            this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
+            this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
+        }
     }
     initialize() {
-        this.map.waitForInitialized();
-        this.count=0;
+        
     }
     update() {
         /*bug 去除 */ 
-       // this.rootScene.update();
-       //console.log(this.nullSprite.position.x);
        this.nullSprite.position.x--;
        if (this.nullSprite.position.x < -2)
            this.nullSprite.position.x =-1;
        /*bug 去除 */
-      
-        /*
-        if(this.oneStepCount.enable)
-        {
-            this.oneStepCount.count++;
-            
-        }
-        else
-            if((key.lockPressKey!="" && key.timeOutCount==0) ||(this.oneStepCount.lastTimeOutCount !=key.timeOutCount) )
-            {
-
-                this.oneStepCount.reset();
-                this.oneStepCount.enable=true;
-            }
-       
-        this.oneStepCount.lastTimeOutCount=key.timeOutCount;*/
     }
 
     draw(parentCtx) {
-
-        
-
         if( this.count==0) 
             this.lastTime=Date.now();
        
         if(this.count==59)
-            //console.log(Date.now()-this.lastTime);
+           // console.log(Date.now()-this.lastTime);
         this.count=(this.count+1)%60;
         parentCtx.fillStyle="black";
         parentCtx.fillRect(0,0,Framework.Game.getCanvasWidth(),Framework.Game.getCanvasHeight());
@@ -70,15 +59,6 @@ class MyGameTest extends GameSystem.Classes.Level
        // this.map.draw(parentCtx)
     }
 
-    keydown(e, list) 
-    {
-        //GameSystem.Manager.Key.pressList[e.key]=true;
-    }
-    keyup(e, list) 
-    {
-        //GameSystem.Manager.Key.pressList[e.key]=false;
-    }
-    
 
 
     touchstart(e) {
