@@ -33,6 +33,7 @@ Framework = (function (Framework) {
             this._isMove = true;
             this._changeFrame = true;
             this._isCountAbsolute = false;
+            this.loaded=()=>{};
         },
 
         clearDirtyFlag: function() {
@@ -100,25 +101,25 @@ Framework = (function (Framework) {
         load: function() {},  
         initialize: function() {},
        
-        waitForInitializeThen:function(callBack)
+        waitForLoadThen:function(callBack)
         {
             
             var me=this;
-            (function  waitForInitializeC()
+            (function  waitForLoadC()
             {
                 if(me.width==0)
                 {
-                    setTimeout(waitForInitializeC,50);
+                    setTimeout(waitForLoadC,50);
                 }
                 else
                     callBack(me);
             })();
         },
-        waitForInitialized:function()
+        waitForLoad:function()
         {
-            this.waitForInitializeThen(this.initialized);
+            this.waitForLoadThen(this._loaded);
         },
-        initialized:function(me){me.x=me.y=0},
+        _loaded:function(me){me.loaded();},
         update: function() {},
         draw: function(ctx) {},        
         teardown:function() {},
