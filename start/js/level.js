@@ -31,5 +31,19 @@ class Level extends Framework.Level
             return false;
         return true;
     }
+    isGateAtThenGetGate(position)
+    {
+        let levelName=Framework.Game._findLevelNameByLevel(this);
+        for(var i in this.gates)
+        {
+            let gate=this.gates[i];
+            let place=gate.findPlaceByMapName(levelName);
+            if(position.x==place.position.x&&position.y==place.position.y)
+                return this.gates[i]
+        }
+            
+        return undefined;
+
+    }
     
 }
