@@ -8,6 +8,7 @@ Load.js.import(
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
         { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },
+        { src: define.jsPath + 'connection.js', lookFor: 'GameSystem.Classes.Connection' },
         { src: define.jsPath + 'gameSystemLoaded.js', lookFor: 'gameSystemLoaded' },
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
         { src: define.jsPath + 'myGameLevelTest.js', lookFor: 'MyGameTest' },
