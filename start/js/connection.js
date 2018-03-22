@@ -3,7 +3,8 @@ class Connection
 {
     constructor(mapPos1,mapPos2)
     {
-        this.placeA=mapPos1;
-        this.placeB=mapPos2;
+        if(!mapPos1||!mapPos2)console.log('請確保初始化place或者之後設定place否則連接點會預設在地圖邊界');
+            this.placeA=mapPos1||new GameSystem.Classes.MapPosition(name,mapPos1);
+            this.placeB=mapPos2||new GameSystem.Classes.MapPosition(name,mapPos2);
     }
 }
