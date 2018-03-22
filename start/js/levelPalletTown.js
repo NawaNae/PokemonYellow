@@ -61,40 +61,41 @@ class PalletTown extends GameSystem.Classes.Level
             ));
 
         this.walker=new CS.MapWalker({mapRef:this.map});
-        this.keyInput=(e)=>
-        {
-            if(KM.isMoveKey(e.key))
-            {
-                var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
-                    GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
-                );
-                var gate=undefined;
-                console.log(newPosition);
-                if((gate=this.isGateAtThenGetGate(newPosition)))
-                {
-                    console.log(gate.placeB.position);
-                    GS.protagonist.position=gate.placeB.position;
-                    Framework.Game.goToLevel(gate.placeB.mapName);
-                }
-                else if(this.isWalkableAt(newPosition))
-                {
-                    GS.protagonist.position=newPosition;
-                    this.walker.keyInput(e);
-                    
-                }
-                
-
-            }
-            
-        };
         
-        GS.Manager.Key.keyInput=this.keyInput;
+        
+        
 
         this.map.waitForLoad();
         this.map.loaded=()=>
         {
             this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
             this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
+            this.keyInput=(e)=>{
+                if(KM.isMoveKey(e.key))
+                {
+                    var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
+                        GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
+                    );
+                    var gate=undefined;
+                   
+                    if((gate=this.isGateAtThenGetGate(newPosition)))
+                    {
+                        GS.protagonist.position=gate.placeB.position;
+                        Framework.Game.goToLevel(gate.placeB.mapName);
+                    }
+                    else if(this.isWalkableAt(newPosition))
+                    {
+                        console.log(newPosition);
+                        GS.protagonist.position=newPosition;
+                        this.walker.keyInput(e);
+                        
+                    }
+                    
+    
+                }
+                
+            };
+            GS.Manager.Key.keyInput=this.keyInput;
         }
     }
     initialize() {

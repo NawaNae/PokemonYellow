@@ -5,7 +5,7 @@ class MapWalker
     {
         this.blockWidth=config.blockWidth||16;//格子寬
         this.lockTime=config.lockTime||GameSystem.Manager.Key.lockTime||300;//鎖鍵時間
-        this.movePeriod=Math.floor(0.95*(this.lockTime/this.blockWidth));//播放一格間隔
+        this.movePeriod=Math.floor(0.82*(this.lockTime/this.blockWidth));//播放一格間隔
         var mapWalker=this;
         this.walkCounter=
         {
