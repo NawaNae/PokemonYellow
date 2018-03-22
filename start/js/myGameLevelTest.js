@@ -21,6 +21,14 @@ class MyGameTest extends GameSystem.Classes.Level
         this.obstacles.push(new CS.Rectangle({x:22,y:0},{x:26,y:23}));
         this.obstacles.push(new CS.Rectangle({x:15,y:0},{x:21,y:3}));
         this.obstacles.push(new CS.Rectangle({x:13,y:0},{x:14,y:2}));
+        this.obstacles.push(new CS.Rectangle({x:13,y:10},{x:18,y:13}));
+        this.obstacles.push(new CS.Rectangle({x:13,y:15},{x:18,y:15}));
+        this.obstacles.push(new CS.Rectangle({x:7,y:11},{x:10,y:11}));
+        this.obstacles.push(new CS.Rectangle({x:7,y:5},{x:10,y:7}));
+        this.obstacles.push(new CS.Rectangle({x:6,y:7},{x:6,y:7}));
+        this.obstacles.push(new CS.Rectangle({x:14,y:7},{x:14,y:7}));
+        this.obstacles.push(new CS.Rectangle({x:6,y:7},{x:6,y:7}));
+        this.obstacles.push(new CS.Rectangle({x:15,y:5},{x:18,y:7}));
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
         
         this.rootScene.attach(this.map);
