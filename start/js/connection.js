@@ -7,4 +7,16 @@ class Connection
             this.placeA=mapPos1||new GameSystem.Classes.MapPosition(name,mapPos1);
             this.placeB=mapPos2||new GameSystem.Classes.MapPosition(name,mapPos2);
     }
+    findPlaceByMapName(name)
+    {
+        if(this.placeA.mapName==name)return this.placeA;
+        if(this.placeB.mapName==name)return this.placeB;
+        return undefined;
+    }
+    findAnotherPlaceByMapName(name)
+    {
+        if(this.placeA.mapName==name)return this.placeB;
+        if(this.placeB.mapName==name)return this.placeA;
+        return undefined;
+    }
 }

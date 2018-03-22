@@ -46,7 +46,7 @@ class KeyManagerClass
             Right:"Right"
         };
         this.lockOneKeyEveryTime=true;
-        this.lockTime=400;//按一次鍵延遲(ms)
+        this.lockTime=300;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
         this.nowPressKey="";//當
         window.addEventListener("keydown",this._keydown);
@@ -172,7 +172,11 @@ class Rectangle
         pos2=pos2|| new  GameSystem.Classes.Position(0,0);
         var topLeftPos=new  GameSystem.Classes.Position(Math.min(pos1.x,pos2.x),Math.min(pos1.y,pos2.y));
         var bottomRightPos = new  GameSystem.Classes.Position(Math.max(pos1.x,pos2.x),Math.max(pos1.y,pos2.y));
-        this.pos1=this.topLeftPos=topLeftPos;
-        this.pos2=this.bottomRightPos=bottomRightPos;
+        this.pos1=topLeftPos;
+        this.pos2=bottomRightPos;
     }
+    set topLeftPos(value){this.pos1=value;}
+    get topLeftPos(){return this.pos1;}
+    set bottomRightPos(value){this.pos2=value;}
+    get bottomRightPos(){return this.pos2;}
 }
