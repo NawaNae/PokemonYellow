@@ -13,7 +13,8 @@ Load.js.import(
 
         { src: define.jsPath + 'gameSystemLoaded.js', lookFor: 'gameSystemLoaded' },
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
-        { src: define.jsPath + 'myGameLevelTest.js', lookFor: 'MyGameTest' },
+        { src: define.jsPath + 'levelPalletTown.js', lookFor: 'PalletTown' },
+        { src: define.jsPath + 'levelRoute01.js', lookFor: 'Route01' },
         { src: define.jsPath+'mainGame.js' }//請最後載入mainGame
 ]);
 
