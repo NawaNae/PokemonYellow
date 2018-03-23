@@ -8,4 +8,12 @@ class EffortValue extends GameSystem.Classes.StandardStat {
     constructor(maxHP = 8, attack = 1, defense = 1, special = 1, speed = 1) {
         super(maxHP, attack, defense, special, speed);
     }
+
+    /**
+     * 傳回一個新的、空的努力值物件。
+     * @return {EffortValue} 一個新的、空的努力值物件。
+     */
+    static GetEmptyValue() {
+        return new EffortValue(0, 0, 0, 0, 0);
+    }
 }
