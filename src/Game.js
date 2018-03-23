@@ -11,6 +11,12 @@ var Framework = (function (Framework) {
 	Framework.Game = (function () {
         var that = {};
 		that._config = new Framework.Config();
+		/**
+		 * 取代用的EventListener獲取最新Canvas大小
+		 * @param {*Canvas寬度} width 
+		 * @param {*Canvas高度} height 
+		 */
+		that.resizeCanvas=(width,height)=>{};
 		// gameloop fps
 		that.fps = that._config.fps;
 		that.canvasWidth = that._config.canvasWidth;
@@ -943,6 +949,7 @@ var Framework = (function (Framework) {
 			//that._canvasContainer.style.height = scaledHeight;
 			that._canvas.style.width = scaledWidth + 'px';    // 2017.02.20, from V3.1.1
 			that._canvas.style.height = scaledHeight + 'px';  // 2017.02.20, from V3.1.1
+			that.resizeCanvas(scaledWidth,scaledHeight);
 			}
 		};
 
