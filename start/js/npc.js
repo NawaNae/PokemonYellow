@@ -22,4 +22,10 @@ class NPC extends GameSystem.Classes.Character {
         this._behavior = behavior;
         this._plot = plot;
     }
+
+    set behavior(newBehavior) { this._behavior = newBehavior; }
+    get behavior() { return this._behavior; }
+
+    set plot(newPlot) { this._plot = newPlot; }
+    get plot() { return this._plot; }
 }
