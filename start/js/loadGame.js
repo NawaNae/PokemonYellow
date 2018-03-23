@@ -1,8 +1,11 @@
 //立即執行函式, 並封裝所有變數避免衝突
 var loadGameEnd;
+Load.css(define.cssPath + "HTMLObjectsContainer.css");
 Load.js.import(
 [
+        { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' },
+        { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },

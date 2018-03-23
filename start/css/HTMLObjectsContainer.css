@@ -1,0 +1,49 @@
+@font-face {
+	font-family:MBitmapSquareHK;
+	src: url(../font/MBitmapSquareHK-Light.otf);
+}
+/*物件的顯示用class控制*/
+.show
+{
+    display: block;
+}
+.hide
+{
+    display: none;
+}
+/*Container*/
+/*漂浮置中對其*/
+.HTMLObjectContainer
+{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+    font-family: MBitmapSquareHK;
+}
+/*對話框*/
+.dialog
+{
+ 
+}
+/*選項*/
+
+/*非被選中的選項*/
+/*左側預留空位給箭頭*/
+.option:not(.select)
+{
+    margin-left:0.5em; 
+}
+
+/*被選中的選項*/
+/*css border三角形形成箭頭選取*/
+.option.select::before
+{
+    content: '';
+    border-style: solid;
+    display:inline-block;   
+    border-width: 0.3em 0 0.3em 0.5em;
+    border-color: transparent transparent transparent #000;
+}
