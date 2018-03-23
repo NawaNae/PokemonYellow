@@ -5,7 +5,7 @@ class MapWalker
     {
         this.blockWidth=config.blockWidth||16;//格子寬
         this.lockTime=config.lockTime||GameSystem.Manager.Key.lockTime||300;//鎖鍵時間
-        this.movePeriod=Math.floor(0.82*(this.lockTime/this.blockWidth));//播放一格間隔
+        this.movePeriod=Math.floor(0.8*(this.lockTime/this.blockWidth));//播放一格間隔
         var mapWalker=this;
         this.walkCounter=
         {
@@ -17,7 +17,7 @@ class MapWalker
         this.map=config.mapRef||Framework.Game._currentLevel.map;//map之reference
         this.map.game=this.map.game||{};//new namespce
         this.map.game.newPoint=new GameSystem.Classes.Point();//目標點(播放結束直接設定為該點 以防移動不準確)
-        this.speed=config.walkSpeed||1;//移動速度(格數/每周期)
+        this.speed=config.walkSpeed||2;//移動速度(格數/每周期)
         this.moveVector=//地圖移動向量陣列
         {
             Up:new GameSystem.Classes.Point(0,-1),
@@ -37,9 +37,9 @@ class MapWalker
                         this.map.game.newPoint.x=this.map.x+this.moveIncrease(e.key,this.blockWidth).x;
                         this.map.game.newPoint.y=this.map.y+this.moveIncrease(e.key,this.blockWidth).y;
                     }
-                    this.map.x+=this.moveIncrease(e.key).x;
-                    this.map.y+=this.moveIncrease(e.key).y;
-                    this.walkCounter[e.key]++;//increase
+                    this.map.x+=this.moveIncrease(e.key,this.speed).x;
+                    this.map.y+=this.moveIncrease(e.key,this.speed).y;
+                    this.walkCounter[e.key]+=this.speed;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
                 }
                 else

@@ -11,7 +11,7 @@ class PalletTown extends GameSystem.Classes.Level
         var GS=GameSystem;
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
-
+        this.lastTime=0;
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
         this.rootScene.attach(this.map);
 
@@ -107,15 +107,16 @@ class PalletTown extends GameSystem.Classes.Level
        if (this.nullSprite.position.x < -2)
            this.nullSprite.position.x =-1;
        /*bug 去除 */
+       if( this.count==0) 
+       this.lastTime=Date.now();
+  
+        if(this.count==59)
+                console.log(Date.now()-this.lastTime);
+        this.count=(this.count+1)%60;
     }
 
     draw(parentCtx) {
-        if( this.count==0) 
-            this.lastTime=Date.now();
-       
-        if(this.count==59)
-           // console.log(Date.now()-this.lastTime);
-        this.count=(this.count+1)%60;
+
         parentCtx.fillStyle="black";
         parentCtx.fillRect(0,0,Framework.Game.getCanvasWidth(),Framework.Game.getCanvasHeight());
 
