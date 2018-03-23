@@ -1,5 +1,5 @@
 var GameSystem=GameSystem || {};
-GameSystem.Image=class GameImage
+GameSystem.Classes.Image=class GameImage
 {
     constructor(src,option={position:{x:0,y:0},displaySize:{w:0,h:0},cutStartPosition:{x:0,y:0},cutSize:{w:0,h:0}})
     {
@@ -25,14 +25,41 @@ GameSystem.Image=class GameImage
     {
         return Framework.ResourceManager.getResource(src);
     }
-    set picture(value){}
+   // set picture(value){}
     draw(context)
     {
-        
+        if(this._cutStartPosition&&this._cutSize)
+            if(this._displaySize)
+                context.drawImage(
+                    this.picture,
+                    this._cutStartPosition.x,this._cutStartPosition.y,
+                    this._cutSize.w,this._cutSize.h,
+                    this._position.x,this._position.y,
+                    this._displaySize.w,this._displaySize.h
+                );
+            else
+                context.drawImage(
+                    this.picture,
+                    this._cutStartPosition.x,this._cutStartPosition.y,
+                    this._cutSize.w,this._cutSize.h,
+                    this._position.x,this._position.y,
+                    this.picture.width,this.picture.height
+                );
+        else if(this._displaySize)
+            context.drawImage(
+                this.picture,
+                this._position.x,this._position.y,
+                this._displaySize.w,this._displaySize.h
+            );
+        else
+            context.drawImage(
+                this.picture,
+                this._position.x,this._position.y,
+            );
     }
     
-    get x()
-    {
-        return this._position.x;
-    }
+    get x(){return this._position.x;}
+    set x(value){this._position.x=value;}
+    get y(){return this._position.y;}
+    set y(value){this._position.y=value;}
 }
