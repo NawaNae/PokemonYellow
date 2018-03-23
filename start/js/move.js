@@ -8,6 +8,7 @@ GameSystem.Classes.Move =
  * @prop {GameSystem.Classes.StandardStat.Type} type 招式的屬性。
  * @prop {number} power 招式的威力。
  * @prop {number} accuracy 招式的命中率。
+ * @prop {number} priority 招式的優先度。
  */
 class Move {
     /**
@@ -16,13 +17,15 @@ class Move {
      * @param {GameSystem.Classes.StandardStat.Type} type 此招式的屬性。
      * @param {number} power 招式的威力。
      * @param {number} accuracy 招式的命中率。
+     * @param {number?} priority 招式的優先度。
      */
-    constructor(name, level, type, power, accuracy) {
+    constructor(name, level, type, power, accuracy, priority = 0) {
         this._name = name;
         this._level = level;
         this._type = type;
         this._power = power;
         this._accuracy = accuracy;
+        this._priority = priority;
     }
 
     set name(newName) { this._name = newName; }
@@ -39,4 +42,7 @@ class Move {
 
     set accuracy(newAccuracy) { this._accuracy = newAccuracy; }
     get accuracy() { return this._accuracy; }
+
+    set priority(newPriority) { this._priority = newPriority; }
+    get priority() { return this._priority; }
 }
