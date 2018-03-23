@@ -1,3 +1,13 @@
+/**
+ * @class Protagonist
+ * @classdesc 主人公。表示玩家操縱的角色。
+ * 
+ * @prop {string} atMap 主人公所在的地圖之名稱。
+ * @prop {GameSystem.Classes.Pokemon[]} pokemons 主人公所擁有的寶可夢。
+ * @prop {GameSystem.Classes.PropItem[]} props 主人公所擁有的道具。
+ * @prop {number} money 主人公的金錢。
+ * @prop {GameSystem.Classes.Position} screenPosition 主人公在螢幕上的位置。
+ */
 GameSystem.Classes.Protagonist = 
 class Protagonist extends GameSystem.Classes.Character {
     constructor(name = "", position, image, atMap) {
@@ -33,7 +43,7 @@ class Protagonist extends GameSystem.Classes.Character {
     /**
      * 增加目前身上的金錢量。
      * @param {number} money 增加的金錢量。
-     * @return 
+     * @return 是否增加金額成功。
      */
     earnMoney(money) {
         this._money += money;
