@@ -1,6 +1,24 @@
 var GameSystem=GameSystem || {};
+/**
+ * 警告 請勿將draw複寫(overwrite)
+ * @class GameSystem.Classes.Image
+ * @property _position : {x: int ,y: int} 儲存圖片左上座標
+ * @property _cutStartPosition : {x: int ,y: int} 儲存切割開始點
+ * @property _cutSize : {x: int ,y: int} 儲存切割大小
+ * @property src : str 儲存圖片網址 作為下載 及 儲存名稱
+ */
 GameSystem.Classes.Image=class GameImage
 {
+    /**
+     * 
+     * @param {string} src 
+     * @param {object} option 可選參數 初始化一個{}內部填入想要填入的參數名稱冒號參數即可。
+     * object 內有
+     * position : {x:int, y:int} 左上角位置，
+     * displaySize : {w:int, h:int} 最終顯示像素大小，
+     * cutStartPosition : {x:int, y:int} 切割圖片左上角的位置，
+     * cutSize : {w:int, h:int} 切割圖片的寬與高。
+     */
     constructor(src,option={position:{x:0,y:0},displaySize:{w:0,h:0},cutStartPosition:{x:0,y:0},cutSize:{w:0,h:0}})
     {
         this._position=option.position||{x:0,y:0};
