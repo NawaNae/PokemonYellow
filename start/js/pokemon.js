@@ -32,13 +32,13 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         this._moves = typeInfo.GetInitialMoves();    // 取得寶可夢最初所會的招式
         
         this.updateAbilities();     // 更新寶可夢的五大能力值
-        this._HP = this.maxHP;      // 初始化當前稱命值
+        this._HP = this.maxHP;      // 初始化當前生命值
     }
 
     set name(newName) { this._name = name; }
     get name() { return this._name; }
 
-    set HP(newName) { this._HP = HP; }
+    set HP(newHP) { this._HP = HP; }
     get HP() { return this._HP; }
 
     set level(newLevel) { this._level = level; }
