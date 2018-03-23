@@ -19,30 +19,42 @@ class Pokemon extends GameSystem.Classes.StandardStat {
      * @param {GameSystem.Classes.PokemonType} typeInfo 表示這個寶可夢的種族及其資訊。
      */
     constructor(name, typeInfo) {
-        this.name = name;
-        this.level = 1;
-        this.exp = 0;
-        this.typeInfo = typeInfo;
+        this._name = name;
+        this._level = 1;
+        this._exp = 0;
+        this._typeInfo = typeInfo;
 
         let IndividualValue = GameSystem.Classes.IndividualValue;
         let EffortValue = GameSystem.Classes.EffortValue;
 
-        this.IV = IndividualValue.GetNewValue();    // 取得新的、隨機生成的個體數值
-        this.EV = EffortValue.GetEmptyValue();      // 取得新的、空的努力數值
-        this.moves = typeInfo.GetInitialMoves();    // 取得寶可夢最初所會的招式
+        this._IV = IndividualValue.GetNewValue();    // 取得新的、隨機生成的個體數值
+        this._EV = EffortValue.GetEmptyValue();      // 取得新的、空的努力數值
+        this._moves = typeInfo.GetInitialMoves();    // 取得寶可夢最初所會的招式
         
         this.updateAbilities();     // 更新寶可夢的五大能力值
-        this.HP = this.maxHP;       // 初始化當前稱命值
+        this._HP = this.maxHP;      // 初始化當前稱命值
     }
+
+    set name(newName) { this._name = name; }
+    get name() { return this._name; }
+
+    set HP(newName) { this._HP = HP; }
+    get HP() { return this._HP; }
+
+    set level(newLevel) { this._level = level; }
+    get level() { return this._level; }
+
+    set exp(newExp) { this._exp = exp; }
+    get exp() { return this._exp; }
 
     /**
      * 更新寶可夢的五個基本數值。
      */
     updateAbilities() {
-        let TP = this.typeInfo;
-        let IV = this.IV;
-        let EV = this.EV;
-        let level = this.level;
+        let TP = this._typeInfo;
+        let IV = this._IV;
+        let EV = this._EV;
+        let level = this._level;
 
         this.maxHP = Math.floor( ((TP.maxHP + IV.maxHP + Math.sqrt(EV.maxHP) / 8) + level) / 50 + 10 + level );
         this.attack = Math.floor( ((TP.attack + IV.attack + Math.sqrt(EV.attack) / 8) + level) / 50 + 5 );
