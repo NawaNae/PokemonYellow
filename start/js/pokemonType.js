@@ -74,4 +74,12 @@ class PokemonType extends GameSystem.Classes.StandardStat {
     removeMove(targetMove) {
         return this._usableMoves.delete(targetMove);
     }
+
+    /**
+     * 取得寶可夢最初所能擁有的招式集。
+     * @return {GameSystem.Classes.Move[]} 可用的初始招式清單。
+     */
+    GetInitialMove() {
+        return this._usableMoves.filter(move => move.level == 1);
+    }
 }
