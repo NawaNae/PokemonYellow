@@ -15,21 +15,35 @@
 /*漂浮置中對其*/
 .HTMLObjectContainer
 {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently*/
     position: absolute;
     top:0;
     bottom:0;
     left:0;
     right:0;
     margin: auto;
-    font-family: MBitmapSquareHK;
+    font-family: MBitmapSquareHK,sans-serif;
 }
 /*對話框*/
 .dialog
 {
     width: 100%;
     position: absolute;
+    font-size: 3em;
+    height: 6em;
+    line-height: 3em;
+    max-height: 40%;
+    min-width: 30%;
+    overflow-y: scroll;
     bottom:0;
     left: 0;
+    border-radius: 0.3em;
+    background-color: white;
 }
 /*選項*/
 

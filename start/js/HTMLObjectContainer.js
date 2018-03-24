@@ -6,8 +6,8 @@ class HTMLObjectContainer
     {
         this.container=document.createElement("div");
         this.container.classList.add("HTMLObjectContainer");
-        this.visible(visible);//初始化可不可視
         this.displayCssProperty=["none","block"];
+        this.visible=visible;//初始化可不可視
         document.body.append(this.container);
         this.resizeCanvas=(width,height)=>
         {
