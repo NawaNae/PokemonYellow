@@ -63,9 +63,12 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         parentCtx.fillStyle = 'black';
         parentCtx.textBaseline = 'top';
         parentCtx.textAlign = 'center';
-        parentCtx.fillText('Click To Start', this.rectPosition.x , this.rectPosition.y, 60);
+        parentCtx.fillText('Press Any Key To Start', this.rectPosition.x , this.rectPosition.y, 100);
     },
-
+    keydown:function(e)
+    {
+        Framework.Game.goToNextLevel();
+    },
     mouseup: function(e) {
     },
 
