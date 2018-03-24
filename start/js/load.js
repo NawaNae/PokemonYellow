@@ -5,6 +5,18 @@ var Load = Load || {};
 Load.definePath = 'start/js/define.js';
 Load.defineLookFor = 'define';
 Load.loadPath = 'start/js/load.js';
+Load.image = function(src,callback)
+{
+    var image=new Image();
+    image.src=src;
+    //return image;
+    if(callback)
+        image.onload=()=>
+        {
+            callback(image);
+        }
+    return image;
+}
 Load.css = function (src)
 {
     if (!document.querySelector('link[href*="' + src + '"]'))
