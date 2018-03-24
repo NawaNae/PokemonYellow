@@ -12,9 +12,9 @@ class Dialog extends DisplayInformation.Text
 {
     constructor(text="",elementTypeString='div')
     {
+        super(text,skip,skip,"dialog",elementTypeString);
         var skip=undefined;
         this.displayClassName=["hide","show"];
-        super(text,skip,skip,"dialog",elementTypeString);
     }
     get visible()
     {return !this.container.classList.contains(this.displayClassName[0]);}

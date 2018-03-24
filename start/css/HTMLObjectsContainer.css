@@ -26,6 +26,8 @@
     bottom:0;
     left:0;
     right:0;
+    font-size: 3em;
+    line-height: 3em;
     margin: auto;
     font-family: MBitmapSquareHK,sans-serif;
 }
@@ -34,18 +36,15 @@
 {
     width: 100%;
     position: absolute;
-    font-size: 3em;
     height: 6em;
-    line-height: 3em;
     max-height: 40%;
     min-width: 30%;
     overflow-y: scroll;
     bottom:0;
     left: 0;
     border-radius: 0.3em;
-    background-color: white;
-}
-/*選項*/
+    background-color:#f8f8f8e8;
+}/*選項*/
 
 /*非被選中的選項*/
 /*左側預留空位給箭頭*/
