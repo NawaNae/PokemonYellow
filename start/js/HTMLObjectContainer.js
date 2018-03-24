@@ -14,7 +14,9 @@ class HTMLObjectContainer
         this.container=document.createElement("div");
         this.container.classList.add("HTMLObjectContainer");
         this.displayClassName=["hide","show"];
-        this.visible=visible;//初始化可不可視
+        this.visible=visible||false;//初始化可不可視
+        console.log(visible||false);
+        console.log(this.visible);
         this.dialog=new GameSystem.Classes.Dialog();
         this.childrenList=[];
         this.addChild(this.dialog);
@@ -30,8 +32,8 @@ class HTMLObjectContainer
     {return !this.container.classList.contains(this.displayClassName[0]);}
     set visible(value)
     {
-        this.container.classList.add(this.displayClassName[value]);
-        this.container.classList.remove(this.displayClassName[!value]);
+        this.container.classList.add(this.displayClassName[value|0]);
+        this.container.classList.remove(this.displayClassName[(!value)|0]);
     }
     addChild(child)
     {

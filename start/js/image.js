@@ -12,20 +12,21 @@ GameSystem.Classes.Image=class GameImage
     /**
      * 
      * @param {string} src 
-     * @param {object} option 可選參數 初始化一個{}內部填入想要填入的參數名稱冒號參數即可。
+     * @param {stbject} option 可選參數 初始化一個{}內部填入想要填入的參數名稱冒號參數即可。
      * object 內有
      * position : {x:int, y:int} 左上角位置，
-     * displaySize : {w:int, h:int} 最終顯示像素大小，
+     * displaySize : {x:int, y:int} 最終顯示像素大小，
      * cutStartPosition : {x:int, y:int} 切割圖片左上角的位置，
-     * cutSize : {w:int, h:int} 切割圖片的寬與高。
+     * cutSize : {x:int, y:int} 切割圖片的寬與高。
      */
-    constructor(src,option={position:{x:0,y:0},displaySize:{w:0,h:0},cutStartPosition:{x:0,y:0},cutSize:{w:0,h:0}})
+    constructor(src,option={position:undefined,displaySize:undefined,cutStartPosition:undefined,cutSize:undefined})
     {
-        this._position=option.position||{x:0,y:0};
-        this._displaySize=option.displaySize;
-        this._cutStartPosition=option.cutStartPosition;
-        this._cutSize=option.cutSize;
-        this.src=src;
+        this.position=option.position||{x:0,y:0};
+        this.displaySize=option.displaySize?option.displaySize:undefined;
+        this.cutStartPosition=option.cutStartPosition?option.cutStartPosition:undefined;
+        this.cutSize=option.cutSize?option.cutSize:undefined;
+        this._src=src;
+        this.image=Load.image(src);
         Framework.ResourceManager.loadImage({id:src, url:src});
         Framework.Game._currentLevel._allGameElement.push(this);//視為遊戲物件
     }
@@ -39,45 +40,66 @@ GameSystem.Classes.Image=class GameImage
     {
 
     }
-    get picture()
+   get src(){return this._src}
+   set src(value){
+    if(value!=this._src)   
     {
-        return Framework.ResourceManager.getResource(src);
-    }
-   // set picture(value){}
+        this._src=value;
+        this.image=Load.image(value);
+    }   
+       
+}
+   get scale()
+   {
+       if(!this.displaySize)return {x:1,y:1};
+       return {x:this.displaySize.x/(this.image.width||1),y:this.displaySize.y/(this.image.height||1)};
+   }
+   set scale(value)
+   {
+        if(typeof value==='number')
+            value={x:value,y:value};
+        this.displaySize.x=this.image.width*value.x;
+        this.displaySize.y=this.image.height*value.y;
+   }
+   clearDirtyFlag()
+   {
+
+   }
     draw(context)
     {
-        if(this._cutStartPosition&&this._cutSize)
-            if(this._displaySize)
+      
+        if(this.cutStartPosition&&this.cutSize)
+            if(this.displaySize)
                 context.drawImage(
-                    this.picture,
-                    this._cutStartPosition.x,this._cutStartPosition.y,
-                    this._cutSize.w,this._cutSize.h,
-                    this._position.x,this._position.y,
-                    this._displaySize.w,this._displaySize.h
+                    this.image,
+                    this.cutStartPosition.x,this.cutStartPosition.y,
+                    this.cutSize.x,this.cutSize.y,
+                    this.position.x,this.position.y,
+                    this.scale.x*this.cutSize.x,this.scale.x*this.cutSize.y
                 );
             else
                 context.drawImage(
-                    this.picture,
-                    this._cutStartPosition.x,this._cutStartPosition.y,
-                    this._cutSize.w,this._cutSize.h,
-                    this._position.x,this._position.y,
-                    this.picture.width,this.picture.height
+                    this.image,
+                    this.cutStartPosition.x,this.cutStartPosition.y,
+                    this.cutSize.x,this.cutSize.y,
+                    this.position.x,this.position.y,
+                    this.cutSize.x,this.cutSize.y
                 );
-        else if(this._displaySize)
+        else if(this.displaySize)
             context.drawImage(
-                this.picture,
-                this._position.x,this._position.y,
-                this._displaySize.w,this._displaySize.h
+                this.image,
+                this.position.x,this.position.y,
+                this.displaySize.x,this.displaySize.y
             );
         else
             context.drawImage(
-                this.picture,
-                this._position.x,this._position.y,
+                this.image,
+                this.position.x,this.position.y,
             );
     }
     
-    get x(){return this._position.x;}
-    set x(value){this._position.x=value;}
-    get y(){return this._position.y;}
-    set y(value){this._position.y=value;}
+    get x(){return this.position.x;}
+    set x(value){this.position.x=value;}
+    get y(){return this.position.y;}
+    set y(value){this.position.y=value;}
 }

@@ -5,6 +5,7 @@ Load.js.import(
 [
         { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' },
+        { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
         { src: define.jsPath + 'Dialog.js', lookFor: 'GameSystem.Classes.Dialog' },
         { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },

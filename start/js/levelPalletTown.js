@@ -15,6 +15,9 @@ class PalletTown extends GameSystem.Classes.Level
         this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
         this.rootScene.attach(this.map);
 
+        this.img=new CS.Image(define.imagePath+"tanko.png");
+        this.rootScene.attach(this.img);
+
         this.obstacles.push(new CS.Rectangle({x:0,y:0},{x:12,y:3}));
         this.obstacles.push(new CS.Rectangle({x:0,y:4},{x:3,y:23}));
         this.obstacles.push(new CS.Rectangle({x:7,y:16},{x:10,y:23}));
@@ -73,8 +76,9 @@ class PalletTown extends GameSystem.Classes.Level
             this.keyInput=(e)=>{
                 if(KM.isMoveKey(e.key))
                 {
-                    var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
-                        GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
+                    let key=KM.moveKeys[e.key];
+                    var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[key].x,
+                        GS.protagonist.position.y+GS.protagonist.movePositionVector[key].y
                     );
                     var gate=undefined;
                    
