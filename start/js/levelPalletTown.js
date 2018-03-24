@@ -12,11 +12,13 @@ class PalletTown extends GameSystem.Classes.Level
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
         this.lastTime=0;
-        this.map = new Framework.Sprite(define.imagePath + 'palletTown.png');
+        this.map = new CS.Image(define.imagePath+ 'palletTown.png');
+        this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
+        this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
 
-        this.img=new CS.Image(define.imagePath+"tanko.png");
-        this.rootScene.attach(this.img);
+       
+
 
         this.obstacles.push(new CS.Rectangle({x:0,y:0},{x:12,y:3}));
         this.obstacles.push(new CS.Rectangle({x:0,y:4},{x:3,y:23}));
@@ -67,40 +69,34 @@ class PalletTown extends GameSystem.Classes.Level
         
         
         
-
-        this.map.waitForLoad();
-        this.map.loaded=()=>
-        {
-            this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
-            this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
-            this.keyInput=(e)=>{
-                if(KM.isMoveKey(e.key))
+        this.keyInput=(e)=>{
+            if(KM.isMoveKey(e.key))
+            {
+                let key=KM.moveKeys[e.key];
+                var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[key].x,
+                    GS.protagonist.position.y+GS.protagonist.movePositionVector[key].y
+                );
+                var gate=undefined;
+               
+                if((gate=this.isGateAtThenGetGate(newPosition)))
                 {
-                    let key=KM.moveKeys[e.key];
-                    var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[key].x,
-                        GS.protagonist.position.y+GS.protagonist.movePositionVector[key].y
-                    );
-                    var gate=undefined;
-                   
-                    if((gate=this.isGateAtThenGetGate(newPosition)))
-                    {
-                        GS.protagonist.position=gate.placeB.position;
-                        Framework.Game.goToLevel(gate.placeB.mapName);
-                    }
-                    else if(this.isWalkableAt(newPosition))
-                    {
-                        console.log(newPosition);
-                        GS.protagonist.position=newPosition;
-                        this.walker.keyInput(e);
-                        
-                    }
+                    GS.protagonist.position=gate.placeB.position;
+                    Framework.Game.goToLevel(gate.placeB.mapName);
+                }
+                else if(this.isWalkableAt(newPosition))
+                {
+                    console.log(newPosition);
+                    GS.protagonist.position=newPosition;
+                    this.walker.keyInput(e);
                     
-    
                 }
                 
-            };
-            GS.Manager.Key.keyInput=this.keyInput;
-        }
+
+            }
+        };
+      
+        GS.Manager.Key.keyInput=this.keyInput;
+        
     }
     initialize() {
         

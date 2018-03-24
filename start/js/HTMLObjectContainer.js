@@ -15,8 +15,6 @@ class HTMLObjectContainer
         this.container.classList.add("HTMLObjectContainer");
         this.displayClassName=["hide","show"];
         this.visible=visible||false;//初始化可不可視
-        console.log(visible||false);
-        console.log(this.visible);
         this.dialog=new GameSystem.Classes.Dialog();
         this.childrenList=[];
         this.addChild(this.dialog);

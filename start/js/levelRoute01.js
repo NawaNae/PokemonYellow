@@ -12,7 +12,7 @@ class Route01 extends GameSystem.Classes.Level
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
 
-        this.map = new Framework.Sprite(define.imagePath + 'route01.png');
+        this.map = new CS.Image(define.imagePath + 'route01.png');
         this.rootScene.attach(this.map);
         this.size.pos1=new CS.Position(4,0);
         this.size.pos2=new CS.Position(17,39);
@@ -49,38 +49,36 @@ class Route01 extends GameSystem.Classes.Level
    
         
        
-        this.map.waitForLoad();
-        this.map.loaded=()=>
+        this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
+        this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
+        this.keyInput=(e)=>
         {
-            this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
-            this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
-            this.keyInput=(e)=>
+            if(KM.isMoveKey(e.key))
             {
-                if(KM.isMoveKey(e.key))
+                var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
+                    GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
+                );
+                var gate=undefined;
+                
+                // console.log(this.isGateAtThenGetGate(newPosition))
+                if((gate=this.isGateAtThenGetGate(newPosition)))
                 {
-                    var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
-                        GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
-                    );
-                    var gate=undefined;
-                    
-                   // console.log(this.isGateAtThenGetGate(newPosition))
-                    if((gate=this.isGateAtThenGetGate(newPosition)))
-                    {
-                        let levelName=Framework.Game._findLevelNameByLevel(this);
-                        let anotherPlace=gate.findAnotherPlaceByMapName(levelName);
-                        GS.protagonist.position=anotherPlace.position;
-                        Framework.Game.goToLevel(anotherPlace.mapName);
-                    }
-                    else if(this.isWalkableAt(newPosition))
-                    {
-                        console.log(newPosition);
-                        GS.protagonist.position=newPosition;
-                        this.walker.keyInput(e);
-                    }
+                    let levelName=Framework.Game._findLevelNameByLevel(this);
+                    let anotherPlace=gate.findAnotherPlaceByMapName(levelName);
+                    GS.protagonist.position=anotherPlace.position;
+                    Framework.Game.goToLevel(anotherPlace.mapName);
                 }
-            };
-            GS.Manager.Key.keyInput=this.keyInput;
-        }
+                else if(this.isWalkableAt(newPosition))
+                {
+                    console.log(newPosition);
+                    GS.protagonist.position=newPosition;
+                    this.walker.keyInput(e);
+                }
+            }
+        };
+        GS.Manager.Key.keyInput=this.keyInput;
+        
+            
     }
     initialize() {
         
