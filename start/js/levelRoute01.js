@@ -55,6 +55,7 @@ class Route01 extends GameSystem.Classes.Level
         {
             if(KM.isMoveKey(e.key))
             {
+                GS.protagonist.facing=CS.Character.Face[e.key];
                 var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
                     GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
                 );
@@ -71,6 +72,7 @@ class Route01 extends GameSystem.Classes.Level
                 else if(this.isWalkableAt(newPosition))
                 {
                     console.log(newPosition);
+ 
                     GS.protagonist.position=newPosition;
                     this.walker.keyInput(e);
                 }

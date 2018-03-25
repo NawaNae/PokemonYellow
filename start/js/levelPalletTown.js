@@ -72,6 +72,7 @@ class PalletTown extends GameSystem.Classes.Level
         this.keyInput=(e)=>{
             if(KM.isMoveKey(e.key))
             {
+                GS.protagonist.facing=CS.Character.Face[e.key];
                 let key=KM.moveKeys[e.key];
                 var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[key].x,
                     GS.protagonist.position.y+GS.protagonist.movePositionVector[key].y
