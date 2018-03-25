@@ -58,5 +58,5 @@ GameSystem.Classes.Character.Face = Object.freeze({
     Down: Symbol("Down"),
 
     /** 角色的面相為「左」 */
-    Left: Symbol("Right")
+    Left: Symbol("Left")
 });
