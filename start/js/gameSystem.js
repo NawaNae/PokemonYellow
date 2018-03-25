@@ -79,6 +79,13 @@ class KeyManagerClass
     {
         var me=GameSystem.Manager.Key;
         me.lockPressKey="";
+        if(me.nowPressKey!="")
+        {
+            let key=me.nowPressKey
+            me.lockPressKey=key;
+            me._keyInput({key:key,pressList:me.pressList});
+            setTimeout(me._lockTimeOut,me.lockTime);
+        }
     }
     _keydown(e)
     {
@@ -102,8 +109,9 @@ class KeyManagerClass
         var me=GameSystem.Manager.Key;
        
         var key=me.keyProcess(e);
-        if(me.isGameKey(e.key))
-            me.nowPressKey="";
+        if(me.isGameKey(key))
+            if(me.nowPressKey==key)
+                me.nowPressKey="";
 
     }
 
