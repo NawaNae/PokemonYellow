@@ -37,6 +37,8 @@ class Character {
     get position() { return this._position; }
     set image(newImage) { this._image = image; }
     get image() { return image; }
+    set facing(newDirection){this._facing=newDirection;}
+    get facing(){return this._facing;}
 
 };
 
