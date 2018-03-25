@@ -27,6 +27,7 @@ GameSystem.Classes.Image=class GameImage
         this.cutSize=option.cutSize?option.cutSize:undefined;
         this._src=src;
         this.image=Load.image(src);
+        this.visible=true;
         Framework.ResourceManager.loadImage({id:src, url:src});
         Framework.Game._currentLevel._allGameElement.push(this);//視為遊戲物件
     }
@@ -40,6 +41,8 @@ GameSystem.Classes.Image=class GameImage
     {
 
     }
+    show(){this.visible=true;}
+    hide(){this.visible=false;}
    get src(){return this._src}
    set src(value){
     if(value!=this._src)   
@@ -67,7 +70,7 @@ GameSystem.Classes.Image=class GameImage
    }
     draw(context)
     {
-      
+        if(!this.visible)return ;
         if(this.cutStartPosition&&this.cutSize)
             if(this.displaySize)
                 context.drawImage(

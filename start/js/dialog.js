@@ -17,11 +17,11 @@ class Dialog extends DisplayInformation.Text
         this.displayClassName=["hide","show"];
     }
     get visible()
-    {return !this.container.classList.contains(this.displayClassName[0]);}
+    {return !this._display.classList.contains(this.displayClassName[0]);}
     set visible(value)
     {
-        this.container.classList.add(this.displayClassName[value]);
-        this.container.classList.remove(this.displayClassName[!value]);
+        this._display.classList.add(this.displayClassName[value|0]);
+        this._display.classList.remove(this.displayClassName[(!value)|0]);
     }
     show()
     {this.visible=true;}
