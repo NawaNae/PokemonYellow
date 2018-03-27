@@ -1,9 +1,10 @@
 GameSystem.Classes.Level=
 class Level extends Framework.Level
 {
-    constructor(sizePosition)
+    constructor(sizePosition,name="")
     {
         super();
+        this.name=name;
         var CS=GameSystem.Classes;
         this.map;
         if(!sizePosition)
@@ -13,7 +14,7 @@ class Level extends Framework.Level
          //請注意在初始化時填入size參數或者Load時設定，不然會造成超出地圖移動的問題。
         this.size=new CS.Rectangle({x:0,y:0},sizePosition);
         //NawaNawa
-
+        this.subLevels=new Array();
         this.obstacles=new Array();
         this.eventObj=new Array();
         this.npcs= new Array();
