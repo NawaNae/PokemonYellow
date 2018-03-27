@@ -7,6 +7,10 @@ class Connection
             this.placeA=mapPos1||new GameSystem.Classes.MapPosition(name,mapPos1);
             this.placeB=mapPos2||new GameSystem.Classes.MapPosition(name,mapPos2);
     }
+    isSameMapConnection()
+    {
+        return this.placeA.mapName==this.placeB.mapName;
+    }
     findPlaceByMapName(name)
     {
         if(this.placeA.mapName==name)return this.placeA;
