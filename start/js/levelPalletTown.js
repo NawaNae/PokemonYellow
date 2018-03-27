@@ -11,13 +11,56 @@ class PalletTown extends GameSystem.Classes.Level
         var GS=GameSystem;
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
-        this.lastTime=0;
+        this.counter=
+        new (class Counter
+        {
+            constructor(countTo)
+            {
+                this.count=0;
+                this.lastTime=0;
+                this.countTo=countTo;
+                this.fpsNow=0;
+                this._fpsCount=false;
+                
+            }
+            set fpsCount(value){
+                this._fpsCount=value;
+                if(value)
+                {
+                    this.count=0;
+                    var callback=() => 
+                    {
+                        this.fpsNow=this.count;
+                        this.count=0;
+                        if(this._fpsCount)
+                            setTimeout(callback, 1000);
+                        console.log("fps : "+this.fpsNow);
+                    }
+                    callback();
+                }
+            }
+            get fpsCount(){return this._fpsCount;}
+            countIncrease()
+            {
+                if(this._fpsCount)
+                    this.count++;
+                else
+                {
+                    if( this.count==0) 
+                        this.lastTime=Date.now();
+                    if(this.count==this.countTo-1)
+                        console.log("using " + (Date.now()-this.lastTime) + "ms to count to " + this.countTo);
+                    this.count=(this.count+1)%this.countTo;
+                }
+            }
+        })(60);
+        this.counter.fpsCount=true;
         this.map = new CS.Image(define.imagePath+ 'palletTown.png');
         this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
         this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
 
-       
+       this.subLevels.push()
 
 
         this.obstacles.push(new CS.Rectangle({x:0,y:0},{x:12,y:3}));
@@ -108,16 +151,11 @@ class PalletTown extends GameSystem.Classes.Level
        if (this.nullSprite.position.x < -2)
            this.nullSprite.position.x =-1;
        /*bug 去除 */
-       if( this.count==0) 
-       this.lastTime=Date.now();
-  
-        if(this.count==59)
-                console.log(Date.now()-this.lastTime);
-        this.count=(this.count+1)%60;
+       
     }
 
     draw(parentCtx) {
-
+        this.counter.countIncrease();
         parentCtx.fillStyle="black";
         parentCtx.fillRect(0,0,Framework.Game.getCanvasWidth(),Framework.Game.getCanvasHeight());
 
@@ -145,4 +183,15 @@ class PalletTown extends GameSystem.Classes.Level
         }  
         
     }
+}
+
+class ProtagonistHome extends GameSystem.Classes.Level
+{
+    constructor()
+    {
+        let CS=GameSystem.Classes;
+        super(new CS.Position(7,7),'protangonistHome');
+        this.isSubLevel=true;
+    }
+
 }
