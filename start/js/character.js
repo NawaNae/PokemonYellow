@@ -19,7 +19,7 @@ class Character {
      */
     constructor(name, face, position, image) {
         this._name = name;
-        this._facing = face;
+        this._facing = face||GameSystem.Classes.Character.Face.Up;
         this._position = position || new GameSystem.Classes.Position(0, 0);
         this._image = image;
         this.movePositionVector=//地圖移動向量陣列
@@ -38,7 +38,16 @@ class Character {
     set image(newImage) { this._image = image; }
     get image() { return image; }
     set facing(newDirection){this._facing=newDirection;}
-    get facing(){return this._facing;}
+    get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
+    get facePosition(){
+        let GS=GameSystem;
+        let CS=GS.Classes;
+
+        return new CS.Position(
+            this.position.x+this.movePositionVector[this.facing].x,
+            this.position.y+this.movePositionVector[this.facing].y
+        );
+    }
 
 };
 
