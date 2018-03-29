@@ -11,6 +11,10 @@ Load.js.import(
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
+        { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
+        { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
+        { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
+
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
         { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },
         { src: define.jsPath + 'mapPosition.js', lookFor: 'GameSystem.Classes.MapPosition' },
