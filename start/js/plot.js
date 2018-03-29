@@ -25,7 +25,7 @@ class Plot {
 }
 
 GameSystem.Resource.PlotExample = 
-    new Plot("Test", [
+    new GameSystem.Classes.Plot("Test", [
         new GameSystem.Classes.Paragraph("Paragraph A"),
         new GameSystem.Classes.Paragraph("Paragraph B"),
         new GameSystem.Classes.Paragraph("Paragraph C")
