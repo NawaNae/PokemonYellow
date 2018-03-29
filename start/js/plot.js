@@ -23,3 +23,10 @@ class Plot {
     set content(newContent) { this._content = newContent; }
     get content() { return this._content; }
 }
+
+GameSystem.Resource.PlotExample = 
+    new Plot("Test", [
+        new GameSystem.Classes.Paragraph("Paragraph A"),
+        new GameSystem.Classes.Paragraph("Paragraph B"),
+        new GameSystem.Classes.Paragraph("Paragraph C")
+    ]);
