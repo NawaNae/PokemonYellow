@@ -12,13 +12,7 @@ class PalletTown extends GameSystem.Classes.Level {
         }
         this.subLevels.push(protagonistHome1F);
         this.subLevels.push(protagonistHome2F);
-        this.npcs.push(
-            new GameSystem.Classes.NPC("TestNPC", 
-                                       CS.Character.Face.Up,
-                                       new CS.Position(6, 7),
-                                       CS.Image("URL"),
-                                       undefined,
-                                       GS.Resource.PlotExample  ));
+
 
         Framework.Game.addNewLevel({"protagonistHome1F":protagonistHome1F});
         Framework.Game.addNewLevel({"protagonistHome2F":protagonistHome2F});
@@ -134,6 +128,15 @@ class PalletTown extends GameSystem.Classes.Level {
         var KM = GS.Manager.Key;
 
         GS.Manager.Key.keyInput = this.keyInput;
+
+
+        this.npcs.push(
+            new GameSystem.Classes.NPC("TestNPC", 
+                                       CS.Character.Face.Up,
+                                       new CS.Position(6, 7),
+                                       new CS.Image(define.imagePath+"null.png"),
+                                       undefined,
+                                       GS.Resource.PlotExample  ));
 
         this.map = new CS.Image(define.imagePath + 'palletTown.png');
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
