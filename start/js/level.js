@@ -78,9 +78,15 @@ class Level extends Framework.Level
     }
     normalKeyInput(e)
     {
-        this.walkKeyInput(e);
-        this.dialogKeyInput(e);
-
+        switch(this.inputMode)
+        {
+            case this.inputModes.walk:
+            this.walkKeyInput(e);
+            break;
+            case this.inputModes.dialog:
+            this.dialogKeyInput(e);
+            break;
+        }
     }
     walkKeyInput(e)
     {
@@ -118,18 +124,25 @@ class Level extends Framework.Level
                 let dialog=GameSystem.HTMLObjectContainer.dialog;
                 dialog.visible=true;
 
-                dialog.text=npc.plot.content[npc.plot.index++];
-                this.keyInput=(e)=>{this.dialogKeyInput(e,npc);};
+                dialog.text=npc.plot.content[npc.plot.index++].text;
+                this.inputMode=this.inputModes.dialog;
             }
         }
     }
-    dialogKeyInput(e,npc)
+    dialogKeyInput(e)
     {
         var GS=GameSystem;
+        let npc=this.isNPCAtThenGet(GS.protagonist.facePosition);
         let dialog=GameSystem.HTMLObjectContainer.dialog;
-        dialog.text=npc.plot.content[npc.plot.index++];
         if(npc.plot.index==npc.plot.content.length)
-            this.keyInput=(e)=>{this.normalKeyInput(e);};
+        {
+            dialog.visible=false;
+            GS.HTMLObjectContainer.visible=false;
+            this.inputMode=this.inputModes.walk;
+            return;
+        }
+        dialog.text=npc.plot.content[npc.plot.index++].text;
+        
         
     }
     
