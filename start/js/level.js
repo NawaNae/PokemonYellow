@@ -21,6 +21,7 @@ class Level extends Framework.Level
         this.npcs= new Array();
         this.gates= new Array();
         this.battleFields= new Array();
+        this.backgroundMusic = undefined;
     }
     draw(parentCtx) {
         // this.counter.countIncrease();

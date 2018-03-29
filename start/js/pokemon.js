@@ -62,4 +62,13 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         this.special = Math.floor( ((TP.special + IV.special + Math.sqrt(EV.special) / 8) + level) / 50 + 5 );
         this.speed = Math.floor( ((TP.speed + IV.speed + Math.sqrt(EV.speed) / 8) + level) / 50 + 5 );
     }
+
+    /**
+     * 檢查此寶可夢是否擁有此招式。
+     * @param {Gamesystem.Classes.Move} move 要檢查的目標招式。
+     * @return {boolean} 此寶可夢是否擁有此招式。
+     */
+    isHaveMove(move) {
+        return this._moves.indexOf(move) >= 0;
+    }
 }
