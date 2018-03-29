@@ -16,8 +16,8 @@ class Paragraph {
         this._action = action;
     }
 
-    set content(newContent) { this._content = newContent; }
-    get content() { return this._content; }
+    set text(newContent) { this._content = newContent; }
+    get text() { return this._content; }
 
     set action(newAction) { this._action = newAction; }
     get action() { return this._action; }
