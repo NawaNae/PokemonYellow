@@ -2,6 +2,7 @@ var GameSystem =
 {
     Classes:{},
     Manager:{},
+    Resource:{}
 };
 GameSystem.Manager._KeyManagerClass=
 class KeyManagerClass 
