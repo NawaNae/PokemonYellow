@@ -97,8 +97,9 @@ class Level extends Framework.Level
         var KM = GS.Manager.Key;
        var npc=undefined;
         if (KM.isMoveKey(e.key)) {
-            GS.protagonist.facing = CS.Character.Face[e.key];
+            
             let key = KM.moveKeys[e.key];
+            GS.protagonist.facing = CS.Character.Face[key];
             var newPosition = new CS.Position(GS.protagonist.position.x + GS.protagonist.movePositionVector[key].x,
                 GS.protagonist.position.y + GS.protagonist.movePositionVector[key].y
             );

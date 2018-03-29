@@ -33,12 +33,13 @@ class MapWalker
         let PT=CS.Point;
         this.keyInput=(e)=>//keyInput的事件
         {
+            let key = GS.Manager.Key.moveKeys[e.key];
             this.timeout=()=>
             {
-                if(this.walkCounter[e.key]<this._countEnd)//condition (Loop)
+                if(this.walkCounter[key]<this._countEnd)//condition (Loop)
                 {
-                    //console.log("frame"+this.walkCounter[e.key]);
-                    if(this.walkCounter[e.key]==0)//initialize(first loop)
+                    //console.log("frame"+this.walkCounter[key]);
+                    if(this.walkCounter[key]==0)//initialize(first loop)
                     {
        
                         var protagonistNewPoint=GS.protagonist.position.toPoint();
@@ -47,18 +48,18 @@ class MapWalker
                         this.map.game.newPoint=new PT(protagonistScreenPoint.x-protagonistNewPoint.x,
                             protagonistScreenPoint.y-protagonistNewPoint.y);
                     }
-                    let move=this.moveIncrease(e.key,this.speed);
+                    let move=this.moveIncrease(key,this.speed);
                     this.map.x+=move.x;
                     this.map.y+=move.y;
                     
-                    this.walkCounter[e.key]+=this.speed;//increase
+                    this.walkCounter[key]+=this.speed;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
                 }
                 else
                 {    
                     this.map.position=this.map.game.newPoint;
                    
-                    this.walkCounter[e.key]=0;//reset(initialize)
+                    this.walkCounter[key]=0;//reset(initialize)
                     console.log("walk anime end");
                 }
             };
