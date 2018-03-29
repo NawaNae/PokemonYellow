@@ -21,6 +21,8 @@ class KeyManagerClass
             Right:false,
             Space:false,
             Enter:false,
+            K:false,
+            J:false
         };
         this.keyMapping=
         {
@@ -32,8 +34,10 @@ class KeyManagerClass
             Down:"Down",
             D:"Right",
             Right:"Right",
-            Space:"Space",
-            Enter:"Enter"
+            Space:"A",
+            Enter:"A",
+            K:"A",
+            J:"B",
         };
         this.moveKeys=
         {
@@ -46,6 +50,7 @@ class KeyManagerClass
             D:"Right",
             Right:"Right"
         };
+ 
         this.lockOneKeyEveryTime=true;
         this.lockTime=300;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
