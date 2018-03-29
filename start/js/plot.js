@@ -14,6 +14,7 @@ class Plot {
     constructor(name, content = []) {
         this._name = name;
         this._content = content;
+        this.index=0;
     }
 
     set name(newName) { this._name = newName; }

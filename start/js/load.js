@@ -5,6 +5,17 @@ var Load = Load || {};
 Load.definePath = 'start/js/define.js';
 Load.defineLookFor = 'define';
 Load.loadPath = 'start/js/load.js';
+Load.audio = function(src,callback)
+{
+    var audio=new Audio(src);
+    //return image;
+    if(callback)
+        audio.onload=()=>
+        {
+            callback(audio);
+        }
+    return audio;
+}
 Load.image = function(src,callback)
 {
     var image=new Image();

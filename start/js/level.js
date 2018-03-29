@@ -21,7 +21,12 @@ class Level extends Framework.Level
         this.npcs= new Array();
         this.gates= new Array();
         this.battleFields= new Array();
-        this.backgroundMusic = undefined;
+        this.inputMode=0;
+        this.inputModes=
+        {
+            walk:0,
+            dialog:1
+        };
     }
     draw(parentCtx) {
         // this.counter.countIncrease();
@@ -36,6 +41,16 @@ class Level extends Framework.Level
          parentCtx.fillText("小智", 4 * 16 + 8, 4 * 16 + 12, 16);
          // this.map.draw(parentCtx)
      }
+    isNPCAtThenGet(position)
+    {
+        for(let npc of this.npcs)
+        {
+            let pos=npc.position;
+            if(pos.x==position.x&&pos.y==position.y)
+                return npc;
+        }
+        return undefined;
+    }
     isWalkableAt(position)
     {
         
@@ -63,10 +78,16 @@ class Level extends Framework.Level
     }
     normalKeyInput(e)
     {
+        this.walkKeyInput(e);
+        this.dialogKeyInput(e);
+
+    }
+    walkKeyInput(e)
+    {
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
-       
+       var npc=undefined;
         if (KM.isMoveKey(e.key)) {
             GS.protagonist.facing = CS.Character.Face[e.key];
             let key = KM.moveKeys[e.key];
@@ -86,7 +107,30 @@ class Level extends Framework.Level
                 GS.protagonist.position = newPosition;
                 this.walker.keyInput(e);
             }
+        }else
+        if(KM.keyMapping[e.key]=="A")
+        {
+            if((npc=this.isNPCAtThenGet(GS.protagonist.facePosition)))
+            {
+                npc.plot.index=0;
+                this.inputMode=this.inputModes.dialog;
+                GS.HTMLObjectContainer.visible=true;
+                let dialog=GameSystem.HTMLObjectContainer.dialog;
+                dialog.visible=true;
+
+                dialog.text=npc.plot.content[npc.plot.index++];
+                this.keyInput=(e)=>{this.dialogKeyInput(e,npc);};
+            }
         }
+    }
+    dialogKeyInput(e,npc)
+    {
+        var GS=GameSystem;
+        let dialog=GameSystem.HTMLObjectContainer.dialog;
+        dialog.text=npc.plot.content[npc.plot.index++];
+        if(npc.plot.index==npc.plot.content.length)
+            this.keyInput=(e)=>{this.normalKeyInput(e);};
+        
     }
     
 }
