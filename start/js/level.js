@@ -78,6 +78,7 @@ class Level extends Framework.Level
     }
     normalKeyInput(e)
     {
+      
         switch(this.inputMode)
         {
             case this.inputModes.walk:
@@ -90,6 +91,7 @@ class Level extends Framework.Level
     }
     walkKeyInput(e)
     {
+       
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;

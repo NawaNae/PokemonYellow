@@ -3,11 +3,12 @@ class MapWalker
 {
     constructor(config={mapRef,lockTime,walkSpeed:1,blockWidth:16,timesPerPixel})
     {
-        this.blockWidth=config.blockWidth||16;//格子寬
-        this.timesPerPixel=config.timesPerPixel||2;//每格子播放幾次
+        this._blockWidth=config.blockWidth||16;//格子寬
+        this._timesPerPixel=config.timesPerPixel||1;//每格子播放幾次
         this.lockTime=config.lockTime||GameSystem.Manager.Key.lockTime||300;//鎖鍵時間
-        this.movePeriod=Math.floor(0.9*(this.lockTime/this.blockWidth/this.timesPerPixel));//播放一格間隔
+        this.movePeriod=Math.floor(0.8*(this.lockTime/this._blockWidth/this._timesPerPixel));//播放一格間隔
         var mapWalker=this;
+        this._countEnd=this._blockWidth*this._timesPerPixel;
         this.walkCounter=
         {
             Up:0,
@@ -34,8 +35,9 @@ class MapWalker
         {
             this.timeout=()=>
             {
-                if(this.walkCounter[e.key]<this.blockWidth*this.timesPerPixel)//condition (Loop)
+                if(this.walkCounter[e.key]<this._countEnd)//condition (Loop)
                 {
+                    //console.log("frame"+this.walkCounter[e.key]);
                     if(this.walkCounter[e.key]==0)//initialize(first loop)
                     {
        
@@ -45,9 +47,10 @@ class MapWalker
                         this.map.game.newPoint=new PT(protagonistScreenPoint.x-protagonistNewPoint.x,
                             protagonistScreenPoint.y-protagonistNewPoint.y);
                     }
-                    this.map.x+=this.moveIncrease(e.key,this.speed).x;
-                    this.map.y+=this.moveIncrease(e.key,this.speed).y;
-                 
+                    let move=this.moveIncrease(e.key,this.speed);
+                    this.map.x+=move.x;
+                    this.map.y+=move.y;
+                    
                     this.walkCounter[e.key]+=this.speed;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
                 }
@@ -56,17 +59,30 @@ class MapWalker
                     this.map.position=this.map.game.newPoint;
                    
                     this.walkCounter[e.key]=0;//reset(initialize)
+                    console.log("walk anime end");
                 }
             };
             this.timeout();
         }
+    }
+    get timesPerPixel(){return this._timesPerPixel;}
+    set timesPerPixel(value)
+    {
+        this._timesPerPixel=value;
+        this._countEnd=this._timesPerPixel*this._blockWidth;
+    }
+    get blockWidth(){return this._blockWidth;}
+    set blockWidth(value)
+    {
+        this._blockWidth=value;
+        this._countEnd=this._timesPerPixel*this._blockWidth;
     }
     moveIncrease(key,value)
     {
         value=value||1;
         key=GameSystem.Manager.Key.keyMapping[key];
         var aimVector=this.moveVector[key];
-        return new GameSystem.Classes.Point(-aimVector.x*value/this.timesPerPixel,-aimVector.y*value/this.timesPerPixel);
+        return new GameSystem.Classes.Point(-aimVector.x*value/this._timesPerPixel,-aimVector.y*value/this._timesPerPixel);
 
     }
 }

@@ -52,7 +52,7 @@ class KeyManagerClass
         };
  
         this.lockOneKeyEveryTime=true;
-        this.lockTime=300;//按一次鍵延遲(ms)
+        this.lockTime=350;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
         this.nowPressKey="";//當
         window.addEventListener("keydown",this._keydown);
