@@ -21,7 +21,9 @@ class Character {
         this._name = name;
         this._facing = face||GameSystem.Classes.Character.Face.Up;
         this._position = position || new GameSystem.Classes.Position(0, 0);
-        this._image = image;
+        this._update=()=>{this.update()};
+        this.image = image;
+        
         this.movePositionVector=//地圖移動向量陣列
         {
             Up:new GameSystem.Classes.Position(0,-1),
@@ -29,14 +31,43 @@ class Character {
             Right:new GameSystem.Classes.Position(+1,0),
             Left:new GameSystem.Classes.Position(-1,0),
         }
+       
     }
-
+    move(moveKey)
+    {
+        this.position.x+=this.movePositionVector[moveKey];
+        this.position.y+=this.movePositionVector[moveKey];
+    }
+    update()
+    {
+        let protaScPos=GameSystem.protagonist._screenPosition.toPoint();
+         let protaPos = GameSystem.protagonist.position.toPoint();
+         let myPos=this.position.toPoint();
+        if(this._image)
+        {
+            this.image.position.x=-protaPos.x+protaScPos.x+myPos.x;
+            this.image.position.y=-protaPos.y+protaScPos.y+myPos.y;
+        }
+    }
     set name(newName) { this._name = newName; }
     get name() { return name; }
-    set position(newPosition) { this._position = newPosition; }
+    set position(newPosition) 
+    {
+         this._position = newPosition;
+        this.update();
+     }
     get position() { return this._position; }
-    set image(newImage) { this._image = image; }
-    get image() { return image; }
+    set image(newImage) {
+        if(newImage)
+        {
+            this._image = newImage; 
+            console.log(this._update);
+            this._image.update=this._update;
+            
+        }
+         
+        }
+    get image() { return this._image; }
     set facing(newDirection){this._facing=newDirection;}
     get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
     get facePosition(){
