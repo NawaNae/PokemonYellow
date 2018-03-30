@@ -117,11 +117,30 @@ class PalletTown extends GameSystem.Classes.Level {
                 )
             )
         );
+        this.npcs.push(
+            new CS.NPC(
+                "drawTestNPC",
+                CS.Character.Face.Up,
+                new CS.Position(14, 8),
+                new CS.Image(define.imagePath+"Protagonist.png",{cutStartPosition:{x:0,y:0},cutSize:{x:16,y:16}}),
+                undefined,
+                new CS.Plot(
+                    "TestCH", 
+                    [
+                        new CS.Paragraph("我才是主人公"),
+                    ]
+                )
+            )
+        );
         this.map = new CS.Image(define.imagePath + 'palletTown.png');
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
-  
+        for(let npc of this.npcs)
+        {
+            if(npc.image)
+                this.rootScene.attach(npc.image);
+        }
 
 
         this.walker = new CS.MapWalker({ mapRef: this.map });
