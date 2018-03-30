@@ -16,44 +16,8 @@ class PalletTown extends GameSystem.Classes.Level {
 
         Framework.Game.addNewLevel({"protagonistHome1F":protagonistHome1F});
         Framework.Game.addNewLevel({"protagonistHome2F":protagonistHome2F});
-        this.counter =
-            new (class Counter {
-                constructor(countTo) {
-                    this.count = 0;
-                    this.lastTime = 0;
-                    this.countTo = countTo;
-                    this.fpsNow = 0;
-                    this._fpsCount = false;
-
-                }
-                set fpsCount(value) {
-                    this._fpsCount = value;
-                    if (value) {
-                        this.count = 0;
-                        var callback = () => {
-                            this.fpsNow = this.count;
-                            this.count = 0;
-                            if (this._fpsCount)
-                                setTimeout(callback, 1000);
-                            console.log("fps : " + this.fpsNow);
-                        }
-                        callback();
-                    }
-                }
-                get fpsCount() { return this._fpsCount; }
-                countIncrease() {
-                    if (this._fpsCount)
-                        this.count++;
-                    else {
-                        if (this.count == 0)
-                            this.lastTime = Date.now();
-                        if (this.count == this.countTo - 1)
-                            console.log("using " + (Date.now() - this.lastTime) + "ms to count to " + this.countTo);
-                        this.count = (this.count + 1) % this.countTo;
-                    }
-                }
-            })(60);
-        //this.counter.fpsCount = true;
+       
+        this.counter.fpsCount = true;
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 0 }, { x: 12, y: 3 }));
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 4 }, { x: 3, y: 23 }));
         this.obstacles.push(new CS.Rectangle({ x: 7, y: 16 }, { x: 10, y: 23 }));
@@ -178,7 +142,7 @@ class PalletTown extends GameSystem.Classes.Level {
         if (this.nullSprite.position.x < -2)
             this.nullSprite.position.x = -1;
         /*bug 去除 */
-
+       
     }
 
 

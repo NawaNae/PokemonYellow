@@ -4,6 +4,48 @@ class Level extends Framework.Level
     constructor(sizePosition,name="")
     {
         super();
+        this.counter =
+        new (class Counter {
+            constructor(countTo) {
+                this.count = 0;
+                this.lastTime = 0;
+                this.countTo = countTo;
+                this.fpsNow = 0;
+                this._fpsCount = false;
+                this.enable=false;
+            }
+            set fpsCount(value) {
+               
+                this._fpsCount = value;
+                if (value) {
+                    if(!this.enable)
+                        return ;
+                    this.count = 0;
+                    var callback = () => {
+                        this.fpsNow = this.count;
+                        this.count = 0;
+                        if (this._fpsCount)
+                            setTimeout(callback, 1000);
+                        console.log("fps : " + this.fpsNow);
+                    }
+                    callback();
+                }
+            }
+            get fpsCount() { return this._fpsCount; }
+            countIncrease() {
+                if(!this.enable)
+                return ;
+                if (this._fpsCount)
+                    this.count++;
+                else {
+                    if (this.count == 0)
+                        this.lastTime = Date.now();
+                    if (this.count == this.countTo - 1)
+                        console.log("using " + (Date.now() - this.lastTime) + "ms to count to " + this.countTo);
+                    this.count = (this.count + 1) % this.countTo;
+                }
+            }
+        })(60);
         this.name=name;
         var CS=GameSystem.Classes;
         this.map;
@@ -29,7 +71,7 @@ class Level extends Framework.Level
         };
     }
     draw(parentCtx) {
-        // this.counter.countIncrease();
+        this.counter.countIncrease();
          parentCtx.fillStyle = "black";
          parentCtx.fillRect(0, 0, Framework.Game.getCanvasWidth(), Framework.Game.getCanvasHeight());
  
@@ -148,5 +190,8 @@ class Level extends Framework.Level
         
         
     }
-    
+    teardown()
+    {
+        this.counter.fpsCount=false;
+    }
 }
