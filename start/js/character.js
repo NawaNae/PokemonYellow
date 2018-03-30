@@ -21,24 +21,19 @@ class Character {
         this._name = name;
         this._facing = face||GameSystem.Classes.Character.Face.Up;
         this._position = position || new GameSystem.Classes.Position(0, 0);
-        this._update=()=>{this.update()};
+        this._update=()=>{this.updateImagePosition()()};
         this.image = image;
-        
-        this.movePositionVector=//地圖移動向量陣列
-        {
-            Up:new GameSystem.Classes.Position(0,-1),
-            Down:new GameSystem.Classes.Position(0,+1),
-            Right:new GameSystem.Classes.Position(+1,0),
-            Left:new GameSystem.Classes.Position(-1,0),
-        }
-       
+        this.newPosition;
+        this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
+        this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
     }
+ 
     move(moveKey)
     {
         this.position.x+=this.movePositionVector[moveKey];
         this.position.y+=this.movePositionVector[moveKey];
     }
-    update()
+    updateImagePosition()
     {
         let protaScPos=GameSystem.protagonist._screenPosition.toPoint();
          let protaPos = GameSystem.protagonist.position.toPoint();
@@ -54,14 +49,15 @@ class Character {
     set position(newPosition) 
     {
          this._position = newPosition;
-        this.update();
+        this.updateImagePosition();
      }
     get position() { return this._position; }
     set image(newImage) {
         if(newImage)
         {
             this._image = newImage; 
-            console.log(this._update);
+            //console.log(this._update);
+            this.updateImagePosition();
             this._image.update=this._update;
             
         }
@@ -100,3 +96,17 @@ GameSystem.Classes.Character.Face = Object.freeze({
     /** 角色的面相為「左」 */
     Left: Symbol("Left")
 });
+GameSystem.Classes.Character.MovePositionVector=Object.freeze(
+    {
+        Up:new GameSystem.Classes.Position(0,-1),
+        Down:new GameSystem.Classes.Position(0,+1),
+        Right:new GameSystem.Classes.Position(+1,0),
+        Left:new GameSystem.Classes.Position(-1,0),
+    })
+    GameSystem.Classes.Character.MovePointVector=Object.freeze(
+        {
+            Up:new GameSystem.Classes.Point(0,-1),
+            Down:new GameSystem.Classes.Point(0,+1),
+            Right:new GameSystem.Classes.Point(+1,0),
+            Left:new GameSystem.Classes.Point(-1,0),
+        })
