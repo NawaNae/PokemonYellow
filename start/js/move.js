@@ -173,4 +173,12 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["濁霧"] = new Move("濁霧", "將骯髒的濃霧吹向對手進行攻擊。有時會讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Special, 20, 70);
     DEX["劇毒"] = new Move("劇毒", "讓對手陷入劇毒狀態。中毒傷害會隨著回合的進行而增加。", Types.Poison, MoveTypes.Status, undefined, 90);
 
+    // 初始化所有可用的「地面」屬性招式
+    DEX["骨棒"] = new Move("骨棒", "用手中的骨頭毆打對手進行攻擊。有時會使對手畏縮。", Types.Ground, MoveTypes.Physical, 65, 85);
+    DEX["骨頭回力鏢"] = new Move("骨頭回力鏢", "向對手投擲手中的骨頭，來回連續２次給予傷害。", Types.Ground, MoveTypes.Physical, 50, 90);
+    DEX["挖洞"] = new Move("挖洞", "使用後的第１回合潛入地底，並於第２回合攻擊對手。", Types.Ground, MoveTypes.Physical, 80, 100);
+    DEX["地震"] = new Move("地震", "用地震的衝擊，攻擊自己周圍所有的寶可夢。", Types.Ground, MoveTypes.Physical, 100, 100);
+    DEX["地裂"] = new Move("地裂", "讓對手掉進地面的裂縫中進行攻擊。只要命中就會一擊瀕死。", Types.Ground, MoveTypes.Physical, undefined, 30);
+    DEX["潑沙"] = new Move("潑沙", "向對手的臉上潑沙，降低對手的命中率。", Types.Ground, MoveTypes.Status, undefined, 100);
+
 })();
