@@ -258,4 +258,7 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["冰凍拳"] = new Move("冰凍拳", "用帶有寒氣的拳頭攻擊對手。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Physical, 75, 100);
     DEX["白霧"] = new Move("白霧", "用白霧覆蓋身體。在５回合內不會讓對手降低自己的能力。", Types.Ice, MoveTypes.Status, undefined, 100);
 
+    // 初始化所有可用的「龍」屬性招式
+    DEX["龍之怒"] = new Move("龍之怒", "向對手發射憤怒的衝擊波進行攻擊。固定給予４０的傷害。", Types.Dragon, MoveTypes.Special, undefined, 100);
+
 })();
