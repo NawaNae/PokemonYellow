@@ -181,4 +181,8 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["地裂"] = new Move("地裂", "讓對手掉進地面的裂縫中進行攻擊。只要命中就會一擊瀕死。", Types.Ground, MoveTypes.Physical, undefined, 30);
     DEX["潑沙"] = new Move("潑沙", "向對手的臉上潑沙，降低對手的命中率。", Types.Ground, MoveTypes.Status, undefined, 100);
 
+    // 初始化所有可用的「岩石」屬性招式
+    DEX["岩崩"] = new Move("岩崩", "將大岩石猛烈地砸向對手進行攻擊。有時會讓對手畏縮。", Types.Rock, MoveTypes.Physical, 75, 90);
+    DEX["落石"] = new Move("落石", "舉起小岩石，向對手投擲進行攻擊。", Types.Rock, MoveTypes.Physical, 50, 90);
+
 })();
