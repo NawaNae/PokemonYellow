@@ -21,13 +21,16 @@ class Character {
         this._name = name;
         this._facing = face||GameSystem.Classes.Character.Face.Up;
         this._position = position || new GameSystem.Classes.Position(0, 0);
-        this._update=()=>{this.updateImagePosition()()};
+        this._update=()=>{this.update();};
         this.image = image;
         this.newPosition;
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
     }
- 
+    update()
+    {
+
+    }
     move(moveKey)
     {
         this.position.x+=this.movePositionVector[moveKey];
@@ -49,7 +52,7 @@ class Character {
     set position(newPosition) 
     {
          this._position = newPosition;
-        this.updateImagePosition();
+       // this.updateImagePosition();
      }
     get position() { return this._position; }
     set image(newImage) {

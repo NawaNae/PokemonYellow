@@ -59,8 +59,10 @@ class MapWalker
                     this.map.y+=move.y;
                     for(let npc of this.npcs)
                     {
-                        npc.image.position.x+=move.x;
-                        npc.image.position.y+=move.y;
+                        npc._image.position.x+=move.x;
+                        npc._image.position.y+=move.y;
+                        //console.log(npc.name + "("+npc.image.position.x+","+npc.image.position.y+")");
+        
                     }
                     this.walkCounter[key]+=this.speed;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
@@ -72,6 +74,7 @@ class MapWalker
                     {
                         //console.log(npc);
                         npc.updateImagePosition();
+                     //   console.log(npc.name + "("+npc.image.position.x+","+npc.image.position.y+")");
                     }
                     this.walkCounter[key]=0;//reset(initialize)
                    // console.log("walk anime end");
