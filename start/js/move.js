@@ -233,4 +233,21 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["雷電拳"] = new Move("雷電拳", "用帶有電流的拳頭攻擊對手。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Physical, 75, 100);
     DEX["電擊"] = new Move("電擊", "發出電流刺激對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 40, 100);
 
+    // 初始化所有可用的「超能力」屬性招式
+    DEX["高速移動"] = new Move("高速移動", "放鬆身體，讓自己變得輕盈以進行高速移動。可大幅提高自己的速度。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["瞬間失憶"] = new Move("瞬間失憶", "將頭腦清空，藉由在一瞬間遺忘某些事大幅提高自己的特防。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["屏障"] = new Move("屏障", "製造堅固的屏障，大幅提高自己的防禦。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["念力"] = new Move("念力", "向對手發送微弱的念力進行攻擊。有時會使對手混亂。", Types.Phycsic, MoveTypes.Special, 50, 100);
+    DEX["食夢"] = new Move("食夢", "吃掉熟睡中對手的夢進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Phycsic, MoveTypes.Special, 100, 100);
+    DEX["催眠術"] = new Move("催眠術", "施加引發睡意的暗示，讓對手陷入睡眠狀態。", Types.Phycsic, MoveTypes.Status, undefined, 60);
+    DEX["折彎湯匙"] = new Move("折彎湯匙", "折彎湯匙引起注意，降低對手的命中率。", Types.Phycsic, MoveTypes.Status, undefined, 80);
+    DEX["光牆"] = new Move("光牆", "利用神奇的屏障，在５回合內減輕來自對手的特殊攻擊傷害。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["瑜伽姿勢"] = new Move("瑜伽姿勢", "喚醒身體深處沉睡的力量，提高自己的攻擊。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["幻象光線"] = new Move("幻象光線", "向對手發射神奇的光線進行攻擊。有時會使對手混亂。", Types.Phycsic, MoveTypes.Special, 65, 100);
+    DEX["精神強念"] = new Move("精神強念", "向對手發送強大的念力進行攻擊。有時會降低對手的特防。", Types.Phycsic, MoveTypes.Special, 90, 100);
+    DEX["精神波"] = new Move("精神波", "向對手發射神奇的念力波進行攻擊。每次給予的傷害都不同。", Types.Phycsic, MoveTypes.Special, undefined, 80);
+    DEX["反射壁"] = new Move("反射壁", "利用神奇的屏障，在５回合內減輕來自對手的物理攻擊傷害。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["睡覺"] = new Move("睡覺", "連續睡２回合。回復自己的全部ＨＰ以及治癒所有異常狀態。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+    DEX["瞬間移動"] = new Move("瞬間移動", "停止和野生寶可夢戰鬥並逃走。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
+
 })();
