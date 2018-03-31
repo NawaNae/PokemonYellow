@@ -191,4 +191,9 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, undefined, 95);
     DEX["雙針"] = new Move("雙針", "將２根針刺進對手，連續２次給予傷害。有時會讓對手陷入中毒狀態。", Types.Bug, MoveTypes.Physical, 25, 100);
 
+    // 初始化所有可用的「幽靈」屬性招式
+    DEX["奇異之光"] = new Move("奇異之光", "讓對手看奇怪的光線擾亂對手。使對手混亂。", Types.Ghost, MoveTypes.Status, undefined, 100);
+    DEX["舌舔"] = new Move("舌舔", "用長長的舌頭，舔遍對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Ghost, MoveTypes.Physical, 30, 100);
+    DEX["黑夜魔影"] = new Move("黑夜魔影", "讓對手看見恐怖幻影，給予對手和自己等級相同的傷害。", Types.Ghost, MoveTypes.Special, undefined, 100);
+
 })();
