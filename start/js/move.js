@@ -163,4 +163,14 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["啄"] = new Move("啄", "用尖銳的喙或角刺向對手進行攻擊。", Types.Flying, MoveTypes.Physical, 35, 100);
     DEX["神鳥猛擊"] = new Move("神鳥猛擊", "在使用後的下一回合進行攻擊。有時會使對手畏縮。且容易擊中要害。", Types.Flying, MoveTypes.Physical, 140, 90);
 
+    // 初始化所有可用的「毒」屬性招式
+    DEX["溶解液"] = new Move("溶解液", "將強酸潑向對手進行攻擊。有時會降低對手的特防。", Types.Poison, MoveTypes.Special, 40, 100);
+    DEX["溶化"] = new Move("溶化", "藉由細胞的變化讓身體液化，大幅提高自己的防禦。", Types.Poison, MoveTypes.Status, undefined, undefined);
+    DEX["毒瓦斯"] = new Move("毒瓦斯", "將毒瓦斯吹到對手的臉上，讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Status, undefined, 80);
+    DEX["毒針"] = new Move("毒針", "將有毒的針刺進對手進行攻擊。有時會讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Physical, 15, 100);
+    DEX["毒粉"] = new Move("毒粉", "撒出大量的有毒粉末讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Status, undefined, 75);
+    DEX["污泥攻擊"] = new Move("污泥攻擊", "向對手投擲污泥進行攻擊。有時會讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Special, 65, 100);
+    DEX["濁霧"] = new Move("濁霧", "將骯髒的濃霧吹向對手進行攻擊。有時會讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Special, 20, 70);
+    DEX["劇毒"] = new Move("劇毒", "讓對手陷入劇毒狀態。中毒傷害會隨著回合的進行而增加。", Types.Poison, MoveTypes.Status, undefined, 90);
+
 })();
