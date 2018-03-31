@@ -196,4 +196,11 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["舌舔"] = new Move("舌舔", "用長長的舌頭，舔遍對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Ghost, MoveTypes.Physical, 30, 100);
     DEX["黑夜魔影"] = new Move("黑夜魔影", "讓對手看見恐怖幻影，給予對手和自己等級相同的傷害。", Types.Ghost, MoveTypes.Special, undefined, 100);
 
+    // 初始化所有可用的「火」屬性招式
+    DEX["火花"] = new Move("火花", "向對手發射小火焰進行攻擊。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 40, 100);
+    DEX["大字爆炎"] = new Move("大字爆炎", "用大字形狀的火焰燒盡對手。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 110, 85);
+    DEX["火焰拳"] = new Move("火焰拳", "用帶有火焰的拳頭攻擊對手。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Physical, 75, 100);
+    DEX["火焰旋渦"] = new Move("火焰旋渦", "將對手困在熊熊燃燒的火焰旋渦中，在４～５回合內進行攻擊。", Types.Fire, MoveTypes.Special, 35, 85);
+    DEX["噴射火焰"] = new Move("噴射火焰", "向對手發射強烈火焰進行攻擊。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 90, 100);
+
 })();
