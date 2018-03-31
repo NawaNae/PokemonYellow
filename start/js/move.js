@@ -185,4 +185,10 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["岩崩"] = new Move("岩崩", "將大岩石猛烈地砸向對手進行攻擊。有時會讓對手畏縮。", Types.Rock, MoveTypes.Physical, 75, 90);
     DEX["落石"] = new Move("落石", "舉起小岩石，向對手投擲進行攻擊。", Types.Rock, MoveTypes.Physical, 50, 90);
 
+    // 初始化所有可用的「蟲」屬性招式
+    DEX["吸血"] = new Move("吸血", "吸取對手的血液進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Bug, MoveTypes.Physical, 80, 100);
+    DEX["飛彈針"] = new Move("飛彈針", "向對手發射銳利的針進行攻擊。可連續攻擊２～５次。", Types.Bug, MoveTypes.Physical, 25, 95);
+    DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, undefined, 95);
+    DEX["雙針"] = new Move("雙針", "將２根針刺進對手，連續２次給予傷害。有時會讓對手陷入中毒狀態。", Types.Bug, MoveTypes.Physical, 25, 100);
+
 })();
