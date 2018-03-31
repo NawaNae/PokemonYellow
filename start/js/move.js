@@ -5,7 +5,6 @@ GameSystem.Classes.Move =
  * 
  * @prop {string} name 招式名稱。
  * @prop {string} description 此招式的敘述。
- * @prop {number} level 此可用此招式的門檻等級。
  * @prop {GameSystem.Classes.StandardStat.Type} type 招式的屬性。
  * @prop {number} power 招式的威力。
  * @prop {number} accuracy 招式的命中率。
@@ -21,10 +20,9 @@ class Move {
      * @param {number} accuracy 招式的命中率。
      * @param {number?} priority 招式的優先度。
      */
-    constructor(name, description, level, type, power, accuracy, priority = 0) {
+    constructor(name, description, type, power, accuracy, priority = 0) {
         this._name = name;
         this._description = description;
-        this._level = level;
         this._type = type;
         this._power = power;
         this._accuracy = accuracy;
@@ -36,9 +34,6 @@ class Move {
 
     set description(newDescription) { this._description = newDescription; }
     get description() { return this._description; }
-
-    set level(newLevel) { this._level = newLevel; }
-    get level() { return this._level; }
 
     set type(newType) { this._type = newType; }
     get type() { return this._type; }
