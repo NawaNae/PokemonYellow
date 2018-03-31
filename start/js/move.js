@@ -250,4 +250,12 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["睡覺"] = new Move("睡覺", "連續睡２回合。回復自己的全部ＨＰ以及治癒所有異常狀態。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
     DEX["瞬間移動"] = new Move("瞬間移動", "停止和野生寶可夢戰鬥並逃走。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
 
+    // 初始化所有可用的「冰」屬性招式
+    DEX["極光束"] = new Move("極光束", "向對手發射七彩光束進行攻擊。有時會降低對手的攻擊。", Types.Ice, MoveTypes.Special, 65, 100);
+    DEX["暴風雪"] = new Move("暴風雪", "將猛烈的暴風雪吹向對手進行攻擊。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Special, 110, 70);
+    DEX["黑霧"] = new Move("黑霧", "放出黑霧，讓場上全體寶可夢的能力變化回到初始狀態。", Types.Ice, MoveTypes.Status, undefined, 100);
+    DEX["冰凍光束"] = new Move("冰凍光束", "向對手發射冰凍光束進行攻擊。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Special, 90, 100);
+    DEX["冰凍拳"] = new Move("冰凍拳", "用帶有寒氣的拳頭攻擊對手。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Physical, 75, 100);
+    DEX["白霧"] = new Move("白霧", "用白霧覆蓋身體。在５回合內不會讓對手降低自己的能力。", Types.Ice, MoveTypes.Status, undefined, 100);
+
 })();
