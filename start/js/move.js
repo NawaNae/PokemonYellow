@@ -214,4 +214,16 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["縮入殼中"] = new Move("縮入殼中", "縮入殼中保護身體，提高自己的防禦。", Types.Water, MoveTypes.Status, undefined, undefined);
     DEX["攀瀑"] = new Move("攀瀑", "以驚人的氣勢撲向對手。有時會讓對手畏縮。", Types.Water, MoveTypes.Physical, 80, 100);
 
+    // 初始化所有可用的「草」屬性招式
+    DEX["吸取"] = new Move("吸取", "吸取對手的養分進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Grass, MoveTypes.Special, 20, 100);
+    DEX["寄生種子"] = new Move("寄生種子", "在對手身上植入種子，每回合吸取對手少許的ＨＰ，用來回復自己的ＨＰ。", Types.Grass, MoveTypes.Status, undefined, 90);
+    DEX["超級吸取"] = new Move("超級吸取", "吸取對手的養分進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Grass, MoveTypes.Special, 40, 100);
+    DEX["花瓣舞"] = new Move("花瓣舞", "在２～３回合內不斷灑出花瓣攻擊對手。招式結束後自己會陷入混亂狀態。", Types.Grass, MoveTypes.Special, 120, 100);
+    DEX["飛葉快刀"] = new Move("飛葉快刀", "飛射葉子，切斬對手進行攻擊。容易擊中要害。", Types.Grass, MoveTypes.Physical, 55, 95);
+    DEX["催眠粉"] = new Move("催眠粉", "撒出大量令人想睡的粉末，讓對手陷入睡眠狀態。", Types.Grass, MoveTypes.Status, undefined, 75);
+    DEX["日光束"] = new Move("日光束", "使用後的第１回合吸收大量日光，並於第２回合發射光束進行攻擊。", Types.Grass, MoveTypes.Special, 120, 100);
+    DEX["蘑菇孢子"] = new Move("蘑菇孢子", "大把撒出有催眠效果的孢子，讓對手陷入睡眠狀態。", Types.Grass, MoveTypes.Status, undefined, 100);
+    DEX["麻痺粉"] = new Move("麻痺粉", "撒出大量令人麻痺的粉末，讓對手陷入麻痺狀態。", Types.Grass, MoveTypes.Status, undefined, 75);
+    DEX["藤鞭"] = new Move("藤鞭", "將如同鞭子般彎曲而細長的藤蔓甩向對手進行攻擊。", Types.Grass, MoveTypes.Physical, 35, 100);
+
 })();
