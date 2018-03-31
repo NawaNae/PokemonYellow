@@ -154,4 +154,13 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["地球上投"] = new Move("地球上投", "利用引力將對手甩飛出去。給予對手和自己等級相同的傷害。", Types.Fighting, MoveTypes.Physical, undefined, 100);
     DEX["地獄翻滾"] = new Move("地獄翻滾", "將對手連同自己一起摔向地面進行攻擊。自己也會受到少許傷害。", Types.Fighting, MoveTypes.Physical, 80, 80);
 
+    // 初始化所有可用的「飛行」屬性招式
+    DEX["翅膀攻擊"] = new Move("翅膀攻擊", "用大大伸展開來的美麗翅膀，撞向對手進行攻擊。", Types.Flying, MoveTypes.Physical, 60, 100);
+    DEX["啄鑽"] = new Move("啄鑽", "一邊旋轉，一邊將尖喙刺進對手進行攻擊。", Types.Flying, MoveTypes.Physical, 80, 100);
+    DEX["飛翔"] = new Move("飛翔", "使用後的第１回合飛上天空，並於第２回合攻擊對手。", Types.Flying, MoveTypes.Physical, 90, 95);
+    DEX["起風"] = new Move("起風", "用翅膀刮起狂風，吹向對手進行攻擊。", Types.Flying, MoveTypes.Special, 40, 100);
+    DEX["鸚鵡學舌"] = new Move("鸚鵡學舌", "模仿對手使用的招式，自己也使用相同招式。", Types.Flying, MoveTypes.Status, undefined, 100);
+    DEX["啄"] = new Move("啄", "用尖銳的喙或角刺向對手進行攻擊。", Types.Flying, MoveTypes.Physical, 35, 100);
+    DEX["神鳥猛擊"] = new Move("神鳥猛擊", "在使用後的下一回合進行攻擊。有時會使對手畏縮。且容易擊中要害。", Types.Flying, MoveTypes.Physical, 140, 90);
+
 })();
