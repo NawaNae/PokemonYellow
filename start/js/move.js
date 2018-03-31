@@ -203,4 +203,15 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["火焰旋渦"] = new Move("火焰旋渦", "將對手困在熊熊燃燒的火焰旋渦中，在４～５回合內進行攻擊。", Types.Fire, MoveTypes.Special, 35, 85);
     DEX["噴射火焰"] = new Move("噴射火焰", "向對手發射強烈火焰進行攻擊。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 90, 100);
 
+    // 初始化所有可用的「水」屬性招式
+    DEX["泡沫"] = new Move("泡沫", "將無數的泡泡吹向對手進行攻擊。有時會降低對手的速度。", Types.Water, MoveTypes.Special, 40, 100);
+    DEX["泡沫光線"] = new Move("泡沫光線", "向對手猛烈地噴射泡沫進行攻擊。有時會降低對手的速度。", Types.Water, MoveTypes.Special, 65, 100);
+    DEX["貝殼夾擊"] = new Move("貝殼夾擊", "用非常堅固且厚實的貝殼，在４～５回合內夾住對手進行攻擊。", Types.Water, MoveTypes.Physical, 35, 85);
+    DEX["蟹鉗錘"] = new Move("蟹鉗錘", "用巨大的鉗子敲打對手進行攻擊。容易擊中要害。", Types.Water, MoveTypes.Physical, 100, 90);
+    DEX["水炮"] = new Move("水炮", "向對手猛烈地噴射大量水流進行攻擊。", Types.Water, MoveTypes.Special, 110, 80);
+    DEX["衝浪"] = new Move("衝浪", "使用大浪攻擊自己周圍所有的寶可夢。", Types.Water, MoveTypes.Special, 90, 100);
+    DEX["水槍"] = new Move("水槍", "向對手噴射強烈水流進行攻擊。", Types.Water, MoveTypes.Special, 40, 100);
+    DEX["縮入殼中"] = new Move("縮入殼中", "縮入殼中保護身體，提高自己的防禦。", Types.Water, MoveTypes.Status, undefined, undefined);
+    DEX["攀瀑"] = new Move("攀瀑", "以驚人的氣勢撲向對手。有時會讓對手畏縮。", Types.Water, MoveTypes.Physical, 80, 100);
+
 })();
