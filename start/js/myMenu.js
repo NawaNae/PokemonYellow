@@ -18,6 +18,9 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     },
 
     load: function () {
+        this.music= Load.audio( define.musicPath+"background/101 Opening.mp3");
+        this.music.loop=true;   
+        
         this.menu = new Framework.Sprite(define.imagePath+"Title.png");//"https://imgur.com/6vHYJUz.png");
         Framework.Game._canvasContainer.classList.add('visualNovel');
       /*  this.vn = new VisualNovel(Framework.Game._canvasContainer, {
@@ -30,7 +33,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
 
     initialize: function() {
 
-
+        this.music.play();
         //為了讓之後的位置較好操控, new出一個位於中心點且可以黏貼任何東西的容器
         //注意, Position都是用中心點
         this.menu.position = {
@@ -67,7 +70,9 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     },
     keydown:function(e)
     {
-        Framework.Game.goToNextLevel();
+        this.music.pause();
+        Framework.Game.goToLevel('palletTown');
+        
     },
     mouseup: function(e) {
     },
@@ -76,11 +81,13 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         //console.log為Browser提供的function, 可以在debugger的console內看到被印出的訊息                    
        /* this.vn.appendTo();
     this.vn.start();*/
-        Framework.Game.goToNextLevel();
+     this.music.pause();
+        Framework.Game.goToLevel('palletTown')
     },
 
     click:function(e){      
-        Framework.Game.goToNextLevel();
+        this.music.pause();
+        Framework.Game.goToLevel('palletTown')
 /*
         this.vn.appendTo();
         this.vn.start();*/
