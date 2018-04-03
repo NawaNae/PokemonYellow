@@ -232,6 +232,27 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
                 new CS.Position(3, 7)
                 )
             ));
+            this.gates.push(new CS.Connection
+                (
+                    new CS.MapPosition
+                    (
+                    "palletTown",
+                    new CS.Position(8,7)
+                    ),
+                    new CS.MapPosition
+                    (
+                    "protagonistHome1F",
+                    new CS.Position(2, 7)
+                    )
+                ));
+    }
+    initObstacles()
+    {
+        var GS = GameSystem;
+        var CS = GS.Classes;
+        this.obstacles.push(new CS.Rectangle({ x: 3, y: 4 }, { x: 4, y: 5 }));
+        this.obstacles.push(new CS.Rectangle({ x: 0, y: 1 }, { x: 1, y: 1 }));
+        this.obstacles.push(new CS.Rectangle({ x: 3, y: 1 }, { x: 3, y: 1 }));
     }
     load()
     {
