@@ -278,6 +278,9 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         this.nullSprite.position = { x: -1, y: -1 };
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
+        this.music.autoplay=true;
         var CS=GameSystem.Classes;
         var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
@@ -336,6 +339,9 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.nullSprite.position = { x: -1, y: -1 };
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
+        this.music.autoplay=true;
         var KM=GameSystem.Manager.Key;
         var CS=GameSystem.Classes;
         var GS=GameSystem;
@@ -414,6 +420,9 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.nullSprite.position = { x: -1, y: -1 };
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
+        this.music.autoplay=true;
         var CS=GameSystem.Classes;
         var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
