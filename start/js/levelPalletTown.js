@@ -401,10 +401,12 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
     {
         var GS = GameSystem;
         var CS = GS.Classes;
-  /*      this.obstacles.push(new CS.Rectangle({ x: 3, y: 4 }, { x: 4, y: 5 }));
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 1 }, { x: 1, y: 1 }));
-        this.obstacles.push(new CS.Rectangle({ x: 3, y: 1 }, { x: 3, y: 1 }));
-    */ }
+        this.obstacles.push(new CS.Rectangle({ x: 3, y: 3 }, { x: 4, y: 4 }));
+        this.obstacles.push(new CS.Rectangle({ x: 7, y: 1 }, { x: 7, y: 1 }));
+        this.obstacles.push(new CS.Rectangle({ x: 0, y: 6 }, { x: 0, y: 7 }));
+        this.obstacles.push(new CS.Rectangle({ x: 7, y: 6 }, { x: 7, y: 7 }));
+     }
     load()
     {
         /*bug 去除 */
