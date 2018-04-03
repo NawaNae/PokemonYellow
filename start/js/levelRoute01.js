@@ -19,6 +19,47 @@ class Route01 extends GameSystem.Classes.Level
         this.music.loop=true;
         this.size.pos1=new CS.Position(4,0);
         this.size.pos2=new CS.Position(17,39);
+
+       
+
+        this.walker=new CS.MapWalker({mapRef:this.map});
+   
+        this.loadNPCs();
+        this.loadObstacles();
+        this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
+        this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
+        this.keyInput = (e) => {
+            this.normalKeyInput(e);
+        };
+        GS.Manager.Key.keyInput=this.keyInput;
+        
+            
+    }
+    loadObstacles()
+    {
+        var GS=GameSystem;
+        var CS=GS.Classes;
+        this.obstacles.push(new CS.Rectangle({x:5,y:34},{x:9,y:39}));
+        this.obstacles.push(new CS.Rectangle({x:12,y:34},{x:17,y:39}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:29},{x:5,y:29}));
+        this.obstacles.push(new CS.Rectangle({x:9,y:29},{x:17,y:29}));
+        this.obstacles.push(new CS.Rectangle({x:16,y:25},{x:17,y:25}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:25},{x:11,y:25}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:21},{x:4,y:21}));
+        this.obstacles.push(new CS.Rectangle({x:6,y:21},{x:8,y:21}));
+        this.obstacles.push(new CS.Rectangle({x:10,y:21},{x:17,y:21}));
+        this.obstacles.push(new CS.Rectangle({x:13,y:15},{x:4,y:15}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:7},{x:13,y:7}));
+        this.obstacles.push(new CS.Rectangle({x:9,y:6},{x:9,y:11}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:11},{x:8,y:11}));
+        this.obstacles.push(new CS.Rectangle({x:12,y:0},{x:17,y:3}));
+        this.obstacles.push(new CS.Rectangle({x:4,y:0},{x:9,y:3}));
+
+    }
+    loadNPCs()
+    {
+        var GS=GameSystem;
+        var CS=GS.Classes;
         this.gates.push(new CS.Connection
             (
                 new CS.MapPosition
@@ -45,45 +86,6 @@ class Route01 extends GameSystem.Classes.Level
                         new CS.Position(11,39)
                     )
                 ));
- /*       this.obstacles.push(new CS.Rectangle({x:0,y:0},{x:12,y:3}));
-        this.obstacles.push(new CS.Rectangle({x:0,y:4},{x:3,y:23}));*/
-
-        this.walker=new CS.MapWalker({mapRef:this.map});
-   
-        
-       
-        this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
-        this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
-        this.keyInput=(e)=>
-        {
-            if(KM.isMoveKey(e.key))
-            {
-                GS.protagonist.facing=CS.Character.Face[e.key];
-                var newPosition=new CS.Position(GS.protagonist.position.x+GS.protagonist.movePositionVector[e.key].x,
-                    GS.protagonist.position.y+GS.protagonist.movePositionVector[e.key].y
-                );
-                var gate=undefined;
-                
-                // console.log(this.isGateAtThenGetGate(newPosition))
-                if((gate=this.isGateAtThenGetGate(newPosition)))
-                {
-                    let levelName=Framework.Game._findLevelNameByLevel(this);
-                    let anotherPlace=gate.findAnotherPlaceByMapName(levelName);
-                    GS.protagonist.position=anotherPlace.position;
-                    Framework.Game.goToLevel(anotherPlace.mapName);
-                }
-                else if(this.isWalkableAt(newPosition))
-                {
-                    console.log(newPosition);
- 
-                    GS.protagonist.position=newPosition;
-                    this.walker.keyInput(e);
-                }
-            }
-        };
-        GS.Manager.Key.keyInput=this.keyInput;
-        
-            
     }
     initialize() {
         
@@ -115,10 +117,6 @@ class Route01 extends GameSystem.Classes.Level
        // this.map.draw(parentCtx)
     }
 
-    teardown()
-    {
-        this.music.pause();
-    }
 
     touchstart(e) {
         //為了要讓Mouse和Touch都有一樣的事件
