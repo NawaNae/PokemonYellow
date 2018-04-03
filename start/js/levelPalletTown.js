@@ -201,6 +201,7 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHome1F');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
+        this.initObstacles();
         this.initGates();
     }
     initGates()
@@ -290,6 +291,7 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHome2F');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
+        this.initObstacles();
         this.gates.push(new CS.Connection
         (new CS.MapPosition
             (
@@ -302,6 +304,14 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
             new CS.Position(7, 1)
             )
         ));
+    }
+    initObstacles()
+    {
+        var GS = GameSystem;
+        var CS = GS.Classes;
+        this.obstacles.push(new CS.Rectangle({ x: 6, y: 6 }, { x: 6, y: 7 }));
+        this.obstacles.push(new CS.Rectangle({ x: 3, y: 4 }, { x: 3, y: 5 }));
+        this.obstacles.push(new CS.Rectangle({ x: 0, y: 1 }, { x: 2, y: 1 }));
     }
     load()
     {
