@@ -106,11 +106,13 @@ class PalletTown extends GameSystem.Classes.Level {
         this.music.loop=true;
         this.music.autoplay=true;
         GS.Manager.Key.keyInput = this.keyInput;
-        this.loadNPCs();
         this.map = new CS.Image(define.imagePath + 'palletTown.png');
+        this.rootScene.attach(this.map);
+        this.loadNPCs();
+        
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
-        this.rootScene.attach(this.map);
+
         this.walker = new CS.MapWalker({ mapRef: this.map });
     }
     loadNPCs()
@@ -173,10 +175,7 @@ class PalletTown extends GameSystem.Classes.Level {
         /*bug 去除 */
        
     }
-    teardown()
-    {
-        this.music.pause();
-    }
+
 
 
 
