@@ -193,6 +193,8 @@ class Level extends Framework.Level
     }
     teardown()
     {
+        if(this.music)
+            this.music.pause();
         this.counter.fpsCount=false;
     }
 }
