@@ -1,6 +1,7 @@
 var loadFrameworkEnd;
 Load.js.import(
 [
+    { src: define.frameworkPath+'jquery-2.1.4.min.js'},
     { src: define.frameworkPath+'config.js' },
     { src: define.frameworkPath+'Record.js' },
     { src: define.frameworkPath+'Replay.js' },
@@ -28,7 +29,7 @@ Load.js.import(
     { src: define.frameworkPath+'polygonComponent.js' },
     { src: define.frameworkPath+'squareComponent.js' },
     { src: define.frameworkPath + 'triangleComponent.js' },
-    { src: define.jsPath + 'loadGame.js', lookFor: 'loadGameEnd' }//¸ü¤J¹CÀ¸
+    { src: define.jsPath + 'loadGame.js', lookFor: 'loadGameEnd' }//ï¿½ï¿½ï¿½Jï¿½Cï¿½ï¿½
 ]);
     
 
