@@ -14,6 +14,9 @@ class Route01 extends GameSystem.Classes.Level
 
         this.map = new CS.Image(define.imagePath + 'route01.png');
         this.rootScene.attach(this.map);
+        this.music=Load.audio(define.musicPath+"background/106 The Road To Viridian City From Palette.mp3");
+        this.music.autoplay=true;
+        this.music.loop=true;
         this.size.pos1=new CS.Position(4,0);
         this.size.pos2=new CS.Position(17,39);
         this.gates.push(new CS.Connection
@@ -112,7 +115,10 @@ class Route01 extends GameSystem.Classes.Level
        // this.map.draw(parentCtx)
     }
 
-
+    teardown()
+    {
+        this.music.pause();
+    }
 
     touchstart(e) {
         //為了要讓Mouse和Touch都有一樣的事件
