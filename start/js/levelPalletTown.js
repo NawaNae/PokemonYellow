@@ -68,22 +68,39 @@ class PalletTown extends GameSystem.Classes.Level {
                     new CS.Position(3, 7)
                     )
                 ));
+                this.gates.push(new CS.Connection
+                    (
+                    new CS.MapPosition
+                        (
+                        "doctorsHome",
+                        new CS.Position(5, 11)
+                        ),
+                    new CS.MapPosition
+                        (
+                            "palletTown",
+                            new CS.Position(15, 13)
+                        )
+                    ));
     }
     initSubLevels()
     {
         let protagonistHome1F=new ProtagonistHome1F();
         let protagonistHome2F=new ProtagonistHome2F();
         let palletTownHouse1=new PalletTownHouse1();
+        let doctorsHome=new DoctorsHome();
         this.subLevels.push(protagonistHome1F);
         this.subLevels.push(protagonistHome2F);
         this.subLevels.push(palletTownHouse1);
+        this.subLevels.push(doctorsHome);
         for(let level of this.subLevels)
         {
             level.parentLevel=this;
+          
         }
         Framework.Game.addNewLevel({"protagonistHome1F":protagonistHome1F});
         Framework.Game.addNewLevel({"protagonistHome2F":protagonistHome2F});
         Framework.Game.addNewLevel({"palletTownHouse1":palletTownHouse1});
+        Framework.Game.addNewLevel({"doctorsHome":doctorsHome});
     }
     initObstacles()
     {
@@ -367,7 +384,7 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
 class PalletTownHouse1 extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;
-        super(new CS.Position(7, 7), 'palletTownHouse1.png');
+        super(new CS.Position(7, 7), 'palletTownHouse1');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
         this.initObstacles();
@@ -430,6 +447,88 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         KM.keyInput=(e)=>{this.keyInput(e);}
        
         this.map=new CS.Image(define.imagePath+"palletTownHouse1.png");
+        this.walker=new CS.MapWalker({ mapRef: this.map });
+        this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
+        this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+        this.rootScene.attach(this.map);
+    }
+    update() {
+        /*bug 去除 */
+
+        this.nullSprite.position.x--;
+        if (this.nullSprite.position.x < -2)
+            this.nullSprite.position.x = -1;
+        /*bug 去除 */
+
+    }
+  
+}
+class DoctorsHome extends GameSystem.Classes.Level {
+    constructor() {
+        let CS = GameSystem.Classes;
+        super(new CS.Position(9, 11), 'palletTownDoctorsHome');
+        this.size.pos1=new CS.Position(0, 1);
+        this.isSubLevel = true;
+        this.initObstacles();
+        this.initGates();
+    }
+    initGates()
+    {
+        let CS = GameSystem.Classes;
+        this.gates.push(new CS.Connection
+            (
+            new CS.MapPosition
+                (
+                "doctorsHome",
+                new CS.Position(4, 11)
+                ),
+            new CS.MapPosition
+                (
+                "palletTown",
+                new CS.Position(15, 13)
+                )
+            ));
+            this.gates.push(new CS.Connection
+                (
+                new CS.MapPosition
+                    (
+                    "doctorsHome",
+                    new CS.Position(5, 11)
+                    ),
+                new CS.MapPosition
+                    (
+                        "palletTown",
+                        new CS.Position(15, 13)
+                    )
+                ));
+    }
+    initObstacles()
+    {
+        var GS = GameSystem;
+        var CS = GS.Classes;
+        this.obstacles.push(new CS.Rectangle({ x: 0, y: 1 }, { x: 3, y: 1 }));
+        this.obstacles.push(new CS.Rectangle({ x: 6, y: 1 }, { x: 9, y: 1 }));
+        this.obstacles.push(new CS.Rectangle({ x: 6, y: 3 }, { x: 9, y: 3 }));
+        this.obstacles.push(new CS.Rectangle({ x: 6, y: 6 }, { x: 9, y: 7 }));
+        this.obstacles.push(new CS.Rectangle({ x: 7, y: 6 }, { x: 7, y: 7 }));
+     }
+    load()
+    {
+        /*bug 去除 */
+        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
+        this.nullSprite.position = { x: -1, y: -1 };
+        this.rootScene.attach(this.nullSprite);
+        /*bug 去除 */
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
+        this.music.autoplay=true;
+        var CS=GameSystem.Classes;
+        var KM=GameSystem.Manager.Key;
+        var GS=GameSystem;
+        this.keyInput=this.normalKeyInput;
+        KM.keyInput=(e)=>{this.keyInput(e);}
+       
+        this.map=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
         this.walker=new CS.MapWalker({ mapRef: this.map });
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
