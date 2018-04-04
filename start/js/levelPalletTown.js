@@ -126,26 +126,19 @@ class PalletTown extends GameSystem.Classes.Level {
         this.obstacles.push(new CS.Rectangle({ x: 15, y: 5 }, { x: 18, y: 7 }));
     }
     load() {
-        /*bug 去除 */
-        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
-        this.nullSprite.position = { x: -1, y: -1 };
-        this.rootScene.attach(this.nullSprite);
-        /*bug 去除 */
-
+        super.load();
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=true;
-        GS.Manager.Key.keyInput = this.keyInput;
+        //GS.Manager.Key.keyInput = this.keyInput;
         this.map = new CS.Image(define.imagePath + 'palletTown.png');
         this.rootScene.attach(this.map);
         this.loadNPCs();
-        
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
-
         this.walker = new CS.MapWalker({ mapRef: this.map });
     }
     loadNPCs()
@@ -196,38 +189,7 @@ class PalletTown extends GameSystem.Classes.Level {
                 this.rootScene.attach(npc.image);
         }
     }
-    initialize() {
-
-    }
-    update() {
-        /*bug 去除 */
-
-        this.nullSprite.position.x--;
-        if (this.nullSprite.position.x < -2)
-            this.nullSprite.position.x = -1;
-        /*bug 去除 */
-       
-    }
-
-
-
-
-
-    touchstart(e) {
-        //為了要讓Mouse和Touch都有一樣的事件
-        //又要減少Duplicated code, 故在Touch事件被觸發時, 去Trigger Mouse事件
-        this.click({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-    }
-
-    click(e) {
-
-        if (!this.rectPosition) {
-            return;
-        }
-
-    }
 }
-
 class ProtagonistHome1F extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;
@@ -266,19 +228,19 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
                 new CS.Position(3, 7)
                 )
             ));
-            this.gates.push(new CS.Connection
+        this.gates.push(new CS.Connection
+            (
+                new CS.MapPosition
                 (
-                    new CS.MapPosition
-                    (
-                    "palletTown",
-                    new CS.Position(8,7)
-                    ),
-                    new CS.MapPosition
-                    (
-                    "protagonistHome1F",
-                    new CS.Position(2, 7)
-                    )
-                ));
+                "palletTown",
+                new CS.Position(8,7)
+                ),
+                new CS.MapPosition
+                (
+                "protagonistHome1F",
+                new CS.Position(2, 7)
+                )
+            ));
     }
     initObstacles()
     {
@@ -290,34 +252,17 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
     }
     load()
     {
-        /*bug 去除 */
-        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
-        this.nullSprite.position = { x: -1, y: -1 };
-        this.rootScene.attach(this.nullSprite);
-        /*bug 去除 */
+        super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=true;
         var CS=GameSystem.Classes;
-        var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
-        this.keyInput=this.normalKeyInput;
-        KM.keyInput=(e)=>{this.keyInput(e);}
-       
         this.map=new CS.Image(define.imagePath+"palletTownHome1F.png");
         this.walker=new CS.MapWalker({ mapRef: this.map });
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
-    }
-    update() {
-        /*bug 去除 */
-
-        this.nullSprite.position.x--;
-        if (this.nullSprite.position.x < -2)
-            this.nullSprite.position.x = -1;
-        /*bug 去除 */
-
     }
   
 }
@@ -351,36 +296,19 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
     }
     load()
     {
-        /*bug 去除 */
-        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
-        this.nullSprite.position = { x: -1, y: -1 };
-        this.rootScene.attach(this.nullSprite);
-        /*bug 去除 */
+        super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=true;
-        var KM=GameSystem.Manager.Key;
         var CS=GameSystem.Classes;
         var GS=GameSystem;
-        this.keyInput=(e)=>{this.normalKeyInput(e)};
-        KM.keyInput=this.keyInput;
         this.map=new CS.Image(define.imagePath+"palletTownHome2F.png");
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.walker=new CS.MapWalker({mapRef:this.map});
         this.rootScene.attach(this.map);
     }
-    update() {
-        /*bug 去除 */
-
-        this.nullSprite.position.x--;
-        if (this.nullSprite.position.x < -2)
-            this.nullSprite.position.x = -1;
-        /*bug 去除 */
-
-    }
 }
-
 class PalletTownHouse1 extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;
@@ -432,11 +360,7 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
      }
     load()
     {
-        /*bug 去除 */
-        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
-        this.nullSprite.position = { x: -1, y: -1 };
-        this.rootScene.attach(this.nullSprite);
-        /*bug 去除 */
+        super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=true;
@@ -452,16 +376,6 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
     }
-    update() {
-        /*bug 去除 */
-
-        this.nullSprite.position.x--;
-        if (this.nullSprite.position.x < -2)
-            this.nullSprite.position.x = -1;
-        /*bug 去除 */
-
-    }
-  
 }
 class DoctorsHome extends GameSystem.Classes.Level {
     constructor() {
@@ -488,19 +402,19 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 new CS.Position(15, 13)
                 )
             ));
-            this.gates.push(new CS.Connection
+        this.gates.push(new CS.Connection
+            (
+            new CS.MapPosition
                 (
-                new CS.MapPosition
-                    (
-                    "doctorsHome",
-                    new CS.Position(5, 11)
-                    ),
-                new CS.MapPosition
-                    (
-                        "palletTown",
-                        new CS.Position(15, 13)
-                    )
-                ));
+                "doctorsHome",
+                new CS.Position(5, 11)
+                ),
+            new CS.MapPosition
+                (
+                    "palletTown",
+                    new CS.Position(15, 13)
+                )
+            ));
     }
     initObstacles()
     {
@@ -514,34 +428,16 @@ class DoctorsHome extends GameSystem.Classes.Level {
      }
     load()
     {
-        /*bug 去除 */
-        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
-        this.nullSprite.position = { x: -1, y: -1 };
-        this.rootScene.attach(this.nullSprite);
-        /*bug 去除 */
+        super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=true;
         var CS=GameSystem.Classes;
-        var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
-        this.keyInput=this.normalKeyInput;
-        KM.keyInput=(e)=>{this.keyInput(e);}
-       
         this.map=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
         this.walker=new CS.MapWalker({ mapRef: this.map });
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
     }
-    update() {
-        /*bug 去除 */
-
-        this.nullSprite.position.x--;
-        if (this.nullSprite.position.x < -2)
-            this.nullSprite.position.x = -1;
-        /*bug 去除 */
-
-    }
-  
 }

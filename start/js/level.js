@@ -71,6 +71,37 @@ class Level extends Framework.Level
             dialog:1
         };
     }
+    load()
+    {
+        this.loadNullSprite();
+        GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
+    }
+    loadNullSprite()
+    {
+        /*bug 去除 */
+        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
+        this.nullSprite.position = { x: -1, y: -1 };
+        this.rootScene.attach(this.nullSprite);
+        /*bug 去除 */
+    }
+    update()
+    {
+        /*bug 去除 */
+  
+        this.nullSprite.position.x--;
+        if (this.nullSprite.position.x < -2)
+            this.nullSprite.position.x = -1;
+        /*bug 去除 */
+    }
+    touchstart(e) {
+        //為了要讓Mouse和Touch都有一樣的事件
+        //又要減少Duplicated code, 故在Touch事件被觸發時, 去Trigger Mouse事件
+        this.click({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    }
+    keyInput(e)
+    {
+        this.normalKeyInput(e);
+    }
     draw(parentCtx) {
         this.counter.countIncrease();
          parentCtx.fillStyle = "black";
