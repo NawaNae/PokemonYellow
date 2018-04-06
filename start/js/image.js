@@ -28,11 +28,29 @@ GameSystem.Classes.Image=class GameImage
         this._src=src;
         this.image=Load.image(src);
         this.visible=true;
-        Framework.ResourceManager.loadImage({id:src, url:src});
-        Framework.Game._currentLevel._allGameElement.push(this);//視為遊戲物件
+      //  Framework.Game._currentLevel._allGameElement.push(this);//視為遊戲物件
+    }
+    addToLevelByLevelName(name)
+    {
+        let level=Framework.Game._findLevel(name);
+        level._allGameElement.push(this);
+    }
+    addToCurrentLevel()
+    {
+        Framework.Game._currentLevel._allGameElement.push(this);
+    }
+    addToAllLevels()
+    {
+        Framework.Game._levels.forEach((ele)=>
+        {
+            ele.level._allGameElement.push(this);
+        });
     }
     load()
-    {}
+    {
+        if(this.image)
+            Framework.Game._currentLevel.rootScene.attach(this.image);
+    }
     initialize()
     {
         
