@@ -23,6 +23,13 @@ class Character {
         this._position = position || new GameSystem.Classes.Position(0, 0);
         this._update=()=>{this.update();};
         this.image = image;
+        let aList=GameSystem.Classes.AnimationList;
+        this.animationLists={
+            Up:new aList,
+            Down:new aList,
+            Left:new aList,
+            Right:new aList
+        }
         this.newPosition;
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
@@ -67,7 +74,24 @@ class Character {
          
         }
     get image() { return this._image; }
-    set facing(newDirection){this._facing=newDirection;}
+    set facing(newDirection)
+    {
+        this._facing=newDirection;
+        let returnVal;
+        if((returnVal=this.animationLists[this.facing].getEletmentByGroupName(this.facing)))
+           {
+                if(returnVal.src)
+                    this.image.src=returnVal.src;
+                if(returnVal.cutSize)
+                    this.image.cutSize=returnVal.cutSize;
+                if(returnVal.cutStartPosition)
+                    this.image.cutStartPosition=returnVal.cutStartPosition;
+                if(returnVal.scale)
+                    this.image.scale=returnVal.scale;
+                
+           
+            }     
+    }
     get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
     get facePosition(){
         let GS=GameSystem;
