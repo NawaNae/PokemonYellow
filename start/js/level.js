@@ -108,11 +108,9 @@ class Level extends Framework.Level
          parentCtx.fillRect(0, 0, Framework.Game.getCanvasWidth(), Framework.Game.getCanvasHeight());
  
          this.rootScene.draw(parentCtx);
-         parentCtx.fillStyle = "rgba(0,0,0,0.5)";
-         parentCtx.fillRect(4 * 16, 4 * 16, 16, 16);
-         parentCtx.fillStyle = "white";
-         parentCtx.font = "12px MBitmapSquareHK"
-         parentCtx.fillText("小智", 4 * 16 + 8, 4 * 16 + 12, 16);
+         parentCtx.fillStyle = "black";
+         parentCtx.font = "12px 新細明體"
+         parentCtx.fillText("小智", 4 * 16 + 8, 3 * 16 + 14);
          // this.map.draw(parentCtx)
      }
     isNPCAtThenGet(position)
