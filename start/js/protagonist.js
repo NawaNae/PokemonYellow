@@ -11,14 +11,22 @@
 GameSystem.Classes.Protagonist = 
 class Protagonist extends GameSystem.Classes.Character {
     constructor(name = "", position, image, atMap) {
-        super(name, position, image);
+        super(name,undefined, position, image);
         this._atMap = atMap;
         this._pokemons = [];
         this._props = [];
         this._money = 3000;
-        this._screenPosition=new GameSystem.Classes.Position(4,4);
+        this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
     }
-
+    updateImagePosition()
+    {
+        let pos=GameSystem.Classes.Protagonist.ScreenPosition.toPoint();
+        if(this._image)
+        {
+            this.image.position.x=pos.x;
+            this.image.position.y=pos.y;
+        }
+    }
     set atMap(newMap) { this._atMap = newMap }
     get atMap() { return this._atMap; }
 
@@ -50,3 +58,4 @@ class Protagonist extends GameSystem.Classes.Character {
         return true;
     }
 }
+GameSystem.Classes.Protagonist.ScreenPosition= Object.freeze(new GameSystem.Classes.Position(4,4));

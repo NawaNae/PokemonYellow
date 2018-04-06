@@ -7,7 +7,8 @@ class PalletTown extends GameSystem.Classes.Level {
         this.initObstacles();
         this.initSubLevels();
         this.initGates();
-        this.counter.fpsCount = true;
+        //this.counter.fpsCount = true;
+       
         this.keyInput = (e) => {
             this.normalKeyInput(e);
         };
@@ -140,6 +141,7 @@ class PalletTown extends GameSystem.Classes.Level {
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.walker = new CS.MapWalker({ mapRef: this.map });
+        this.rootScene.attach(GS.protagonist.image);
     }
     loadNPCs()
     {
@@ -263,6 +265,7 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
+        this.rootScene.attach(GS.protagonist.image);
     }
   
 }
@@ -307,6 +310,7 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.walker=new CS.MapWalker({mapRef:this.map});
         this.rootScene.attach(this.map);
+        this.rootScene.attach(GS.protagonist.image);
     }
 }
 class PalletTownHouse1 extends GameSystem.Classes.Level {
@@ -375,6 +379,7 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
+        this.rootScene.attach(GS.protagonist.image);
     }
 }
 class DoctorsHome extends GameSystem.Classes.Level {
@@ -439,5 +444,6 @@ class DoctorsHome extends GameSystem.Classes.Level {
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.rootScene.attach(this.map);
+        this.rootScene.attach(GS.protagonist.image);
     }
 }

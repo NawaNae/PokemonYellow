@@ -2,12 +2,7 @@ class Route01 extends GameSystem.Classes.Level
 {
     load ()
     {
-        /*bug 去除 */ 
-        this.nullSprite = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
-        this.nullSprite.position = { x: -1, y: -1 };
-        this.rootScene.attach(this.nullSprite);
-        /*bug 去除 */ 
-
+        super.load();
         var GS=GameSystem;
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
@@ -32,6 +27,7 @@ class Route01 extends GameSystem.Classes.Level
             this.normalKeyInput(e);
         };
         GS.Manager.Key.keyInput=this.keyInput;
+        this.rootScene.attach(GS.protagonist.image);
         
             
     }
@@ -90,32 +86,7 @@ class Route01 extends GameSystem.Classes.Level
     initialize() {
         
     }
-    update() {
-        /*bug 去除 */ 
-       this.nullSprite.position.x--;
-       if (this.nullSprite.position.x < -2)
-           this.nullSprite.position.x =-1;
-       /*bug 去除 */
-    }
 
-    draw(parentCtx) {
-        if( this.count==0) 
-            this.lastTime=Date.now();
-       
-        if(this.count==59)
-           // console.log(Date.now()-this.lastTime);
-        this.count=(this.count+1)%60;
-        parentCtx.fillStyle="black";
-        parentCtx.fillRect(0,0,Framework.Game.getCanvasWidth(),Framework.Game.getCanvasHeight());
-
-       this.rootScene.draw(parentCtx);
-       parentCtx.fillStyle="rgba(0,0,0,0.5)";
-       parentCtx.fillRect(4*16,4*16,16,16);
-       parentCtx.fillStyle="white";
-       parentCtx.font="12px MBitmapSquareHK"
-       parentCtx.fillText("小智",4*16+8,4*16+12,16);
-       // this.map.draw(parentCtx)
-    }
 
 
     touchstart(e) {
