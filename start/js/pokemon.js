@@ -65,10 +65,19 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
     /**
      * 檢查此寶可夢是否擁有此招式。
-     * @param {Gamesystem.Classes.Move} move 要檢查的目標招式。
+     * @param {GameSystem.Classes.Move} move 要檢查的目標招式。
      * @return {boolean} 此寶可夢是否擁有此招式。
      */
     isHaveMove(move) {
         return this._moves.indexOf(move) >= 0;
+    }
+
+    /**
+     * 隨機取得目前寶可夢所擁有的招式。
+     * @return {GameSystem.Classes.Move} 隨機取得得招式。
+     */
+    randomlyTakeMove() {
+        let index = Math.floor(Math.random() * this._moves.length);
+        return this._moves[index];
     }
 }
