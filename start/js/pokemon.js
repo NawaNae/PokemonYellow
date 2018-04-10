@@ -47,6 +47,9 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     set exp(newExp) { this._exp = exp; }
     get exp() { return this._exp; }
 
+    get typeA() { return this._typeInfo.typeA; }
+    get typeB() { return this._typeInfo.typeB; }
+
     /**
      * 更新寶可夢的五個基本數值。
      */
