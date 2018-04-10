@@ -10,6 +10,14 @@ class EffortValue extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 取得努力值的副本。
+     * @return {GameSystem.Classes.EffortValue} 此努力值的副本。
+     */
+    clone() {
+        return new GameSystem.Classes.EffortValue(this._maxHP, this._attack, this._defense, this._special, this._speed);
+    }
+
+    /**
      * 傳回一個新的、空的努力值物件。
      * @return {EffortValue} 一個新的、空的努力值物件。
      */
