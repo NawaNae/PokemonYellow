@@ -83,4 +83,27 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         let index = Math.floor(Math.random() * this._moves.length);
         return this._moves[index];
     }
+
+    /**
+     * 建立一個此寶可夢的副本。
+     * @return {GameSystem.Classes.Pokemon} 新的寶可夢。
+     */
+    clone() {
+        let Pokemon = GameSystem.Classes.Pokemon;
+        let newPokemon = new Pokemon(this._name, this._typeInfo);   // 建立初始寶可夢副本
+        newPokemon.maxHP = this.maxHP;          // 最大HP
+        newPokemon.attack = this.attack;        // 攻擊力
+        newPokemon.defense = this.defense;      // 防禦力
+        newPokemon.special = this.special;      // 特殊值
+        newPokemon.speed = this.speed;          // 速度值
+        newPokemon.level = this.level;          // 等級
+        newPokemon.exp = this.exp;              // 經驗
+        newPokemon.HP = this.HP;                // HP
+        newPokemon._IV = this._IV;              // 個體質
+        newPokemon._EV = this._EV;              // 努力值
+        newPokemon._moves = this._moves;        // 所學招式
+        newPokemon.updateAbilities();
+
+        return newPokemon;
+    }
 }
