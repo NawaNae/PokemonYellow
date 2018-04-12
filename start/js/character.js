@@ -112,10 +112,13 @@ class Character {
     get image() { return this._image; }
     set facing(newDirection)
     {
+        if(newDirection.constructor.name=="String")
+            newDirection=GameSystem.Classes.Character.Face[newDirection];
         this._facing=newDirection;
         let returnVal;
         this.stopPlayAnimation();
-        this.playListAnimation(this.animationLists[this.facing]);
+        if(this.animationLists[this.facing].length>0)
+            this.playListAnimation(this.animationLists[this.facing]);
     }
     get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
     get facePosition(){
