@@ -16,8 +16,19 @@ class HTMLObjectContainer
         this.displayClassName=["hide","show"];
         this.visible=visible||false;//初始化可不可視
         this.dialog=new GameSystem.Classes.Dialog();
+        this.options=new GameSystem.Classes.Options();
+        console.log(this.options);
+        this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑"));
+        this.options.push(new GameSystem.Classes.Option("寶可夢"));
+        this.options.push(new GameSystem.Classes.Option("道具"));
+        this.options.push(new GameSystem.Classes.Option("角色資料"));
+        this.options.push(new GameSystem.Classes.Option("儲存"));
+        this.options.push(new GameSystem.Classes.Option("離開"));
+        this.options.options[0].select=true;
+        this.options.optionsLoop=true;
         this.childrenList=[];
         this.addChild(this.dialog);
+        this.addChild(this.options);
         document.body.append(this.container);
         this.resizeCanvas=(width,height)=>
         {
