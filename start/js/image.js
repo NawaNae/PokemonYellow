@@ -59,6 +59,23 @@ GameSystem.Classes.Image=class GameImage
     {
 
     }
+    copy(image)
+    {
+        if(image.src)
+            this.src=image.src;
+       if(image.cutSize)
+            this.cutSize=image.cutSize;
+        if(image.cutStartPosition)
+            this.cutStartPosition=image.cutStartPosition;
+       if(image.scale)
+            this.scale=image.scale;
+        if(image.position)
+            this.position=image.position;
+        if(image.visible)
+            this.visible=image.visible;
+        if(image.displaySize)
+            this.displaySize=image.displaySize;
+    }
     show(){this.visible=true;}
     hide(){this.visible=false;}
    get src(){return this._src}
