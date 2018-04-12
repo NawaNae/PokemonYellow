@@ -47,6 +47,9 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     set exp(newExp) { this._exp = exp; }
     get exp() { return this._exp; }
 
+    get typeA() { return this._typeInfo.typeA; }
+    get typeB() { return this._typeInfo.typeB; }
+
     /**
      * 更新寶可夢的五個基本數值。
      */
@@ -65,10 +68,42 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
     /**
      * 檢查此寶可夢是否擁有此招式。
-     * @param {Gamesystem.Classes.Move} move 要檢查的目標招式。
+     * @param {GameSystem.Classes.Move} move 要檢查的目標招式。
      * @return {boolean} 此寶可夢是否擁有此招式。
      */
     isHaveMove(move) {
         return this._moves.indexOf(move) >= 0;
+    }
+
+    /**
+     * 隨機取得目前寶可夢所擁有的招式。
+     * @return {GameSystem.Classes.Move} 隨機取得得招式。
+     */
+    randomlyTakeMove() {
+        let index = Math.floor(Math.random() * this._moves.length);
+        return this._moves[index];
+    }
+
+    /**
+     * 建立一個此寶可夢的副本。
+     * @return {GameSystem.Classes.Pokemon} 新的寶可夢。
+     */
+    clone() {
+        let Pokemon = GameSystem.Classes.Pokemon;
+        let newPokemon = new Pokemon(this._name, this._typeInfo);   // 建立初始寶可夢副本
+        newPokemon.maxHP = this.maxHP;          // 最大HP
+        newPokemon.attack = this.attack;        // 攻擊力
+        newPokemon.defense = this.defense;      // 防禦力
+        newPokemon.special = this.special;      // 特殊值
+        newPokemon.speed = this.speed;          // 速度值
+        newPokemon.level = this.level;          // 等級
+        newPokemon.exp = this.exp;              // 經驗
+        newPokemon.HP = this.HP;                // HP
+        newPokemon._IV = this._IV;              // 個體質
+        newPokemon._EV = this._EV;              // 努力值
+        newPokemon._moves = this._moves;        // 所學招式
+        newPokemon.updateAbilities();
+
+        return newPokemon;
     }
 }
