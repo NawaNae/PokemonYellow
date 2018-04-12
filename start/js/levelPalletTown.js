@@ -147,6 +147,7 @@ class PalletTown extends GameSystem.Classes.Level {
     {
         var GS = GameSystem;
         var CS = GS.Classes;
+        this.npcs=[];
         this.npcs.push(
             new CS.NPC("TestNPC", 
                                        CS.Character.Face.Up,
@@ -185,10 +186,126 @@ class PalletTown extends GameSystem.Classes.Level {
                 )
             )
         );
+        let rotateNPC=new CS.NPC(
+            "drawTestNPC",
+            CS.Character.Face.Up,
+            new CS.Position(12, 8),
+            new CS.Image(define.imagePath+"Protagonist.png",{cutStartPosition:{x:0,y:0},cutSize:{x:16,y:16}}),
+            undefined,
+            new CS.Plot(
+                "TestCH", 
+                [
+                    new CS.Paragraph("旋轉 跳躍 我不停歇"),
+                    new CS.Paragraph("對了 我是主人公拉"),
+                ]
+            )
+        )
+        let Item=CS.AnimationItem;
+        let Position=CS.Position;
+        rotateNPC.animationLists.Up.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Up",
+                cutStartPosition:new Position(1,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Up.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Up",
+                cutStartPosition:new Position(6,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Up.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Up",
+                cutStartPosition:new Position(7,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Down.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Down",
+                cutStartPosition:new Position(0,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Down.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Down",
+                cutStartPosition:new Position(4,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Down.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Down",
+                cutStartPosition:new Position(5,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Left.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Left",
+                cutStartPosition:new Position(2,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Left.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Left",
+                cutStartPosition:new Position(8,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Right.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Right",
+                cutStartPosition:new Position(3,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.animationLists.Right.push(new Item(
+            define.imagePath+"Protagonist.png",
+            {
+                group:"Right",
+                cutStartPosition:new Position(9,0),
+                cutSize:new Position(1,1)
+            }
+        ));
+        rotateNPC.i=0;
+        rotateNPC.faceMapping=
+        [
+            "Up",
+            "Right",
+            "Down",
+            "Left"
+        ]
+
+        rotateNPC.update=function()
+        {
+
+            if((i%60)==0)
+                this.facing=this.faceMapping[i/60];
+            i++;
+            i%=240;
+        }
+        this.npcs.push(rotateNPC);
         for(let npc of this.npcs)
         {
             if(npc.image)
+            {
                 this.rootScene.attach(npc.image);
+            }
         }
     }
 }
