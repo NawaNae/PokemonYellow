@@ -22,7 +22,8 @@ class KeyManagerClass
             Space:false,
             Enter:false,
             K:false,
-            J:false
+            J:false,
+            B:false
         };
         this.keyMapping=
         {
@@ -34,10 +35,11 @@ class KeyManagerClass
             Down:"Down",
             D:"Right",
             Right:"Right",
-            Space:"A",
+            Space:"Start",
             Enter:"A",
             K:"A",
             J:"B",
+            B:"Start",
         };
         this.moveKeys=
         {
@@ -72,7 +74,9 @@ class KeyManagerClass
     {
         var key=keyEvent.key;
         key=key.replace("Arrow","");
-        if(key.length==1)
+        if(key==" ")
+            key="Space";
+        else if(key.length==1)
             key=key.toUpperCase();
         return key;
     }
@@ -97,8 +101,10 @@ class KeyManagerClass
     {
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
+        console.log(key + me.isGameKey(key));
         if(me.isGameKey(key))
         {
+            
             me.nowPressKey=key;
             if(me.lockPressKey=="")    
             {
