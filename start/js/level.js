@@ -68,8 +68,15 @@ class Level extends Framework.Level
         this.inputModes=
         {
             walk:0,
-            dialog:1
+            dialog:1,
+            options:2
         };
+        this.inputFunctions=
+        {
+            0:this.walkKeyInput,
+            1:this.dialogKeyInput,
+            2:this.optionsKeyInput
+        }
     }
     load()
     {
@@ -168,6 +175,7 @@ class Level extends Framework.Level
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
        var npc=undefined;
+       console.log(e.key);
         if (KM.isMoveKey(e.key)) {
             
             let key = KM.moveKeys[e.key];
@@ -203,6 +211,15 @@ class Level extends Framework.Level
                 this.inputMode=this.inputModes.dialog;
             }
         }
+        else if(KM.keyMapping[e.key]=="Start")
+        {
+            console.log("start");
+            let options=GameSystem.HTMLObjectContainer.options;
+            let container=GameSystem.HTMLObjectContainer;
+            container.visible=true;
+            options.visible=true;
+            this.inputMode=this.inputModes.options;
+        }
     }
     dialogKeyInput(e)
     {
@@ -219,6 +236,32 @@ class Level extends Framework.Level
         dialog.text=npc.plot.content[npc.plot.index++].text;
         
         
+    }
+    optionsKeyInput(e)
+    {
+        let GS=GameSystem;
+        let KM=GS.Manager.Key;
+        let options=GameSystem.HTMLObjectContainer.options;
+        let container=GameSystem.HTMLObjectContainer;
+        switch(KM.keyMapping[e.key])
+        {
+            case "Up":
+            options.selectLast();
+            break;
+            case "Down":
+            options.selectNext();
+            break;
+            case "A":
+            
+            break;
+            case "B":
+            case "Start":
+            this.inputMode=this.inputModes.walk;
+            container.visible=false;
+            options.visible=false;
+            break;
+        }
+      
     }
     teardown()
     {
