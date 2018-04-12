@@ -1,11 +1,14 @@
 GameSystem.Classes.Option=
 class Option extends DisplayInformation.Text
 {
-    constructor(text="",elementTypeString='div')
+    constructor(text="",selectSendFunction,elementTypeString='div')
     {
         let skip=undefined;
         super(text,skip,skip,"option",elementTypeString);
         this.displayClassName=["hide","show"];
+        this.selectSend=selectSendFunction||this.selectSendFunction;
+        this._selectSend=()=>{this.selectSend();}
+        
     }
     get visible()
     {return !this._display.classList.contains(this.displayClassName[0]);}
@@ -18,12 +21,26 @@ class Option extends DisplayInformation.Text
     {this.visible=true;}
     hide()
     {this.visible=false}
+    checkChanged()
+    {
+
+    }
+    selectSend()
+    {
+
+    }
     set select(value)
     {
         if(this._display.classList.contains("select")&&!value)
+        {
             this._display.classList.remove("select");
+            (()=>{this.checkChanged()})();
+        }
         else if(!this._display.classList.contains("select")&&value)
+        {
             this._display.classList.add("select");
+            (()=>{this.checkChanged()})();
+        }
     }
     get select()
     {
