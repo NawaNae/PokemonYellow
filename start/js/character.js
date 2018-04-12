@@ -54,6 +54,43 @@ class Character {
             this.image.position.y=-protaPos.y+protaScPos.y+myPos.y;
         }
     }
+    playListAnimation(list)
+    {
+        let period=GameSystem.Manager.Key.lockTime/list.length;
+        this.playList=list;
+        let timeFucn=()=>{
+            list.index++;
+            list.index%=list.length;
+            this.image.copy(list[list.index]);
+            if(list.index==0)
+            {
+                this.timeNumber=undefined;
+                this.playList=undefined;
+                this.playEndAnimation();
+            }
+            else
+                this.timeNumber=setTimeout(timeFucn,period);
+        }
+        if(list.length==1)
+            this.playEndAnimation();
+        else
+            timeFucn();
+    }
+    stopPlayAnimation()
+    {
+        if(this.timeNumber)
+        {
+            clearTimeout(this.timeNumber);
+            this.image.src=this.playList[0];
+            this.playList=undefined;
+            this.timeNumber=undefined;
+        }
+
+    }
+    playEndAnimation()
+    {
+
+    }
     set name(newName) { this._name = newName; }
     get name() { return name; }
     set position(newPosition) 
@@ -71,26 +108,14 @@ class Character {
             this._image.update=this._update;
             
         }
-         
-        }
+    }
     get image() { return this._image; }
     set facing(newDirection)
     {
         this._facing=newDirection;
         let returnVal;
-        if((returnVal=this.animationLists[this.facing].getEletmentByGroupName(this.facing)))
-           {
-                if(returnVal.src)
-                    this.image.src=returnVal.src;
-                if(returnVal.cutSize)
-                    this.image.cutSize=returnVal.cutSize;
-                if(returnVal.cutStartPosition)
-                    this.image.cutStartPosition=returnVal.cutStartPosition;
-                if(returnVal.scale)
-                    this.image.scale=returnVal.scale;
-                
-           
-            }     
+        this.stopPlayAnimation();
+        this.playListAnimation(this.animationLists[this.facing]);
     }
     get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
     get facePosition(){
