@@ -215,7 +215,6 @@ class Level extends Framework.Level
         }
         else if(KM.keyMapping[e.key]=="Start")
         {
-            console.log("start");
             let options=GameSystem.HTMLObjectContainer.options;
             let container=GameSystem.HTMLObjectContainer;
             container.visible=true;

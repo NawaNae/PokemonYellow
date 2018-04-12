@@ -14,7 +14,7 @@ function gameSystemLoaded()
         )
     );
     let protagonist=GS.protagonist;
-    console.log(protagonist);
+ //   console.log(protagonist);
     let Item=CS.AnimationItem;
     let Position=CS.Position;
     protagonist.image.addToAllLevels();

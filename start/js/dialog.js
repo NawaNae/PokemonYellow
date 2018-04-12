@@ -15,6 +15,7 @@ class Dialog extends DisplayInformation.Text
         super(text,skip,skip,"dialog",elementTypeString);
         var skip=undefined;
         this.displayClassName=["hide","show"];
+        this.visible=false;
     }
     get visible()
     {return !this._display.classList.contains(this.displayClassName[0]);}

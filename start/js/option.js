@@ -6,8 +6,8 @@ class Option extends DisplayInformation.Text
         let skip=undefined;
         super(text,skip,skip,"option",elementTypeString);
         this.displayClassName=["hide","show"];
-        this.selectSend=selectSendFunction||this.selectSendFunction;
-        this._selectSend=()=>{this.selectSend();}
+        let selectSend=()=>{console.log(this.text+"selected")};
+        this.selectSend=selectSendFunction||selectSend;
         
     }
     get visible()
@@ -25,10 +25,7 @@ class Option extends DisplayInformation.Text
     {
 
     }
-    selectSend()
-    {
 
-    }
     set select(value)
     {
         if(this._display.classList.contains("select")&&!value)

@@ -101,7 +101,7 @@ class KeyManagerClass
     {
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
-        console.log(key + me.isGameKey(key));
+
         if(me.isGameKey(key))
         {
             
