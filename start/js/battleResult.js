@@ -3,12 +3,35 @@
  * @classdesc 紀錄寶可夢一回合戰鬥的結果與動畫。
  * 
  * @prop {List} actionList 存放動畫、動作的清單。
+ * @prop {number} status 狀態。 0=雙方都可再戰鬥；1=玩家方無法再戰鬥；2=對手方無法再戰鬥
  */
 GameSystem.Classes.BattleResult =
 class BattleResult {
     constructor() {
         this._actionList = [];
+        this._status = 0;
     }
+
+    /** 判別結果，玩家是否贏了戰鬥。
+     * @return {boolean} 玩家是否贏了戰鬥。
+     */
+    isPlayerWin() { return this._status == 2; }
+
+    /** 判斷結果，對手是否贏了戰鬥。
+     * @return {boolean} 對手是否贏了戰鬥。
+     */
+    isOpponentWin() { return this._status == 1; }
+
+    /** 判斷結果，是否雙方都可以再進行戰鬥。
+     * @return {boolean} 是否雙方都可以再進行戰鬥
+     */
+    isDraw () { return this._status == 0; }
+
+    /** 設定結果: 玩家贏了這場戰鬥。*/
+    playerWins() { this._status = 2; }
+
+    /** 設定結果: 對手贏了這場戰鬥。*/
+    opponentWins() { this._status = 1; }
 
     /** 
      * 將訊息新增至「戰鬥結果」中。
