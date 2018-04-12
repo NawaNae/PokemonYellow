@@ -15,12 +15,6 @@ class Options
         option.appendTo(this._display);
         this.options.push(option);
     }
-    select(text)
-    {
-        this.options.forEach((ele)=>{
-            ele.select=ele.text==text;
-        });
-    }
     selectLast()
     {
         let lastEle=(!this.optionsLoop)?this.options[0]:this.options[this.options.length-1];
@@ -35,6 +29,10 @@ class Options
             lastEle=ele;
         }
     }
+    find(text)
+    {
+        return this.options.find((option)=>{return option.name==text});
+    }
     appendTo(father)
     {
         father.append(this._display);
@@ -45,7 +43,7 @@ class Options
     }
     selectSend()
     {
-        this.select._selectSend();
+        this.select.selectSend();
     }
     selectNext()
     {
