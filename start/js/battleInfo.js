@@ -12,7 +12,8 @@
 GameSystem.Classes.BattleInfo =
 class BattleInfo {
     constructor(pokemon) {
-        this._pokemon = pokemon;
+        this._original = pokemon;
+        this._pokemon = pokemon.clone();
         this._attackLevel = 0;
         this._defenseLevel = 0;
         this._speedLevel = 0;
@@ -37,6 +38,21 @@ class BattleInfo {
     set evasionRateLevel(newEvasionRate) { this._evasionRateLevel = newEvasionRate; }
     get evasionRateLevel() { return this._evasionRateLevel; }
 
+    /**
+     * 實作「寶可夢接受傷害」的動作
+     * @param {number} damage 傷害數值。
+     * @return {boolean} 表示此寶可夢是否被打到瀕死。
+     */
+    acceptDamage(damage) {
+        this._pokemon.HP = this._pokemon.HP - damage;
+        if (this._pokemon.HP <= 0) {
+            this._original.HP = 0;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     changePokemon(pokemon) {
         this._pokemon = pokemon;
