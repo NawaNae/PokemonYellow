@@ -166,6 +166,9 @@ class Level extends Framework.Level
             case this.inputModes.dialog:
             this.dialogKeyInput(e);
             break;
+            case this.inputModes.options:
+            this.optionsKeyInput(e);
+            break;
         }
     }
     walkKeyInput(e)
@@ -175,7 +178,6 @@ class Level extends Framework.Level
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
        var npc=undefined;
-       console.log(e.key);
         if (KM.isMoveKey(e.key)) {
             
             let key = KM.moveKeys[e.key];
@@ -239,6 +241,7 @@ class Level extends Framework.Level
     }
     optionsKeyInput(e)
     {
+
         let GS=GameSystem;
         let KM=GS.Manager.Key;
         let options=GameSystem.HTMLObjectContainer.options;
@@ -252,7 +255,7 @@ class Level extends Framework.Level
             options.selectNext();
             break;
             case "A":
-            
+            options.selectSend();
             break;
             case "B":
             case "Start":
