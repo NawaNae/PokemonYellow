@@ -18,3 +18,9 @@ class BattleAnimation {
     get action() { return this._action; }
     set action(newAction) { this._action = newAction; }
 }
+
+/** 戰鬥「我方攻擊敵方」的動畫字典 */
+GameSystem.Classes.BattleAnimation.AttackToDictionary = {};
+
+/** 戰鬥「敵方攻擊我方」的動畫字典 */
+GameSystem.Classes.BattleAnimation.AttackedByDictionary = {};
