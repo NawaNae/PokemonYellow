@@ -26,11 +26,43 @@ function gameSystemLoaded()
             cutSize:new Position(1,1)
         }
     ));
+    protagonist.animationLists.Up.push(new Item(
+        define.imagePath+"Protagonist.png",
+        {
+            group:"Up",
+            cutStartPosition:new Position(6,0),
+            cutSize:new Position(1,1)
+        }
+    ));
+    protagonist.animationLists.Up.push(new Item(
+        define.imagePath+"Protagonist.png",
+        {
+            group:"Up",
+            cutStartPosition:new Position(7,0),
+            cutSize:new Position(1,1)
+        }
+    ));
     protagonist.animationLists.Down.push(new Item(
         define.imagePath+"Protagonist.png",
         {
             group:"Down",
             cutStartPosition:new Position(0,0),
+            cutSize:new Position(1,1)
+        }
+    ));
+    protagonist.animationLists.Down.push(new Item(
+        define.imagePath+"Protagonist.png",
+        {
+            group:"Down",
+            cutStartPosition:new Position(4,0),
+            cutSize:new Position(1,1)
+        }
+    ));
+    protagonist.animationLists.Down.push(new Item(
+        define.imagePath+"Protagonist.png",
+        {
+            group:"Down",
+            cutStartPosition:new Position(5,0),
             cutSize:new Position(1,1)
         }
     ));
@@ -42,11 +74,27 @@ function gameSystemLoaded()
             cutSize:new Position(1,1)
         }
     ));
+    protagonist.animationLists.Left.push(new Item(
+        define.imagePath+"Protagonist.png",
+        {
+            group:"Left",
+            cutStartPosition:new Position(8,0),
+            cutSize:new Position(1,1)
+        }
+    ));
     protagonist.animationLists.Right.push(new Item(
         define.imagePath+"Protagonist.png",
         {
             group:"Right",
             cutStartPosition:new Position(3,0),
+            cutSize:new Position(1,1)
+        }
+    ));
+    protagonist.animationLists.Right.push(new Item(
+        define.imagePath+"Protagonist.png",
+        {
+            group:"Right",
+            cutStartPosition:new Position(9,0),
             cutSize:new Position(1,1)
         }
     ));
