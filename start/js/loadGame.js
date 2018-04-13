@@ -9,6 +9,7 @@ Load.js.import(
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },
         { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
         { src: define.jsPath + 'dialog.js', lookFor: 'GameSystem.Classes.Dialog' },
+        { src: define.jsPath + 'options.js', lookFor: 'GameSystem.Classes.Options' },
         { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },
         { src: define.jsPath + 'yesNoDialog.js', lookFor: 'GameSystem.Classes.YesNoDialog' },
         { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
