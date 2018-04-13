@@ -1,16 +1,24 @@
 GameSystem.Classes.YesNoDialog=
-class YesNoDialog
+class YesNoDialog extends GameSystem.Classes.Options
 {
     constructor()
     {
-        this._display=document.createElement("div");
-        this._display.classList.add("yesNo");
-        let CS=GameSystem.Classes;
-        this.yesOption=new CS.Option("yes");
-        this.noOption=new CS.Option("no");
-        this.yesOption.appendTo(this._display);
-        this.noOption.appendTo(this._display);
-        this.displayClassName=["hide","show"];
+        super();
+        let Option=GameSystem.Classes.Option;
+        this.lastInputMode;
+        this.yesOption=new Option("是");
+        this.noOption=new Option("否");
+        this.push(this.yesOption);
+        this.yesOption.select=true;
+        this.push(this.noOption);
+        this.optionsLoop=false;
+        this._display.classList.add("yesNoDialog")
+    }
+    selectTheOther()
+    {
+        var temp=this.yesOption.select;
+        this.yesOption.select=this.noOption.select;
+        this.noOption.select=!this.noOption.select;
     }
     yes()
     {
@@ -23,14 +31,16 @@ class YesNoDialog
         this.noOption.select=true;
     }
     get visible()
-    {return !this._display.classList.contains(this.displayClassName[0]);}
+    {
+        let level=Framework.Game._currentLevel;
+        if(level)
+            this.lastInputMode=level.inputMode;
+        return !this._display.classList.contains(this.displayClassName[0]);
+    }
     set visible(value)
     {
         this._display.classList.add(this.displayClassName[value|0]);
         this._display.classList.remove(this.displayClassName[(!value)|0]);
     }
-    show()
-    {this.visible=true;}
-    hide()
-    {this.visible=false}
+
 }

@@ -295,7 +295,12 @@ class PalletTown extends GameSystem.Classes.Level {
         {
 
             if((i%60)==0)
+            {   
                 this.facing=this.faceMapping[i/60];
+                this.move(this.facing);
+                this.updateImagePosition();
+                console.log(this.position);
+            };
             i++;
             i%=240;
         }

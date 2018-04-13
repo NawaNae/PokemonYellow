@@ -6,7 +6,8 @@ class Option extends DisplayInformation.Text
         let skip=undefined;
         super(text,skip,skip,"option",elementTypeString);
         this.displayClassName=["hide","show"];
-        let selectSend=()=>{console.log(this.text+"selected")};
+        let selectSend=()=>{
+            while(confirm("你確定要開"+this.text+"?"));};
         this.selectSend=selectSendFunction||selectSend;
         
     }

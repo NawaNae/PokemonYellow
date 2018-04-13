@@ -69,14 +69,9 @@ class Level extends Framework.Level
         {
             walk:0,
             dialog:1,
-            options:2
+            options:2,
+            yesNoDialog:3
         };
-        this.inputFunctions=
-        {
-            0:this.walkKeyInput,
-            1:this.dialogKeyInput,
-            2:this.optionsKeyInput
-        }
     }
     load()
     {
@@ -169,6 +164,9 @@ class Level extends Framework.Level
             case this.inputModes.options:
             this.optionsKeyInput(e);
             break;
+            case this.inputModes.yesNoDialog:
+            this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.yesNoDialog);
+            break;
         }
     }
     walkKeyInput(e)
@@ -177,7 +175,7 @@ class Level extends Framework.Level
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
-       var npc=undefined;
+       this.npcTalkNow=undefined;//記錄對話的NPC
         if (KM.isMoveKey(e.key)) {
             
             let key = KM.moveKeys[e.key];
@@ -201,15 +199,16 @@ class Level extends Framework.Level
         }else
         if(KM.keyMapping[e.key]=="A")
         {
-            if((npc=this.isNPCAtThenGet(GS.protagonist.facePosition)))
+            if((this.npcTalkNow=this.isNPCAtThenGet(GS.protagonist.facePosition)))
             {
-                npc.plot.index=0;
+                
+                this.npcTalkNow.plot.index=0;
                 this.inputMode=this.inputModes.dialog;
                 GS.HTMLObjectContainer.visible=true;
                 let dialog=GameSystem.HTMLObjectContainer.dialog;
                 dialog.visible=true;
 
-                dialog.text=npc.plot.content[npc.plot.index++].text;
+                dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
                 this.inputMode=this.inputModes.dialog;
             }
         }
@@ -225,25 +224,27 @@ class Level extends Framework.Level
     dialogKeyInput(e)
     {
         var GS=GameSystem;
-        let npc=this.isNPCAtThenGet(GS.protagonist.facePosition);
+       
+     
         let dialog=GameSystem.HTMLObjectContainer.dialog;
-        if(npc.plot.index==npc.plot.content.length)
+        if(this.npcTalkNow.plot.index==this.npcTalkNow.plot.content.length)
         {
             dialog.visible=false;
             GS.HTMLObjectContainer.visible=false;
             this.inputMode=this.inputModes.walk;
+            
             return;
         }
-        dialog.text=npc.plot.content[npc.plot.index++].text;
+        dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
         
         
     }
-    optionsKeyInput(e)
+    optionsKeyInput(e,options)
     {
 
         let GS=GameSystem;
         let KM=GS.Manager.Key;
-        let options=GameSystem.HTMLObjectContainer.options;
+        options=options||GameSystem.HTMLObjectContainer.options;
         let container=GameSystem.HTMLObjectContainer;
         switch(KM.keyMapping[e.key])
         {
@@ -257,10 +258,13 @@ class Level extends Framework.Level
             options.selectSend();
             break;
             case "B":
-            case "Start":
-            this.inputMode=this.inputModes.walk;
+            case "Start":  
             container.visible=false;
             options.visible=false;
+            if(options.lastInputMode)
+                this.inputMode=options.lastInputMode;//回到上個
+            else
+                this.inputMode=this.inputModes.walk;//直接回到走路
             break;
         }
       

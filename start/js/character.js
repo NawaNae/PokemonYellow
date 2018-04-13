@@ -40,8 +40,9 @@ class Character {
     }
     move(moveKey)
     {
-        this.position.x+=this.movePositionVector[moveKey];
-        this.position.y+=this.movePositionVector[moveKey];
+        let move=this.movePositionVector[moveKey];
+        this.position.x+=move.x;
+        this.position.y+=move.y;
     }
     updateImagePosition()
     {
@@ -96,7 +97,7 @@ class Character {
     set position(newPosition) 
     {
          this._position = newPosition;
-       // this.updateImagePosition();
+        // this.updateImagePosition();
      }
     get position() { return this._position; }
     set image(newImage) {

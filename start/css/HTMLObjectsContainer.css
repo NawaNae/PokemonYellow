@@ -50,16 +50,7 @@
     border-radius: 0.3em;
    
 }
-/*yes no 對話框*/
-.yesNo
-{
-    z-index: 4;
-    position: absolute;
-    right: 0;
-    max-height: 20%;
-    width:15%;
-    bottom:40%;
-}
+
 /*選項*/
 
 /*非被選中的選項*/
@@ -80,7 +71,17 @@
     top:10px;
     max-height: calc(60% - 10px);
 }
-
+/*yes no 對話框*/
+.yesNoDialog.options
+{
+    z-index: 4;
+    position: absolute;
+    right: 0;
+    top:unset;
+    max-height: 20%;
+    width:15%;
+    bottom:40%;
+}
 /*被選中的選項*/
 /*css border三角形形成箭頭選取*/
 .option.select::before
