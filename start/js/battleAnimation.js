@@ -19,8 +19,18 @@ class BattleAnimation {
     set action(newAction) { this._action = newAction; }
 }
 
-/** 戰鬥「我方攻擊敵方」的動畫字典 */
-GameSystem.Classes.BattleAnimation.AttackToDictionary = {};
+/** 定義戰鬥時「我方攻擊敵方」與「敵方攻擊我方」的動畫字典 */
+GameSystem.Classes.BattleAnimations = {
+    AttackToDictionary: {},
+    AttackedByDictionary: {}
+};
 
-/** 戰鬥「敵方攻擊我方」的動畫字典 */
-GameSystem.Classes.BattleAnimation.AttackedByDictionary = {};
+(() => {
+    let BattleAnimation = GameSystem.Classes.BattleAnimation;
+    let DEX = GameSystem.Classes.BattleAnimations.AttackToDictionary;
+
+    DEX['投球'] = new BattleAnimation('投球', function (ctx) {
+        let img = Load.image(define.imagePath + 'GreenCircle.png');
+        ctx.drawImage(img, 10, 10, 20, 20);
+    });
+})();
