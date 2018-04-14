@@ -33,11 +33,15 @@
 }
 .HTMLObjectContainer *
 {
+    box-sizing: border-box;
     background-color:#f8f8f8e8;
+    border:40px solid transparent;
+    border-image: url("../image/PokemonBorder.png") 88 round;
 }
 /*對話框*/
 .dialog
 {
+
     z-index: 1;
     width: 100%;
     position: absolute;
@@ -47,7 +51,7 @@
     overflow-y: scroll;
     bottom:0;
     left: 0;
-    border-radius: 0.3em;
+    /*border-radius: 0.3em;*/
    
 }
 
@@ -66,6 +70,7 @@
 /*選項清單*/
 .options
 {
+    border:none;
     position: absolute;
     right: 0;
     top:10px;
