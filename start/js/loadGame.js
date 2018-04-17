@@ -5,6 +5,7 @@ Load.js.import(
 [
         { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' },
+        { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         { src: define.jsPath + 'animationItem.js', lookFor: 'GameSystem.Classes.AnimationItem' },
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },
         { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
@@ -13,7 +14,7 @@ Load.js.import(
         { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },
         { src: define.jsPath + 'yesNoDialog.js', lookFor: 'GameSystem.Classes.YesNoDialog' },
         { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
-        { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
+
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },

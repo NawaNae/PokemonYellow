@@ -65,13 +65,8 @@ class Level extends Framework.Level
         this.battleFields= new Array();
         this.music;
         this.inputMode=0;
-        this.inputModes=
-        {
-            walk:0,
-            dialog:1,
-            options:2,
-            yesNoDialog:3
-        };
+        this.inputModes=GameSystem.Classes.Level.InputModes;
+        
     }
     load()
     {
@@ -276,3 +271,12 @@ class Level extends Framework.Level
         this.counter.fpsCount=false;
     }
 }
+GameSystem.Classes.Level.InputModes=Object.freeze(
+    {
+        
+            walk:0,
+            dialog:1,
+            options:2,
+            yesNoDialog:3
+        
+    });

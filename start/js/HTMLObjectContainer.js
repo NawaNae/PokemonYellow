@@ -17,15 +17,15 @@ class HTMLObjectContainer
         this.visible=visible||false;//初始化可不可視
         this.yesNoDialog=new GameSystem.Classes.YesNoDialog();
         this.yesNoDialog.appendTo(this.container);
+        this.yesNoDialog.autoChangeInputMode=true;
+        this.yesNoDialog.noOption.selectSend=function(){GameSystem.HTMLObjectContainer.yesNoDialog.visible=false;};
         this.dialog=new GameSystem.Classes.Dialog();
         this.options=new GameSystem.Classes.Options();
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑"));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具"));
         this.options.push(new GameSystem.Classes.Option("角色資料"));
-        this.options.push(new GameSystem.Classes.Option("儲存",function(){
-            GameSystem.HTMLObjectContainer.yesNoDialog.show();
-        }));
+        this.options.push(new GameSystem.Classes.Option("儲存",function(){ GameSystem.HTMLObjectContainer.yesNoDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("離開",function()
         {
             Framework.Game._currentLevel.inputMode=Framework.Game._currentLevel.inputModes.walk;

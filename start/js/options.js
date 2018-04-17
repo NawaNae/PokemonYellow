@@ -4,11 +4,23 @@ class Options
     constructor()
     {
         this.options=new Array();
+        this.inputMode=GameSystem.Classes.Level.InputModes.options;
         this._display=document.createElement("div");
         this._display.classList.add("options");
         this.displayClassName=['hide','show'];
+        this.autoChangeInputMode=false;
+        this._lastInputMode;
         this.visible=false;
         this.optionsLoop=false;
+    }
+    set lastInputMode(value)
+    {
+        this.autoChangeInputMode=true;
+        this._lastInputMode=value;    
+    }
+    get lastInputMode()
+    {
+        return this._lastInputMode;
     }
     push(option)
     {
@@ -57,9 +69,13 @@ class Options
             if(ele.select)
                 break;
         }
-        if(this.optionsLoop)
-            if(i==this.options.length-1)
-                nextEle=this.options[0];
+        if(i==this.options.length-1)
+        {
+            if(this.optionsLoop)
+                nextEle=this.options[0];        
+            else
+                nextEle=this.options[i];
+        }
         ele.select=false;
         nextEle.select=true;
     }
@@ -86,6 +102,18 @@ class Options
     {return !this._display.classList.contains(this.displayClassName[0]);}
     set visible(value)
     {
+        if(this.autoChangeInputMode)
+        if(Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.inputMode)
+            if(value)
+            {
+                this.lastInputMode=Framework.Game._currentLevel.inputMode;
+                Framework.Game._currentLevel.inputMode=this.inputMode;
+            }
+            else
+            {
+                Framework.Game._currentLevel.inputMode=this.lastInputMode;
+                this.lastInputMode=undefined;
+            }
         this._display.classList.add(this.displayClassName[value|0]);
         this._display.classList.remove(this.displayClassName[(!value)|0]);
     }
