@@ -1,12 +1,12 @@
 GameSystem.Classes.Options=
 class Options 
 {
-    constructor()
+    constructor(option={className:"options"})
     {
         this.options=new Array();
         this.inputMode=GameSystem.Classes.Level.InputModes.options;
         this._display=document.createElement("div");
-        this._display.classList.add("options");
+        this._display.classList.add(option.className);
         this.displayClassName=['hide','show'];
         this.autoChangeInputMode=false;
         this._lastInputMode;
@@ -24,6 +24,8 @@ class Options
     }
     push(option)
     {
+        if(this.options.length==0)
+            option.select=true;
         option.appendTo(this._display);
         this.options.push(option);
     }
@@ -44,6 +46,24 @@ class Options
     find(text)
     {
         return this.options.find((option)=>{return option.name==text});
+    }
+    /**
+     * 移除自己或者options內容
+     * @param 不填||null||undefined -- 移除自己
+     * @param item Option -- 移除該項
+     * @param item Number -- 移除index為item的項目
+     * @param item String -- 移除text為item的項目
+     */
+    remove(item)
+    {
+        if(!item)
+            this._display.remove();
+        else if(item.constructor.name=="Option")
+            this.options=this.options.slice(this.options.findIndex(ele=>ele==item));
+        else if(item.constructor.name=="Number")
+            this.options=this.options.slice(item);
+        else if(item.constructor.name=="String")
+            this.options=this.options.slice(this.options.findIndex(ele=>item.text==ele.text));
     }
     appendTo(father)
     {
