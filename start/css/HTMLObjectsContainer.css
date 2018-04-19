@@ -100,7 +100,11 @@
 }
 
 /* ======================================== 戰鬥面板 ======================================== */
-#battlePad * { box-sizing: border-box; background: transparent; }
+#battlePad, #battlePad * {
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+}
 
 #battlePad span {
     --std-font-size: 2rem;
