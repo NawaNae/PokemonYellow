@@ -5,16 +5,20 @@ class MoneyDialog extends DisplayInformation.Digit
     {
         super(0,"","円","moneyDialog","div");
         this.displayClassName=['hide','show'];
+        this.visible=false;
+    }
+    updateMoney()
+    {
+        if(GameSystem&&GameSystem.protagonist)
+        this.value=GameSystem.protagonist.money;
     }
     get visible()
     {return !this._display.classList.contains(this.displayClassName[0]);}
     set visible(value)
     {
-        if(value&&GameSystem&&GameSystem.protagonist)
-            this.value=GameSystem.protagonist.money;
+        if(value)
+        this.updateMoney();
         this._display.classList.add(this.displayClassName[value|0]);
         this._display.classList.remove(this.displayClassName[(!value)|0]);
     }
 }
-/*var money=new GameSystem.Classes.MoneyDialog();
-money.appendTo(GameSystem.HTMLObjectContainer.container);*/
