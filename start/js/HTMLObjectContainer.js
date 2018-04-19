@@ -11,20 +11,62 @@ class HTMLObjectContainer
 {
     constructor(visible)
     {
+
+        this.displayClassName=["hide","show"];
+       
+        this.initContainer(); 
+        this.visible=visible||false;//初始化可不可視
+        this.childrenList=[];
+        this.initOptions();
+        this.initYesNoDialog();
+        this.initDialog();
+        this.initBuySellDialog();
+        this.initMoneyDialog();
+        this.initShoppingList();
+        
+        this.resizeCanvas=(width,height)=>
+        {
+            this.container.style.width=width;
+            this.container.style.height=height;   
+        }
+        Framework.Game.resizeCanvas=this.resizeCanvas;
+    }
+    initContainer()
+    {        
         this.container=document.createElement("div");
         this.container.classList.add("HTMLObjectContainer");
-        this.displayClassName=["hide","show"];
-        this.visible=visible||false;//初始化可不可視
+        document.body.append(this.container);
+    }
+    initDialog()
+    {
+        this.dialog=new GameSystem.Classes.Dialog();
+        this.addChild(this.dialog);
+    }
+    initYesNoDialog()
+    {
         this.yesNoDialog=new GameSystem.Classes.YesNoDialog();
         this.yesNoDialog.appendTo(this.container);
         this.yesNoDialog.autoChangeInputMode=true;
         this.yesNoDialog.noOption.selectSend=function(){GameSystem.HTMLObjectContainer.yesNoDialog.visible=false;};
-        this.dialog=new GameSystem.Classes.Dialog();
+        this.addChild(this.yesNoDialog);
+    }
+    initMoneyDialog()
+    {
+        this.moneyDialog=new GameSystem.Classes.MoneyDialog();
+        this.addChild(this.moneyDialog);
+    }
+    initBuySellDialog()
+    {
+        this.buySellDialog=new GameSystem.Classes.BuySellDialog();
+        this.addChild(this.buySellDialog);
+    }
+    initOptions()
+    {
         this.options=new GameSystem.Classes.Options();
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑"));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具"));
-        this.options.push(new GameSystem.Classes.Option("角色資料"));
+        this.options.push(new GameSystem.Classes.Option("角色資料",function(){ GameSystem.HTMLObjectContainer.buySellDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("儲存",function(){ GameSystem.HTMLObjectContainer.yesNoDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("離開",function()
         {
@@ -34,19 +76,18 @@ class HTMLObjectContainer
             container.visible=false;
             options.visible=false;
         }));
-        
         this.options.options[0].select=true;
         this.options.optionsLoop=true;
-        this.childrenList=[];
-        this.addChild(this.dialog);
         this.addChild(this.options);
-        document.body.append(this.container);
-        this.resizeCanvas=(width,height)=>
-        {
-            this.container.style.width=width;
-            this.container.style.height=height;   
-        }
-        Framework.Game.resizeCanvas=this.resizeCanvas;
+    }
+    initShoppingList()
+    {
+        let Option=GameSystem.Classes.Option;
+        this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});
+        this.shoppingList.autoChangeInputMode=true;
+        this.shoppingList.inputMode=GameSystem.Classes.Level.InputModes.shoppingList;
+        this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.visible=false;}));
+        this.addChild(this.shoppingList);
     }
     get visible()
     {return !this.container.classList.contains(this.displayClassName[0]);}
