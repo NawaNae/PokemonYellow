@@ -162,6 +162,12 @@ class Level extends Framework.Level
             case this.inputModes.yesNoDialog:
             this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.yesNoDialog);
             break;
+            case this.inputModes.buySellDialog:
+            this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.buySellDialog);
+            break;
+            case this.inputModes.shoppingList:
+            this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.shoppingList);
+            break;
         }
     }
     walkKeyInput(e)
@@ -277,6 +283,8 @@ GameSystem.Classes.Level.InputModes=Object.freeze(
             walk:0,
             dialog:1,
             options:2,
-            yesNoDialog:3
+            yesNoDialog:3,
+            buySellDialog:4,
+            shoppingList:5
         
     });
