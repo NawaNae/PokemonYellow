@@ -35,7 +35,7 @@
 {
     box-sizing: border-box;
     background-color:#f8f8f8e8;
-    border:40px solid transparent;
+    border: 42px solid transparent;
     border-image: url("../image/PokemonBorder.png") 88 round;
 }
 /*對話框*/
@@ -51,8 +51,7 @@
     overflow-y: scroll;
     bottom:0;
     left: 0;
-    /*border-radius: 0.3em;*/
-   
+    
 }
 
 /*選項*/
@@ -86,6 +85,35 @@
     max-height: 25%;
     min-width:15%;
     bottom:calc(50% + 10px);
+}
+/*money顯示框*/
+.moneyDialog
+{
+    z-index: 1;
+    max-width: calc( 50% - 20px );
+    line-height: 1;
+    position: absolute;
+    top:10px;
+    right:10px;
+}
+/*買賣取消顯示框*/
+.buySellDialog
+{
+    z-index: 1;
+    max-width: calc( 50% - 20px );
+    position: absolute;
+    top:10px;
+    left:10px;
+}
+/*買賣清單*/
+.shoppingOptions
+{
+    position: absolute;
+    z-index: 2;
+    right:10px;
+    top : calc(10px + 3em);
+    max-width: calc(70% - 10px);
+    max-height: calc(60% - 3em - 40px);
 }
 /*被選中的選項*/
 /*css border三角形形成箭頭選取*/
