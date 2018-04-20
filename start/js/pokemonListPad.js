@@ -167,6 +167,22 @@ class PokemonListPad {
     }
 
     /**
+     * 顯示「寶可夢清單」版面。
+     */
+    show() {
+        this.pokemonListPad.classList.remove('hide');
+        this.pokemonListPad.classList.add('show');
+    }
+
+    /**
+     * 隱藏「寶可夢清單」版面。
+     */
+    hide() {
+        this.pokemonListPad.classList.remove('show');
+        this.pokemonListPad.classList.add('hide');
+    }
+
+    /**
      * 取得HTML元件。
      * @return {HTMLDivElement} 寶可夢清單面板之HTML元件。
      */
