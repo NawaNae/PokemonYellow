@@ -28,7 +28,7 @@ class PokemonInfoBar {
         this.pokemonInfoBar.classList.add('pokemon-info-bar');
         // 寶可夢的圖示。
         this.img = document.createElement('img');
-        this.img.src = image;
+        if (image) this.img.src = image;
         this.img.classList.add('pokemon-icon');
         // 寶可夢的名稱。
         this.pokemonName = document.createElement('span');
