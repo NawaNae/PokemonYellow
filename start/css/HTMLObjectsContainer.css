@@ -69,6 +69,7 @@
 /*選項清單*/
 .options
 {
+    overflow-y: scroll;
     border:none;
     position: absolute;
     right: 0;
