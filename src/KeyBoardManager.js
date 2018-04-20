@@ -13,6 +13,8 @@ var Framework = (function (Framework) {
 			_subject;
 
 		var keydownEvent = function(e) {
+			if(e.key==="F5"||e.key==="F12"||e.key=="F11")
+				return;
 			e.preventDefault();
 			var keyCode = _keyCodeToChar[e.which || e.keyCode], i;
 			if(!Framework.Util.isUndefined(_keydownList[keyCode])) {
