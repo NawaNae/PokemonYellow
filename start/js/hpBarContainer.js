@@ -14,13 +14,13 @@ class HPBarContainer {
      * @param {number} HP 當前生命值。為非負數整數。
      */
     constructor(maxHP, HP) {
-        this._maxHP = maxHP;
-        this._HP = HP;
-        this.divHPBar = document.createElement('div');
-        this.divHP = document.createElement('div');
-        divHPBar.classList.add('hp-bar-container');
-        divHP.classList.add('hp-bar');
-        divHPBar.appendChild(divHP);
+        this._maxHP = maxHP;                                // 儲存最大生命值
+        this._HP = HP;                                      // 儲存當前生命值
+        this.divHPBar = document.createElement('div');      // 建立HP容器
+        this.divHPBar.classList.add('hp-bar-container');    // 加入 class : hp-bar-container
+        this.divHP = document.createElement('div');         // 建立HP條
+        this.divHP.classList.add('hp-bar');                 // 加入 class : hp-bar
+        this.divHPBar.appendChild(this.divHP);              // 將 divHP 加入至 divHPBar 中
         
         this.updateHP(HP);
     }
@@ -37,16 +37,22 @@ class HPBarContainer {
         }
 
         // 設定HP
-        if (newHP > this._maxHP) this._HP = this._maxHP;
-        if (newHP < 0) this._HP = 0;
-        let percent = Math.ceil(this._HP / this.maxHP) * 100;
-        this.divHP.style = 'width: ' + percent + '%; '
-        if (percent > 50)
-            this.divHP.style += 'background: lime;';
-        else if (25 < percent && percent <= 50)
-            this.divHP.style += 'background: yellow;';
+        if (newHP > this._maxHP) 
+            this._HP = this._maxHP;
+        else if (newHP < 0)
+            this._HP = 0;
         else
-            this.divHP.style += 'background: red;';
+            this._HP = newHP;
+
+        // 更新顯示
+        let percent = Math.ceil((this._HP / this._maxHP) * 100);
+        console.log(percent);
+        if (percent > 50)
+            this.divHP.style = 'width: ' + percent + '%; ' + 'background: lime;';
+        else if (25 < percent && percent <= 50)
+            this.divHP.style = 'width: ' + percent + '%; ' + 'background: yellow;';
+        else
+            this.divHP.style = 'width: ' + percent + '%; ' + 'background: red;';
     }
 
     /**
