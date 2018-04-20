@@ -22,13 +22,21 @@ class HPBarContainer {
         divHP.classList.add('hp-bar');
         divHPBar.appendChild(divHP);
         
-        this.HP = HP;
+        this.updateHP(HP);
     }
 
     /**
      * 設定血量。
+     * @prop {number} newHP 新的當前生命值。
+     * @prop {number?} newMaxHP 新的最大生命值。
      */
-    set HP(newHP) {
+    updateHP(newHP, newMaxHP) {
+        // 設定maxHP
+        if (newMaxHP != undefined) {
+            this._maxHP = newMaxHP;
+        }
+
+        // 設定HP
         if (newHP > this._maxHP) this._HP = this._maxHP;
         if (newHP < 0) this._HP = 0;
         let percent = Math.ceil(this._HP / this.maxHP) * 100;
