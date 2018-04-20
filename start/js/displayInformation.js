@@ -14,6 +14,20 @@ DisplayInformation.Text = class Text
             this.appendTo(father);
         this.text = text;
     }
+    set prefixString(str)
+    {
+        this._prefixString=str;
+        this.text=this.text;
+    }
+    get prefixString()
+    {return this._prefixString;}
+    set postfixString(str)
+    {
+        this._postfixString=str;
+        this.text=this.text;
+    }
+    get postfixString()
+    {return this._postfixString;}
     get text()
     {
         return this._text;
