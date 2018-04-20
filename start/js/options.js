@@ -38,6 +38,7 @@ class Options
             {
                 ele.select=false;
                 lastEle.select=true;
+                lastEle._display.scrollIntoViewIfNeeded();
                 break;
             }
             lastEle=ele;
@@ -98,6 +99,8 @@ class Options
         }
         ele.select=false;
         nextEle.select=true;
+        nextEle._display.scrollIntoViewIfNeeded();
+   
     }
     get select()
     {
@@ -110,13 +113,23 @@ class Options
         if(item.constructor.name=="Option")
             for(let obj of this.options)
                 if(obj==item)
+                {
                     obj.select=true;
+                    obj._display.scrollIntoViewIfNeeded();
+                }
         else if(item.constructor.name=="String")
             for(let obj of this.options)
                 if(obj.text==item)
+                {
                     obj.select=true;
+
+                    obj._display.scrollIntoViewIfNeeded();
+                }
         else if(item.constructor.name=="Number")
-            this.options[i].select=true;
+        {
+             this.options[i].select=true;
+             obj._display.focus();
+        }   
     }
     get visible()
     {return !this._display.classList.contains(this.displayClassName[0]);}
