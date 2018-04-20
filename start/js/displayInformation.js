@@ -2,7 +2,7 @@ var DisplayInformation = DisplayInformation || {};
 
 DisplayInformation.Text = class Text
 {
-    constructor(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "span", father, textOutputProcessFunction = DisplayInformation.Text.OutputFunctions.Normal)
+    constructor(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father, textOutputProcessFunction = DisplayInformation.Text.OutputFunctions.Normal)
     {
         this._prefixString = prefixString;
         this._postfixString = postfixString;
@@ -73,7 +73,7 @@ DisplayInformation.Text.OutputFunctions =
 
 DisplayInformation.Digit = class Digit extends DisplayInformation.Text
 {
-    constructor(value = 0, prefixString = "", postfixString = "", displayHTMLClass , createElementTypeString = "span",father, textOutputProcessFunction = DisplayInformation.Digit.OutputFunctions.Normal)
+    constructor(value = 0, prefixString = "", postfixString = "", displayHTMLClass , createElementTypeString = "div",father, textOutputProcessFunction = DisplayInformation.Digit.OutputFunctions.Normal)
     {
         super("", prefixString, postfixString, displayHTMLClass ,createElementTypeString,father, textOutputProcessFunction);
         this.digitOutputProcessFunction = DisplayInformation.Digit.OutputFunctions.Normal;
