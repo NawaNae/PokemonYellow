@@ -168,6 +168,9 @@ class Level extends Framework.Level
             case this.inputModes.shoppingList:
             this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.shoppingList);
             break;
+            case this.inputModes.itemNumberDialog:
+            this.itemNumberDialogKeyInput(e);
+            break;
         }
     }
     walkKeyInput(e)
@@ -240,6 +243,30 @@ class Level extends Framework.Level
         
         
     }
+    itemNumberDialogKeyInput(e,options)
+    {
+        let GS=GameSystem,KM=GS.Manager.Key,CS=GS.Classes;
+        let container=GameSystem.HTMLObjectContainer;
+        let itemNumber=container.itemNumberDialog;
+        switch(KM.keyMapping[e.key])
+        {
+            case "Up":
+                itemNumber.value++;
+                break;
+            case "Down":
+                itemNumber.value--;
+                break;
+            case "A":
+                this.inputMode=this.inputModes.yesNoDialog;
+                container.yesNoDialog.yesOption.selectSend=function(){console.log("cost " + GameSystem.HTMLObjectContainer.itemNumberDialog.cost);container.yesNoDialog.hide();container.itemNumberDialog.hide()};
+                container.yesNoDialog.show();
+                break;
+            case "B":
+                container.itemNumberDialog.visible=false;
+                break;
+
+        }
+    }
     optionsKeyInput(e,options)
     {
 
@@ -285,6 +312,7 @@ GameSystem.Classes.Level.InputModes=Object.freeze(
             options:2,
             yesNoDialog:3,
             buySellDialog:4,
-            shoppingList:5
+            shoppingList:5,
+            itemNumberDialog:6
         
     });
