@@ -22,8 +22,9 @@ class HTMLObjectContainer
         this.initDialog();
         this.initBuySellDialog();
         this.initMoneyDialog();
+       
+        this.initItemNumber();
         this.initShoppingList();
-        
         this.resizeCanvas=(width,height)=>
         {
             this.container.style.width=width;
@@ -36,6 +37,11 @@ class HTMLObjectContainer
         this.container=document.createElement("div");
         this.container.classList.add("HTMLObjectContainer");
         document.body.append(this.container);
+    }
+    initItemNumber()
+    {
+        this.itemNumberDialog=new GameSystem.Classes.ItemNumberDialog();
+        this.addChild(this.itemNumberDialog);
     }
     initDialog()
     {
@@ -66,7 +72,7 @@ class HTMLObjectContainer
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑"));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具"));
-        this.options.push(new GameSystem.Classes.Option("角色資料",function(){ GameSystem.HTMLObjectContainer.buySellDialog.show();}));
+        this.options.push(new GameSystem.Classes.Option("角色資料"));
         this.options.push(new GameSystem.Classes.Option("儲存",function(){ GameSystem.HTMLObjectContainer.yesNoDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("離開",function()
         {
@@ -76,6 +82,9 @@ class HTMLObjectContainer
             container.visible=false;
             options.visible=false;
         }));
+        this.options.push(new GameSystem.Classes.Option("以下測試"));
+        this.options.push(new GameSystem.Classes.Option("商店",function(){ GameSystem.HTMLObjectContainer.buySellDialog.show();}));
+        this.options.push(new GameSystem.Classes.Option("寶可夢醫院"));
         this.options.options[0].select=true;
         this.options.optionsLoop=true;
         this.addChild(this.options);
@@ -83,9 +92,11 @@ class HTMLObjectContainer
     initShoppingList()
     {
         let Option=GameSystem.Classes.Option;
+        let container=GameSystem.HTMLObjectContainer;
         this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});
         this.shoppingList.autoChangeInputMode=true;
         this.shoppingList.inputMode=GameSystem.Classes.Level.InputModes.shoppingList;
+        this.shoppingList.push(new Option("100円的東東",function(){GameSystem.HTMLObjectContainer.itemNumberDialog.show();}));
         this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.visible=false;}));
         this.addChild(this.shoppingList);
     }

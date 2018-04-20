@@ -12,6 +12,7 @@ Load.js.import(
         { src: define.jsPath + 'dialog.js', lookFor: 'GameSystem.Classes.Dialog' },
         { src: define.jsPath + 'options.js', lookFor: 'GameSystem.Classes.Options' },
         { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },
+        { src: define.jsPath + 'itemNumberDialog.js', lookFor: 'GameSystem.Classes.ItemNumberDialog' },
         { src: define.jsPath + 'moneyDialog.js', lookFor: 'GameSystem.Classes.MoneyDialog' },
         { src: define.jsPath + 'buySellDialog.js', lookFor: 'GameSystem.Classes.BuySellDialog' },
         { src: define.jsPath + 'yesNoDialog.js', lookFor: 'GameSystem.Classes.YesNoDialog' },
