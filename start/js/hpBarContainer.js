@@ -25,6 +25,9 @@ class HPBarContainer {
         this.updateHP(HP);
     }
 
+    get HP() { return this._HP; }
+    get MaxHP() { return this._maxHP; }
+
     /**
      * 設定血量。
      * @prop {number} newHP 新的當前生命值。
