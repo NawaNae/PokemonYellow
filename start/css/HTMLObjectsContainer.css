@@ -31,7 +31,12 @@
     margin: auto;
     font-family: MBitmapSquareHK,sans-serif;
 }
-.HTMLObjectContainer *:not(.option)
+.HTMLObjectContainer .dialog,
+.HTMLObjectContainer .options,
+.HTMLObjectContainer .moneyDialog,
+.HTMLObjectContainer .buySellDialog,
+.HTMLObjectContainer .shoppingList,
+.HTMLObjectContainer .itemNumberDialog
 {
     box-sizing: border-box;
     background-color:#f8f8f8e8;
@@ -69,7 +74,8 @@
 /*選項清單*/
 .options
 {
-    overflow-y: scroll;
+   /* overflow-y: scroll;*/
+   overflow: hidden;
     border:none;
     position: absolute;
     right: 0;
@@ -115,6 +121,20 @@
     top : calc(10px + 3em);
     max-width: calc(70% - 10px);
     max-height: calc(60% - 3em - 40px);
+}
+/*商品數量*/
+.itemNumberDialog 
+{
+    position: absolute;
+    bottom:calc(50% + 10px);
+    right: 10px;
+    line-height: 1;
+    max-width: 50%;
+    z-index: 3;
+}
+.itemNumberDialog *
+{
+    display: inline-block;
 }
 /*被選中的選項*/
 /*css border三角形形成箭頭選取*/
