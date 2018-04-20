@@ -92,6 +92,15 @@ class PokemonInfoBar {
     }
 };
 
+/**
+ * @class PokemonListPad
+ * @classdesc HTML元件，「寶可夢清單」版面的控制物件。
+ * 
+ * @prop {HTMLDivElement} pokemonListPad 「寶可夢清單」版面的主HTML物件。
+ * @prop {HTMLDivElement} messageBar 「訊息」版面的HTML物件。
+ * @prop {GameSystem.Classes.PokemonInfoBar[]} 集合六個「寶可夢資料條」版面控制物件的清單。
+ * @prop {HTMLDivElement} menu 「選單」版面的HTML物件。
+ */
 GameSystem.Classes.PokemonListPad =
 class PokemonListPad {
     /**
@@ -100,21 +109,61 @@ class PokemonListPad {
      * 並將其加入至 this.pokemonListPad 中。
      */
     constructor() {
-        this.pokemonListPad = document.createElement('div');
-        this.pokemonListPad.id = 'pokemonList';
+        this.pokemonListPad = document.createElement('div');    // 建立「寶可夢清單」的主容器。
+        this.pokemonListPad.id = 'pokemonList';                 // 設定 id = 'pokemonList'
+        // 建立六個「寶可夢資料條」版面控制物件的清單。
+        this.pokemonInfoBars = [
+            new GameSystem.Classes.PokemonInfoBar('Pokemon A', 5, 30, 25),
+            new GameSystem.Classes.PokemonInfoBar('Pokemon B', 5, 30, 25),
+            new GameSystem.Classes.PokemonInfoBar('Pokemon C', 5, 30, 25),
+            new GameSystem.Classes.PokemonInfoBar('Pokemon D', 5, 30, 25),
+            new GameSystem.Classes.PokemonInfoBar('Pokemon E', 5, 30, 25),
+            new GameSystem.Classes.PokemonInfoBar('Pokemon F', 5, 30, 25)
+        ];
+        
+        this.pokemonInfoBars.forEach(element => this.pokemonListPad.appendChild(element.getHTMLElement())); // 將六個「寶可夢訊息條」加入至母版面中。
+        this.pokemonListPad.appendChild(this.initMessageBar());   // 將「訊息」版面加入至母版面中。
+        this.pokemonListPad.appendChild(this.initMenu());         // 將「控制選單」版面加入至母版面中。
+    }
+
+    /**
+     * 建立新的「訊息」版面。並將其加入至 this.messageBar 中。
+     * @return {HTMLDivElement} 「訊息」版面的HTML元件。
+     */
+    initMessageBar() {
+        // 建立「訊息版面」
         this.messageBar = document.createElement('div');
         this.messageBar.classList.add('message-bar');
-        this.pokemonInfoBars = [
-            new GameSystem.Classes.PokemonInfoBar('PokemonA', 5, 30, 25),
-            new GameSystem.Classes.PokemonInfoBar('PokemonB', 5, 30, 25),
-            new GameSystem.Classes.PokemonInfoBar('PokemonC', 5, 30, 25),
-            new GameSystem.Classes.PokemonInfoBar('PokemonD', 5, 30, 25),
-            new GameSystem.Classes.PokemonInfoBar('PokemonE', 5, 30, 25),
-            new GameSystem.Classes.PokemonInfoBar('PokemonF', 5, 30, 25)
-        ];
+        return this.messageBar;
+    }
 
-        this.pokemonInfoBars.forEach(element => this.pokemonListPad.appendChild(element.getHTMLElement()));
-        this.pokemonListPad.appendChild(this.messageBar);
+    /**
+     * 建立一個新的「選單」HTML元件。連同內部的元件初始化。
+     * 有: 選項「狀態」、「切換」、「取消」。
+     * 最後將元件加入至 this.menu 中。
+     * @return {HTMLDivElement} 「選單」HTML元件。
+     */
+    initMenu() {
+        // 建立新的「選單」HTML元件
+        this.menu = document.createElement('div');
+        this.menu.classList.add('menu');
+        // 選項「狀態」
+        let spanStats = document.createElement('span');
+        spanStats.classList.add('menu-item');
+        spanStats.innerText = '狀態';
+        // 選項「切換」
+        let spanSwitch = document.createElement('span');
+        spanSwitch.classList.add('menu-item');
+        spanSwitch.innerText = '切換';
+        // 選項「取消」
+        let spanCancel = document.createElement('span');
+        spanCancel.classList.add('menu-item');
+        spanCancel.innerText = '取消';
+
+        this.menu.appendChild(spanStats);
+        this.menu.appendChild(spanSwitch);
+        this.menu.appendChild(spanCancel);
+        return this.menu;
     }
 
     /**
