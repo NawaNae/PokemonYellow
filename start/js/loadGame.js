@@ -13,6 +13,8 @@ Load.js.import(
         { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },
         { src: define.jsPath + 'yesNoDialog.js', lookFor: 'GameSystem.Classes.YesNoDialog' },
         { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
+        { src: define.jsPath + 'hpBarContainer.js', lookFor: 'GameSystem.Classes.HPBarContainer' },
+        { src: define.jsPath + 'pokemonListPad.js', lookFor: 'GameSystem.Classes.PokemonListPad' },
         { src: define.jsPath + 'battlePad.js', lookFor: 'GameSystem.Classes.BattlePad' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
