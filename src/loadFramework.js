@@ -1,7 +1,6 @@
 var loadFrameworkEnd;
 Load.js.import(
 [
-    { src: define.frameworkPath+'jquery-2.1.4.min.js'},
     { src: define.frameworkPath+'config.js' },
     { src: define.frameworkPath+'Record.js' },
     { src: define.frameworkPath+'Replay.js' },
