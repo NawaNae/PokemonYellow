@@ -5,7 +5,7 @@
 }
 .disable
 {
-    opacity: 0.2;
+    opacity: 0.35;
 }
 /*基本共用設定區*/
 /*字體大小 粗細*/
@@ -124,10 +124,15 @@ body
     z-index: 200;
     top:3px;
     left:3px;
+    margin-right: -3px;
 }
+.webLinksContainer > *
+{
+    margin-right: 3px;
+}
+
 .wButton
 {
-    position: fixed;
     font-size: 1em;
     line-height: 1.5em;
     user-select: none;
@@ -197,7 +202,7 @@ body
     background-position: 0 -50px;
     height: 48px;
     width: 48px;
-    opacity: 0.9;
+
 }
 .nextPageButton {
     position: absolute;
@@ -209,7 +214,7 @@ body
     background-position: 0 0;
     height: 48px;
     width: 48px;
-    opacity: 0.9;
+
 }
 #playHelp[data-page="0"] .key,#playHelp[data-page="1"] .key
 {
