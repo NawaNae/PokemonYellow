@@ -3,18 +3,125 @@
     margin: 0;
     font-family: "Microsoft JhengHei UI Light","Noto Sans CJK TC Light","Microsoft YaHei UI Light","","Microsoft JhengHei",sans-serif;
 }
+/*基本共用設定區*/
+/*字體大小 粗細*/
+/*標題*/
+a{font-weight: normal;
+    text-decoration: none;}
+.title
+{
+    font-size: 60px;
+}
+.content
+{
+    font-size: 32px;
+}
+/*內容*/
+.content
+{
+    text-align: center;
+}
+.article *
+{
+    margin-bottom:20px;
+}
+.article a>img
+{
+    margin-bottom: 0px;
+}
+/*遮罩*/
+.mask
+{
+    display: flex;
+    justify-content: center;
+    width:680px;
+    height:100%;
+    position: relative;
+    align-items:center;
+    text-align: center;
+}
+/*右遮罩*/
+.right.mask
+{
+    position: absolute;
+    right:55px;
+}
+/*左遮罩*/
+.left.mask
+{
+    margin-left: 55px;
+}
+.feature,.footer .article,#main.article
+{
+    position: relative;
+    width:100%;
+    height: 710px;
+}
+/*色彩主題區*/
+.light 
+{
+    color:rgb(51,51,51);
+}
+.light .title
+{
+    color:rgb(07,55,99);
+}
+
+.light .button
+{
+    color:rgb(51,51,51);
+    border-color:rgb(51,51,51);
+}
+.light .mask
+{
+    background-color: rgba(255,255,255,0.75);
+}
+/*暗色*/
+.dark
+{
+    color:rgb(204,204,204);
+}
+.dark .title
+{
+    color:rgb(159,197,248);
+}
+.dark .button
+{
+    color:rgb(204,204,204);
+    border-color:rgb(204,204,204);
+}
+.dark .mask
+{
+    background-color: rgba(0,0,0,0.25);
+    
+}
+body
+{
+    background-color: black;
+}
+.hide
+{
+    display: none;
+}
+
 .icon
 {
     width:48px;
     height: 48px;
 }
-.webLink
+.webLinksContainer button
+{
+    display: inline-block;
+}
+.webLinksContainer
 {
     position: fixed;
+    display: inline-block;
+    z-index: 200;
     top:3px;
     left:3px;
 }
-.visibleBtn
+.wButton
 {
     position: fixed;
     font-size: 1em;
@@ -30,25 +137,103 @@
     border-color:rgb(204,204,204);
     background-color: rgba(0,0,0,0.75);
 }
-.visibleBtn:hover
+.wButton:hover
 {
     border-color:rgb(51,51,51);
     background-color:rgb(159,197,248);
     color:rgb(51,51,51);
 }
-.visibleBtn:active
+.wButton:active
 {
     border-color: rgb(204,204,204);
     background-color:rgb(07,55,99);
     color:rgb(204,204,204);
 }
-.visibleBtn[data-visible="true"]
+
+.coverContent
 {
-    top:27px;
-    left:55px;
+    background-color: azure;
+    width:100%;
+    height: 710px;
+    position: fixed;
+    top:calc((100% - 710px)/2);
+    z-index: 30;
 }
-.visibleBtn[data-visible="false"]
+.coverClose
 {
-    top:3px;
-    left:3px;
+    position: fixed;
+    top: calc((100% - 710px)/2);
+    right:10px;
+    z-index: 31;
+}
+.coverBackground
+{
+    content:"";
+    background-color: rgba(0,0,0,0.75);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 29;
+    top:0;
+    left:0;
+}
+.GB{
+    display: block;
+    position: absolute;
+    right: calc(25% - 173.5px);
+    top: calc(50% - 287px);
+}
+.lastPageButton {
+    position: absolute;
+    left: 0;
+    top: calc(50% - 24px);
+    background-image: url(https://nawanae.github.io/PokemonWebV2/image/arrows.png);
+    background-repeat: no-repeat;
+    background-size: 50px 218px;
+    background-position: 0 -50px;
+    height: 48px;
+    width: 48px;
+    opacity: 0.9;
+}
+.nextPageButton {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 24px);
+    background-image: url(https://nawanae.github.io/PokemonWebV2/image/arrows.png);
+    background-repeat: no-repeat;
+    background-size: 50px 218px;
+    background-position: 0 0;
+    height: 48px;
+    width: 48px;
+    opacity: 0.9;
+}
+#playHelp[data-page="0"] .key,#playHelp[data-page="1"] .key
+{
+    display: inline-block;
+    position: relative;
+}
+#playHelp[data-page="0"] .key.left
+{
+    left:-4em;
+}
+#playHelp[data-page="0"] .key.right
+{
+    right: -4em;
+}#playHelp[data-page="1"] .key.A
+{
+    right: -3em;
+   
+}
+#playHelp[data-page="1"] .key.B
+{
+    left:-3em;
+}
+#playHelp[data-page="2"] .key
+{
+    display: inline-block;
+    margin-right: 30px;
+}
+#playHelp[data-page="2"] .pageContent
+{
+    margin-right: -30px;
 }

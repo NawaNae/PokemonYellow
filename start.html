@@ -1,13 +1,31 @@
 ﻿<head>
-        <script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="start/js/load.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="Shortcut Icon" type="image/x-icon" href="start/image/tanko.ico" />
+
 </head>
-<a class="webLink" target="_blank" href="https://nawanae.github.io/PokemonWebV2/"><img class="icon" src="https://nawanae.github.io/PokemonWebV2/image/pokemonBall.png"></a>
-<button class="visibleBtn" data-visible="true"><</button> 
+<div class="webLinksContainer">
+        <a class="webLinks index" target="_blank" href="https://nawanae.github.io/PokemonWebV2/">
+            <img class="icon" src="https://nawanae.github.io/PokemonWebV2/image/pokemonBall.png">
+        </a>
+            <img class="webLinks playHelp icon" src="https://nawanae.github.io/PokemonWebV2/image/gamepad.png">
+
+    <button class="visibleBtn wButton" data-visible="true">
+        <</button>
+</div>
+
+<div id="playHelp" class="coverBackground hide">
+    <div class="coverContent article" data-page="0">
+        <button class="coverClose wButton">X</button>
+        <div class="lastPageButton disable"></div>
+        <div class="nextPageButton"></div>
+        <div class="pages">
+
+        </div>
+    </div>
+</div>
+</div>
 <script src="js/normal.js"></script>
