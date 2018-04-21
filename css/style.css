@@ -3,6 +3,10 @@
     margin: 0;
     font-family: "Microsoft JhengHei UI Light","Noto Sans CJK TC Light","Microsoft YaHei UI Light","","Microsoft JhengHei",sans-serif;
 }
+.disable
+{
+    opacity: 0.2;
+}
 /*基本共用設定區*/
 /*字體大小 粗細*/
 /*標題*/

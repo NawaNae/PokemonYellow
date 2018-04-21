@@ -107,6 +107,11 @@ $(".webLinks.playHelp").on("click",function()
 {
     $('.coverClose')[0].click();
     let article=document.querySelector('.coverContent.article');
+    let next= document.querySelector(".nextPageButton");
+   
+    let last=document.querySelector(".lastPageButton");
+    if(next.classList.contains("disable"))next.classList.remove("disable");
+    if(!last.classList.contains("disable"))last.classList.add("disable");
     article.id="playHelp";
     article.dataset.page=0;
     $('.coverContent.article>.pages').load("pages/playHelp/0.html",function(){$(this).fadeIn(200);}).hide();
