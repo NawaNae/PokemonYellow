@@ -1,0 +1,54 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Microsoft JhengHei UI Light","Noto Sans CJK TC Light","Microsoft YaHei UI Light","","Microsoft JhengHei",sans-serif;
+}
+.icon
+{
+    width:48px;
+    height: 48px;
+}
+.webLink
+{
+    position: fixed;
+    top:3px;
+    left:3px;
+}
+.visibleBtn
+{
+    position: fixed;
+    font-size: 1em;
+    line-height: 1.5em;
+    user-select: none;
+    padding:1px 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    transition:all 0.2s;
+    width:max-content;
+    color:rgb(204,204,204);
+    border-color:rgb(204,204,204);
+    background-color: rgba(0,0,0,0.75);
+}
+.visibleBtn:hover
+{
+    border-color:rgb(51,51,51);
+    background-color:rgb(159,197,248);
+    color:rgb(51,51,51);
+}
+.visibleBtn:active
+{
+    border-color: rgb(204,204,204);
+    background-color:rgb(07,55,99);
+    color:rgb(204,204,204);
+}
+.visibleBtn[data-visible="true"]
+{
+    top:27px;
+    left:55px;
+}
+.visibleBtn[data-visible="false"]
+{
+    top:3px;
+    left:3px;
+}
