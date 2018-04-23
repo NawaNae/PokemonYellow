@@ -114,6 +114,7 @@ $(".webLinks.playHelp").on("click",function()
     if(!last.classList.contains("disable"))last.classList.add("disable");
     article.id="playHelp";
     article.dataset.page=0;
+    
     $('.coverContent.article>.pages').load("pages/playHelp/0.html",function(){$(this).fadeIn(200);}).hide();
 })
 $(".coverClose").on("click",function()
