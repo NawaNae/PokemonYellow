@@ -4,6 +4,7 @@ DisplayInformation.Text = class Text
 {
     constructor(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father, textOutputProcessFunction = DisplayInformation.Text.OutputFunctions.Normal)
     {
+        this.displayClassName=['hide','show'];
         this._prefixString = prefixString;
         this._postfixString = postfixString;
         this._displayProcessFunction = textOutputProcessFunction ;
@@ -37,14 +38,17 @@ DisplayInformation.Text = class Text
         this._text = text;
         this._display.innerText = this._prefixString + this._displayProcessFunction(this._text) + this._postfixString;
     }
+    get visible()
+    {return !this._display.classList.contains(this.displayClassName[0]);}
+    set visible(value)
+    {
+        this._display.classList.add(this.displayClassName[value|0]);
+        this._display.classList.remove(this.displayClassName[(!value)|0]);
+    }
     show()
-    {
-        this._display.style.display = "block";
-    }
+    {this.visible=true;}
     hide()
-    {
-        this._display.style.display = "none";
-    }
+    {this.visible=false}
     remove()
     {
         this._display.remove(this._display);

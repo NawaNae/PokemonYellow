@@ -5,10 +5,16 @@ Load.js.import(
 [
         { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' },
+        { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
+        
+        { src: define.jsPath + 'standardStat.js', lookFor: 'GameSystem.Classes.StandardStat'},
+        { src: define.jsPath + 'move.js', lookFor: 'GameSystem.Classes.Move'},
+        { src: define.jsPath + 'gradingMove.js', lookFor:'GameSystem.Classes.GradingMove'},
+        { src: define.jsPath + 'pokemonType.js', lookFor: 'GameSystem.Classes.PokemonType' },
         { src: define.jsPath + 'animationItem.js', lookFor: 'GameSystem.Classes.AnimationItem' },
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },
-        { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
+        { src: define.jsPath + 'illustration.js',lookFor:'GameSystem.Classes.Illustration'},
         { src: define.jsPath + 'dialog.js', lookFor: 'GameSystem.Classes.Dialog' },
         { src: define.jsPath + 'options.js', lookFor: 'GameSystem.Classes.Options' },
         { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },

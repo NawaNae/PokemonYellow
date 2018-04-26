@@ -43,6 +43,12 @@
     border: 42px solid transparent;
     border-image: url("../image/PokemonBorder.png") 88 round;
 }
+
+/*覆蓋窗共通設定*/
+.HTMLObjectContainer .illustration
+{
+    background-color:#f8f8f8;
+}
 /*對話框*/
 .dialog
 {
@@ -146,4 +152,33 @@
     display:inline-block;   
     border-width: 0.3em 0 0.3em 0.5em;
     border-color: transparent transparent transparent #000;
+}
+/*圖鑑*/
+.illustration
+{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    top:0;
+    left: 0;
+    z-index: 10;
+}
+.illustration .illustrationList
+{
+    position: absolute;
+    max-height: 100%;
+    left: 10px;
+    top:10px;
+    max-width: calc(100% - 20px);
+    overflow: hidden;
+    z-index: 0;
+}
+.illustration .illustrationNumbers
+{                   
+    position: absolute;
+    font-size: 1em;
+    right: 10px;
+    top:10px;
+    z-index: 1;
 }

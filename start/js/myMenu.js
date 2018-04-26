@@ -18,8 +18,8 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     },
 
     load: function () {
-        this.music= Load.audio( define.musicPath+"background/101 Opening.mp3");
-        this.music.autoplay=true;
+       this.music= Load.audio( define.musicPath+"background/101 Opening.mp3");
+        this.music.autoplay=false;
         this.music.loop=true;
 
         this.menu = new Framework.Sprite(define.imagePath+"Title.png");//"https://imgur.com/6vHYJUz.png");
@@ -79,9 +79,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     },
 
     mousedown: function(e) {
-        //console.log為Browser提供的function, 可以在debugger的console內看到被印出的訊息                    
-       /* this.vn.appendTo();
-    this.vn.start();*/
+
      this.music.pause();
         Framework.Game.goToLevel('palletTown')
     },
@@ -89,9 +87,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     click:function(e){      
         this.music.pause();
         Framework.Game.goToLevel('palletTown')
-/*
-        this.vn.appendTo();
-        this.vn.start();*/
+
     },
 
     mousemove: function(e) {               
