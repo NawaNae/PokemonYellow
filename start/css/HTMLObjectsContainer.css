@@ -9,7 +9,7 @@
 }
 .hide
 {
-    display: none;
+    display: none !important;
 }
 /*Container*/
 /*漂浮置中對其*/
@@ -495,3 +495,262 @@ label {
 #pokemonList > div.menu > span.menu-item:nth-child(1) { top: var(--menu-item-start);  left: var(--menu-item-left); }
 #pokemonList > div.menu > span.menu-item:nth-child(2) { top: calc(var(--menu-item-start) + var(--menu-item-gap));  left: var(--menu-item-left); }
 #pokemonList > div.menu > span.menu-item:nth-child(3) { top: calc(var(--menu-item-start) + var(--menu-item-gap) * 2);  left: var(--menu-item-left); }
+
+/* ======================================== 「寶可夢資訊」面板 ======================================== */
+/* 「寶可夢資訊」版面的樣式定義 */
+#battlePad .pokemon-info-pad, .pokemon-info-pad {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 6;
+}
+
+/* 在「寶可夢資訊」版面中，定義「寶可夢圖像」版面樣式 */
+.pokemon-info-pad > .pokemon-illustration,
+#battlePad .pokemon-info-pad > .pokemon-illustration {
+    position: absolute;
+    top: 10px;  left: 10px;
+    width: 40%;
+    height: 40%;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢圖像」版面 > 「寶可夢圖像」的樣式 */
+.pokemon-info-pad > .pokemon-illustration > img,
+#battlePad .pokemon-info-pad > .pokemon-illustration > img {
+    position: absolute;
+    top: 15%;  left: 15%;
+    width: 70%;
+    height: 70%;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢圖像」版面 > 「寶可夢編號」的樣式 */
+.pokemon-info-pad > .pokemon-illustration > .pokemon-number,
+#battlePad .pokemon-info-pad > .pokemon-illustration > .pokemon-number {
+    position: absolute;
+    bottom: 5px; left: 35%;
+    font-size: var(--std-font-size);
+    line-height: var(--std-line-height);
+}
+
+
+/* 在「寶可夢資訊」版面中，定義「寶可夢狀態」版面的樣式 */
+.pokemon-info-pad > .pokemon-status-pad,
+#battlePad .pokemon-info-pad > .pokemon-status-pad {
+    position: absolute;
+    top: 10px;  right: 10px;
+    width: 56%;
+    height: 40%;
+    background-image: url('../image/PokemonInfoBar.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* 「寶可夢資訊」版面中的「寶可夢狀態」版面中，定義「寶可夢名稱」的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > span.pokemon-name,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > span.pokemon-name {
+    position: absolute;
+    top: 25px;  left: 65px;
+    font-size: var(--std-font-size);
+    line-height: var(--std-line-height);
+    transform: scale(1.4, 1.2);
+}
+
+/* 「寶可夢資訊」版面中的「寶可夢狀態」版面中，定義「第一部分」的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 {
+    position: relative;
+    margin: 70px 10px 10px 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 80px);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 等級的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > span.level,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > span.level {
+    top: 5px;
+    left: auto;
+    right: 150px;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 文字「HP:」的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > label.hp-text,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > label.hp-text {
+    top: 50px; left: 100px;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 生命條的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .hp-bar-container,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .hp-bar-container {
+    top: 57px; left: 140px;
+    width: 67%;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 生命值數值的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .player-hp-value,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .player-hp-value {
+    top: 90px; right: 120px; left: auto;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 「狀態敘述」的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .status,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .status {
+    position: absolute;
+    bottom: 50px;  left: 70px;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-line-height);
+    transform: scale(1.4, 1.2);
+}
+
+/* 「寶可夢資訊」版面中的「寶可夢狀態」版面中，定義「第二部分」的樣式 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 {
+    position: relative;
+    margin: 70px 10px 10px 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 80px);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第二部分」版面 > 文字「經驗值點數」 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .text-experience,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .text-experience {
+    position: absolute;
+    top: 10px;  left: 50px;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-line-height);
+    transform: scale(1.5, 1.25);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第二部分」版面 > 「經驗值點數」數值 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .experience,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .experience {
+    position: absolute;
+    top: 50px;  right: 30px;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-line-height);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第二部分」版面 > 「經驗值點數」數值 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .text-levelup,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .text-levelup {
+    position: absolute;
+    bottom: 90px;  left: 50px;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-line-height);
+    transform: scale(1.5, 1.25);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第二部分」版面 > 「經驗值點數」數值 */
+.pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .levelup,
+#battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part2 > .levelup {
+    position: absolute;
+    bottom: 30px;  right: 30px;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-line-height);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢數值能力」版面 */
+.pokemon-info-pad > .stat-value-pad,
+#battlePad .pokemon-info-pad > .stat-value-pad {
+    background-color: white;
+    position: absolute;
+    bottom: 0;  left: 0;
+    width: 50%;
+    height: 58%;
+    border: 48px solid transparent;
+    border-image: url('../image/PokemonBorder_White.png') 88 round;
+}
+
+.pokemon-info-pad > .stat-value-pad span, .pokemon-info-pad > .stat-value-pad label,
+#battlePad .pokemon-info-pad > .stat-value-pad span, #battlePad .pokemon-info-pad > .stat-value-pad label {
+    display: block;
+    height: 12.5%;
+    font-size: 3rem;
+    line-height: 3.2rem;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢數值能力」版面 > 文字「ATTACK」 */
+.pokemon-info-pad > .stat-value-pad > .text-stat, #battlePad .pokemon-info-pad > .stat-value-pad > .text-stat {
+    text-align: left;
+    padding-left: 17.5%;
+    transform: scaleX(1.5);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢數值能力」版面 > 攻擊力數值 */
+.pokemon-info-pad > .stat-value-pad > .stat, #battlePad .pokemon-info-pad > .stat-value-pad > .stat {
+    text-align: right;
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢屬性」版面 */
+.pokemon-info-pad > .type-info-pad,
+#battlePad .pokemon-info-pad > .type-info-pad {
+    position: absolute;
+    right: 10px;  bottom: 10px;
+    width: 50%;
+    height: 52%;
+    background-image: url("../image/PokemonTypeBar.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom right;
+    overflow: hidden;
+
+    /* border: 1px solid black; */
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢屬性」版面 > label*/
+.pokemon-info-pad > .type-info-pad > label,
+#battlePad .pokemon-info-pad > .type-info-pad > label {
+    display: block;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-line-height);
+    padding: 4px 0;
+    transform: scale(2, 1.75) translate(25%, 5%);
+}
+
+/* 「寶可夢資訊」版面 > 「寶可夢屬性」版面 > span */
+.pokemon-info-pad > .type-info-pad > span,
+#battlePad .pokemon-info-pad > .type-info-pad > span {
+    display: block;
+    font-size: var(--std-font-size);
+    line-height: var(--std-line-height);
+    text-align: right;
+    padding: 4px 0;
+    transform: scale(2, 1.75) translate(-28%, 5%);
+}
+
+/* 「寶可夢資訊」版面 > 「招式清單」版面 */
+.pokemon-info-pad > .move-list-pad,
+#battlePad .pokemon-info-pad > .move-list-pad {
+    position: absolute;
+    display: flex;
+    left: 0;  bottom: 0;
+    width: 100%;
+    height: 60%;
+    border: 48px solid transparent;
+    border-image: url('../image/PokemonBorder.png') 88 round;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 「寶可夢資訊」版面 > 「招式清單」版面 > span */
+.pokemon-info-pad > .move-list-pad > span,
+#battlePad .pokemon-info-pad > .move-list-pad > span {
+    display: block;
+    font-size: 3rem;
+    line-height: 3rem;
+}
+
+/* 「寶可夢資訊」版面 > 「招式清單」版面 > 招式名稱 */
+.pokemon-info-pad > .move-list-pad > span.move-name,
+#battlePad .pokemon-info-pad > .move-list-pad > span.move-name {
+    padding-left: 15%;
+    transform: scaleX(1.25);
+}
+
+/* 「寶可夢資訊」版面 > 「招式清單」版面 > 招式PP數 */
+.pokemon-info-pad > .move-list-pad > span.move-pp,
+#battlePad .pokemon-info-pad > .move-list-pad > span.move-pp {
+    text-align: right;
+    padding-right: 15%;
+    transform: scaleX(1.25);
+}
