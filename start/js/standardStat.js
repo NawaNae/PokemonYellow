@@ -85,6 +85,27 @@ GameSystem.Classes.StandardStat.Type = Object.freeze({
     Dragon: Symbol("Dragon")
 });
 
+/**
+ * 屬性相對應的「屬性名稱」字串對應表。
+ */
+GameSystem.Classes.StandardStat.TypeName = {
+    [GameSystem.Classes.StandardStat.Type.Normal]: "Normal",
+    [GameSystem.Classes.StandardStat.Type.Fighting]: "Fighting",
+    [GameSystem.Classes.StandardStat.Type.Flying]: "Flying",
+    [GameSystem.Classes.StandardStat.Type.Poison]: "Poison",
+    [GameSystem.Classes.StandardStat.Type.Ground]: "Ground",
+    [GameSystem.Classes.StandardStat.Type.Rock]: "Rock",
+    [GameSystem.Classes.StandardStat.Type.Bug]: "Bug",
+    [GameSystem.Classes.StandardStat.Type.Ghost]: "Ghost",
+    [GameSystem.Classes.StandardStat.Type.Fire]: "Fire",
+    [GameSystem.Classes.StandardStat.Type.Water]: "Water",
+    [GameSystem.Classes.StandardStat.Type.Grass]: "Grass",
+    [GameSystem.Classes.StandardStat.Type.Electric]: "Electric",
+    [GameSystem.Classes.StandardStat.Type.Phycsic]: "Phycsic",
+    [GameSystem.Classes.StandardStat.Type.Ice]: "Ice",
+    [GameSystem.Classes.StandardStat.Type.Dragon]: "Dragon"
+};
+
 /** 初始化「屬性相剋表」 */
 (() => {
     let T = GameSystem.Classes.StandardStat.Type;
