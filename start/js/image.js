@@ -140,4 +140,6 @@ GameSystem.Classes.Image=class GameImage
     set x(value){this.position.x=value;}
     get y(){return this.position.y;}
     set y(value){this.position.y=value;}
+
+    get src() { return this._src; }
 }
