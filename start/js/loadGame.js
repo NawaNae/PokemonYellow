@@ -26,6 +26,7 @@ Load.js.import(
 
         { src: define.jsPath + 'standardStat.js', lookFor: 'GameSystem.Classes.StandardStat' },
         { src: define.jsPath + 'move.js', lookFor: 'GameSystem.Classes.Move' },
+        { src: define.jsPath + 'gradingMove.js', lookFor: 'GameSystem.Classes.GradingMove' },
         { src: define.jsPath + 'pokemonType.js', lookFor: 'GameSystem.Classes.PokemonType' },
         { src: define.jsPath + 'effortValue.js', lookFor: 'GameSystem.Classes.EffortValue' },
         { src: define.jsPath + 'individualValue.js', lookFor: 'GameSystem.Classes.IndividualValue' },
