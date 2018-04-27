@@ -212,6 +212,17 @@ label {
 #battlePad #menuPad span:nth-child(3) { top: 10px; right: 50px; }
 #battlePad #menuPad span:nth-child(4) { bottom: 10px; right: 100px; }
 
+/* 「主功能選單」面板的樣式，標籤「戰鬥」、「背包」、「寶可夢」、「逃跑」標籤選則後的圖示。 */
+#battlePad #menuPad span.select::before {
+    display:inline-block;
+    position: absolute;
+    top: 18px;  left: -30px;
+    content: '';
+    border-style: solid;
+    border-width: 0.3em 0 0.3em 0.5em;
+    border-color: transparent transparent transparent #000;
+}
+
 /* 在訊息面板中，顯示「寶可夢的名稱」 */
 #battlePad span.pokemon-name {
     position: absolute;
