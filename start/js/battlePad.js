@@ -1,21 +1,58 @@
+/** @typedef PlayerSet 玩家方戰鬥資訊面板的HTML物件集合。
+ * @prop {HTMLDivElement} playerPad 玩家方戰鬥資訊面板的HTML容器。
+ * @prop {HTMLSpanElement} pokemonName 寶可夢名稱。
+ * @prop {HTMLSpanElement} level 等級。
+ * @prop {HTMLLabelElement} HPText 文字「HP:」
+ * @prop {GameSystem.Classes.HPBarContainer} HPBar 生命條的控制物件。
+ * @prop {HTMLSpanElement} HPValue 生命值數值。
+ */
+//
+/** @typedef OpponentSet 對手方的戰鬥資料面板的HTML物件集合。
+ * @prop {HTMLDivElement} opponentPad 對手方戰鬥資訊面板的HTML容器。
+ * @prop {HTMLSpanElement} pokemonName 寶可夢的名稱。
+ * @prop {HTMLSpanElement} level 等級。 
+ * @prop {HTMLLabelElement} HPText 文字「HP:」。
+ * @prop {GameSystem.Classes.HPBarContainer} HPBar 生命條的控制物件。
+ */
+//
+/** @typedef MenuSet 主選單面板下的HTML物件集合。
+ * @prop {HTMLDivElement} menuPad 主選單面板的HTML容器。
+ * @prop {HTMLSpanElement} spanFight 選項文字「戰鬥」。
+ * @prop {HTMLSpanElement} spanItem 選項文字「背包」。
+ * @prop {HTMLSpanElement} spanPokemon 選項文字「寶可夢」。
+ * @prop {HTMLSpanElement} spanRun 選項文字「逃跑」。
+ */
+//
+/** @typedef MoveListSet 招式清單面板下的HTML物件集合。
+ * @prop {HTMLDivElement} moveListPad 招式清單面板的HTML容器。
+ * @prop {HTMLSpanElement[]} moveList 所有招式名稱。
+ */
+//
+/** @typedef MoveInfoSet 招式資訊版面下的HTML物件集合。
+ * @prop {HTMLDivElement} moveInfoPad 招式資訊版面的HTML容器。
+ * @prop {HTMLLabelElement} textTYPE 文字「TYPE/」。
+ * @prop {HTMLSpanElement} moveType 屬性名稱。
+ * @prop {HTMLSpanElement} movePP PP數值。
+ */
+//
+
 /**
  * @class BattlePad
  * @classdesc 
  * 
  * @prop {HTMLDivElement} battlePad 戰鬥面板的HTML元件主體。
- * @prop {HTMLDivElement} playerPad 玩家方的戰鬥資料面板的HTML元件。
- * @prop {HTMLDivElement} opponentPad 對手方的戰鬥資料面板的HTML元件。
+ * @prop {PlayerSet} playerSet 玩家方戰鬥資訊面板的HTML物件集合。
+ * @prop {OpponentSet} opponentSet 對手方的戰鬥資料面板的HTML物件集合。
  * @prop {HTMLDivElement} messagePad 資訊面板的HTML元件。
- * @prop {HTMLDivElement} menuPad 選單面板的HTML元件。
- * @prop {HTMLDivElement} moveListPad 招式清單的HTML元件。
- * @prop {HTMLDivElement} moveInfoPad 招式資訊的HTML元件。
+ * @prop {MenuSet} menuSet 主選單面板下的HTML物件集合。
+ * @prop {MoveListSet} moveListSet 招式清單面板下的HTML物件集合。
+ * @prop {MoveInfoSet} moveInfoSet 招式資訊版面下的HTML物件集合。
  * @prop {HTMLDivElement} backpackPad 背包物品清單版面的HTML元件。
  * @prop {GameSystem.Classes.PokemonListPad} pokemonListPad 寶可夢清單的HTML元件。
  */
 GameSystem.Classes.BattlePad =
 class BattlePad {
     constructor() {
-        let container = document.querySelector('div.HTMLObjectContainer');  // 取得母容器 HTMLObjectContainer
         this.battlePad = document.createElement('div');
         this.battlePad.id = 'battlePad';
         this.battlePad.appendChild(this.initPlayerPad());         // 建立「玩家方資訊」面板
@@ -26,36 +63,18 @@ class BattlePad {
         this.battlePad.appendChild(this.initMoveInfoPad());       // 建立「招式資訊」面板
         this.battlePad.appendChild(this.initBackpackPad());       // 建立「背包物品清單」面板
         
-        this.pokemonListPad = new GameSystem.Classes.PokemonListPad();      // 建立「寶可夢清單」面板之集合物件
+        this.pokemonListPad = new GameSystem.Classes.PokemonListPad();      // 建立「寶可夢清單」面板之控制物件
         this.battlePad.appendChild(this.pokemonListPad.getHTMLElement());   // 取得「寶可夢清單」面板的HTML元件，並將其加入至battlePad中
 
-        container.appendChild(this.battlePad);              // 將戰鬥面板加入至HTMLObjectContainer容器中
+        this.pokemonInfoPad = new GameSystem.Classes.PokemonInfoPad();      // 建立「寶可夢訊息」面板之控制物件
+        this.battlePad.appendChild(this.pokemonInfoPad.getHTMLElement());   // 取得「寶可夢訊息」面板的HTML元件，並將其加入至battlePad中
 
         // Debug
-        container.classList.remove('hide');
-        container.classList.add('show');
-        this.moveListPad.classList.add('hide');
-        this.moveInfoPad.classList.add('hide');
+        this.moveListSet.moveListPad.classList.add('hide');
+        this.moveInfoSet.moveInfoPad.classList.add('hide');
         this.backpackPad.classList.add('hide');
-    }
-
-    /**
-     * 建立一個新的血量條HTML元件。
-     * 內容包含了「血量條容器」與「血量條」。
-     * @param {number?} maxHP 一個非負的整數數值。表示最大生命值。
-     * @param {number?} HP 一個非負的整數數值。表示目前生命值。
-     * @return {HTMLDivElement} 包含「血量條」的「血量條容器」。
-     */
-    createNewHPBar(maxHP, HP) {
-        let divHPBar = document.createElement('div');
-        let divHP = document.createElement('div');
-        divHPBar.classList.add('hp-bar-container');
-        divHP.classList.add('hp-bar');
-        divHPBar.appendChild(divHP);
-        if (maxHP != undefined && HP != undefined) {
-            divHP.style = 'width: ' + (Math.ceil(HP / maxHP) * 100) + '%;';
-        }
-        return divHPBar;
+        this.pokemonListPad.hide();
+        this.pokemonInfoPad.hide();
     }
 
     /**
@@ -65,8 +84,8 @@ class BattlePad {
      * @return {HTMLDivElement} 玩家資訊面板之HTML元件。
      */
     initPlayerPad() {
-        this.playerPad = document.createElement('div');
-        this.playerPad.id = 'playerPad';
+        let playerPad = document.createElement('div');
+        playerPad.id = 'playerPad';
 
         // 建立「寶可夢名稱」的 <span>元件。
         let pokemonName = document.createElement('span');
@@ -84,21 +103,23 @@ class BattlePad {
         HPText.innerText = 'HP:'
 
         // 建立「生命條容器」的HTML元件
-        let HPBar = this.createNewHPBar();
-        HPBar.classList.add('hp-bar');
+        let HPBar = new GameSystem.Classes.HPBarContainer(20, 20);
 
         // 建立「生命數值」元件
         let HPValue = document.createElement('span');
         HPValue.classList.add('player-hp-value');
         HPValue.innerText = '20/ 20';
 
+        // 紀錄以上的元件
+        this.playerSet = {playerPad, pokemonName, level, HPText, HPBar, HPValue};
+
         // 將以上元件置入 playerPad 中。
-        this.playerPad.appendChild(pokemonName);
-        this.playerPad.appendChild(level);
-        this.playerPad.appendChild(HPText);
-        this.playerPad.appendChild(HPBar);
-        this.playerPad.appendChild(HPValue);
-        return this.playerPad;
+        playerPad.appendChild(pokemonName);
+        playerPad.appendChild(level);
+        playerPad.appendChild(HPText);
+        playerPad.appendChild(HPBar.getHTMLElement());
+        playerPad.appendChild(HPValue);
+        return playerPad;
     }
 
     /**
@@ -108,8 +129,8 @@ class BattlePad {
      * @return {HTMLDivElement} 敵方資訊面板之HTML元件。
      */
     initOpponentPad() {
-        this.opponentPad = document.createElement('div');
-        this.opponentPad.id = 'opponentPad';
+        let opponentPad = document.createElement('div');
+        opponentPad.id = 'opponentPad';
         
         // 建立「寶可夢名稱」的 <span>元件。
         let pokemonName = document.createElement('span');
@@ -127,15 +148,16 @@ class BattlePad {
         HPText.innerText = 'HP:'
 
         // 建立「生命條容器」的HTML元件
-        let HPBar = this.createNewHPBar();
-        HPBar.classList.add('opponent-hp-bar');
+        let HPBar = new GameSystem.Classes.HPBarContainer(20, 20);
+
+        this.opponentSet = {opponentPad, pokemonName, level, HPText, HPBar};
 
         // 將以上元件置入 playerPad 中。
-        this.opponentPad.appendChild(pokemonName);
-        this.opponentPad.appendChild(level);
-        this.opponentPad.appendChild(HPText);
-        this.opponentPad.appendChild(HPBar);
-        return this.opponentPad;
+        opponentPad.appendChild(pokemonName);
+        opponentPad.appendChild(level);
+        opponentPad.appendChild(HPText);
+        opponentPad.appendChild(HPBar.getHTMLElement());
+        return opponentPad;
     }
 
     /**
@@ -156,26 +178,28 @@ class BattlePad {
      * @return {HTMLDivElement} 訊息面板之HTML元件。
      */
     initMenuPad() {
-        this.menuPad = document.createElement('div');
-        this.menuPad.id = 'menuPad';
+        let menuPad = document.createElement('div');
+        menuPad.id = 'menuPad';
 
-        let fightAction = document.createElement('span');
-        fightAction.innerText = '戰鬥';
+        let spanFight = document.createElement('span');
+        spanFight.innerText = '戰鬥';
 
-        let itemAction = document.createElement('span');
-        itemAction.innerText = '背包';
+        let spanItem = document.createElement('span');
+        spanItem.innerText = '背包';
 
-        let pokemonAction = document.createElement('span');
-        pokemonAction.innerText = '寶可夢';
+        let spanPokemon = document.createElement('span');
+        spanPokemon.innerText = '寶可夢';
 
-        let runAction = document.createElement('span');
-        runAction.innerText = '逃跑';
+        let spanRun = document.createElement('span');
+        spanRun.innerText = '逃跑';
         
-        this.menuPad.appendChild(fightAction);
-        this.menuPad.appendChild(itemAction);
-        this.menuPad.appendChild(pokemonAction);
-        this.menuPad.appendChild(runAction);
-        return this.menuPad;
+        this.menuSet = {menuPad, spanFight, spanItem, spanPokemon, spanRun};
+
+        menuPad.appendChild(spanFight);
+        menuPad.appendChild(spanItem);
+        menuPad.appendChild(spanPokemon);
+        menuPad.appendChild(spanRun);
+        return menuPad;
     }
 
     /**
@@ -185,23 +209,17 @@ class BattlePad {
      * @return {HTMLDivElement} 招式清單面板的HTML元件。
      */
     initMoveListPad() {
-        this.moveListPad = document.createElement('div');
-        this.moveListPad.id = 'moveListPad';
-        let move1 = document.createElement('span'), move2 = document.createElement('span');
-        let move3 = document.createElement('span'), move4 = document.createElement('span');
-        move1.classList.add('move-name');
-        move2.classList.add('move-name');
-        move3.classList.add('move-name');
-        move4.classList.add('move-name');
-        move1.innerText = '招式1';
-        move2.innerText = '招式2';
-        move3.innerText = '招式3';
-        move4.innerText = '招式4';
-        this.moveListPad.appendChild(move1);
-        this.moveListPad.appendChild(move2);
-        this.moveListPad.appendChild(move3);
-        this.moveListPad.appendChild(move4);
-        return this.moveListPad;
+        let moveListPad = document.createElement('div');
+        moveListPad.id = 'moveListPad';
+        let moveList = [document.createElement('span'), document.createElement('span'), document.createElement('span'), document.createElement('span')];
+        moveList.forEach((element, index) => {
+            element.classList.add('move-name');
+            element.innerText = '招式' + (index + 1);
+            moveListPad.appendChild(element);
+        });
+        
+        this.moveListSet = { moveListPad, moveList };
+        return moveListPad;
     }
 
     /**
@@ -211,8 +229,8 @@ class BattlePad {
      * @return {HTMLDivElement} 招式訊息面板的HTML元件。
      */
     initMoveInfoPad() {
-        this.moveInfoPad = document.createElement('div');
-        this.moveInfoPad.id = 'moveInfoPad';
+        let moveInfoPad = document.createElement('div');
+        moveInfoPad.id = 'moveInfoPad';
         
         let textTYPE = document.createElement('label');
         textTYPE.classList.add('text-type');
@@ -226,10 +244,12 @@ class BattlePad {
         movePP.classList.add('move-PP');
         movePP.innerText = '20/ 20';
 
-        this.moveInfoPad.appendChild(textTYPE);
-        this.moveInfoPad.appendChild(moveType);
-        this.moveInfoPad.appendChild(movePP);
-        return this.moveInfoPad;
+        this.moveInfoSet = { moveInfoPad, textTYPE, moveType, movePP };
+
+        moveInfoPad.appendChild(textTYPE);
+        moveInfoPad.appendChild(moveType);
+        moveInfoPad.appendChild(movePP);
+        return moveInfoPad;
     }
 
     /**
@@ -272,6 +292,28 @@ class BattlePad {
         
         return newItem;
     }
+
+    /**
+     * 取得管理的HTML物件。
+     * @return {HTMLDivElement} 被管理的HTML物件。
+     */
+    getHTMLElement() {
+        return this.battlePad;
+    }
+
+    /**
+     * 初始化戰鬥面板至HTMLObjectContainer。
+     */
+    static initBattlePad() {
+        let container = document.querySelector('div.HTMLObjectContainer');  // 取得母容器 HTMLObjectContainer
+        let BattlePad = new GameSystem.Classes.BattlePad();
+        container.appendChild(BattlePad.getHTMLElement());
+        GameSystem.BattlePad = BattlePad;
+
+        // Debug
+        container.classList.remove('hide');
+        container.classList.add('show');
+    }
 }
 
-GameSystem.BattlePad = new GameSystem.Classes.BattlePad();
+GameSystem.Classes.BattlePad.initBattlePad();
