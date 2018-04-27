@@ -83,7 +83,7 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * 取得寶可夢最初所能擁有的招式集。
      * @return {GameSystem.Classes.Move[]} 可用的初始招式清單。
      */
-    GetInitialMove() {
+    GetInitialMoves() {
         return this._usableMoves.filter(move => move.level == 1);
     }
 }
@@ -102,7 +102,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     let MoveDEX = GameSystem.Classes.Move.Dictionary;       // 取得招式字典
     let pokemonImagePath = define.imagePath + "pokemons/";  // 定義對應的寶可夢圖片目錄路徑
     let basicStat, moves, typeA, typeB;                     // 基本狀態值
-
+    
     basicStat = {maxHP: 45, attack: 49, defense: 49, special: 65, speed: 45};
     moves = [new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(7, MoveDEX["寄生種子"]), new GradingMove(13, MoveDEX["藤鞭"]), new GradingMove(20, MoveDEX["毒粉"]), new GradingMove(27, MoveDEX["飛葉快刀"]), new GradingMove(34, MoveDEX["生長"]), new GradingMove(41, MoveDEX["催眠粉"]), new GradingMove(48, MoveDEX["日光束"])];
     DEX["妙蛙種子"] = new PokemonType(basicStat, 1, new Image(pokemonImagePath + "001_妙蛙種子.png"), new Image(pokemonImagePath + "001_妙蛙種子_Back.png"), "妙蛙種子", moves, Type.Grass, Type.Poison);
@@ -706,5 +706,5 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     basicStat = {maxHP: 100, attack: 100, defense: 100, special: 100, speed: 100};
     moves = [new GradingMove(undefined, MoveDEX["拍擊"]), new GradingMove(10, MoveDEX["變身"]), new GradingMove(20, MoveDEX["百萬噸重拳"]), new GradingMove(30, MoveDEX["揮指"]), new GradingMove(40, MoveDEX["精神強念"])];
     DEX["夢幻"] = new PokemonType(basicStat, 151, new Image(pokemonImagePath + "151_夢幻.png"), new Image(pokemonImagePath + "151_夢幻_Back.png"), "夢幻", moves, Type.Phycsic, undefined);
-
+    
 })();
