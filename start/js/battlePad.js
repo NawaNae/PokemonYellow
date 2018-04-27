@@ -49,6 +49,8 @@
  * @prop {MoveInfoSet} moveInfoSet 招式資訊版面下的HTML物件集合。
  * @prop {HTMLDivElement} backpackPad 背包物品清單版面的HTML元件。
  * @prop {GameSystem.Classes.PokemonListPad} pokemonListPad 寶可夢清單的HTML元件。
+ * 
+ * @prop {number} menuSelection 選單中所選的選項。
  */
 GameSystem.Classes.BattlePad =
 class BattlePad {
@@ -75,8 +77,11 @@ class BattlePad {
         this.backpackPad.classList.add('hide');
         this.pokemonListPad.hide();
         this.pokemonInfoPad.hide();
+
+        this.menuSelection = -1;
     }
 
+    // #region 初始化所用的函式集
     /**
      * 建立玩家方資訊面板HTML元件。並連同內容物也一起建立，
      * 有: 寶可夢名稱、等級、文字「HP」、血量條容器與血量數值。
@@ -266,6 +271,7 @@ class BattlePad {
         this.backpackPad.appendChild(this.createNewBackpackItem('返回'));
         return this.backpackPad;
     }
+    // #endregion
 
     /**
      * 建立新的背包物品之HTML元件。
@@ -294,13 +300,38 @@ class BattlePad {
     }
 
     /**
+     * 設定主選單的三角形選擇提示。
+     * @param {number} select 指定的選項。
+     * select = 0 為「戰鬥」選項。
+     * select = 1 為「背包」選項。
+     * select = 2 為「寶可夢」選項。
+     * select = 3 為「逃跑」選項。
+     * select = others 為清除。
+     */
+    setMenuCursor(select) {
+        switch(this.menuSelection) {
+            case 0: this.menuSet.spanFight.classList.remove('select');      break;
+            case 1: this.menuSet.spanItem.classList.remove('select');       break;
+            case 2: this.menuSet.spanPokemon.classList.remove('select');    break;
+            case 3: this.menuSet.spanRun.classList.remove('select');        break;
+        }
+        switch(select) {
+            case 0: this.menuSet.spanFight.classList.add('select');     break;
+            case 1: this.menuSet.spanItem.classList.add('select');      break;
+            case 2: this.menuSet.spanPokemon.classList.add('select');   break;
+            case 3: this.menuSet.spanRun.classList.add('select');       break;
+        }
+        this.menuSelection = select;
+    }
+
+    /**
      * 取得管理的HTML物件。
      * @return {HTMLDivElement} 被管理的HTML物件。
      */
     getHTMLElement() {
         return this.battlePad;
     }
-
+    
     /**
      * 初始化戰鬥面板至HTMLObjectContainer。
      */
