@@ -19,6 +19,7 @@ class Pokemon extends GameSystem.Classes.StandardStat {
      * @param {GameSystem.Classes.PokemonType} typeInfo 表示這個寶可夢的種族及其資訊。
      */
     constructor(name, typeInfo) {
+        super();
         this._name = name;
         this._level = 1;
         this._exp = 0;
@@ -61,7 +62,7 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
         this.maxHP = Math.floor( ((TP.maxHP + IV.maxHP + Math.sqrt(EV.maxHP) / 8) + level) / 50 + 10 + level );
         this.attack = Math.floor( ((TP.attack + IV.attack + Math.sqrt(EV.attack) / 8) + level) / 50 + 5 );
-        this.defense = Math.floor( ((TP.defense + IV.atdefensetack + Math.sqrt(EV.defense) / 8) + level) / 50 + 5 );
+        this.defense = Math.floor( ((TP.defense + IV.defense + Math.sqrt(EV.defense) / 8) + level) / 50 + 5 );
         this.special = Math.floor( ((TP.special + IV.special + Math.sqrt(EV.special) / 8) + level) / 50 + 5 );
         this.speed = Math.floor( ((TP.speed + IV.speed + Math.sqrt(EV.speed) / 8) + level) / 50 + 5 );
     }
@@ -82,6 +83,30 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     randomlyTakeMove() {
         let index = Math.floor(Math.random() * this._moves.length);
         return this._moves[index];
+    }
+
+    /**
+     * 取得圖片來源。
+     * @return {string} 圖片來源位置。
+     */
+    getImageSrc() {
+        return this._typeInfo.image.src;
+    }
+
+    /**
+     * 取得此寶可夢的圖鑑編號。
+     * @return {number} 圖鑑編號。
+     */
+    getNumber() {
+        return this._typeInfo.id;
+    }
+
+    /**
+     * 取得寶可夢所有的招式。
+     * @return {GameSystem.Classes.Move[]} 寶可夢的所擁有的招式。
+     */
+    getMoves() {
+        return this._moves;
     }
 
     /**
