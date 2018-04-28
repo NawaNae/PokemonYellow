@@ -23,6 +23,7 @@ class HTMLObjectContainer
         this.initBuySellDialog();
         this.initMoneyDialog();
         this.initIllustration();
+        this.initIllustrationList();
         this.initItemNumber();
         this.initShoppingList();
         this.resizeCanvas=(width,height)=>
@@ -44,6 +45,12 @@ class HTMLObjectContainer
         this.illustration=new GameSystem.Classes.Illustration();
         this.illustration.hide();
         this.addChild(this.illustration);
+    }
+    initIllustrationList()
+    {
+        this.illustrationList=new GameSystem.Classes.IllustrationList();
+        this.illustrationList.hide();
+        this.addChild(this.illustrationList);
     }
     initItemNumber()
     {
@@ -76,7 +83,7 @@ class HTMLObjectContainer
     initOptions()
     {
         this.options=new GameSystem.Classes.Options();
-        this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustration.show();;}));
+        this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustrationList.show();;}));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具"));
         this.options.push(new GameSystem.Classes.Option("角色資料"));

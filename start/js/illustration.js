@@ -1,63 +1,66 @@
-/**
- * @class Illustration
- * @description 圖鑑的class
- */
 GameSystem.Classes.Illustration=
 class Illustration extends DisplayInformation.Text
 {
     constructor()
     {
-
         super("","","","illustration");
-        this.initList();
+        this.initBasicInfo();
+        this.initImage();
+        this.initBasicInfoRight();
+        this.initName();
         this.initNumber();
-        this.lastKeyInput;
+        this.initDescription();
         this.keyInput=(e)=>{this._keyInput(e);}
-    }
-    initList()
-    {
-        let Options=GameSystem.Classes.Options,Option=GameSystem.Classes.Option;
-        this.list=new Options({className:"illustrationList"});
-        let list=this.list,dictionary=GameSystem.Classes.PokemonType.Dictionary;
-        this.listLen=0;
-        for(let key in dictionary)
-        {
-            list.push(new Option(dictionary[key].id + " " + key,function(){/*show property of pokemon*/}));
-            this.listLen++;
-        }
-        this.list.appendTo(this._display);
-    }
-    initNumber()
-    {
-        this.findNumber=new DisplayInformation.Digit(0,"發現了 "," 種\n共"+this.listLen+"種","illustrationNumbers");
-        this.findNumber.appendTo(this._display);
     }
     _keyInput(e)
     {
-        let GS=GameSystem;
-        let KM=GS.Manager.Key;
-        let options=this.list;
-        switch(KM.keyMapping[e.key])
-        {
-            case "Up":
-            options.selectLast();
-            break;
-            case "Down":
-            options.selectNext();
-            break;
-            case "A":
-            options.selectSend();
-            break;
-            case "B":
-            case "Start":  
-                this.visible=false;
-        }
+        this.hide();
+    }
+    initBasicInfo()
+    {
+        this.basicInfo=new DisplayInformation.Text("","","","basicInfo");
+        this.basicInfo.appendTo(this._display);
+    }
+    initImage()
+    {
+        this.image=new Image();
+        this.image.classList.add("image");
+        this.basicInfo._display.append(this.image);
+    }
+    initBasicInfoRight()
+    {
+        this.basicInfoRight=new DisplayInformation.Text("","","","basicInfoRight");
+        this.basicInfoRight.appendTo(this.basicInfo._display);
+    }
+    initName()
+    {
+        this.name=new DisplayInformation.Text("","","","name");
+        this.name.appendTo(this.basicInfoRight);
+    }
+    initNumber()
+    {
+        this.number=new DisplayInformation.Digit(0,"No.","","number");
+        this.number.appendTo(this.basicInfoRight);
+    }
+    initDescription()
+    {
+        this.description=new DisplayInformation.Text("","","","description");
+        this.description.appendTo(this._display);
+        
+    }
+    set setInfo(pokemonTypeObj)
+    {
+        this.name.text=pokemonTypeObj.name;
+        this.number.value=pokemonTypeObj.id;
+        this.image.src=pokemonTypeObj.image.src;//第一層為gameImage 第二層為HTML image
+    }
+    get visible()
+    {
+        return super.visible;
     }
     set visible(val)
     {
         super.visible=val;
-        this.findNumber.visible=val;
-        this.list.visible=val;
         if(val)
         {
             this.lastKeyInput=GameSystem.Manager.Key.keyInput;
@@ -69,7 +72,4 @@ class Illustration extends DisplayInformation.Text
                 GameSystem.Manager.Key.keyInput=this.lastKeyInput;
         }
     }
-    get visible()
-    {return super.visible;}
- 
 }

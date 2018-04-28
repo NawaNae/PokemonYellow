@@ -15,6 +15,7 @@ Load.js.import(
         { src: define.jsPath + 'animationItem.js', lookFor: 'GameSystem.Classes.AnimationItem' },
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },
         { src: define.jsPath + 'illustration.js',lookFor:'GameSystem.Classes.Illustration'},
+        { src: define.jsPath + 'illustrationList.js',lookFor:'GameSystem.Classes.IllustrationList'},
         { src: define.jsPath + 'dialog.js', lookFor: 'GameSystem.Classes.Dialog' },
         { src: define.jsPath + 'options.js', lookFor: 'GameSystem.Classes.Options' },
         { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },

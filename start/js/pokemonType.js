@@ -707,4 +707,5 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     moves = [new GradingMove(undefined, MoveDEX["拍擊"]), new GradingMove(10, MoveDEX["變身"]), new GradingMove(20, MoveDEX["百萬噸重拳"]), new GradingMove(30, MoveDEX["揮指"]), new GradingMove(40, MoveDEX["精神強念"])];
     DEX["夢幻"] = new PokemonType(basicStat, 151, new Image(pokemonImagePath + "151_夢幻.png"), new Image(pokemonImagePath + "151_夢幻_Back.png"), "夢幻", moves, Type.Phycsic, undefined);
 
+    DEX.length=151;
 })();
