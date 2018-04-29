@@ -362,6 +362,31 @@ class BattlePad {
     }
 
     /**
+     * 顯示招式資訊面板。
+     */
+    showMoveInfoPad() {
+        this.moveInfoSet.moveInfoPad.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏招式資訊面板。
+     */
+    hideMoveInfoPad() {
+        this.moveInfoSet.moveInfoPad.classList.add('hide');
+    }
+
+    /**
+     * 將招式資料設定至招式資料面板上。
+     * @param {string} typeName 招式屬性名稱。預設為「一般」。
+     * @param {number} PP 當前招式點數。預設為20。
+     * @param {number} maxPP 最多招式點數。預設為20。
+     */
+    setMoveInfoPadData(typeName = "一般", PP = 20, maxPP = 20) {
+        this.moveInfoSet.moveType.innerText = typeName;
+        this.moveInfoSet.movePP.innerText = PP + "/ " + maxPP;
+    }
+
+    /**
      * 取得管理的HTML物件。
      * @return {HTMLDivElement} 被管理的HTML物件。
      */
