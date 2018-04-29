@@ -51,6 +51,7 @@
  * @prop {GameSystem.Classes.PokemonListPad} pokemonListPad 寶可夢清單的HTML元件。
  * 
  * @prop {number} menuSelection 選單中所選的選項。
+ * @prop {number} moveListSelection 招式選單中所選的選項。
  */
 GameSystem.Classes.BattlePad =
 class BattlePad {
@@ -79,6 +80,7 @@ class BattlePad {
         this.pokemonInfoPad.hide();
 
         this.menuSelection = -1;
+        this.moveListSelection = -1;
     }
 
     // #region 初始化所用的函式集
@@ -194,7 +196,7 @@ class BattlePad {
 
         let spanPokemon = document.createElement('span');
         spanPokemon.innerText = '寶可夢';
-
+        
         let spanRun = document.createElement('span');
         spanRun.innerText = '逃跑';
         
@@ -206,7 +208,7 @@ class BattlePad {
         menuPad.appendChild(spanRun);
         return menuPad;
     }
-
+    
     /**
      * 建立招式清單面板，並連同內容物也一起建立。
      * 有: 招式1、招式2、招式3、招式4
@@ -322,6 +324,41 @@ class BattlePad {
             case 3: this.menuSet.spanRun.classList.add('select');       break;
         }
         this.menuSelection = select;
+    }
+
+    /**
+     * 顯示「招式清單」面板
+     */
+    showMoveListPad() {
+        this.setMoveListMouseCursor(0);
+        this.moveListSet.moveListPad.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏「招式清單」面板
+     */
+    hideMoveListPad() {
+        this.setMoveListMouseCursor(-1);
+        this.moveListSet.moveListPad.classList.add('hide');
+    }
+
+    /**
+     * 設定招式選單的三角形選擇提示。
+     * @param {number} select 指定的選項。
+     * select = 0 為第一個招式。
+     * select = 1 為第二個招式。
+     * select = 2 為第三個招式。
+     * select = 3 為第四個招式。
+     * select = others 為清除。
+     */
+    setMoveListMouseCursor(select) {
+        if (0 <= this.moveListSelection && this.moveListSelection <= 3)  {
+            this.moveListSet.moveList[this.moveListSelection].classList.remove('select');
+        }
+        if (0 <= select && select <= 3) {
+            this.moveListSet.moveList[select].classList.add('select');
+        }
+        this.moveListSelection = select;
     }
 
     /**

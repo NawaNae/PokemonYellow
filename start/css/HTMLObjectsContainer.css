@@ -304,6 +304,17 @@ label {
     --space-between-moves: 40px;
 }
 
+/* 在「招式清單」面板中，招式選項所被選擇在項目旁邊出現的三角形 */
+#battlePad #moveListPad span.move-name.select::before {
+    display: inline-block;
+    position: absolute;
+    top: 12px;  left: -30px;
+    content: '';
+    border-style: solid;
+    border-width: 0.3em 0 0.3em 0.5em;
+    border-color: transparent transparent transparent #000;
+}
+
 /* 在「招式清單」面板中，四個招式選項的上下位置調整 */
 #battlePad #moveListPad span.move-name:nth-child(1) { top: calc(var(--first-move-top)); }
 #battlePad #moveListPad span.move-name:nth-child(2) { top: calc(var(--first-move-top) + var(--space-between-moves)); }
