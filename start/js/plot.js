@@ -41,7 +41,7 @@ GameSystem.Resource.Drama = {};
     let Paragraph = GameSystem.Classes.Paragraph;
 
     Drama["PalletTown"] = {
-        "WelcomeSign": new Plot([
+        "WelcomeSign": new Plot("WelcomeSign",[
             new Paragraph("歡迎來到「真新鎮」。"),
             new Paragraph("這裡是一個新鮮又平靜的鎮，小小又漂亮的地方。")
         ]),

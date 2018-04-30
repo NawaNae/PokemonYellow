@@ -96,7 +96,6 @@ class PalletTown extends GameSystem.Classes.Level {
         for(let level of this.subLevels)
         {
             level.parentLevel=this;
-          
         }
         Framework.Game.addNewLevel({"protagonistHome1F":protagonistHome1F});
         Framework.Game.addNewLevel({"protagonistHome2F":protagonistHome2F});
@@ -138,10 +137,21 @@ class PalletTown extends GameSystem.Classes.Level {
         this.map = new CS.Image(define.imagePath + 'palletTown.png');
         this.rootScene.attach(this.map);
         this.loadNPCs();
+        this.loadSignBoard();
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
         this.walker = new CS.MapWalker({ mapRef: this.map });
         this.rootScene.attach(GS.protagonist.image);
+    }
+    loadSignBoard()
+    {
+        let SignBoard=GameSystem.Classes.SignBoard;
+        let Position=GameSystem.Classes.Position;
+        let Polt=GameSystem.Classes.Polt;
+        let Paragraph=GameSystem.Classes.Paragraph;
+        let Drama=GameSystem.Resource.Drama.PalletTown;
+        this.signBoards=[];
+        this.signBoards.push(new SignBoard({position:new Position(10,11),content: Drama.WelcomeSign}));
     }
     loadNPCs()
     {
@@ -155,7 +165,8 @@ class PalletTown extends GameSystem.Classes.Level {
                                        new CS.Image(define.imagePath+"null.png"),
                                        undefined,
                                        GS.Resource.PlotExample  ));
-        this.npcs.push(
+        
+                                       this.npcs.push(
             new CS.NPC(
                 "CHTestNPC",
                 CS.Character.Face.Up,

@@ -24,7 +24,7 @@ Load.js.import(
         { src: define.jsPath + 'buySellDialog.js', lookFor: 'GameSystem.Classes.BuySellDialog' },
         { src: define.jsPath + 'yesNoDialog.js', lookFor: 'GameSystem.Classes.YesNoDialog' },
         { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
-
+        { src: define.jsPath + 'signBoard.js', lookFor: 'GameSystem.Classes.SignBoard' },
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },

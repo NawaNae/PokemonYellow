@@ -61,6 +61,7 @@ class Level extends Framework.Level
         this.obstacles=new Array();
         this.eventObj=new Array();
         this.npcs= new Array();
+        this.signBoards= new Array();
         this.gates= new Array();
         this.battleFields= new Array();
         this.music;
@@ -84,7 +85,6 @@ class Level extends Framework.Level
     update()
     {
         /*bug 去除 */
-  
         this.nullSprite.position.x--;
         if (this.nullSprite.position.x < -2)
             this.nullSprite.position.x = -1;
@@ -120,6 +120,16 @@ class Level extends Framework.Level
         }
         return undefined;
     }
+    getSignBoardAt(position)
+    {
+        for(let signBoard of this.signBoards)
+        {
+            let pos=signBoard.position;
+            if(pos&&pos.x==position.x&&pos.y==position.y)
+                return signBoard;
+        }
+        return undefined;
+    }
     isWalkableAt(position)
     {
         
@@ -141,7 +151,6 @@ class Level extends Framework.Level
             if(position.x==place.position.x&&position.y==place.position.y)
                 return this.gates[i]
         }
-            
         return undefined;
 
     }
@@ -215,6 +224,15 @@ class Level extends Framework.Level
                 dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
                 this.inputMode=this.inputModes.dialog;
             }
+            if((this.signBoardNow=this.getSignBoardAt(GS.protagonist.facePosition)))
+            {
+                this.signBoardNow.plot.index=0;
+                this.inputMode=this.inputModes.dialog;
+                GS.HTMLObjectContainer.show();
+                let dialog=GS.HTMLObjectContainer.dialog;
+                dialog.show();
+                dialog.text=this.signBoardNow.plot.content[this.signBoardNow.plot.index++].text;
+            }
         }
         else if(KM.keyMapping[e.key]=="Start")
         {
@@ -231,17 +249,26 @@ class Level extends Framework.Level
        
      
         let dialog=GameSystem.HTMLObjectContainer.dialog;
-        if(this.npcTalkNow.plot.index==this.npcTalkNow.plot.content.length)
+        if(this.npcTalkNow&&this.npcTalkNow.plot.index==this.npcTalkNow.plot.content.length)
         {
             dialog.visible=false;
             GS.HTMLObjectContainer.visible=false;
             this.inputMode=this.inputModes.walk;
-            
+            this.npcTalkNow=undefined;
             return;
         }
-        dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
-        
-        
+        if(this.npcTalkNow)
+            dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
+        if(this.signBoardNow&&this.signBoardNow.plot.index==this.signBoardNow.plot.content.length)
+        {
+            dialog.hide();
+            GS.HTMLObjectContainer.hide();
+            this.inputMode=this.inputModes.walk;
+            this.signBoardNow=undefined;
+            return;
+        }
+        if(this.signBoardNow)
+            dialog.text=this.signBoardNow.plot.content[this.signBoardNow.plot.index++].text;
     }
     itemNumberDialogKeyInput(e,options)
     {
