@@ -384,14 +384,12 @@ class PokemonInfoPad {
      */
     show() { 
         this.pokemonInfoPad.classList.remove('hide');
-        this.pokemonInfoPad.classList.add('show');
     }
 
     /**
      * 隱藏此「寶可夢資訊」版面。
      */
     hide() {
-        this.pokemonInfoPad.classList.remove('show');
         this.pokemonInfoPad.classList.add('hide');
     }
 
