@@ -17,7 +17,7 @@
  * @prop {GameSystem.Classes.Image} image 此種寶可夢的圖示。
  * @prop {GameSystem.Classes.Image} backImage 此種寶可夢的背圖示。
  * @prop {string} name 寶可夢的種族名稱。
- * @prop {GameSystem.Classes.Move[]} usableMoves 此種寶可夢所有可用的招式。
+ * @prop {GameSystem.Classes.GradingMove[]} usableMoves 此種寶可夢所有可用的招式。
  * @prop {GameSystem.Classes.StandardStat.Type} typeA 此種寶可夢所擁有的第一屬性。
  * @prop {GameSystem.Classes.StandardStat.Type} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
  */
@@ -29,7 +29,7 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * @param {GameSystem.Classes.Image} image 此種寶可夢的圖示。
      * @param {GameSystem.Classes.Image} backImage 此寶可夢的背圖示。
      * @param {string} name 寶可夢的種族名稱。
-     * @param {GameSystem.Classes.Move[]?} usableMoves 此種寶可夢所有可用的招式。
+     * @param {GameSystem.Classes.GradingMove[]?} usableMoves 此種寶可夢所有可用的招式。
      * @param {GameSystem.Classes.StandardStat.Type?} typeA 此種寶可夢所擁有的第一屬性。
      * @param {GameSystem.Classes.StandardStat.Type?} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
      */
@@ -84,7 +84,7 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * @return {GameSystem.Classes.Move[]} 可用的初始招式清單。
      */
     GetInitialMoves() {
-        return this._usableMoves.filter(move => move.level == 1 || !move.level);
+        return this._usableMoves.filter(gMove => gMove.minLevel == 1 || !gMove.minLevel).map(gMove => gMove.move);
     }
 }
 
