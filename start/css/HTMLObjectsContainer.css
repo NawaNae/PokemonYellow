@@ -533,7 +533,8 @@ label {
 /* ======================================== 「寶可夢資訊」面板 ======================================== */
 /* 「寶可夢資訊」版面的樣式定義 */
 #battlePad .pokemon-info-pad, .pokemon-info-pad {
-    position: relative;
+    position: absolute;
+    top: 0;  left: 0;
     width: 100%;
     height: 100%;
     background-color: white;
