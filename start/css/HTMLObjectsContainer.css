@@ -381,6 +381,17 @@ label {
     background: white;
 }
 
+/* 在「背包物品清單」版面中，定義「背包物品」元件的樣式， */
+#battlePad #backpackPad > div.backpack-item.select::before {
+    display: inline-block;
+    position: absolute;
+    top: 5px;  left: -30px;
+    content: '';
+    border-style: solid;
+    border-width: 0.3em 0 0.3em 0.5em;
+    border-color: transparent transparent transparent #000;
+}
+
 /* 在「背包物品清單」版面中的「背包物品」元件中，定義「物品名稱」的樣式 */
 #backpackPad > div.backpack-item > span.item-name {
     display: block;

@@ -52,6 +52,7 @@
  * 
  * @prop {number} menuSelection 選單中所選的選項。
  * @prop {number} moveListSelection 招式選單中所選的選項。
+ * @prop {number} backpackListSelection 背包物品清單中所選的選項。
  */
 GameSystem.Classes.BattlePad =
 class BattlePad {
@@ -79,8 +80,9 @@ class BattlePad {
         this.pokemonListPad.hide();
         this.pokemonInfoPad.hide();
 
-        this.menuSelection = -1;
+        this.setMenuCursor(0);
         this.moveListSelection = -1;
+        this.backpackListSelection = -1;
     }
 
     // #region 初始化所用的函式集
@@ -384,6 +386,53 @@ class BattlePad {
     setMoveInfoPadData(typeName = "一般", PP = 20, maxPP = 20) {
         this.moveInfoSet.moveType.innerText = typeName;
         this.moveInfoSet.movePP.innerText = PP + "/ " + maxPP;
+    }
+
+    /**
+     * 顯示背包物品版面。
+     */
+    showBackpackPad() {
+        this.backpackPad.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏背包物品版面。
+     */
+    hideBackpackPad() {
+        this.backpackPad.classList.add('hide');
+    }
+
+    /** @typedef BackpackItemData 表示背包物品資料。
+     * @description 用於函式setBackpackPad()上參數型態使用。
+     * @prop {stirng} name 物品名稱。
+     * @prop {number?} quantity 物品數量。
+     */
+    /**
+     * 設定背包內的物品資料。
+     * @param {BackpackItemData[]} items 要設定的背包資料集。
+     */
+    setBackpackPad(items) {
+        let backpackPad = this.backpackPad;
+        // 移除原有的資料
+        while(backpackPad.firstChild)
+            backpackPad.removeChild(backpackPad.firstChild);
+        // 設置新資料
+        items.forEach(item => backpackPad.appendChild( this.createNewBackpackItem(item.name, item.quantity) ));
+        backpackPad.appendChild(this.createNewBackpackItem('返回'));
+    }
+
+    /**
+     * 設定背包項目選單中的三角形選擇提示。
+     * @prop {number} select 指定的選項。選項中依數量來決定。超出索引的值將不會顯示三角提示。
+     */
+    setBackpackItemCursor(select) {
+        if (0 <= this.backpackListSelection && this.backpackListSelection < this.backpackPad.childElementCount) {
+            this.backpackPad.childNodes[this.backpackListSelection].classList.remove('select');
+        }
+        if (0 <= select && select < this.backpackPad.childElementCount) {
+            this.backpackPad.childNodes[select].classList.add('select');
+        }
+        this.backpackListSelection = select;
     }
 
     /**
