@@ -459,6 +459,30 @@ class BattlePad {
     }
 
     /**
+     * 顯示寶可夢資訊版面。
+     * @param {boolean?} isPartTwo 顯示是否為第二部分。
+     */
+    showPokemonInfoPad(isPartTwo = false) {
+        this.pokemonInfoPad.show();
+        isPartTwo ? this.pokemonInfoPad.showPart2() : this.pokemonInfoPad.showPart1();
+    }
+
+    /**
+     * 隱藏寶可夢資訊版面。
+     */
+    hidePokemonInfoPad() {
+        this.pokemonInfoPad.hide();
+    }
+
+    /**
+     * 對寶可夢資訊版面設定資料。
+     * @param {GameSystem.Classes.Pokemon} pokemon 目標要設定資料的寶可夢。
+     */
+    setPokemonInfoPadData(pokemon) {
+        this.pokemonInfoPad.setInfo(pokemon);
+    }
+
+    /**
      * 取得管理的HTML物件。
      * @return {HTMLDivElement} 被管理的HTML物件。
      */
