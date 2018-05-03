@@ -84,7 +84,7 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * @return {GameSystem.Classes.Move[]} 可用的初始招式清單。
      */
     GetInitialMoves() {
-        return this._usableMoves.filter(move => move.level == 1);
+        return this._usableMoves.filter(move => move.level == 1 || !move.level);
     }
 }
 
