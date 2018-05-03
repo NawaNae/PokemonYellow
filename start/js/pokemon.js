@@ -139,4 +139,11 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
         return newPokemon;
     }
-}
+};
+
+// For debugging
+(() => {
+    let DEX = GameSystem.Classes.PokemonType.Dictionary;
+    GameSystem.Resource.Debug = GameSystem.Resource.Debug || {};
+    GameSystem.Resource.Debug.pokemon1 = new GameSystem.Classes.Pokemon("妙蛙種子", DEX["妙蛙種子"]);
+})();
