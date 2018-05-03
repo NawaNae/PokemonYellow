@@ -36,16 +36,16 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         this._HP = this.maxHP;      // 初始化當前生命值
     }
 
-    set name(newName) { this._name = name; }
+    set name(newName) { this._name = newName; }
     get name() { return this._name; }
 
-    set HP(newHP) { this._HP = HP; }
+    set HP(newHP) { this._HP = newHP; }
     get HP() { return this._HP; }
 
-    set level(newLevel) { this._level = level; }
+    set level(newLevel) { this._level = newLevel; }
     get level() { return this._level; }
 
-    set exp(newExp) { this._exp = exp; }
+    set exp(newExp) { this._exp = newExp; }
     get exp() { return this._exp; }
 
     get typeA() { return this._typeInfo.typeA; }
@@ -146,4 +146,6 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     let DEX = GameSystem.Classes.PokemonType.Dictionary;
     GameSystem.Resource.Debug = GameSystem.Resource.Debug || {};
     GameSystem.Resource.Debug.pokemon1 = new GameSystem.Classes.Pokemon("妙蛙種子", DEX["妙蛙種子"]);
+    GameSystem.Resource.Debug.pokemon2 = new GameSystem.Classes.Pokemon("小火龍", DEX["小火龍"]);
+    GameSystem.Resource.Debug.pokemon3 = new GameSystem.Classes.Pokemon("傑尼龜", DEX["傑尼龜"]);
 })();
