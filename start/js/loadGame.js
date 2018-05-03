@@ -31,6 +31,10 @@ Load.js.import(
         { src: define.jsPath + 'effortValue.js', lookFor: 'GameSystem.Classes.EffortValue' },
         { src: define.jsPath + 'individualValue.js', lookFor: 'GameSystem.Classes.IndividualValue' },
         { src: define.jsPath + 'pokemon.js', lookFor: 'GameSystem.Classes.Pokemon' },
+        { src: define.jsPath + 'battleInfo.js', lookFor: 'GameSystem.Classes.BattleInfo' },
+        { src: define.jsPath + 'battleStage.js', lookFor: 'GameSystem.Classes.BattleStage' },
+        { src: define.jsPath + 'battleResult.js', lookFor: 'GameSystem.Classes.BattleResult' },
+
 
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
         { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },
