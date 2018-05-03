@@ -9,6 +9,7 @@
  * @prop {HTMLSpanElement} levelTag 寶可夢的等級。
  * @prop {HTMLLabelElement} labelHP 「HP:」文字。
  * @prop {HTMLSpanElement} textHP 寶可夢的生命值數值。
+ * @prop {boolean} isSelected 是否為被選取狀態。
  */
 GameSystem.Classes.PokemonInfoBar =
 class PokemonInfoBar {
@@ -20,7 +21,6 @@ class PokemonInfoBar {
      * @param {number} maxHP 寶可夢的最大生命值。
      * @param {number} HP 寶可夢的當前生命值。
      * @param {string?} image 寶可夢的圖示。
-     * @return {HTMLDivElement} 寶可夢資訊條之HTML元件。
      */
     constructor(name, level, maxHP, HP, image) {
         // 寶可夢的資訊條主體。
@@ -55,6 +55,7 @@ class PokemonInfoBar {
         this.pokemonInfoBar.appendChild(this.levelTag);
         this.pokemonInfoBar.appendChild(this.labelHP);
         this.pokemonInfoBar.appendChild(this.textHP);
+        this.isSelected = false;
     }
 
     /**
@@ -85,6 +86,36 @@ class PokemonInfoBar {
     }
 
     /**
+     * 顯示寶可夢資訊條物件。
+     */
+    show() {
+        this.pokemonInfoBar.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏寶可夢資訊條物件。
+     */
+    hide() {
+        this.pokemonInfoBar.classList.add('hide');
+    }
+
+    /**
+     * 選擇此項。
+     */
+    select() {
+        this.isSelected = true;
+        this.pokemonInfoBar.classList.add('select');
+    }
+
+    /**
+     * 取消選擇此項。
+     */
+    deselect() {
+        this.isSelected = false;
+        this.pokemonInfoBar.classList.remove('select');
+    }
+
+    /**
      * 取得HTML元素。
      */
     getHTMLElement() {
@@ -92,14 +123,24 @@ class PokemonInfoBar {
     }
 };
 
+/** @typedef MenuSet 選單的HTML物件集合。
+ * @prop {HTMLDivElement} divMenu 選單的HTML母容器。
+ * @prop {HTMLSpanElement} spanStats 選項「狀態」。
+ * @prop {HTMLSpanElement} spanSwitch 選項「狀態」。
+ * @prop {HTMLSpanElement} spanCancel 選項「取消」。
+ */
+//
 /**
  * @class PokemonListPad
  * @classdesc HTML元件，「寶可夢清單」版面的控制物件。
  * 
  * @prop {HTMLDivElement} pokemonListPad 「寶可夢清單」版面的主HTML物件。
  * @prop {HTMLDivElement} messageBar 「訊息」版面的HTML物件。
- * @prop {GameSystem.Classes.PokemonInfoBar[]} 集合六個「寶可夢資料條」版面控制物件的清單。
- * @prop {HTMLDivElement} menu 「選單」版面的HTML物件。
+ * @prop {GameSystem.Classes.PokemonInfoBar[]} pokemonInfoBars 集合六個「寶可夢資料條」版面控制物件的清單。
+ * @prop {MenuSet} menuSet 「選單」版面的HTML物件集合。
+ * @prop {number} pokemonSelection 寶可夢清單中所選的選項。
+ * @prop {number} menuSelection 選單中所選的選項。
+ * @prop {number} pokemonsCount 清單中的寶可夢數量。
  */
 GameSystem.Classes.PokemonListPad =
 class PokemonListPad {
@@ -124,6 +165,11 @@ class PokemonListPad {
         this.pokemonInfoBars.forEach(element => this.pokemonListPad.appendChild(element.getHTMLElement())); // 將六個「寶可夢訊息條」加入至母版面中。
         this.pokemonListPad.appendChild(this.initMessageBar());   // 將「訊息」版面加入至母版面中。
         this.pokemonListPad.appendChild(this.initMenu());         // 將「控制選單」版面加入至母版面中。
+        
+        this.pokemonsCount = 6;
+        this.setPokemonListCursor(0);
+        this.setMenuCursor(0);
+        this.hideMenu();
     }
 
     /**
@@ -134,7 +180,39 @@ class PokemonListPad {
         // 建立「訊息版面」
         this.messageBar = document.createElement('div');
         this.messageBar.classList.add('message-bar');
+        this.messageBar.innerText = "請選擇一隻寶可夢";
         return this.messageBar;
+    }
+
+    /**
+     * 設定寶可夢的資料。
+     * @prop {GameSystem.Classes.Pokemon[]} pokemons 指定要設置的寶可夢資料。
+     */
+    setPokemonsData(pokemons) {
+        for (let i = 0, pokemon; i < 6; i++) {
+            let pokemon = pokemons[i]
+            if (pokemon) {
+                this.pokemonInfoBars[i].show();
+                this.pokemonInfoBars[i].updateInfo(pokemon.name, pokemon.level, pokemon.maxHP, pokemon.HP, pokemon.getImagePath());
+            }
+            else {
+                this.pokemonInfoBars[i].hide();
+            }
+        }
+    }
+
+    /**
+     * 設定寶可夢清單中的選擇。
+     * @param {number} select 指定的選項。為0 ~ N-1，其中N為清單中現有寶可夢數量。超過此範圍則不設置三角選擇。
+     */
+    setPokemonListCursor(select) {
+        if (0 <= this.pokemonSelection && this.pokemonSelection < this.pokemonsCount) {
+            this.pokemonInfoBars[this.pokemonSelection].deselect();
+        }
+        if (0 <= select && select < this.pokemonsCount) {
+            this.pokemonInfoBars[select].select();
+        }
+        this.pokemonSelection = select;
     }
 
     /**
@@ -145,8 +223,8 @@ class PokemonListPad {
      */
     initMenu() {
         // 建立新的「選單」HTML元件
-        this.menu = document.createElement('div');
-        this.menu.classList.add('menu');
+        let divMenu = document.createElement('div');
+        divMenu.classList.add('menu');
         // 選項「狀態」
         let spanStats = document.createElement('span');
         spanStats.classList.add('menu-item');
@@ -160,10 +238,47 @@ class PokemonListPad {
         spanCancel.classList.add('menu-item');
         spanCancel.innerText = '取消';
 
-        this.menu.appendChild(spanStats);
-        this.menu.appendChild(spanSwitch);
-        this.menu.appendChild(spanCancel);
-        return this.menu;
+        this.menuSet = { divMenu, spanStats, spanSwitch, spanCancel };
+        divMenu.appendChild(spanStats);
+        divMenu.appendChild(spanSwitch);
+        divMenu.appendChild(spanCancel);
+        return divMenu;
+    }
+
+    /**
+     * 顯示控制選單。
+     */
+    showMenu() {
+        this.menuSet.divMenu.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏控制選單。
+     */
+    hideMenu() {
+        this.menuSet.divMenu.classList.add('hide');
+    }
+
+    /**
+     * 設定選單的選擇。
+     * @param {number} select 目標選擇。
+     * select = 0 : 選擇「狀態」選項。
+     * select = 1 : 選擇「切換」選項。
+     * select = 2 : 選擇「取消」選項。
+     * select = others : 不選擇。
+     */
+    setMenuCursor(select) {
+        switch(this.menuSelection) {
+            case 0:  this.menuSet.spanStats.classList.remove('select');  break;
+            case 1:  this.menuSet.spanSwitch.classList.remove('select'); break;
+            case 2:  this.menuSet.spanCancel.classList.remove('select');
+        }
+        switch(select) {
+            case 0:  this.menuSet.spanStats.classList.add('select');  break;
+            case 1:  this.menuSet.spanSwitch.classList.add('select'); break;
+            case 2:  this.menuSet.spanCancel.classList.add('select');
+        }
+        this.menuSelection = select;
     }
 
     /**
@@ -171,14 +286,12 @@ class PokemonListPad {
      */
     show() {
         this.pokemonListPad.classList.remove('hide');
-        this.pokemonListPad.classList.add('show');
     }
 
     /**
      * 隱藏「寶可夢清單」版面。
      */
     hide() {
-        this.pokemonListPad.classList.remove('show');
         this.pokemonListPad.classList.add('hide');
     }
 
