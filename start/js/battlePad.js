@@ -329,6 +329,7 @@ class BattlePad {
         this.menuSelection = select;
     }
 
+    // #region 「招式清單」控制有關的方法集合。
     /**
      * 顯示「招式清單」面板
      */
@@ -363,7 +364,9 @@ class BattlePad {
         }
         this.moveListSelection = select;
     }
+    // #endregion
 
+    // #region 「招式資訊面板」控制有關的方法集合。
     /**
      * 顯示招式資訊面板。
      */
@@ -388,7 +391,9 @@ class BattlePad {
         this.moveInfoSet.moveType.innerText = typeName;
         this.moveInfoSet.movePP.innerText = PP + "/ " + maxPP;
     }
+    // #endregion
 
+    // #region 「背包物品版面」控制有關的方法集合。
     /**
      * 顯示背包物品版面。
      */
@@ -435,7 +440,9 @@ class BattlePad {
         }
         this.backpackListSelection = select;
     }
+    // #endregion 「背包物品版面」控制有關的方法集合。
 
+    // #region 「寶可夢清單版面」控制有關的方法集合。
     /**
      * 顯示寶可夢清單版面。
      */
@@ -459,6 +466,38 @@ class BattlePad {
     }
 
     /**
+     * 設置寶可夢清單的選擇。
+     * @param {number} select 清單中的選擇。
+     */
+    setPokemonListCursor(select) {
+        this.pokemonListPad.setPokemonListCursor(select);
+    }
+
+    /**
+     * 顯示在寶可夢清單版面中的選單版面。
+     */
+    showPokemonListPadMenu() {
+        this.pokemonListPad.showMenu();
+    }
+
+    /**
+     * 隱藏在寶可夢清單版面中的選單版面。
+     */
+    hidePokemonListPadMenu() {
+        this.pokemonListPad.hideMenu();
+    }
+
+    /**
+     * 設置在寶可夢清單中，選單上的選擇。
+     * @param {number} select 選單上的選擇。
+     */
+    setPokemonListPadMenuCursor(select) {
+        this.pokemonListPad.setMenuCursor(select);
+    }
+    // #endregion
+
+    // #region 「寶可夢資訊版面」控制有關的方法集合。
+    /**
      * 顯示寶可夢資訊版面。
      * @param {boolean?} isPartTwo 顯示是否為第二部分。
      */
@@ -481,6 +520,7 @@ class BattlePad {
     setPokemonInfoPadData(pokemon) {
         this.pokemonInfoPad.setInfo(pokemon);
     }
+    // #endregion
 
     /**
      * 取得管理的HTML物件。
