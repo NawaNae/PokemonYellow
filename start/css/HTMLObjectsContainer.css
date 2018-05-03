@@ -445,7 +445,8 @@ label {
     top: 15px;  left: 55px;
     width: 75px;
     height: 75px;
-    border: 1px solid black;
+    background-color: #F5F5F5;
+    border: none;
 }
 
 /* 在「寶可夢資料條」中的寶可夢圖示 */
