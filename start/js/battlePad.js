@@ -48,7 +48,8 @@
  * @prop {MoveListSet} moveListSet 招式清單面板下的HTML物件集合。
  * @prop {MoveInfoSet} moveInfoSet 招式資訊版面下的HTML物件集合。
  * @prop {HTMLDivElement} backpackPad 背包物品清單版面的HTML元件。
- * @prop {GameSystem.Classes.PokemonListPad} pokemonListPad 寶可夢清單的HTML元件。
+ * @prop {GameSystem.Classes.PokemonListPad} pokemonListPad 寶可夢清單的控制元件。
+ * @prop {GameSystem.Classes.PokemonInfoPad} pokemonInfoPad 寶可夢資訊版面的控制元件。
  * 
  * @prop {number} menuSelection 選單中所選的選項。
  * @prop {number} moveListSelection 招式選單中所選的選項。
@@ -433,6 +434,28 @@ class BattlePad {
             this.backpackPad.childNodes[select].classList.add('select');
         }
         this.backpackListSelection = select;
+    }
+
+    /**
+     * 顯示寶可夢清單版面。
+     */
+    showPokemonListPad() {
+        this.pokemonListPad.show();
+    }
+
+    /**
+     * 隱藏寶可夢清單版面。
+     */
+    hidePokemonListPad() {
+        this.pokemonListPad.hide();
+    }
+
+    /**
+     * 設定寶可夢清單版面上的資料。
+     * @prop {GameSystem.Classes.Pokemon[]} pokemons 目標要置入資料的寶可夢。
+     */
+    setPokemonListData(pokemons) {
+        this.pokemonListPad.setPokemonsData(pokemons);
     }
 
     /**
