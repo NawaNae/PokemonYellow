@@ -305,7 +305,7 @@ class BattlePad {
         // 更新招式清單
         let moveList = playerPokemon.getMoves();
         this.moveInfoList = [];
-        moveList.forEach(move => this.moveInfoList.push({typeName: GameSystem.Classes.StandardStat.TypeNamemove.type, maxPP: 30, PP: 30}));      // !!PP 尚未實裝!!
+        moveList.forEach(move => this.moveInfoList.push({typeName: GameSystem.Classes.StandardStat.TypeName[move.type], maxPP: 30, PP: 30}));      // !!PP 尚未實裝!!
         this.updateMoveListPad(playerPokemon.getMoves());
         // 更新背包
         this.updateBackpackItems();
