@@ -2,7 +2,8 @@ var GameSystem =
 {
     Classes:{},
     Manager:{},
-    Resource:{}
+    Resource:{},
+    Bridges:{}
 };
 GameSystem.Manager._KeyManagerClass=
 class KeyManagerClass 
@@ -200,3 +201,13 @@ class Rectangle
     set bottomRightPos(value){this.pos2=value;}
     get bottomRightPos(){return this.pos2;}
 }
+
+/**
+ * 初始化橋接「地圖走路」與「戰鬥階段」的資料模型。
+ * @prop {GameSystem.Classes.NPC | GameSystem.Classes.Pokemon} opponent 為對手NPC或寶可夢。
+ * @prop {GameSystem.Classes.Pokemon} selectPokemon 玩家所選擇的寶可夢。
+ */
+GameSystem.Bridges.BattleData = {
+    opponent: null,
+    selectPokemon: null
+};
