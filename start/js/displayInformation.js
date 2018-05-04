@@ -15,6 +15,7 @@ DisplayInformation.Text = class Text
             this.appendTo(father);
         this.text = text;
     }
+    
     set prefixString(str)
     {
         this._prefixString=str;
@@ -103,3 +104,53 @@ DisplayInformation.Digit.OutputFunctions =
         Absolute: (value) => { return Math.abs(value); },
         roundNthDigitAfterPoint: (digits) => { return (value) => { return parseFloat(value).toFixed(digits); }; }
     };
+DisplayInformation.AutoKeyInput={};
+DisplayInformation.AutoKeyInput.Text=
+class Text extends DisplayInformation.Text
+{
+    get visible(){return super.visible;}
+    set visible(val)
+    {
+        super.visible=val;
+        if(val)
+        {
+            if(this.keyInput)
+            {
+                this.lastKeyInput=GameSystem.Manager.Key.keyInput;
+                GameSystem.Manager.Key.keyInput=this.keyInput;
+            }
+        }
+        else
+        {
+            if(this.keyInput)
+            {
+                GameSystem.Manager.Key.keyInput=this.lastKeyInput;
+                this.lastKeyInput=undefined;
+            }
+        }
+    }
+}
+ DisplayInformation.AutoKeyInput.Digit=
+ class Digit extends DisplayInformation.Digit
+ {
+    get visible(){return super.visible;}
+    set visible(val)
+    {
+        if(val)
+        {
+            if(this.keyInput)
+            {
+                this.lastKeyInput=GameSystem.Manager.Key.keyInput;
+                GameSystem.Manager.Key.keyInput=this.keyInput;
+            }
+        }
+        else
+        {
+            if(this.keyInput)
+            {
+                GameSystem.Manager.Key.keyInput=this.lastKeyInput;
+                this.lastKeyInput=undefined;
+            }
+        }
+    }
+ }
