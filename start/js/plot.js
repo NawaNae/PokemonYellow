@@ -4,6 +4,7 @@
  * 
  * @prop {string} name 劇情的名稱。
  * @prop {Paragraph[]} content 劇情的內容安排。
+ * @prop {string} type 自動記錄type會依據目前的content之type變更
  */
 GameSystem.Classes.Plot =
 class Plot {
@@ -12,11 +13,80 @@ class Plot {
      * @param {Paragraph[]?} content 劇情的內容安排。
      */
     constructor(name, content = []) {
+        
         this._name = name;
         this._content = content;
-        this.index=0;
+        this._type;
+        this._index=0;
+        this._keyInput=e=>this._content[this.index].keyInput?this._content[this.index].keyInput(e):this.keyInput(e);
+        //pointer of keyInput st you can detour the function of KeyManager of this object
+        //this handler will call keyhandler of content if content owns a keyInput handler
+        autoBind(this);//綁定所有method
     }
-
+    get lastContent()
+    {
+        return this._index>0?this._content[this._index-1]:undefined;
+    }
+    set lastContent(val){console.log("last content is read only getter")}
+    get currentContent()
+    {
+        return this._index<this._content.length?this._content[this._index]:undefined;
+    }
+    set currentContent(val)
+    {console.log("current content is read only getter");}
+    end()
+    {
+        this.index=0;
+        GameSystem.Manager.Key.keyInput=this.lastKeyInput;
+    }
+    /**
+     * 執行一個內容 並遞增
+     */
+    step()
+    {
+        if(this.lastContent&&this.lastContent.end)
+                this.lastContent.end();//結束上一個內容
+        if(this.currentContent)
+        {
+            if(this.currentContent.start)//如果有定義開始 
+                this.currentContent.start();
+            this.index++;
+        }
+        else
+        {
+            this.end();
+        }
+    }
+    /**
+     * @description keyInput之handler
+     */
+    keyInput(e)
+    {
+        
+    }
+     /**
+      * @description 執行Plot 取得KeyInput
+      */
+    start()
+    {
+        //備份並取得當前keyInput
+        this.lastKeyInput=GameSystem.Manager.Key.keyInput;
+        GameSystem.Manager.Key.keyInput=this._keyInput;
+        for(let content of this._content)
+            content.plot=this;
+        
+        if(this.currentContent.type)
+            this.type=this.currentContent.type;
+        if(this.currentContent.start)
+            this.currentContent.start();
+    }
+    set index(value){
+        this._index=value;
+        this.type=this.type||this._content[this._index].type;
+    }
+    get index(){return this._index;}
+    set type(newType){this._type=newType;}
+    get type(){return this._type;}
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
 
@@ -24,13 +94,6 @@ class Plot {
     get content() { return this._content; }
 }
 
-GameSystem.Resource.PlotExample = 
-    new GameSystem.Classes.Plot("Test", [
-        new GameSystem.Classes.Paragraph("Paragraph A"),
-        new GameSystem.Classes.Paragraph("Paragraph B"),
-        new GameSystem.Classes.Paragraph("Paragraph C"),
-        new GameSystem.Classes.Paragraph("Long paragraph Test\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida nunc vitae diam vehicula feugiat. Praesent tempor iaculis blandit. Etiam euismod orci et dui condimentum blandit. Sed sit amet mattis dui, sed suscipit quam. Donec a fringilla mauris, sit amet tempus ante. Vivamus sodales molestie tristique. Maecenas sit amet pulvinar tortor. Maecenas porta sit amet lorem at scelerisque. Nunc tempus faucibus nisi quis semper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam bibendum efficitur velit, sit amet finibus mi egestas in. Pellentesque a augue vitae nibh congue mattis sed sit amet orci.\nPraesent eget mattis sapien. Morbi ullamcorper ante et imperdiet porta. Cras cursus, est id cursus vestibulum, mauris diam dictum felis, sed molestie metus nulla vitae nibh. Praesent porttitor pharetra ex, id eleifend quam porttitor in. Nulla maximus, eros a elementum mattis, metus nisi suscipit metus, quis facilisis urna leo eu nunc. Maecenas velit magna, sodales eu sem vel, aliquet finibus velit. Sed lobortis rhoncus leo, sit amet dapibus metus posuere ac. Mauris accumsan mi faucibus, egestas turpis at, tincidunt dolor. Morbi eu ipsum molestie, gravida est et, ultrices metus. Mauris et tincidunt ipsum. Nullam gravida ultrices justo. Pellentesque id lorem a purus auctor rutrum at vel sapien. Etiam gravida augue sit amet vehicula rutrum. Vestibulum lacus augue, porta eu neque pharetra, sagittis commodo mi. Curabitur turpis orci, convallis nec diam in, auctor eleifend odio.\nCurabitur sit amet condimentum urna. Maecenas euismod sem convallis, tempor risus a, pulvinar leo. Nam volutpat lacus tellus, non ultricies augue tempus at. Integer malesuada laoreet ante, ut egestas diam pulvinar at. Aliquam erat volutpat. Sed id venenatis tortor. Phasellus condimentum nibh in viverra accumsan. Nullam eu mauris elementum, consequat urna in, viverra justo. In ut libero tincidunt, faucibus turpis ac, elementum mi. Fusce a nisi a lectus imperdiet pellentesque id id felis. Praesent mattis lectus quis justo accumsan tempor. In imperdiet tristique felis ut maximus. Etiam iaculis, sapien id ornare bibendum, lorem urna euismod quam, id dictum leo quam non nibh. Vestibulum pellentesque metus arcu, interdum eleifend dui dignissim ut. Ut venenatis id diam eu malesuada. Nunc eget felis in metus auctor consectetur.\nMorbi ac ultrices urna. Curabitur et finibus nunc. Cras accumsan erat eget nunc placerat sodales. Aliquam euismod, metus ac egestas laoreet, lorem mi egestas felis, at pellentesque tortor libero id magna. Phasellus tempus massa at eros maximus lacinia. Phasellus rutrum est tellus, sed cursus massa aliquam vulputate. Proin non turpis dictum, rutrum lectus at, condimentum ligula.\nOrci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec semper id diam id faucibus. Suspendisse vel arcu aliquet, condimentum diam eget, dapibus orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris aliquet quam eu convallis suscipit. Aliquam quis metus lobortis, vulputate arcu ut, ullamcorper orci. Vivamus sed dolor pellentesque, dapibus quam eu, dictum risus. Duis mi felis, feugiat quis sem ac, fermentum pharetra velit. Sed vitae ligula quis metus congue hendrerit ut vestibulum tortor. Maecenas facilisis faucibus libero, at tincidunt enim aliquet sed. Mauris tempor ac sem in ullamcorper.")
-    ]);
 
 GameSystem.Resource.Drama = {};
 
