@@ -30,6 +30,8 @@ class Protagonist extends GameSystem.Classes.Character {
 
     get pokemons() { return this._pokemons; }
 
+    get props() { return this._props; }
+
     set atMap(newMap) { this._atMap = newMap }
     get atMap() { return this._atMap; }
 
