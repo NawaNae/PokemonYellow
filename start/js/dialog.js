@@ -8,24 +8,19 @@
  * @method hide 隱藏
  */
 GameSystem.Classes.Dialog=
-class Dialog extends DisplayInformation.Text
+class Dialog extends DisplayInformation.AutoKeyInput.Text
 {
     constructor(text="",elementTypeString='div')
     {
+
+        let skip;
         super(text,skip,skip,"dialog",elementTypeString);
-        var skip=undefined;
-        this.displayClassName=["hide","show"];
-        this.visible=false;
+        this.plot;
+        autoBind(this);
     }
-    get visible()
-    {return !this._display.classList.contains(this.displayClassName[0]);}
-    set visible(value)
+    keyInput(e)
     {
-        this._display.classList.add(this.displayClassName[value|0]);
-        this._display.classList.remove(this.displayClassName[(!value)|0]);
+        //any key 
+        this.plot.step();
     }
-    show()
-    {this.visible=true;}
-    hide()
-    {this.visible=false}
 }
