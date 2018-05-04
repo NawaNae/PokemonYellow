@@ -35,6 +35,12 @@
  * @prop {HTMLSpanElement} movePP PP數值。
  */
 //
+/** @typedef MoveInfo 招式資訊。
+ * @prop {string} typeName 招式屬性名稱。
+ * @prop {number} maxPP 最大PP數。
+ * @prop {number} PP 招式的PP數。
+ */
+//
 
 /**
  * @class BattlePad
@@ -54,6 +60,7 @@
  * @prop {number} menuSelection 選單中所選的選項。
  * @prop {number} moveListSelection 招式選單中所選的選項。
  * @prop {number} backpackListSelection 背包物品清單中所選的選項。
+ * @prop {MoveInfo[]} moveInfoList 招式資料。
  */
 GameSystem.Classes.BattlePad =
 class BattlePad {
@@ -84,6 +91,7 @@ class BattlePad {
         this.setMenuCursor(0);
         this.moveListSelection = -1;
         this.backpackListSelection = -1;
+        this.moveInfoList = [];
     }
 
     // #region 初始化所用的函式集
@@ -279,6 +287,31 @@ class BattlePad {
     // #endregion
 
     /**
+     * 更新資料。
+     * @param {GameSystem.Classes.Pokemon} playerPokemon 玩家方的寶可夢。
+     * @param {GameSystem.Classes.Pokemon} opponentPokemon 對手方的寶可夢。
+     * @param {GameSystem.Classes.PropItem[]} propList 玩家方的道具清單。
+     */
+    updateInfo(playerPokemon, opponentPokemon, propList) {
+        // 更新玩家方的戰鬥面板資訊
+        this.playerSet.pokemonName.innerText = playerPokemon.name;
+        this.playerSet.level.innerText = ":L " + playerPokemon.level;
+        this.playerSet.HPBar.updateHP(playerPokemon.HP, playerPokemon.maxHP);
+        this.playerSet.HPValue.innerText = playerPokemon.HP + "/ " + playerPokemon.maxHP;
+        // 更新對手方的戰鬥面板資訊
+        this.opponentSet.pokemonName.innerText = opponentPokemon.name;
+        this.opponentSet.level.innerText = ":L " + opponentPokemon.level;
+        this.opponentSet.HPBar.updateHP(opponentPokemon.HP, opponentPokemon.maxHP);
+        // 更新招式清單
+        let moveList = playerPokemon.getMoves();
+        this.moveInfoList = [];
+        moveList.forEach(move => this.moveInfoList.push({typeName: GameSystem.Classes.StandardStat.TypeNamemove.type, maxPP: 30, PP: 30}));      // !!PP 尚未實裝!!
+        this.updateMoveListPad(playerPokemon.getMoves());
+        // 更新背包
+        this.updateBackpackItems();
+    }
+
+    /**
      * 建立新的背包物品之HTML元件。
      * 若count為 0 或 undefine。則不附加數量標籤。
      * @param {string} name 物品名稱。
@@ -342,7 +375,6 @@ class BattlePad {
      * 隱藏「招式清單」面板
      */
     hideMoveListPad() {
-        this.setMoveListMouseCursor(-1);
         this.moveListSet.moveListPad.classList.add('hide');
     }
 
@@ -361,8 +393,28 @@ class BattlePad {
         }
         if (0 <= select && select <= 3) {
             this.moveListSet.moveList[select].classList.add('select');
+            let moveInfo = this.moveInfoList[select];
+            this.setMoveInfoPadData(moveInfo.name, moveInfo.PP, moveInfo.maxPP);
         }
         this.moveListSelection = select;
+    }
+
+    /**
+     * 更新招式清單上的資料。
+     * @param {GameSystem.Classes.Move[]} moveList 指定的招式清單資料。
+     */
+    updateMoveListPad(moveList) {
+        for (let i = 0, move; i < 4; i++) {
+            move = moveList[i];
+            if (move) {
+                this.moveListSet.moveList[i].classList.remove('hide');
+                this.moveListSet.moveList[i].innerText = move.name;
+            }
+            else {
+                this.moveListSet.moveList[i].classList.add('hide');
+            }
+        }
+        this.setMoveListMouseCursor(0);
     }
     // #endregion
 
@@ -439,6 +491,13 @@ class BattlePad {
             this.backpackPad.childNodes[select].classList.add('select');
         }
         this.backpackListSelection = select;
+    }
+
+    /**
+     * !! 尚未完成 !!
+     */
+    updateBackpackItems() {
+
     }
     // #endregion 「背包物品版面」控制有關的方法集合。
 
