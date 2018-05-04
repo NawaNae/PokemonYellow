@@ -213,26 +213,10 @@ class Level extends Framework.Level
         if(KM.keyMapping[e.key]=="A")
         {
             if((this.npcTalkNow=this.isNPCAtThenGet(GS.protagonist.facePosition)))
-            {
-                
-                this.npcTalkNow.plot.index=0;
-                this.inputMode=this.inputModes.dialog;
-                GS.HTMLObjectContainer.visible=true;
-                let dialog=GameSystem.HTMLObjectContainer.dialog;
-                dialog.visible=true;
-
-                dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
-                this.inputMode=this.inputModes.dialog;
-            }
+                this.npcTalkNow.plot.start();
             if((this.signBoardNow=this.getSignBoardAt(GS.protagonist.facePosition)))
-            {
-                this.signBoardNow.plot.index=0;
-                this.inputMode=this.inputModes.dialog;
-                GS.HTMLObjectContainer.show();
-                let dialog=GS.HTMLObjectContainer.dialog;
-                dialog.show();
-                dialog.text=this.signBoardNow.plot.content[this.signBoardNow.plot.index++].text;
-            }
+                this.signBoardNow.plot.start();
+            
         }
         else if(KM.keyMapping[e.key]=="Start")
         {
@@ -243,33 +227,7 @@ class Level extends Framework.Level
             this.inputMode=this.inputModes.options;
         }
     }
-    dialogKeyInput(e)
-    {
-        var GS=GameSystem;
-       
-     
-        let dialog=GameSystem.HTMLObjectContainer.dialog;
-        if(this.npcTalkNow&&this.npcTalkNow.plot.index==this.npcTalkNow.plot.content.length)
-        {
-            dialog.visible=false;
-            GS.HTMLObjectContainer.visible=false;
-            this.inputMode=this.inputModes.walk;
-            this.npcTalkNow=undefined;
-            return;
-        }
-        if(this.npcTalkNow)
-            dialog.text=this.npcTalkNow.plot.content[this.npcTalkNow.plot.index++].text;
-        if(this.signBoardNow&&this.signBoardNow.plot.index==this.signBoardNow.plot.content.length)
-        {
-            dialog.hide();
-            GS.HTMLObjectContainer.hide();
-            this.inputMode=this.inputModes.walk;
-            this.signBoardNow=undefined;
-            return;
-        }
-        if(this.signBoardNow)
-            dialog.text=this.signBoardNow.plot.content[this.signBoardNow.plot.index++].text;
-    }
+  
     itemNumberDialogKeyInput(e,options)
     {
         let GS=GameSystem,KM=GS.Manager.Key,CS=GS.Classes;
@@ -335,7 +293,6 @@ GameSystem.Classes.Level.InputModes=Object.freeze(
     {
         
             walk:0,
-            dialog:1,
             options:2,
             yesNoDialog:3,
             buySellDialog:4,
