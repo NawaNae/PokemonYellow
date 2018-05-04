@@ -94,7 +94,9 @@ class BattleResult {
     }
 }
 
-/** 戰鬥結果的動作種類 */
+/** @enum 戰鬥結果的動作種類
+ * @readonly
+ */
 GameSystem.Classes.BattleResult.ActionType = Object.freeze({
     /** 顯示訊息 */
     ShowMessage: Symbol('ShowMessage'),
