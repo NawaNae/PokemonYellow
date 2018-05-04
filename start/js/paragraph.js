@@ -1,24 +1,48 @@
 /**
  * @class Paragraph
- * @classdesc 段落，表示在劇情中每一段的段落文字以及關連動作。
+ * @extends PlotContent
+ * @classdesc 作為對話框系列動作的劇情文字內容
  * 
  * @prop {string} content 段落的內容。
- * @prop {GameSystem.Classes.Action} 此段落要執行的動作。
+ * 
  */
 GameSystem.Classes.Paragraph =
-class Paragraph {
+class Paragraph extends GameSystem.Classes.PlotContent {
     /**
      * @param {string} content 段落的內容。
-     * @param {GameSystem.Classes.Action} action 此段落要執行的動作。
+     * 
      */
-    constructor(content, action) {
+    constructor(content,type="dialog") {
+        super({type:type});
+        autoBind(this);
         this._content = content;
-        this._action = action;
-    }
+        
 
+    }
+    start()
+    {
+        let dialog=GameSystem.HTMLObjectContainer.dialog,container=GameSystem.HTMLObjectContainer;
+        if(this.type=="dialog")
+        {
+            dialog.plot=this.plot;
+            dialog.show();
+            container.show();
+            dialog.text=this.text;
+        }
+    }
+    end()
+    {
+        let dialog=GameSystem.HTMLObjectContainer.dialog,container=GameSystem.HTMLObjectContainer;
+        if(this.type=="dialog")
+        {
+            dialog.plot=undefined;
+            dialog.hide();
+            dialog.text="";
+            container.hide();
+        }
+    }
     set text(newContent) { this._content = newContent; }
     get text() { return this._content; }
 
-    set action(newAction) { this._action = newAction; }
-    get action() { return this._action; }
+
 }
