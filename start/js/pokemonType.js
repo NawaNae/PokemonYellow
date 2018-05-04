@@ -20,6 +20,7 @@
  * @prop {GameSystem.Classes.Move[]} usableMoves 此種寶可夢所有可用的招式。
  * @prop {GameSystem.Classes.StandardStat.Type} typeA 此種寶可夢所擁有的第一屬性。
  * @prop {GameSystem.Classes.StandardStat.Type} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
+ * @prop {String} description 寶可夢描述
  */
 GameSystem.Classes.PokemonType =
 class PokemonType extends GameSystem.Classes.StandardStat {
@@ -32,8 +33,9 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * @param {GameSystem.Classes.Move[]?} usableMoves 此種寶可夢所有可用的招式。
      * @param {GameSystem.Classes.StandardStat.Type?} typeA 此種寶可夢所擁有的第一屬性。
      * @param {GameSystem.Classes.StandardStat.Type?} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
+     * @param {String} description 寶可夢描述
      */
-    constructor(basicStat, id, image, backImage, name, usableMoves, typeA, typeB) {
+    constructor(basicStat, id, image, backImage, name, usableMoves, typeA, typeB, description) {
         super(basicStat.maxHP, basicStat.attack, basicStat.defense, basicStat.special, basicStat.speed);
         this._id = id;
         this._image = image;
@@ -42,10 +44,14 @@ class PokemonType extends GameSystem.Classes.StandardStat {
         this._usableMoves = usableMoves || new Set([]);
         this._typeA = typeA;
         this._typeB = typeB;
+        this._description=description;
     }
 
     set id(newId) { this._id = newId; }
     get id() { return this._id; }
+
+    set description(val){this._description=val}
+    get description(){return this._description;}
 
     set image(newImage) { this._image = newImage; }
     get image() { return this._image; }
@@ -705,7 +711,8 @@ GameSystem.Classes.PokemonType.Dictionary = {};
 
     basicStat = {maxHP: 100, attack: 100, defense: 100, special: 100, speed: 100};
     moves = [new GradingMove(undefined, MoveDEX["拍擊"]), new GradingMove(10, MoveDEX["變身"]), new GradingMove(20, MoveDEX["百萬噸重拳"]), new GradingMove(30, MoveDEX["揮指"]), new GradingMove(40, MoveDEX["精神強念"])];
-    DEX["夢幻"] = new PokemonType(basicStat, 151, new Image(pokemonImagePath + "151_夢幻.png"), new Image(pokemonImagePath + "151_夢幻_Back.png"), "夢幻", moves, Type.Phycsic, undefined);
-
+    DEX["夢幻"] = new PokemonType(basicStat, 151, new Image(pokemonImagePath + "151_夢幻.png"), new Image(pokemonImagePath + "151_夢幻_Back.png"), "夢幻", moves, Type.Phycsic, undefined,"神獸，超棒der");
+    
     DEX.length=151;
 })();
+ 

@@ -52,6 +52,7 @@ class Illustration extends DisplayInformation.Text
     {
         this.name.text=pokemonTypeObj.name;
         this.number.value=pokemonTypeObj.id;
+        this.description.text=pokemonTypeObj.description||"";
         this.image.src=pokemonTypeObj.image.src;//第一層為gameImage 第二層為HTML image
     }
     get visible()

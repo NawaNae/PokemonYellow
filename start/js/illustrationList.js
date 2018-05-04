@@ -19,6 +19,7 @@ class Illustration extends DisplayInformation.Text
         let Options=GameSystem.Classes.Options,Option=GameSystem.Classes.Option;
         this.list=new Options({className:"list"});
         let list=this.list,dictionary=GameSystem.Classes.PokemonType.Dictionary;
+        list.optionsLoop=true;
         for(let key in dictionary)
         {
             list.push(new Option(dictionary[key].id + " " + key,function()
