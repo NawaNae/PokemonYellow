@@ -19,6 +19,7 @@ Load.js.import(
         { src: define.jsPath + 'battlePad.js', lookFor: 'GameSystem.Classes.BattlePad' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
+        { src: define.jsPath + 'propItem.js', lookFor: 'GameSystem.Classes.PropItem' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
         { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
