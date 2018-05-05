@@ -32,12 +32,12 @@ DisplayInformation.Text = class Text
     {return this._postfixString;}
     get text()
     {
-        return this._text;
+        return DisplayInformation.gameTextProcess(this._text);
     }
     set text(text)
     {
         this._text = text;
-        this._display.innerText = this._prefixString + this._displayProcessFunction(this._text) + this._postfixString;
+        this._display.innerText = DisplayInformation.gameTextProcess(this._prefixString + this._displayProcessFunction(this._text) + this._postfixString);
     }
     get visible()
     {return !this._display.classList.contains(this.displayClassName[0]);}
@@ -154,3 +154,21 @@ class Text extends DisplayInformation.Text
         }
     }
  }
+ DisplayInformation.gameTextMappping={};
+DisplayInformation.gameTextProcess=function(text)
+{
+    if(!GameSystem||!GameSystem.protagonist)
+        return text;
+    DisplayInformation.gameTextMappping=
+    {
+        "\\$MY_NAME":GameSystem.protagonist.name,
+        "\\$RIVAL_NAME":GameSystem.rival.name
+    };
+    let map=DisplayInformation.gameTextMappping;
+    for(let key in map)
+    {
+        var re = new RegExp(key, 'g');
+        text=text.replace(re,map[key]);
+    }
+    return text;
+}
