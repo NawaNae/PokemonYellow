@@ -26,6 +26,10 @@
 		'imagePath': {
 			value: mainPath + 'image/',
 			writable: false
+		},
+		'characterImagePath': {
+			value: mainPath + 'image/characters/',
+			writable: false
 		}
 
 	});
