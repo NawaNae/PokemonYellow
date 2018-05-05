@@ -63,7 +63,7 @@ class Character {
             list.index++;
             list.index%=list.length;
             this.image.copy(list[list.index]);
-            if(list.index==0)
+            if(list.index===0)
             {
                 this.timeNumber=undefined;
                 this.playList=undefined;
@@ -72,7 +72,7 @@ class Character {
             else
                 this.timeNumber=setTimeout(timeFucn,period);
         }
-        if(list.length==1)
+        if(list.length===1)
             this.playEndAnimation();
         else
             timeFucn();
@@ -93,7 +93,7 @@ class Character {
 
     }
     set name(newName) { this._name = newName; }
-    get name() { return name; }
+    get name() { return this._name; }
     set position(newPosition) 
     {
          this._position = newPosition;
@@ -113,7 +113,7 @@ class Character {
     get image() { return this._image; }
     set facing(newDirection)
     {
-        if(newDirection.constructor.name=="String")
+        if(newDirection.constructor.name==="String")
             newDirection=GameSystem.Classes.Character.Face[newDirection];
         this._facing=newDirection;
         let returnVal;
@@ -131,7 +131,17 @@ class Character {
             this.position.y+this.movePositionVector[this.facing].y
         );
     }
-
+    get visible(){return this.animationLists.Up[0]?this.animationLists.Up[0].visible:this.animationLists.Down[0]?this.animationLists.Down[0].visible:this.animationLists.Left[0]?this.animationLists.Left[0].visible:this.animationLists.Right[0]?this.animationLists.Right[0].visible:this.image?this.image.visible:false;}
+    set visible(val)
+    {
+        this.image.visible=val;
+        var map=["Up","Down","Left","Right"];
+        for(let direction of map)
+            for(let aItem of this.animationLists[direction])
+                aItem.visible=val;
+    }
+    show(){this.visible=true;}
+    hide(){this.visible=false;}
 };
 
 /**
