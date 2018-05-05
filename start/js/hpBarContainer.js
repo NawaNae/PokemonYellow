@@ -60,7 +60,7 @@ class HPBarContainer {
      */
     increaseOnePercent() {
         if (this._percent > 0) {
-            this._percent -= 1;
+            this._percent += 1;
             this._updateStyle();
         }
     }
