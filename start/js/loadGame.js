@@ -3,8 +3,10 @@ var loadGameEnd;
 Load.css(define.cssPath + "HTMLObjectsContainer.css");
 Load.js.import(
 [
-        { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
-        { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' },
+       { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
+        { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' }, 
+        { src: define.jsPath + 'mapPosition.js', lookFor: 'GameSystem.Classes.MapPosition' },
+        { src: define.jsPath + 'connection.js', lookFor: 'GameSystem.Classes.Connection' },
         { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         
@@ -27,16 +29,18 @@ Load.js.import(
         { src: define.jsPath + 'signBoard.js', lookFor: 'GameSystem.Classes.SignBoard' },
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
+        { src: define.jsPath + 'plotContent.js', lookFor: 'GameSystem.Classes.PlotContent' },
+        { src: define.jsPath + 'plotContents.cureAll.js', lookFor: 'GameSystem.Classes.PlotContents.CureAll' },
+        { src: define.jsPath + 'plotContents.moveCharacter.js', lookFor: 'GameSystem.Classes.PlotContents.MoveCharacter' },
         { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
         { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
         { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
 
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
-        { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },
-        { src: define.jsPath + 'mapPosition.js', lookFor: 'GameSystem.Classes.MapPosition' },
-        { src: define.jsPath + 'connection.js', lookFor: 'GameSystem.Classes.Connection' },
+      /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
 
-        { src: define.jsPath + 'gameSystemLoaded.js', lookFor: 'gameSystemLoaded' },
+
+        { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
         { src: define.jsPath + 'levelPalletTown.js', lookFor: 'PalletTown' },
         { src: define.jsPath + 'levelRoute01.js', lookFor: 'Route01' },
