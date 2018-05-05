@@ -46,7 +46,7 @@ class Options
     }
     find(text)
     {
-        return this.options.find((option)=>{return option.name==text});
+        return this.options.find((option)=>{return option.text==text});
     }
     /**
      * 移除自己或者options內容
