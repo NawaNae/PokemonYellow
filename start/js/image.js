@@ -22,9 +22,9 @@ GameSystem.Classes.Image=class GameImage
     constructor(src,option={position:undefined,displaySize:undefined,cutStartPosition:undefined,cutSize:undefined})
     {
         this.position=option.position||{x:0,y:0};
-        this.displaySize=option.displaySize?option.displaySize:undefined;
-        this.cutStartPosition=option.cutStartPosition?option.cutStartPosition:undefined;
-        this.cutSize=option.cutSize?option.cutSize:undefined;
+        this.displaySize=option.displaySize?option.displaySize.constructor.name=="Position"?option.displaySize.toPoint():option.displaySize:undefined;
+        this.cutStartPosition=option.cutStartPosition?option.cutStartPosition.constructor.name=="Position"?option.cutStartPosition.toPoint():option.cutStartPosition:undefined;
+        this.cutSize=option.cutSize?option.cutSize.constructor.name=="Position"?option.cutSize.toPoint():option.cutSize:undefined;
         this._src=src;
         this.image=Load.image(src);
         this.visible=true;
