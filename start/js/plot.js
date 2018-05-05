@@ -48,9 +48,11 @@ class Plot {
                 this.lastContent.end();//結束上一個內容
         if(this.currentContent)
         {
-            if(this.currentContent.start)//如果有定義開始 
-                this.currentContent.start();
+            var content=this.currentContent;
             this.index++;
+            if(content.start)//如果有定義開始 
+                content.start();
+            
         }
         else
         {
@@ -84,6 +86,8 @@ class Plot {
         this._index=value;
         this.type=this.type||this._content[this._index].type;
     }
+    get currentLevel(){return Framework.Game._currentLevel;}
+    set currentLevel(val){console.log("current level is read only getter");}
     get index(){return this._index;}
     set type(newType){this._type=newType;}
     get type(){return this._type;}
@@ -102,11 +106,31 @@ GameSystem.Resource.Drama = {};
     let Drama = GameSystem.Resource.Drama;
     let Plot = GameSystem.Classes.Plot;
     let Paragraph = GameSystem.Classes.Paragraph;
-
+    let CureAll = GameSystem.Classes.PlotContents.CureAll;
     Drama["PalletTown"] = {
         "WelcomeSign": new Plot("WelcomeSign",[
             new Paragraph("歡迎來到「真新鎮」。"),
             new Paragraph("這裡是一個新鮮又平靜的鎮，小小又漂亮的地方。")
+        ]),
+        "ProtagonisHomeSign": new Plot("ProtagonisHomeSign",[
+            new Paragraph("這裡是$MY_NAME家")
+        ]),
+        "RivalHomeSign":new Plot("ProtagonisHomeSign",[
+            new Paragraph("這裡是$RIVAL_NAME家")
+        ]),
+        "OakHomeSign":new Plot("ProtagonisHomeSign",[
+            new Paragraph("這裡是大木博士的研究所\n下方寫著一些信息"),
+            new Paragraph("誠徵\n低價菸酒生、研究助理\n薪水絕對低於22k"),
+            new Paragraph("工作內容\n打雜跑腿、買飲料、抓寶可夢"),
+            new Paragraph("研究領域\n寶可夢工程、深度寶可夢\n智慧寶可夢、區塊寶可夢\n應有盡有，甚麼都不會"),
+        ]),
+        "Bookshelf": new Plot("Bookshelf", [
+            new Paragraph("很多關於寶可夢的書。"),
+        ]),
+        "PronBooks": new Plot("PronBooks",[
+            new Paragraph("發現了很多$MY_NAME的小黃書"),
+            new Paragraph("伊布制服誘惑、臭臭泥的課後輔導..."),
+            new Paragraph("作者『$MY_NAME真的瘋了』")
         ]),
         "OakNormal": new Plot("OakNormal", [
             new Paragraph("要不是因為我年老了，否則我仍會想要到外頭去尋找寶可夢呢。"),
@@ -114,7 +138,30 @@ GameSystem.Resource.Drama = {};
             new Paragraph("去外頭捕捉新的寶可夢吧！")
         ]),
         "Mother": new Plot("Mother", [
-            new Paragraph("外出探索新的寶可夢時，記得要拍照回憶、注意安全啊！")
+            new Paragraph("媽媽『$MY_NAME不要做太過火\n不然寶可夢會討厭你的"),
+            new Paragraph("休息一下吧…"),
+            new CureAll(),
+            new Paragraph("你跟寶可夢都這麼有精神阿\n那小心一點喔"),
+            new Paragraph("¡Adios!")
+        ]),
+        "Girl1": new Plot("Girl1", [
+            new Paragraph("我也在養寶可夢，如果夠強的話還可以當你的保鑣呢！"),
+            new Paragraph("$MY_NAME『阿不就好棒棒』"),
+        ]),
+        "Fatty": new Plot("Fatty", [
+            new Paragraph("科學的力量真是厲害"),
+            new Paragraph("現在利用電腦通信從道具屋傳送寶可夢資料"),
+            new Paragraph("然而作者沒打算做這功能"),
+        ]),
+        "RivalsSisterMap": new Plot("RivalsSisterMap", [
+            new Paragraph("聽說大木老頭找你跑腿阿？真辛苦（嘲諷意味）！"),
+            new Paragraph("這給你用吧！"),
+            new Paragraph("$MY_NAME從姐姐手中得到城鎮地圖，然而作者也沒有想實作"),
+            /*new Paragraph("在道具中使用城鎮地圖，可以看到自己在哪兒"),*/
+        ]),
+        "RivalsSister": new Plot("RivalsSister", [
+            new Paragraph("經常在一豈能與寶可夢建立良好關係"),
+            new Paragraph("$MY_NAME『Madam, 我比較想與你建立良好關係』")
         ]),
         "Gary_First": new Plot("Gary_First", [
             new Paragraph("嘿! 我正在等大木伯伯過來這裡，我要領我的寶可夢球了！")
