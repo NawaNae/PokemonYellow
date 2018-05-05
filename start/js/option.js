@@ -11,17 +11,6 @@ class Option extends DisplayInformation.Text
         this.selectSend=selectSendFunction||selectSend;
         
     }
-    get visible()
-    {return !this._display.classList.contains(this.displayClassName[0]);}
-    set visible(value)
-    {
-        this._display.classList.add(this.displayClassName[value|0]);
-        this._display.classList.remove(this.displayClassName[(!value)|0]);
-    }
-    show()
-    {this.visible=true;}
-    hide()
-    {this.visible=false}
     checkChanged()
     {
 

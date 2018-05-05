@@ -1,5 +1,5 @@
 /**
- * @description 顯示在下方的對話框
+ * 顯示在下方的對話框
  * @class GameSystem.Classes.Dialog
  * @extends DisplayInformation.Text
  * @property {string} text 內部顯示的文字

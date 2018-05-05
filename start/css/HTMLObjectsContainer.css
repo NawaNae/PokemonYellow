@@ -13,23 +13,22 @@
 }
 /*Container*/
 /*漂浮置中對其*/
-.HTMLObjectContainer
-{
+.HTMLObjectContainer {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently*/
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
     position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     font-size: 3em;
     line-height: 2.5em;
     margin: auto;
-    font-family: MBitmapSquareHK,sans-serif;
+    font-family: "Terminal",MBitmapSquareHK,sans-serif;
 }
 .HTMLObjectContainer .dialog,
 .HTMLObjectContainer .options,
