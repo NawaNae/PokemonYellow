@@ -59,7 +59,7 @@ class HPBarContainer {
      * 若百分比為0則不動作。
      */
     increaseOnePercent() {
-        if (this._percent > 0) {
+        if (this._percent < 100) {
             this._percent += 1;
             this._updateStyle();
         }
