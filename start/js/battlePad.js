@@ -282,17 +282,33 @@ class BattlePad {
         this.backpackPad.appendChild(this.createNewBackpackItem('項目1', 1));
         this.backpackPad.appendChild(this.createNewBackpackItem('項目2', 1));
         this.backpackPad.appendChild(this.createNewBackpackItem('返回'));
+        this.setBackpackItemCursor(0);
         return this.backpackPad;
     }
     // #endregion
 
     /**
+     * 顯示主選單。
+     */
+    showMenu() {
+        this.menuSet.menuPad.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏主選單。
+     */
+    hideMenu() {
+        this.menuSet.menuPad.classList.add('hide');
+    }
+
+    /**
      * 更新資料。
      * @param {GameSystem.Classes.Pokemon} playerPokemon 玩家方的寶可夢。
      * @param {GameSystem.Classes.Pokemon} opponentPokemon 對手方的寶可夢。
+     * @param {GameSystem.Classes.Pokemon[]} pokemonList 玩家方的所有寶可夢。
      * @param {GameSystem.Classes.PropItem[]} propList 玩家方的道具清單。
      */
-    updateInfo(playerPokemon, opponentPokemon, propList) {
+    updateInfo(playerPokemon, opponentPokemon, pokemonList, propList) {
         // 更新玩家方的戰鬥面板資訊
         this.playerSet.pokemonName.innerText = playerPokemon.name;
         this.playerSet.level.innerText = ":L " + playerPokemon.level;
@@ -307,8 +323,36 @@ class BattlePad {
         this.moveInfoList = [];
         moveList.forEach(move => this.moveInfoList.push({typeName: GameSystem.Classes.StandardStat.TypeName[move.type], maxPP: 30, PP: 30}));      // !!PP 尚未實裝!!
         this.updateMoveListPad(playerPokemon.getMoves());
+        // 更新寶可夢清單
+        this.setPokemonListData(pokemonList);
         // 更新背包
-        this.updateBackpackItems();
+        this.setBackpackPad(propList);
+        // 重置所有選單、清單的選擇。
+        this.resetViews();
+        this.resetAllCursor();
+    }
+
+    /**
+     * 重置所有的版面顯示設定。
+     */
+    resetViews() {
+        this.hideBackpackPad();
+        this.hideMoveInfoPad();
+        this.hideMoveListPad();
+        this.hidePokemonListPad();
+        this.hidePokemonListPadMenu();
+        this.hidePokemonInfoPad();
+    }
+
+    /**
+     * 重置所有選單、清單的選擇。
+     */
+    resetAllCursor() {
+        this.setMenuCursor(0);
+        this.setMoveListMouseCursor(0);
+        this.setBackpackItemCursor(0);
+        this.setPokemonListCursor(0);
+        this.setPokemonListPadMenuCursor(0);
     }
 
     /**
@@ -360,6 +404,30 @@ class BattlePad {
             case 3: this.menuSet.spanRun.classList.add('select');       break;
         }
         this.menuSelection = select;
+    }
+
+    /**
+     * 設置戰鬥訊息。
+     * @param {string?} message 戰鬥訊息。預設為空字串，作為清除用。
+     */
+    setBattleMessage(message = "") {
+        this.messagePad.innerText = message;
+    }
+
+    /**
+     * 取得玩家方的HPBar控制物件。
+     * @return {GameSystem.Classes.HPBarContainer} HPBar控制物件。
+     */
+    getPlayerHPBar() {
+        return this.playerSet.HPBar;
+    }
+
+    /**
+     * 取得對手方的HPBar控制物件。
+     * @return {GameSystem.Classes.HPBarContainer} HPBar控制物件。
+     */
+    getOpponentHPBar() {
+        return this.opponentSet.HPBar;
     }
 
     // #region 「招式清單」控制有關的方法集合。
@@ -463,7 +531,7 @@ class BattlePad {
     /** @typedef BackpackItemData 表示背包物品資料。
      * @description 用於函式setBackpackPad()上參數型態使用。
      * @prop {stirng} name 物品名稱。
-     * @prop {number?} quantity 物品數量。
+     * @prop {number?} count 物品數量。
      */
     /**
      * 設定背包內的物品資料。
@@ -475,7 +543,7 @@ class BattlePad {
         while(backpackPad.firstChild)
             backpackPad.removeChild(backpackPad.firstChild);
         // 設置新資料
-        items.forEach(item => backpackPad.appendChild( this.createNewBackpackItem(item.name, item.quantity) ));
+        items.forEach(item => backpackPad.appendChild( this.createNewBackpackItem(item.name, item.count) ));
         backpackPad.appendChild(this.createNewBackpackItem('返回'));
     }
 
@@ -493,12 +561,6 @@ class BattlePad {
         this.backpackListSelection = select;
     }
 
-    /**
-     * !! 尚未完成 !!
-     */
-    updateBackpackItems() {
-
-    }
     // #endregion 「背包物品版面」控制有關的方法集合。
 
     // #region 「寶可夢清單版面」控制有關的方法集合。
@@ -580,6 +642,20 @@ class BattlePad {
         this.pokemonInfoPad.setInfo(pokemon);
     }
     // #endregion
+
+    /**
+     * 顯示戰鬥面板。
+     */
+    show() {
+        this.battlePad.classList.remove('hide');
+    }
+
+    /**
+     * 影藏戰鬥面板。
+     */
+    hide() {
+        this.battlePad.classList.add('hide');
+    }
 
     /**
      * 取得管理的HTML物件。
