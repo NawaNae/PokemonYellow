@@ -40,9 +40,93 @@ class Character {
     }
     move(moveKey)
     {
-        let move=this.movePositionVector[moveKey];
-        this.position.x+=move.x;
-        this.position.y+=move.y;
+        var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
+        let move = this.movePositionVector[moveKey];
+        if (!level) {
+            this.position.x += move.x;
+            this.position.y += move.y;
+        }
+        else
+        {
+            var newPos = new Position(this.position.x + move.x, this.position.y + move.y);
+        }
+    }
+    moveTo(position)
+    {
+        position = position.constructor.name === "Point" ? position.toPosition() : position;
+
+    }
+    findRoad(position1, position2)
+    {
+        var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel;
+        var size={x:gameLevel.size.pos2.x+1,y:gameLevel.size.pos2.y+1};
+        var map=new Array(size.x);
+        /**
+         * @prop {number} X - 不能走 
+         * @prop {number} R - Road 
+         * @prop {number} S - start 
+         * @prop {number} E - End
+         */
+        const Enum={"X":-2,"R":-1,"S":0,"E":-3};
+        for(let x=0;x<size.x;x++)
+            {
+                map[x]=new Array(size.y)
+                for(let i=0;i<size.y;i++)
+                    map[x][i]={t:Enum.R,visit:false};
+            }
+            
+            
+        for(var i of gameLevel.obstacles)
+            for(var x=i.pos1.x;x<=i.pos2.x;x++)
+                for(var y=i.pos1.y;y<=i.pos2.y;y++)
+                    map[x][y]={t:Enum.X,visit:false};
+        map[position1.x][position1.y]={t:Enum.S,visit:false};
+        map[position2.x][position2.y]={t:Enum.E,visit:false};
+        var headPos = position1;
+        var vectors = [new Position(0, -1), new Position(0, 1), new Position(-1, 0), new Position(1, 0)];
+        var add=(a, b) => new Position(a.x + b.x, a.y + b.y),equ=(a, b) => (a.x===b.x)&&(a.y===b.y);;
+        function BFS()
+        {     
+            var nowPos=new Position(position1.x,position1.y),node,end,head=map[headPos.x][headPos.y];
+            head.level=0;
+            for (var que = [headPos]; que.length != 0; )
+            {
+                nowPos = que.shift();
+                node=map[nowPos.x][nowPos.y];//取出
+                node.visit=true;
+                if (node.t===Enum.E)
+                    return (end = nowPos);
+                for (var i of vectors)
+                {
+                    var childPos=add(nowPos,i);
+                    var child=map[childPos.x][childPos.y];
+                    if(!child||child.visit||child.t===Enum.X)
+                        continue;
+                    child.level=node.level+1;
+                    que.push(childPos);
+                }
+            }
+        }
+        function reduce(nowPos=BFS())
+        {
+            var road=[];
+            for (; !equ(nowPos, headPos);)
+            {
+                road.unshift(nowPos);
+                for (var i of vectors)
+                {
+                    var chPos=add(nowPos,i),ch=map[chPos.x][chPos.y];
+                    var now=map[nowPos.x][nowPos.y];
+                        if (ch.level === now.level - 1)
+                        {
+                            nowPos = chPos;
+                            break;
+                        }
+                }
+            }
+            return road;
+        }
+        return reduce();
     }
     updateImagePosition()
     {
@@ -94,10 +178,30 @@ class Character {
     }
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
+    set point(point) {
+        point = (point.constructor.name === "Position") ? point.toPoint() : point;
+        var Point = GameSystem.Classes.Point, mapPos = Framework.Game._currentLevel.map.position;
+        this._image.position.x = -mapPos.x + point.x;
+        this._image.position.y = -mapPos.y + point.y;
+    }
+    get point() {
+        var Point = GameSystem.Classes.Point, mapPos = Framework.Game._currentLevel.map.position;
+        return new Point(this._image.position.x + mapPos.x, this._image.y + mapPos.y);
+    }
+    set x(val) {
+        var Point = GameSystem.Classes.Point, mapPos = Framework.Game._currentLevel.map.position;
+        this._image.position.x = -mapPos.x + val;
+    }
+    get x() { return this.point.x; }
+    set y(val) {
+        var Point = GameSystem.Classes.Point, mapPos = Framework.Game._currentLevel.map.position;
+        this._image.position.y = -mapPos.y + val;
+    }
+    get y() { return this.point.y;}
     set position(newPosition) 
     {
          this._position = newPosition;
-        // this.updateImagePosition();
+         this.updateImagePosition();
      }
     get position() { return this._position; }
     set image(newImage) {
