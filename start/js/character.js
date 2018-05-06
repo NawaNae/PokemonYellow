@@ -57,13 +57,13 @@ class Character {
     }
     playListAnimation(list)
     {
-        let period=GameSystem.Manager.Key.lockTime/list.length;
+        let period=GameSystem.Manager.Key.lockTime/2;
         this.playList=list;
         let timeFucn=()=>{
             list.index++;
             list.index%=list.length;
             this.image.copy(list[list.index]);
-            if(list.index===0)
+            if(list.index%2===0)
             {
                 this.timeNumber=undefined;
                 this.playList=undefined;
