@@ -95,5 +95,31 @@ class Protagonist extends GameSystem.Classes.Character {
         this._money += money;
         return true;
     }
+    get x()
+    {return this.point.x;}
+    set x(val)
+    {
+        var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=Framework.Game._currentLevel.map.position;
+        mapPos.x=-val+screenPoint.x;
+    } 
+    get y()
+    {return this.point.y;}
+    set y(val)
+    {
+    var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=Framework.Game._currentLevel.map.position;
+    mapPos.y=-val+screenPoint.y;}
+    get point()
+    {
+        var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=(Framework&&Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.map)?Framework.Game._currentLevel.map.position:undefined;
+        if(!mapPos){console.log("無法取得Map以至於算不出主角座標點位置");return this.position.toPoint();}
+        return new Point(screenPoint.x-mapPos.x,screenPoint.y-mapPos.y);
+    }
+    set point(val)
+    {
+        var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),map=Framework.Game._currentLevel.map;
+        val=val.constructor.name==="Position"?val.toPoint():val;
+        map.x=-val.x+screenPoint.x;
+        map.y=-val.y+screenPoint.y;
+    }
 }
 GameSystem.Classes.Protagonist.ScreenPosition= Object.freeze(new GameSystem.Classes.Position(4,4));
