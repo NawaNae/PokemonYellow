@@ -137,6 +137,13 @@ class XYBase
         this._x=x||0;
         this._y=y||0;
     }
+    get abs()
+    {return Math.sqrt(this._x*this._x+this._y*this._y);}
+    set abs(val){console.log("abs of any coordinate class are read only getter");}
+    normalize()
+    {
+        return new this.constructor(this._x/this._x,this._y/this._y);
+    }
     set x(value)
     {
         this._x=value;
