@@ -38,6 +38,7 @@ class MapWalker
         this.keyInput=(e)=>//keyInput的事件
         {
             let key = GS.Manager.Key.moveKeys[e.key];
+            var manChar=GS.protagonist;
             this.timeout=()=>
             {
                 if(this.walkCounter[key]<this._countEnd)//condition (Loop)
@@ -55,14 +56,12 @@ class MapWalker
                         );
                     }
                     let move=this.moveIncrease(key,this.speed);
-                    this.map.x+=move.x;
-                    this.map.y+=move.y;
+                    manChar.x+=move.x;
+                    manChar.y+=move.y;
                     for(let npc of this.npcs)
                     {
-                        npc._image.position.x+=move.x;
-                        npc._image.position.y+=move.y;
-                        //console.log(npc.name + "("+npc.image.position.x+","+npc.image.position.y+")");
-        
+                        npc.x-=move.x;
+                        npc.y-=move.y;
                     }
                     this.walkCounter[key]+=this.speed;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
@@ -72,12 +71,9 @@ class MapWalker
                     this.map.position=this.map.game.newPoint;
                     for(let npc of this.npcs)
                     {
-                        //console.log(npc);
                         npc.updateImagePosition();
-                     //   console.log(npc.name + "("+npc.image.position.x+","+npc.image.position.y+")");
                     }
                     this.walkCounter[key]=0;//reset(initialize)
-                   // console.log("walk anime end");
                 }
             };
             this.timeout();
@@ -99,7 +95,7 @@ class MapWalker
     {
         value=value||1;
         key=GameSystem.Manager.Key.keyMapping[key];
-        moveVector=moveVector||this.mapMoveVector;
+        moveVector=moveVector||this.characterMoveVector;
         var aimVector=moveVector[key];
         return new GameSystem.Classes.Point(aimVector.x*value/this._timesPerPixel,aimVector.y*value/this._timesPerPixel);
 
