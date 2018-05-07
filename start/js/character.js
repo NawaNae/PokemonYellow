@@ -38,10 +38,34 @@ class Character {
     {
 
     }
-    move(moveKey)
+    getDirection(posCmp)
+    {
+        let position=this.position;
+        let pos=new GameSystem.Classes.Position(posCmp.x,posCmp.y);
+        let dir=this.getSingleDirection(posCmp)
+        if(dir)dir=[dir];
+        return dir||pos.x<position.x&&pos.y<position.y?["Up","Left"]:pos.x<position.x&&pos.y>position.y?["Down","Left"]:pos.x>position.x&&pos.y<position.y?["Up","Right"]:pos.x>position.x&&pos.y>position.y?["Down","Right"]:undefined;
+    }
+    getSingleDirection(posCmp)
+    {
+        let position=this.position;
+        let pos=new GameSystem.Classes.Position(posCmp.x,posCmp.y);
+        return pos.x===position.x&&pos.y<position.y?"Up":pos.x===position.x&&pos.y>position.y?"Down":pos.x<position.x&&pos.y===position.y?"Left":pos.x>position.x&&pos.y===position.y?"Right":undefined;
+    }
+    walk(moveKey)
     {
         var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
+            if(moveKey.constructor.name=="Position")
+            {
+                var diff=new Position(this.position.x-moveKey.x,this.position.y-moveKey.y);
+                if(diff.abs==1)
+                    moveKey=this.getSingleDirection(moveKey);
+                    else
+                    {console.log("You cannot input a position is without normalized, or try to using 'Up', 'Down', 'Left', 'Right' to replace it.");return;}
+            }
+           
         let move = this.movePositionVector[moveKey];
+        this.facing=moveKey;
         if (!level) {
             this.position.x += move.x;
             this.position.y += move.y;
@@ -49,14 +73,40 @@ class Character {
         else
         {
             var newPos = new Position(this.position.x + move.x, this.position.y + move.y);
+            var period=GameSystem.Manager.Key.lockTime/16||300/16;
+            var movePoint=this.MovePointVector[moveKey];
+            var count=0;
+            var timeout=()=>
+            {
+                this.x+=movePoint.x;
+                this.y+=movePoint.y;
+                count++;
+                if(count<16)
+                    setTimeout(timeout,period);
+                else
+                  { 
+                        this.position.x += move.x;
+                        this.position.y += move.y;
+                }
+            }
+            timeout();
+
         }
     }
+    walkTo(position){this.moveTo(position);}
     moveTo(position)
     {
         position = position.constructor.name === "Point" ? position.toPosition() : position;
-
+        var road=this.findRoad(position);
+        var timeout=()=>
+        {
+            this.walk(road.pop());
+            if(road.length>0)
+                setTimeout(timeout,800);
+        }
+        timeout();
     }
-    findRoad(position1, position2)
+    findRoad( to,from=this.position)
     {
         var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel;
         var size={x:gameLevel.size.pos2.x+1,y:gameLevel.size.pos2.y+1};
@@ -80,14 +130,14 @@ class Character {
             for(var x=i.pos1.x;x<=i.pos2.x;x++)
                 for(var y=i.pos1.y;y<=i.pos2.y;y++)
                     map[x][y]={t:Enum.X,visit:false};
-        map[position1.x][position1.y]={t:Enum.S,visit:false};
-        map[position2.x][position2.y]={t:Enum.E,visit:false};
-        var headPos = position1;
+        map[from.x][from.y]={t:Enum.S,visit:false};
+        map[to.x][to.y]={t:Enum.E,visit:false};
+        var headPos = from;
         var vectors = [new Position(0, -1), new Position(0, 1), new Position(-1, 0), new Position(1, 0)];
         var add=(a, b) => new Position(a.x + b.x, a.y + b.y),equ=(a, b) => (a.x===b.x)&&(a.y===b.y);;
         function BFS()
         {     
-            var nowPos=new Position(position1.x,position1.y),node,end,head=map[headPos.x][headPos.y];
+            var nowPos=new Position(from.x,from.y),node,end,head=map[headPos.x][headPos.y];
             head.level=0;
             for (var que = [headPos]; que.length != 0; )
             {
@@ -112,7 +162,7 @@ class Character {
             var road=[];
             for (; !equ(nowPos, headPos);)
             {
-                road.unshift(nowPos);
+                road.push(nowPos);
                 for (var i of vectors)
                 {
                     var chPos=add(nowPos,i),ch=map[chPos.x][chPos.y];
@@ -131,8 +181,8 @@ class Character {
     updateImagePosition()
     {
         let protaScPos=GameSystem.protagonist._screenPosition.toPoint();
-         let protaPos = GameSystem.protagonist.position.toPoint();
-         let myPos=this.position.toPoint();
+        let protaPos = GameSystem.protagonist.point;
+        let myPos=this.position.toPoint();
         if(this._image)
         {
             this.image.position.x=-protaPos.x+protaScPos.x+myPos.x;
@@ -201,7 +251,7 @@ class Character {
     set position(newPosition) 
     {
          this._position = newPosition;
-         this.updateImagePosition();
+        // this.updateImagePosition();
      }
     get position() { return this._position; }
     set image(newImage) {
@@ -222,7 +272,8 @@ class Character {
         this._facing=newDirection;
         let returnVal;
         this.stopPlayAnimation();
-        if(this.animationLists[this.facing].length>0)
+        
+        if(this.animationLists[this.facing]&&this.animationLists[this.facing].length>0)
             this.playListAnimation(this.animationLists[this.facing]);
     }
     get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
