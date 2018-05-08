@@ -10,7 +10,7 @@
  */
 GameSystem.Classes.Protagonist = 
 class Protagonist extends GameSystem.Classes.Character {
-    constructor(name = "", position, atMap) {
+    constructor(name = "", position, atMap, storyLineIndex) {
         super(name,undefined, position,new GameSystem.Classes.Image( //picture
             define.characterImagePath+"protagonist.png",
             {
@@ -18,6 +18,7 @@ class Protagonist extends GameSystem.Classes.Character {
                 cutSize:{x:16,y:16}
             }
         ));
+        this.storyLineIndex=storyLineIndex||0;
         this._atMap = atMap;
         this._pokemons = [];
         this._props = [];
