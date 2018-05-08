@@ -11,14 +11,16 @@ class Plot {
     /**
      * @param {string} name 劇情的名稱。
      * @param {Paragraph[]?} content 劇情的內容安排。
+     * @param {boolean function(void)} (Optional) conditionFunc 給Plot管理器判斷是否應該使用該Plot的Func 回傳true或者未設置會執行，不可以有參數輸入
      */
-    constructor(name, content = []) {
+    constructor(name, content = [],conditionFunc=undefined) {
         
         this._name = name;
         this._content = content;
         this._type;
         this._index=0;
-        this._keyInput=e=>this._content[this.index].keyInput?this._content[this.index].keyInput(e):this.keyInput(e);
+        this._keyInput=e=>this.currentContent&&this.currentContent.keyInput?this._content[this.index].keyInput(e):this.keyInput(e);
+        this.condition=conditionFunc;//
         //pointer of keyInput st you can detour the function of KeyManager of this object
         //this handler will call keyhandler of content if content owns a keyInput handler
         autoBind(this);//綁定所有method
@@ -48,7 +50,10 @@ class Plot {
                 this.lastContent.end();//結束上一個內容
         if(this.currentContent)
         {
+
             var content=this.currentContent;
+            if(content.type)
+                this.type=this.currentContent.type;
             this.index++;
             if(content.start)//如果有定義開始 
                 content.start();
@@ -77,10 +82,8 @@ class Plot {
         for(let content of this._content)
             content.plot=this;
         
-        if(this.currentContent.type)
-            this.type=this.currentContent.type;
-        if(this.currentContent.start)
-            this.currentContent.start();
+        
+        this.step();
     }
     set index(value){
         this._index=value;
@@ -103,10 +106,8 @@ GameSystem.Resource.Drama = {};
 
 /** 定義所有的劇本 */
 (() => {
-    let Drama = GameSystem.Resource.Drama;
-    let Plot = GameSystem.Classes.Plot;
-    let Paragraph = GameSystem.Classes.Paragraph;
-    let CureAll = GameSystem.Classes.PlotContents.CureAll;
+    var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
+    var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,MoveCharacter=PC.MoveCharacter;
     Drama["PalletTown"] = {
         "WelcomeSign": new Plot("WelcomeSign",[
             new Paragraph("歡迎來到「真新鎮」。"),
@@ -147,6 +148,8 @@ GameSystem.Resource.Drama = {};
         "Girl1": new Plot("Girl1", [
             new Paragraph("我也在養寶可夢，如果夠強的話還可以當你的保鑣呢！"),
             new Paragraph("$MY_NAME『阿不就好棒棒』"),
+            new Paragraph("倫加4女森耶。我要去4,4ㄌ888"),
+            new MoveCharacter({to:new Position(4,4)})
         ]),
         "Fatty": new Plot("Fatty", [
             new Paragraph("科學的力量真是厲害"),
@@ -157,8 +160,9 @@ GameSystem.Resource.Drama = {};
             new Paragraph("聽說大木老頭找你跑腿阿？真辛苦（嘲諷意味）！"),
             new Paragraph("這給你用吧！"),
             new Paragraph("$MY_NAME從姐姐手中得到城鎮地圖，然而作者也沒有想實作"),
+            new Script(()=>{GameSystem.protagonist.storyLineIndex++;})
             /*new Paragraph("在道具中使用城鎮地圖，可以看到自己在哪兒"),*/
-        ]),
+        ],()=> GameSystem.protagonist.storyLineIndex==0),
         "RivalsSister": new Plot("RivalsSister", [
             new Paragraph("經常在一豈能與寶可夢建立良好關係"),
             new Paragraph("$MY_NAME『Madam, 我比較想與你建立良好關係』")
@@ -211,3 +215,11 @@ GameSystem.Resource.Drama = {};
     };
 
 })();
+/**
+ * test func
+ */
+(()=>
+{
+    var GS=GameSystem,CS=GameSystem.Classes,level=()=>Framework.Game._currentLevel,container=GS.HTMLObjectContainer,mainChar=GS.protagonist,Position=CS.Position;
+    var t0=new Position()
+})()
