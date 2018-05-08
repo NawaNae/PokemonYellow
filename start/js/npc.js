@@ -14,18 +14,20 @@ class NPC extends GameSystem.Classes.Character {
      * @param {GameSystem.Classes.Image} image 此NPC的圖片。
      * @param {GameSystem.Classes.Character.Face} face 此NPC的面向。
      * @param {GameSystem.Classes.Behavior?} behavior 此NPC的動作。(可選項)
-     * @param {GameSystem.Classes.Plot?} plot 觸發此NPC時所會產生的對話情景或動作。(可選項)
+     * @param {GameSystem.Classes.Plot || [Plot,Plot,...]} plot 觸發此NPC時所會產生的對話情景或動作，可以是陣列必須含condition來讓其選擇。(可選項)
      */
     constructor(name, face, position, image, behavior, plot) {
         super(name, face, position, image);
 
         this._behavior = behavior;
-        this._plot = plot;
+        this._plotController=new GameSystem.Classes.PlotsController(plot,this);
+       
     }
 
     set behavior(newBehavior) { this._behavior = newBehavior; }
     get behavior() { return this._behavior; }
-
-    set plot(newPlot) { this._plot = newPlot; }
-    get plot() { return this._plot; }
+    get plots(){return this._plotController.plots;}
+    set plots(val){this._plotController.plots=new Array(val)}
+    set plot(newPlot) { this._plotController.plot=newPlot; }
+    get plot() { return this._plotController.plot; }
 }
