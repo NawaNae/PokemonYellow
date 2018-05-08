@@ -52,7 +52,7 @@ class Character {
         let pos=new GameSystem.Classes.Position(posCmp.x,posCmp.y);
         return pos.x===position.x&&pos.y<position.y?"Up":pos.x===position.x&&pos.y>position.y?"Down":pos.x<position.x&&pos.y===position.y?"Left":pos.x>position.x&&pos.y===position.y?"Right":undefined;
     }
-    walk(moveKey)
+    walk(moveKey,end=()=>{})
     {
         var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
             if(moveKey.constructor.name=="Position")
@@ -87,6 +87,7 @@ class Character {
                   { 
                         this.position.x += move.x;
                         this.position.y += move.y;
+                        end();
                 }
             }
             timeout();
@@ -94,7 +95,7 @@ class Character {
         }
     }
     walkTo(position){this.moveTo(position);}
-    moveTo(position)
+    moveTo(position,end=()=>{})
     {
         position = position.constructor.name === "Point" ? position.toPosition() : position;
         var road=this.findRoad(position);
@@ -103,6 +104,8 @@ class Character {
             this.walk(road.pop());
             if(road.length>0)
                 setTimeout(timeout,800);
+            else if(end)
+                end();
         }
         timeout();
     }
