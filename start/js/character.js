@@ -57,8 +57,7 @@ class Character {
         var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
             if(moveKey.constructor.name=="Position")
             {
-                var diff=new Position(this.position.x-moveKey.x,this.position.y-moveKey.y);
-                if(diff.abs==1)
+                if(this.position.sub(moveKey).len===1)
                     moveKey=this.getSingleDirection(moveKey);
                     else
                     {console.log("You cannot input a position is without normalized, or try to using 'Up', 'Down', 'Left', 'Right' to replace it.");return;}
@@ -73,7 +72,7 @@ class Character {
         else
         {
             var newPos = new Position(this.position.x + move.x, this.position.y + move.y);
-            var period=GameSystem.Manager.Key.lockTime/16||300/16;
+            var period=GameSystem.Manager.Key.lockTime*1.5/16||300/16;
             var movePoint=this.MovePointVector[moveKey];
             var count=0;
             var timeout=()=>
@@ -101,11 +100,11 @@ class Character {
         var road=this.findRoad(position);
         var timeout=()=>
         {
-            this.walk(road.pop());
             if(road.length>0)
-                setTimeout(timeout,800);
+                this.walk(road.pop(),timeout);
             else if(end)
                 end();
+            
         }
         timeout();
     }
