@@ -434,7 +434,7 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
                 new Position(2, 3),
                 new Image(define.characterImagePath + "rivalsSister.png", { cutStartPosition: new Position(3, 0), cutSize: new Position(1, 1) }),
                 undefined,
-                Drama.RivalsSister
+                [Drama.RivalsSisterMap,Drama.RivalsSister]
             )
         );
 

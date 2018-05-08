@@ -31,9 +31,11 @@ Load.js.import(
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'plotContent.js', lookFor: 'GameSystem.Classes.PlotContent' },
         { src: define.jsPath + 'plotContents.cureAll.js', lookFor: 'GameSystem.Classes.PlotContents.CureAll' },
+        { src: define.jsPath + 'plotContents.script.js', lookFor: 'GameSystem.Classes.PlotContents.Script' },
         { src: define.jsPath + 'plotContents.moveCharacter.js', lookFor: 'GameSystem.Classes.PlotContents.MoveCharacter' },
         { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
         { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
+        { src: define.jsPath + 'plotsController.js', lookFor: 'GameSystem.Classes.PlotsController' },
         { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
 
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
