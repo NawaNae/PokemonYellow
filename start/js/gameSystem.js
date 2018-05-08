@@ -132,35 +132,56 @@ GameSystem.Manager.Key=new  GameSystem.Manager._KeyManagerClass();
 GameSystem.Classes.XYBase=
 class XYBase
 {
-    constructor(x,y)
+    constructor(x=0,y=0){this.assign(x,y);}
+    get neg(){return this.mul(-1);}
+    get len(){return Math.sqrt(this._x*this._x+this._y*this._y);}
+    get abs(){return new this.constructor(this.x>=0?this.x:-this.x,this.y>=0?this.y:-this.y);}
+    get normalize(){return this.div(this.len);}
+    addi(a,b){this.assign(this.add(a,b));}
+    subi(a,b){this.assign(this.sub(a,b));}
+    muli(a,b){this.assign(this.mul(a,b));}
+    divi(a,b){this.assign(this.div(a,b));}
+    absi(){this.assign(this.abs());}
+    negi(){this.assign(this.mul(-1));}
+    assign(a,b)
     {
-        this._x=x||0;
-        this._y=y||0;
+        if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined"){this.x=a.xthis.y=a.y}
+        if(typeof a === "number" && typeof b==="number"){this.x=a;this.y=b;}
+        if(typeof a==="number"&& typeof b==="undefined"){this.x=a;this.y=a;}
     }
-    get abs()
-    {return Math.sqrt(this._x*this._x+this._y*this._y);}
-    set abs(val){console.log("abs of any coordinate class are read only getter");}
-    normalize()
+    add(a,b)
     {
-        return new this.constructor(this._x/this._x,this._y/this._y);
+        if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined") return new this.constructor(this.x+a.x,this.y+a.y);
+        if(typeof a === "number" && typeof b==="number")return new this.constructor(this.x+a,this.y+b);
+        if(typeof a==="number"&& typeof b==="undefined")return new this.constructor(this.x+a,this.y+a);
     }
-    set x(value)
+    sub(a,b)
+    { 
+        if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined")return new this.constructor(this.x-a.x,this.y-a.y);
+        if(typeof a === "number" && typeof b==="number")return new this.constructor(this.x-a,this.y-b);
+        if(typeof a==="number"&& typeof b==="undefined")return new this.constructor(this.x-a,this.y-a);
+     }
+    mul(a,b)
     {
-        this._x=value;
+        if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined")return new this.constructor(this.x*a.x,this.y*a.y);
+        if(typeof a === "number" && typeof b==="number")return new this.constructor(this.x*a,this.y*b);
+        if(typeof a==="number"&& typeof b==="undefined")return new this.constructor(this.x*a,this.y*a);
     }
-    get x()
+    div(a,b)
     {
-        return this._x;
+        if(b){  if(a&&typeof a==="number"&& typeof b ==="number")return this.mul(1/a,1/b);}    
+        else if(a&&typeof a==="number")return this.mul(1/a);
+        else if(a.x&&a.y&&a.x!==0&&a.y!==0)return this.mul(1/a.x,1/a.y);
     }
-    set y(value)
-    {
-        this._y=value;
-    }
-    get y()
-    {
-        return this._y;
-    }
+    set len(val){console.log("len of any coordinate class are read only getter");}
+    set abs(useless){console.log("abs is a read only getter")}
+    set normalize(useless){console.log("normaliize is a read only getter")}
+    set neg(useless){console.log("neg is read only getter")}
 
+    set x(value){this._x=value;}
+    get x(){return this._x;}
+    set y(value){this._y=value;}
+    get y(){return this._y;}
 }
 GameSystem.Classes.Point=
 class Point extends GameSystem.Classes.XYBase
