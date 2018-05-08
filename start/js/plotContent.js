@@ -19,6 +19,10 @@ class PlotContent
     {
         
     }
+    next()
+    {
+        this.plot.step();
+    }
     get plot()
     {
         return this.fatherPlot;
