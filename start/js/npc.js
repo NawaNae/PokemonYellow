@@ -16,8 +16,8 @@ class NPC extends GameSystem.Classes.Character {
      * @param {GameSystem.Classes.Behavior?} behavior 此NPC的動作。(可選項)
      * @param {GameSystem.Classes.Plot || [Plot,Plot,...]} plot 觸發此NPC時所會產生的對話情景或動作，可以是陣列必須含condition來讓其選擇。(可選項)
      */
-    constructor(name, face, position, image, behavior, plot) {
-        super(name, face, position, image);
+    constructor(name, face, position, image, cutFunctionIndex, plot,behavior) {
+        super(name, face, position, image,cutFunctionIndex);
 
         this._behavior = behavior;
         this._plotController=new GameSystem.Classes.PlotsController(plot,this);

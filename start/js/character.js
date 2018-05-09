@@ -17,7 +17,7 @@ class Character {
      * @param {GameSystem.Classes.Position} position 角色的位置
      * @param {GameSystem.Classes.Image} image 角色的圖片
      */
-    constructor(name, face, position, image) {
+    constructor(name, face, position, image, autoCutFunctionIndex) {
         this._name = name;
         this._facing = face||GameSystem.Classes.Character.Face.Up;
         this._position = position || new GameSystem.Classes.Position(0, 0);
@@ -25,18 +25,31 @@ class Character {
         this.image = image;
         let aList=GameSystem.Classes.AnimationList;
         this.animationLists={
-            Up:new aList,
-            Down:new aList,
-            Left:new aList,
-            Right:new aList
+            Up:new aList(),
+            Down:new aList(),
+            Left:new aList(),
+            Right:new aList()
         }
+        if(autoCutFunctionIndex)
+            switch(autoCutFunctionIndex)
+            {
+                case 4:
+                    this.initializeAnimationLists4PbySrc();
+                    break;
+                case 10:
+                    this.initializeAnimationLists10PbySrc();
+                    break;
+                case 12:
+                    this.initializeAnimationLists12PbySrc();
+                    break;
+                default:
+            }
         this.newPosition;
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
     }
     update()
     {
-
     }
     getDirection(posCmp)
     {
@@ -226,7 +239,6 @@ class Character {
     }
     playEndAnimation()
     {
-
     }
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
@@ -279,7 +291,8 @@ class Character {
             this.playListAnimation(this.animationLists[this.facing]);
     }
     get facing(){return this._facing.toString().replace(/Symbol\(/,"").replace(/\)/,"");}
-    get facePosition(){
+    get facePosition()
+    {
         let GS=GameSystem;
         let CS=GS.Classes;
 
@@ -299,6 +312,93 @@ class Character {
     }
     show(){this.visible=true;}
     hide(){this.visible=false;}
+    newAnimateItemFunctionGenerator(src,options={group:undefined,cutSize:undefined})
+    {
+        if(!options.cutSize)
+            options.cutSize=new GameSystem.Classes.Position(1,1);
+        var Item=GameSystem.Classes.AnimationItem,Position=GameSystem.Classes.Position;
+        var ansFunc;
+        if(options.group)
+            ansFunc=(i)=>new Item(
+                 src,
+                {
+                    group: options.group,
+                    cutStartPosition: new Position(i, 0),
+                    cutSize: options.cutSize
+                }
+            );
+        else 
+        ansFunc=(i)=>new Item(
+            src,
+            {
+                cutStartPosition: new Position(i, 0),
+                cutSize: options.cutSize
+            }
+        );
+        return ansFunc;
+    }
+    initializeAnimationLists4PbyFilename(filename,pathname=define.characterImagePath)
+    {this.initializeAnimationLists4PbySrc(pathname+filename);}
+    initializeAnimationLists4PbySrc(src)
+    {
+        if(!src)
+            src=this.image.src;
+        var nitem=this.newAnimateItemFunctionGenerator(src);
+        this.animationLists.Up.push(nitem(0));
+        this.animationLists.Down.push(nitem(1));
+        this.animationLists.Left.push(nitem(2));
+        this.animationLists.Right.push(nitem(3));
+    }
+    initializeAnimationLists10PbyFilename(filename,pathname=define.characterImagePath)
+    {this.initializeAnimationLists10PbySrc(pathname+filename);}
+    initializeAnimationLists10PbySrc(src)
+    {
+        if(!src)
+            src=this.image.src;
+        var nitem=this.newAnimateItemFunctionGenerator(src);
+        this.animationLists.Up.push(nitem(0));
+        this.animationLists.Up.push(nitem(1));
+        this.animationLists.Up.push(nitem(0));
+        this.animationLists.Up.push(nitem(2));
+
+        this.animationLists.Down.push(nitem(3));
+        this.animationLists.Down.push(nitem(4));
+        this.animationLists.Down.push(nitem(3));
+        this.animationLists.Down.push(nitem(5));
+
+        this.animationLists.Left.push(nitem(6));
+        this.animationLists.Left.push(nitem(7));
+        
+        this.animationLists.Right.push(nitem(8));
+        this.animationLists.Right.push(nitem(9));
+    }
+    initializeAnimationLists12PbyFilename(filename,pathname=define.characterImagePath)
+    {this.initializeAnimationLists12PbySrc(pathname+filename);}
+    initializeAnimationLists12PbySrc(src)
+    {
+        if(!src)
+            src=this.image.src;
+        var nitem=this.newAnimateItemFunctionGenerator(src);
+        this.animationLists.Up.push(nitem(0));
+        this.animationLists.Up.push(nitem(1));
+        this.animationLists.Up.push(nitem(0));
+        this.animationLists.Up.push(nitem(2));
+
+        this.animationLists.Down.push(nitem(3));
+        this.animationLists.Down.push(nitem(4));
+        this.animationLists.Down.push(nitem(3));
+        this.animationLists.Down.push(nitem(5));
+
+        this.animationLists.Left.push(nitem(6));
+        this.animationLists.Left.push(nitem(7));
+        this.animationLists.Left.push(nitem(6));
+        this.animationLists.Left.push(nitem(8));
+        
+        this.animationLists.Right.push(nitem(9));
+        this.animationLists.Right.push(nitem(10));
+        this.animationLists.Right.push(nitem(9));
+        this.animationLists.Right.push(nitem(11));
+    }
 };
 
 /**

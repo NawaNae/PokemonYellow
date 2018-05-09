@@ -27,7 +27,8 @@ class Protagonist extends GameSystem.Classes.Character {
     }
     initialize()
     {
-       this.initAnimationImages();
+       //this.initAnimationImages();
+       this.initializeAnimationLists10PbySrc();
     }
     initAnimationImages()
     {

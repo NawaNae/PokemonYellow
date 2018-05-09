@@ -132,8 +132,8 @@ class PalletTown extends GameSystem.Classes.Level {
                 "girl1",
                 CS.Character.Face.Up,
                 new Position(5, 8),
-                new CS.Image(define.characterImagePath + "girl1.png", { cutStartPosition: new Position(1, 0), cutSize: new Position(1, 1) }),
-                undefined,
+                new CS.Image(define.characterImagePath + "girl1.png", { cutStartPosition: new Position(0, 0), cutSize: new Position(1, 1) }),
+                10,
                 Drama.Girl1
             )
         );
@@ -143,7 +143,7 @@ class PalletTown extends GameSystem.Classes.Level {
                 CS.Character.Face.Down,
                 new Position(12, 15),
                 new Image(define.characterImagePath + "fatty.png", { cutStartPosition: new Position(4, 0), cutSize: new Position(1, 1) }),
-                undefined,
+                10,
                 Drama.Fatty
             )
         );
