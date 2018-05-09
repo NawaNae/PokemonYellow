@@ -38,32 +38,57 @@ class BattleResult {
      * @param {string} message 要新增的訊息。
      */
     addMessage(message) {
-        this._actionList.push({type: GameSystem.Classes.BattleResult.ActionType.ShowMessage, message: message});
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.ShowMessage,
+            animation: () => new Promise(res => {
+                GameSystem.BattlePad.setBattleMessage(message);
+                setTimeout(() => res(true), 2000);
+            })
+        });
     }
 
     /**
-     * 將「我方攻擊敵方」動畫加入至「戰鬥結果」中。
+     * 新增指定的戰鬥動畫。
      * @param {GameSystem.Classes.BattleAnimation} animation 指定的戰鬥動畫。
      */
-    addAttackToAnimation(animation) {
-        this._actionList.push({type: GameSystem.Classes.BattleResult.ActionType.AttackTo, animation: animation});
-    }
-
-    /**
-     * 將「敵方攻擊我方」動畫加入至「戰鬥結果」中。
-     * @param {GameSystem.Classes.BattleAnimation} animation 指定的戰鬥動畫。
-     */
-    addAttackedByAnimation(animation) {
-        this._actionList.push({type: GameSystem.Classes.BattleResult.ActionType.AttackedBy, animation: animation});
+    addBattleAnimation(animation) {
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.AttackTo,
+            animation: animation.getAnimationStarter()
+        });
     }
 
     /**
      * 將「生命值條」動畫加入至「戰鬥結果」中。
      * @param {number} diff 血條的差值。可為正值也可為負值。
+     * @param {number} maxHP 寶可夢的最大生命值。
      * @param {boolean} isPlayer 血條是否為玩家。
      */
-    addHPBarAnimation(diff, isPlayer) {
-        this._actionList.push({type: GameSystem.Classes.BattleResult.ActionType.HPBarAnimation, diff: diff});
+    addHPBarAnimation(diff, maxHP, isPlayer) {
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.HPBarAnimation,
+            animation: () => new Promise((res) => {
+                let HPBar = isPlayer ? GameSystem.BattlePad.getPlayerHPBar() : GameSystem.BattlePad.getOpponentHPBar();
+                let percentDiff = Math.sign(diff) * Math.ceil(( Math.abs(diff) / maxHP) * 100);     // 計算生命值的變動差
+                // HPBar 變動函式
+                function Changing() {
+                    if (percentDiff > 0) {
+                        percentDiff -= 1;
+                        HPBar.increaseOnePercent();
+                        setTimeout(Changing, 50);
+                    }
+                    else if (percentDiff < 0) {
+                        percentDiff += 1;
+                        HPBar.decreaseOnePercent();
+                        setTimeout(Changing, 50);
+                    }
+                    else {
+                        setTimeout(() => res(true), 1000);
+                    }
+                }
+                Changing();
+            })
+        });
     }
 
     /**
@@ -71,26 +96,32 @@ class BattleResult {
      * @param {number} millisecond 表示等待的時間。
      */
     addWaitingTime(millisecond) {
-        this._actionList.push({type: GameSystem.Classes.BattleResult.ActionType.Waiting, time: millisecond});
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.Waiting,
+            animation: () => new Promise(res => {
+                setTimeout(() => res(true), millisecond);
+            })
+        });
     }
 
     /**
      * @typedef AnimationAction
      * @prop {GameSystem.Classes.BattleResult.ActionType} type 表示戰鬥動畫的動作種類。
-     * @prop {any} secondProp 儲存訊息或資料。
-     * 第二參數則依照第一參數「type」來決定，如下
-     * 若 type = ShowMessage    則 secondProp 的 Type 為 string
-     * 若 type = AttackTo       則 secondProp 的 Type 為 BattleAnimation
-     * 若 type = AttackedBy     則 secondProp 的 Type 為 BattleAnimation
-     * 若 type = HPBarAnimation 則 secondProp 的 Type 為 number
-     * 若 type = Waiting        則 secondProp 的 Type 為 number
+     * @prop {Function} animation 動畫的Promise。
      */
     /**
      * 取得動畫的動作指令。被取得的動作指令會被自動作清單(actionList)中移除。
      * @return {AnimationAction?} 動作指令。當動作皆完成時，回傳undefined。
      */
-    popAction() {
-        return this._actionList.pop();
+    dequeueAction() {
+        if (this._actionList.length > 0) {
+            let action = this._actionList[0];
+            this._actionList.splice(0, 1);
+            return action;
+        }
+        else {
+            return undefined;
+        }
     }
 }
 
@@ -101,11 +132,8 @@ GameSystem.Classes.BattleResult.ActionType = Object.freeze({
     /** 顯示訊息 */
     ShowMessage: Symbol('ShowMessage'),
 
-    /** 運行「攻擊敵人」動畫 */
-    AttackTo: Symbol('AttackTo'),
-
-    /** 運行「被敵人攻擊」動畫 */
-    AttackedBy: Symbol('AttackedBy'),
+    /** 運行戰鬥動畫 */
+    BattleAnimation: Symbol('BattleAnimation'),
 
     /** 運行HP條動畫 */
     HPBarAnimation: Symbol('HPBarAnimation'),
