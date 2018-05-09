@@ -2,7 +2,19 @@
 //第一個被加進來的Level就是啟動點, 所以一開始遊戲就進入MyMenu
 var list = {};
 list['menu'] = new MyMenu();
-Framework.Game.addNewLevel({'battleLevel': new BattleLevel()});
+
+// !DEBUG!
+GameSystem.protagonist.addPokemon(GameSystem.Resource.Debug.pokemon1);
+GameSystem.protagonist.addPokemon(GameSystem.Resource.Debug.pokemon2);
+GameSystem.Bridges.BattleData.opponent = GameSystem.Resource.Debug.pokemon3;
+GameSystem.Bridges.BattleData.selectPokemon = GameSystem.Resource.Debug.pokemon1;
+GameSystem.protagonist.addPropItem(new GameSystem.Classes.PropItem("藥水", 2));
+GameSystem.protagonist.addPropItem(new GameSystem.Classes.PropItem("寶可夢球", 1));
+Framework.Game.addNewLevel({
+    'battleLevel': new BattleLevel()
+});
+// !DEBUG!
+
 Framework.Game.addNewLevel({ menu: list['menu'] });
 Framework.Game.addNewLevel({palletTown: new PalletTown({x:26,y:23})});
 Framework.Game.addNewLevel({route01: new Route01()});
