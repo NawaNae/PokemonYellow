@@ -32,8 +32,8 @@ class BattleStage {
      * @return {GameSystem.Classes.BattleResult} 一回合戰鬥完的結果。
      */
     doOneRoundBattle(playerMove) {
-        const AttackToAnimations = GameSystem.Classes.BattleAnimation.AttackToDictionary;
-        const AttackedByAnimations = GameSystem.Classes.BattleAnimation.AttackedByDictionary;
+        const AttackToAnimations = GameSystem.Classes.BattleAnimation.Dictionary.AttackTo;
+        const AttackedByAnimations = GameSystem.Classes.BattleAnimation.Dictionary.AttackedBy;
 
         let opponentMove = this._opponent.pokemon.randomlyTakeMove();
         let [attacker, defender] = (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed) ? [this._player, this._opponent] : [this._opponent, this._player];
@@ -45,8 +45,8 @@ class BattleStage {
 
         // 將「先攻方攻擊後攻方」的動畫、動作加入到BattleResult中
         battleResult.addMessage(attacker.pokemon.name + "使用了招式「" + atkMove.name + "」！");
-        battleResult.addAttackToAnimation(AttackToAnimations[atkMove.name]);
-        battleResult.addHPBarAnimation(-defDamage, false);
+        battleResult.addBattleAnimation(attacker == this._player ? AttackToAnimations[atkMove.name] : AttackedByAnimations[atkMove.name]);
+        battleResult.addHPBarAnimation(-defDamage, defender.pokemon.maxHP, defender == this._player);
 
         // 實作攻擊，並判斷後攻方的寶可夢是否瀕死
         if (defender.acceptDamage(defDamage)) {
@@ -54,13 +54,13 @@ class BattleStage {
             return battleResult;
         }
 
-        // 停頓500毫秒
-        battleResult.addWaitingTime(500);
+        // 停頓1秒
+        battleResult.addWaitingTime(1000);
 
         // 將「後攻方攻擊先攻方」的動畫、動作加入到BattleResult中
-        battleResult.addMessage(defender.pokemon.name + "使用了招式「" + atkMove.name + "」！");
-        battleResult.addAttackToAnimation(AttackedByAnimations[atkMove.name]);
-        battleResult.addHPBarAnimation(-atkDamage, false);
+        battleResult.addMessage(defender.pokemon.name + "使用了招式「" + defMove.name + "」！");
+        battleResult.addBattleAnimation(defender == this._player ? AttackToAnimations[defMove.name] : AttackedByAnimations[defMove.name]);
+        battleResult.addHPBarAnimation(-atkDamage, attacker.pokemon.maxHP, attacker == this._player);
 
         // 實作攻擊，並判斷先攻方的寶可夢是否瀕死
         if (attacker.acceptDamage(atkDamage)) {
