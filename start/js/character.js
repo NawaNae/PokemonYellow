@@ -222,7 +222,8 @@ class Character {
                 this.timeNumber=setTimeout(timeFucn,period);
         }
         if(list.length===1)
-            this.playEndAnimation();
+            {this.image.copy(list[0]);
+            this.playEndAnimation();}
         else
             timeFucn();
     }

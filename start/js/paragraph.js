@@ -12,11 +12,12 @@ class Paragraph extends GameSystem.Classes.PlotContent {
      * @param {string} content 段落的內容。
      * 
      */
-    constructor(content,type="dialog") {
+    constructor(content,type="dialog",isSpeak=true,lang="zh-tw") {
         super({type:type});
         autoBind(this);
         this._content = content;
-        
+        this.speakLang=lang;
+        this.isSpeak=speak;
 
     }
     start()
@@ -28,6 +29,8 @@ class Paragraph extends GameSystem.Classes.PlotContent {
             dialog.show();
             container.show();
             dialog.text=this.text;
+            if(this.isSpeak)
+                this.speakAudio=speak(dialog.text,this.speakLang);
         }
     }
     end()
@@ -38,6 +41,9 @@ class Paragraph extends GameSystem.Classes.PlotContent {
             dialog.plot=undefined;
             dialog.hide();
             dialog.text="";
+            if(this.isSpeak)
+                this.speakAudio.pause();
+            this.speakAudio=undefined;
             container.hide();
         }
     }

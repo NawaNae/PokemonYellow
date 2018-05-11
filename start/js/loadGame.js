@@ -3,6 +3,7 @@ var loadGameEnd;
 Load.css(define.cssPath + "HTMLObjectsContainer.css");
 Load.js.import(
 [
+        { src: define.jsPath + 'speak.js', lookFor: 'speak' },
        { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' }, 
         { src: define.jsPath + 'mapPosition.js', lookFor: 'GameSystem.Classes.MapPosition' },
@@ -14,6 +15,7 @@ Load.js.import(
         { src: define.jsPath + 'move.js', lookFor: 'GameSystem.Classes.Move'},
         { src: define.jsPath + 'gradingMove.js', lookFor:'GameSystem.Classes.GradingMove'},
         { src: define.jsPath + 'occurrence.js', lookFor: 'GameSystem.Classes.Occurrence'},
+        { src: define.jsPath + 'battleField.js', lookFor: 'GameSystem.Classes.BattleField'},
         { src: define.jsPath + 'pokemonType.js', lookFor: 'GameSystem.Classes.PokemonType' },
         { src: define.jsPath + 'animationItem.js', lookFor: 'GameSystem.Classes.AnimationItem' },
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },

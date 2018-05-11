@@ -1,19 +1,4 @@
 class PalletTown extends GameSystem.Classes.Level {
-    constructor(size, name) {
-        super(size, name);
-        var GS = GameSystem;
-        var CS = GS.Classes;
-        var KM = GS.Manager.Key;
-        this.initObstacles();
-        this.initSubLevels();
-        this.initGates();
-        this.initNpcs();
-        this.initSignBoards();
-        //this.counter.fpsCount = true;
-        this.keyInput = (e) => {
-            this.normalKeyInput(e);
-        };
-    }
     initGates()
     {
         var GS = GameSystem;
@@ -209,11 +194,12 @@ class PalletTown extends GameSystem.Classes.Level {
         this.map = new CS.Image(define.imagePath + 'palletTown.png');
         this.rootScene.attach(this.map);
         this.loadNPCs();
-
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+
         this.walker = new CS.MapWalker({ mapRef: this.map });
         this.rootScene.attach(GS.protagonist.image);
+        GS.protagonist.position=GS.protagonist.position;
     }
     loadNPCs()
     {
@@ -231,10 +217,6 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHome1F');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
-        this.initObstacles();
-        this.initGates();
-        this.initNpcs();
-        this.initSignBoards();
     }
     initGates()
     {
@@ -293,6 +275,7 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         var SignBoard = CS.SignBoard, Position = CS.Position, Polt = CS.Polt, Paragraph = CS.Paragraph,Drama = GS.Resource.Drama.PalletTown;
         this.signBoards.push(new SignBoard({ position: new Position(0, 1), content: Drama.Bookshelf }));
         this.signBoards.push(new SignBoard({ position: new Position(1, 1), content: Drama.Bookshelf }));
+        this.signBoards.push(new SignBoard({ position: new Position(3, 1), content: Drama.TV }));
     }
     initNpcs()
     {
@@ -300,38 +283,7 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         var Item=GameSystem.Classes.AnimationItem;
         let mom=new NPC("Mother",GameSystem.Classes.Character.Face.Left,new Position(5,4),new GameSystem.Classes.Image(define.characterImagePath+"mom.png",{cutSize:new Position(1,1),cutStartPosition:new Position(2,0)}),undefined,GameSystem.Resource.Drama.PalletTown.Mother);
         this.npcs.push(mom);
-        mom.animationLists.Up.push(new Item(
-            define.imagePath+"mom.png",
-            {
-                group:"Up",
-                cutStartPosition:new Position(0,0),
-                cutSize:new Position(1,1)
-            }
-        ));
-        mom.animationLists.Down.push(new Item(
-            define.imagePath+"mom.png",
-            {
-                group:"Down",
-                cutStartPosition:new Position(1,0),
-                cutSize:new Position(1,1)
-            }
-        ));
-        mom.animationLists.Left.push(new Item(
-            define.imagePath+"mom.png",
-            {
-                group:"Left",
-                cutStartPosition:new Position(2,0),
-                cutSize:new Position(1,1)
-            }
-        ));
-        mom.animationLists.Right.push(new Item(
-            define.imagePath+"mom.png",
-            {
-                group:"Right",
-                cutStartPosition:new Position(3,0),
-                cutSize:new Position(1,1)
-            }
-        ));
+        mom.initializeAnimationLists4PbySrc();
         mom.facing=GameSystem.Classes.Character.Face.Left;
     
     }
@@ -366,9 +318,6 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHome2F');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
-        this.initObstacles();
-        this.initGates();
-        this.initSignBoards();
     }
     initGates() {
         var CS = GameSystem.Classes;
@@ -421,9 +370,6 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHouse1');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
-        this.initObstacles();
-        this.initGates();
-        this.initNpcs();
     }
     initNpcs() {
         var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position, NPC = CS.NPC, Drama = GameSystem.Resource.Drama.PalletTown, Item = CS.AnimationItem;
@@ -514,9 +460,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
         super(new CS.Position(9, 11), 'palletTownDoctorsHome');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
-        this.initObstacles();
-        this.initGates();
-        this.initNpcs();
+
     }
     initGates()
     {

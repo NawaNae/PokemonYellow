@@ -143,7 +143,12 @@ GameSystem.Resource.Drama = {};
             new Paragraph("休息一下吧…"),
             new CureAll(),
             new Paragraph("你跟寶可夢都這麼有精神阿\n那小心一點喔"),
-            new Paragraph("¡Adios!")
+            new Paragraph("¡Adios!",undefined,undefined,"es")
+        ]),
+        "TV": new Plot("TV",[
+            new Paragraph("電視上播映著最新的動漫 -- 寶可夢，開始了......"),
+            new Paragraph("ご覧の番組はナワナワから送りしました。",undefined,undefined,"ja"),
+            new Paragraph("$MY_NAME『哈哈哈...二十年還贏不了冠軍聯盟，嗚嗚...嗚嗚嗚嗚...』"),
         ]),
         "Girl1": new Plot("Girl1", [
             new Paragraph("我也在養寶可夢，如果夠強的話還可以當你的保鑣呢！"),

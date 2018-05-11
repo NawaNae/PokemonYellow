@@ -67,12 +67,28 @@ class Level extends Framework.Level
         this.music;
         this.inputMode=0;
         this.inputModes=GameSystem.Classes.Level.InputModes;
-        
+        this.initObstacles();
+        this.initSubLevels();
+        this.initGates();
+        this.initNpcs();
+        this.initSignBoards();
+        this.initBattleFields();
+        this.keyInput = (e) => {
+            this.normalKeyInput(e);
+        };
     }
+    initObstacles(){}
+    initSubLevels(){}
+    initSubLevels(){}
+    initGates(){}
+    initNpcs(){}
+    initBattleFields(){}
+    initSignBoards(){}
     load()
     {
         this.loadNullSprite();
         GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
+        GameSystem.protagonist.position=GameSystem.protagonist.position;
     }
     loadNullSprite()
     {
@@ -130,13 +146,22 @@ class Level extends Framework.Level
         }
         return undefined;
     }
+    isInRectamgleArray(position,array)
+    {
+        for(var i in array)
+            if(position.isIn(array[i]))
+                return array[i]
+        return undefined;
+    }
+    getBattleFieldAt(position)
+    {
+        return this.isInRectamgleArray(position,this.battleFields);
+    }
     isWalkableAt(position)
     {
         
-        for(var i in this.obstacles)
-            if(position.isIn(this.obstacles[i]))
-                return false
-        
+        if(this.isInRectamgleArray(position,this.obstacles))
+            return false;
         if(!position.isIn(this.size))//地圖外(不再地圖內)
             return false;
         return true;
@@ -208,6 +233,14 @@ class Level extends Framework.Level
                 console.log(newPosition);
                 GS.protagonist.position = newPosition;
                 this.walker.keyInput(e);
+                var field,wildPoke;
+                if((field=this.getBattleFieldAt(newPosition)))
+                    if((wildPoke=field.trigger()))
+                    {
+                        var oppo=GameSystem.Bridges.BattleData.opponent,selectPoke=GameSystem.Bridges.BattleData.selectPokemon;
+                        oppo=wildPoke;
+                        Framework.Game.goToLevel('battleField');
+                    }
             }
         }else
         if(KM.keyMapping[e.key]=="A")
