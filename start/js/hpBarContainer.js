@@ -77,6 +77,22 @@ class HPBarContainer {
     }
 
     /**
+     * 顯示HP條。
+     */
+    show() {
+        this.divHPBar.classList.hide('hide');
+        this.divHP.classList.hide('hide');
+    }
+
+    /**
+     * 隱藏HP條。
+     */
+    hide() {
+        this.divHPBar.classList.add('hide');
+        this.divHP.classList.add('hide');
+    }
+
+    /**
      * 更新生命條樣式。
      * @private
      */
