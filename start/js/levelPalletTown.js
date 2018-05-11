@@ -299,8 +299,8 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
     {
         super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-        this.music.loop=true;
-        this.music.autoplay=true;
+       /* this.music.loop=true;
+        this.music.autoplay=true;*/
         var CS=GameSystem.Classes;
         var GS=GameSystem;
         this.map=new CS.Image(define.imagePath+"palletTownHome1F.png");
@@ -429,8 +429,8 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
     {
         super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-        this.music.loop=true;
-        this.music.autoplay=true;
+       /* this.music.loop=true;
+        this.music.autoplay=true;*/
         var CS=GameSystem.Classes;
         var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
@@ -520,8 +520,8 @@ class DoctorsHome extends GameSystem.Classes.Level {
     {
         super.load();
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-        this.music.loop=true;
-        this.music.autoplay=true;
+      /*  this.music.loop=true;
+        this.music.autoplay=true;*/
         var CS=GameSystem.Classes;
         var GS=GameSystem;
         this.map=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
