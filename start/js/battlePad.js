@@ -5,6 +5,7 @@
  * @prop {HTMLLabelElement} HPText 文字「HP:」
  * @prop {GameSystem.Classes.HPBarContainer} HPBar 生命條的控制物件。
  * @prop {HTMLSpanElement} HPValue 生命值數值。
+ * @prop {HTMLImageElement[]} imgPokemonBalls 寶可夢球。
  */
 //
 /** @typedef OpponentSet 對手方的戰鬥資料面板的HTML物件集合。
@@ -13,6 +14,7 @@
  * @prop {HTMLSpanElement} level 等級。 
  * @prop {HTMLLabelElement} HPText 文字「HP:」。
  * @prop {GameSystem.Classes.HPBarContainer} HPBar 生命條的控制物件。
+ * @prop {HTMLImageElement[]} imgPokemonBalls 寶可夢球。
  */
 //
 /** @typedef MenuSet 主選單面板下的HTML物件集合。
@@ -128,8 +130,17 @@ class BattlePad {
         HPValue.classList.add('player-hp-value');
         HPValue.innerText = '20/ 20';
 
+        // 建立「寶可夢球」圖片元件
+        let imgPokemonBalls = [document.createElement('img'), document.createElement('img'), document.createElement('img'), document.createElement('img'), document.createElement('img'), document.createElement('img')];
+
         // 紀錄以上的元件
-        this.playerSet = {playerPad, pokemonName, level, HPText, HPBar, HPValue};
+        this.playerSet = {playerPad, pokemonName, level, HPText, HPBar, HPValue, imgPokemonBalls};
+        imgPokemonBalls.forEach(elem => {
+            elem.src = define.imagePath + "FaintedPokemonBall.png";
+            elem.classList.add('pokemonBall');
+            elem.classList.add('hide');
+            playerPad.appendChild(elem);
+        });
 
         // 將以上元件置入 playerPad 中。
         playerPad.appendChild(pokemonName);
@@ -168,7 +179,16 @@ class BattlePad {
         // 建立「生命條容器」的HTML元件
         let HPBar = new GameSystem.Classes.HPBarContainer(20, 20);
 
-        this.opponentSet = {opponentPad, pokemonName, level, HPText, HPBar};
+        // 建立「寶可夢球」圖片元件
+        let imgPokemonBalls = [document.createElement('img'), document.createElement('img'), document.createElement('img'), document.createElement('img'), document.createElement('img'), document.createElement('img')];
+        imgPokemonBalls.forEach(elem => {
+            elem.src = define.imagePath + "FaintedPokemonBall.png";
+            elem.classList.add('pokemonBall');
+            elem.classList.add('hide');
+            opponentPad.appendChild(elem);
+        });
+
+        this.opponentSet = {opponentPad, pokemonName, level, HPText, HPBar, imgPokemonBalls};
 
         // 將以上元件置入 playerPad 中。
         opponentPad.appendChild(pokemonName);
@@ -412,6 +432,109 @@ class BattlePad {
      */
     setBattleMessage(message = "") {
         this.messagePad.innerText = message;
+    }
+
+    /**
+     * 隱藏在面板上的戰鬥資訊。
+     */
+    hideBattleInfoInPad() {
+        this.playerSet.HPBar.hide();
+        this.playerSet.HPText.classList.add('hide');
+        this.playerSet.HPValue.classList.add('hide');
+        this.playerSet.level.classList.add('hide');
+        this.playerSet.pokemonName.classList.add('hide');
+        this.opponentSet.HPBar.hide();
+        this.opponentSet.HPText.classList.add('hide');
+        this.opponentSet.level.classList.add('hide');
+        this.opponentSet.pokemonName.classList.add('hide');
+    }
+
+    /**
+     * 顯示在面板上的戰鬥資訊。
+     */
+    showBattleInfoInPad() {
+        this.playerSet.HPBar.show();
+        this.playerSet.HPText.classList.remove('hide');
+        this.playerSet.HPValue.classList.remove('hide');
+        this.playerSet.level.classList.remove('hide');
+        this.playerSet.pokemonName.classList.remove('hide');
+        this.opponentSet.HPBar.show();
+        this.opponentSet.HPText.classList.remove('hide');
+        this.opponentSet.level.classList.remove('hide');
+        this.opponentSet.pokemonName.classList.remove('hide');
+    }
+
+    /**
+     * 隱藏寶可夢球圖片。
+     */
+    hidePokemonBallsInPad() {
+        this.playerSet.imgPokemonBalls.forEach(elem => elem.classList.add('hide'));
+        this.opponentSet.imgPokemonBalls.forEach(elem => elem.classList.add('hide'));
+    }
+
+    /**
+     * 顯示寶可夢球圖片。
+     */
+    showPokemonBallsInPad() {
+        this.playerSet.imgPokemonBalls.forEach(elem => elem.classList.remove('hide'));
+        this.opponentSet.imgPokemonBalls.forEach(elem => elem.classList.remove('hide'));
+    }
+
+    /**
+     * 切換寶可夢球的顯示。
+     * @param {boolean} visible 是否顯示。
+     */
+    switchPokemonBallView(visible) {
+        if (visible) {
+            this.hideBattleInfoInPad();
+            this.showPokemonBallsInPad();
+        }
+        else {
+            this.hidePokemonBallsInPad();
+            this.showBattleInfoInPad();
+        }
+    }
+
+    /**
+     * 設定玩家方的寶可夢球的顯示。
+     * @param {number?} brokens 壞掉的寶可夢球數量。
+     * @param {number?} alives 活著的寶可夢球數量。
+     */
+    setPlayerPokemonBallsView(brokens = 0, alives = 0) {
+        this.playerSet.imgPokemonBalls.forEach(elem => {
+            if (brokens > 0) {
+                brokens -= 1;
+                elem.src = define.imagePath + "BrokenPokemonBall.png";
+            }
+            else if (alives > 0) {
+                alives -= 1;
+                elem.src = define.imagePath + "AlivePokemonBall.png";
+            }
+            else {
+                elem.src = define.imagePath + "FaintedPokemonBall.png";
+            }
+        });
+    }
+
+    /**
+     * 設定對手方的寶可夢球的顯示。
+     * @param {number?} brokens 壞掉的寶可夢球數量。
+     * @param {number?} alives 活著的寶可夢球數量。
+     */
+    setOpponentPokemonBallsView(brokens = 0, alives = 0) {
+        this.opponentSet.imgPokemonBalls.forEach(elem => {
+            if (brokens > 0) {
+                brokens -= 1;
+                elem.src = define.imagePath + "BrokenPokemonBall.png";
+            }
+            else if (alives > 0) {
+                alives -= 1;
+                elem.src = define.imagePath + "AlivePokemonBall.png";
+            }
+            else {
+                elem.src = define.imagePath + "FaintedPokemonBall.png";
+            }
+        });
     }
 
     /**
