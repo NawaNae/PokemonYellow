@@ -408,6 +408,37 @@ label {
     transform: scale(2, 1.5);
 }
 
+/* 「寶可夢球」圖片 */
+#battlePad img.pokemonBall {
+    position: absolute;
+    left: 80px; bottom: 45px;
+    width: 42px;
+    height: 42px;
+
+    --start-pos-x: 70px;
+    --start-pos-y: 45px;
+    --pos-x-gap: 50px;
+}
+
+/* 順序 */
+#battlePad #opponentPad img.pokemonBall:nth-child(1), #battlePad #playerPad img.pokemonBall:nth-child(1)
+{ left: calc(var(--start-pos-x) + 0 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
+
+#battlePad #opponentPad img.pokemonBall:nth-child(2), #battlePad #playerPad img.pokemonBall:nth-child(2)
+{ left: calc(var(--start-pos-x) + 1 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
+
+#battlePad #opponentPad img.pokemonBall:nth-child(3), #battlePad #playerPad img.pokemonBall:nth-child(3)
+{ left: calc(var(--start-pos-x) + 2 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
+
+#battlePad #opponentPad img.pokemonBall:nth-child(4), #battlePad #playerPad img.pokemonBall:nth-child(4)
+{ left: calc(var(--start-pos-x) + 3 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
+
+#battlePad #opponentPad img.pokemonBall:nth-child(5), #battlePad #playerPad img.pokemonBall:nth-child(5)
+{ left: calc(var(--start-pos-x) + 4 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
+
+#battlePad #opponentPad img.pokemonBall:nth-child(6), #battlePad #playerPad img.pokemonBall:nth-child(6)
+{ left: calc(var(--start-pos-x) + 5 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
+
 /* ======================================== 「寶可夢清單」版面 ======================================== */
 /* 「寶可夢清單」版面的樣式 */
 #pokemonList {
