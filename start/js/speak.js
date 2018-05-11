@@ -1,8 +1,10 @@
 function speak(s,lang="zh-tw") {
     var protocol=location.protocol;
-    s=((protocol==="http:"?"http:":protocol==="file:"?"https:":protocol)+"//translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&client=tw-ob&q="+encodeURI(s)+"&tl="+lang);
+    
     if(location.hostname==="nawanae.github.io"&&protocol==="https:")
         s="https://myweb.ntut.edu.tw/~t105590029/php/googleTTSproxy.php?Text="+s+"&Lang="+lang;//proxy
+    else
+    s=((protocol==="http:"?"http:":protocol==="file:"?"https:":protocol)+"//translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&client=tw-ob&q="+encodeURI(s)+"&tl="+lang);
     var a=new Audio(s);
     a.autoplay=true;
     return a;
