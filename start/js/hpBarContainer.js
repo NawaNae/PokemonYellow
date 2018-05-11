@@ -80,8 +80,8 @@ class HPBarContainer {
      * 顯示HP條。
      */
     show() {
-        this.divHPBar.classList.hide('hide');
-        this.divHP.classList.hide('hide');
+        this.divHPBar.classList.remove('hide');
+        this.divHP.classList.remove('hide');
     }
 
     /**
