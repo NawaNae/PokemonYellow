@@ -14,8 +14,10 @@ DisplayInformation.Text = class Text
         if (father)
             this.appendTo(father);
         this.text = text;
+        this.updateWhenShow=false;
     }
-    
+    updateText()
+    {this._display.innerText = DisplayInformation.gameTextProcess(this._prefixString + this._displayProcessFunction(this._text) + this._postfixString);}
     set prefixString(str)
     {
         this._prefixString=str;
@@ -37,12 +39,14 @@ DisplayInformation.Text = class Text
     set text(text)
     {
         this._text = text;
-        this._display.innerText = DisplayInformation.gameTextProcess(this._prefixString + this._displayProcessFunction(this._text) + this._postfixString);
+        this.updateText();
     }
     get visible()
     {return !this._display.classList.contains(this.displayClassName[0]);}
     set visible(value)
     {
+        if(this.updateWhenShow&&value)
+            this.updateText();
         this._display.classList.add(this.displayClassName[value|0]);
         this._display.classList.remove(this.displayClassName[(!value)|0]);
     }
@@ -144,6 +148,7 @@ class Text extends DisplayInformation.Text
     get visible(){return super.visible;}
     set visible(val)
     {
+        super.visible=val;
         if(val)
         {
             if(this.keyInput)

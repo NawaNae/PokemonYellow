@@ -44,6 +44,7 @@ class Character {
                     break;
                 default:
             }
+
         this.newPosition;
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
