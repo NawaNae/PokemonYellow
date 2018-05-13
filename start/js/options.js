@@ -1,8 +1,9 @@
 GameSystem.Classes.Options=
-class Options 
+class Options extends DisplayInformation.AutoKeyInput.Text
 {
     constructor(option={className:"options"})
     {
+        super();
         this.options=new Array();
         this.inputMode=GameSystem.Classes.Level.InputModes.options;
         this._display=document.createElement("div");
@@ -12,15 +13,33 @@ class Options
         this._lastInputMode;
         this.visible=false;
         this.optionsLoop=false;
+        this.keyInput=(e)=>{this._keyInput(e);};
+        this.closeWithContainer=false;
     }
-    set lastInputMode(value)
+    _keyInput(e)
     {
-        this.autoChangeInputMode=true;
-        this._lastInputMode=value;    
-    }
-    get lastInputMode()
-    {
-        return this._lastInputMode;
+            var options=this;
+            let GS=GameSystem;
+            let KM=GS.Manager.Key;
+            let container=GameSystem.HTMLObjectContainer;
+            switch(KM.keyMapping[e.key])
+            {
+                case "Up":
+                options.selectLast();
+                break;
+                case "Down":
+                options.selectNext();
+                break;
+                case "A":
+                options.selectSend();
+                break;
+                case "B":
+                if(this.closeWithContainer)
+                    container.visible=false;
+                options.visible=false;
+                break;
+            }
+          
     }
     push(option)
     {
@@ -66,14 +85,6 @@ class Options
         else if(item.constructor.name=="String")
             this.options=this.options.slice(this.options.findIndex(ele=>item.text==ele.text));
     }
-    appendTo(father)
-    {
-        father.append(this._display);
-    }
-    prependTo(father)
-    {
-        father.prepend(this._display);
-    }
     selectSend()
     {
         this.select.selectSend();
@@ -100,7 +111,6 @@ class Options
         ele.select=false;
         nextEle.select=true;
         nextEle._display.scrollIntoViewIfNeeded();
-   
     }
     get select()
     {
@@ -131,27 +141,5 @@ class Options
              obj._display.focus();
         }   
     }
-    get visible()
-    {return !this._display.classList.contains(this.displayClassName[0]);}
-    set visible(value)
-    {
-        if(this.autoChangeInputMode)
-        if(Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.inputMode)
-            if(value)
-            {
-                this.lastInputMode=Framework.Game._currentLevel.inputMode;
-                Framework.Game._currentLevel.inputMode=this.inputMode;
-            }
-            else
-            {
-                Framework.Game._currentLevel.inputMode=this.lastInputMode;
-                this.lastInputMode=undefined;
-            }
-        this._display.classList.add(this.displayClassName[value|0]);
-        this._display.classList.remove(this.displayClassName[(!value)|0]);
-    }
-    show()
-    {this.visible=true;}
-    hide()
-    {this.visible=false}
+
 }
