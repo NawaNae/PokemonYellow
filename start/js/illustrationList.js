@@ -3,7 +3,7 @@
  * @description 圖鑑的class
  */
 GameSystem.Classes.IllustrationList=
-class Illustration extends DisplayInformation.Text
+class Illustration extends DisplayInformation.AutoKeyInput.Text
 {
     constructor()
     {
@@ -19,6 +19,7 @@ class Illustration extends DisplayInformation.Text
         let Options=GameSystem.Classes.Options,Option=GameSystem.Classes.Option;
         this.list=new Options({className:"list"});
         let list=this.list,dictionary=GameSystem.Classes.PokemonType.Dictionary;
+        list.keyInput=undefined;
         list.optionsLoop=true;
         for(let key in dictionary)
         {
@@ -62,16 +63,6 @@ class Illustration extends DisplayInformation.Text
         super.visible=val;
         this.findNumber.visible=val;
         this.list.visible=val;
-        if(val)
-        {
-            this.lastKeyInput=GameSystem.Manager.Key.keyInput;
-            GameSystem.Manager.Key.keyInput=this.keyInput;
-        }
-        else
-        {
-            if(this.lastKeyInput)
-                GameSystem.Manager.Key.keyInput=this.lastKeyInput;
-        }
     }
     get visible()
     {return super.visible;}
