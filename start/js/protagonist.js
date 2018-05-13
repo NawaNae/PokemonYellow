@@ -76,9 +76,14 @@ class Protagonist extends GameSystem.Classes.Character {
             this.image.position.y=pos.y;
         }
     }
-    set atMap(newMap) { this._atMap = newMap }
+    set atMap(newMap) { 
+        this._atMap = newMap 
+        Framework.Game.goToLevel(newMap);
+    }
     get atMap() { return this._atMap; }
 
+    set position(np){super.position=np;this.updateImagePosition();}
+    get position(){return super.position;}
     set money(newMap) { this._money = money; }
     get money() { return this._money; }
 

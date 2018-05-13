@@ -43,9 +43,9 @@ Load.js.import(
 
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
       /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
-
+      { src: define.jsPath + 'recorder.js', lookFor: 'GameSystem.Classes.Recorder' },
       { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Recorders' },  
-            { src: define.jsPath + 'recorder.js', lookFor: 'GameSystem.Classes.Recorder' },
+
         { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
         { src: define.jsPath + 'levelPalletTown.js', lookFor: 'PalletTown' },
