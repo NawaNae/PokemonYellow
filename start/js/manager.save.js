@@ -1,30 +1,31 @@
 
-GameSystem.Classes.Recorders=
-class Recorders
+GameSystem.Classes.Records=
+class Records
 {
     constructor()
     {
-        this.recorders=[];
+        this.records=[];
         this.loadAll();
     }
     saveAll()
     {
-        localStorage.recorders=JSON.stringify(this.recorders);
+        localStorage.records=JSON.stringify(this.records);
     }
-    save(options={index:0,mainChar:undefined,search:false})
+    save(options={index:0,mainChar:undefined,rival:undefined,rivalName:undefined,search:false})
     {
-        var Recorder=GameSystem.Classes.Recorder;
+        var Record=GameSystem.Classes.Record,Character=GameSystem.Classes.Character;
         options.mainChar=(GameSystem&&GameSystem.protagonist)?GameSystem.protagonist:undefined;
+        options.rival=options.rival||(options.rivalName)?new Character(options.rivalName):(GameSystem.rival)?GameSystem.rival:undefined;
         if(options.mainChar)
         {
             if(options.search)
             {
-                var aim=this.recorders.find(ele=>name===options.mainChar.name);
-                this.recorders[this.recorders.indexOf(aim)]=new Recorder(options.mainChar);
+                var aim=this.records.find(ele=>name===options.mainChar.name);
+                this.records[this.records.indexOf(aim)]=new Record(options.mainChar,options.rival);
             }
             else
             {
-                this.recorders[options.index]=new Recorder(options.mainChar);
+                this.records[options.index]=new Record(options.mainChar,options.rival);
             }
         }
         this.saveAll();
@@ -33,25 +34,38 @@ class Recorders
     {
         this.loadAll();//refresh
         options.mainChar=options.mainChar||(GameSystem&&GameSystem.protagonist)?GameSystem.protagonist:undefined;
-        if(this.recorders.length>0)
+        if(this.records.length>0)
         {
             if(!GameSystem.protagonist)
                 GameSystem.protagonist=new GameSystem.Classes.Protagonist();    
+            if(!GameSystem.rival)
+                GameSystem.rival=new GameSystem.Classes.Character();
             if(!options.search)
-                GameSystem.protagonist.copyFrom(this.recorders[options.index]);
+            {  
+              GameSystem.protagonist.copyFrom(this.records[options.index]);
+              GameSystem.rival.name=this.records[options.index].rivalName||"屁孩茂";
+            }
             else if(options.name)
-                GameSystem.protagonist.copyFrom(this.recorders.find(ele=>ele.name===options.name));
+            {    
+                var record=this.records.find(ele=>ele.name===options.name);
+                GameSystem.protagonist.copyFrom(record);
+                GameSystem.rival.name=record.rivalName||"屁孩茂";
+            }
             else if(mainChar)
-                GameSystem.protagonist.copyFrom(this.recorders.find(ele=>ele.name===mainChar.name));
+             {   
+                var record=this.records.find(ele=>ele.name===options.name)
+                GameSystem.protagonist.copyFrom(record);
+                GameSystem.rival.name=record.rivalName||"屁孩茂";
+             }
         }
         else
-            console.log("no any recorder");
+            console.log("no any record");
     }
     loadAll()
     {
-        if(localStorage.recorders)
-            this.recorders=JSON.parse(localStorage.recorders);
+        if(localStorage.records)
+            this.records=JSON.parse(localStorage.records);
     }
 
 }
-GameSystem.Manager.Recorders=new GameSystem.Classes.Recorders();
+GameSystem.Manager.Records=new GameSystem.Classes.Records();
