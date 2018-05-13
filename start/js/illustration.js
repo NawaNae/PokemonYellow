@@ -1,5 +1,5 @@
 GameSystem.Classes.Illustration=
-class Illustration extends DisplayInformation.Text
+class Illustration extends DisplayInformation.AutoKeyInput.Text
 {
     constructor()
     {
@@ -54,23 +54,5 @@ class Illustration extends DisplayInformation.Text
         this.number.value=pokemonTypeObj.id;
         this.description.text=pokemonTypeObj.description||"";
         this.image.src=pokemonTypeObj.image.src;//第一層為gameImage 第二層為HTML image
-    }
-    get visible()
-    {
-        return super.visible;
-    }
-    set visible(val)
-    {
-        super.visible=val;
-        if(val)
-        {
-            this.lastKeyInput=GameSystem.Manager.Key.keyInput;
-            GameSystem.Manager.Key.keyInput=this.keyInput;
-        }
-        else
-        {
-            if(this.lastKeyInput)
-                GameSystem.Manager.Key.keyInput=this.lastKeyInput;
-        }
     }
 }
