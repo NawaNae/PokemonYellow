@@ -145,30 +145,40 @@ class XYBase
     negi(){this.assign(this.mul(-1));}
     assign(a,b)
     {
-        if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined"){this.x=a.xthis.y=a.y}
+        if(!a.y&&a._y)b=a._y;
+        if(!a.x&&a._x)a=a._x;
+        if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined"){this.x=a.x;this.y=a.y}
         if(typeof a === "number" && typeof b==="number"){this.x=a;this.y=b;}
         if(typeof a==="number"&& typeof b==="undefined"){this.x=a;this.y=a;}
     }
     add(a,b)
     {
+        if(!a.y&&a._y)b=a._y;
+        if(!a.x&&a._x)a=a._x;
         if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined") return new this.constructor(this.x+a.x,this.y+a.y);
         if(typeof a === "number" && typeof b==="number")return new this.constructor(this.x+a,this.y+b);
         if(typeof a==="number"&& typeof b==="undefined")return new this.constructor(this.x+a,this.y+a);
     }
     sub(a,b)
     { 
+        if(!a.y&&a._y)b=a._y;
+        if(!a.x&&a._x)a=a._x;
         if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined")return new this.constructor(this.x-a.x,this.y-a.y);
         if(typeof a === "number" && typeof b==="number")return new this.constructor(this.x-a,this.y-b);
         if(typeof a==="number"&& typeof b==="undefined")return new this.constructor(this.x-a,this.y-a);
      }
     mul(a,b)
     {
+        if(!a.y&&a._y)b=a._y;
+        if(!a.x&&a._x)a=a._x;
         if(typeof a !=="undefined"&&typeof a.x !=="undefined"&&typeof a.y !== "undefined")return new this.constructor(this.x*a.x,this.y*a.y);
         if(typeof a === "number" && typeof b==="number")return new this.constructor(this.x*a,this.y*b);
         if(typeof a==="number"&& typeof b==="undefined")return new this.constructor(this.x*a,this.y*a);
     }
     div(a,b)
     {
+        if(!a.y&&a._y)b=a._y;
+        if(!a.x&&a._x)a=a._x;
         if(b){  if(a&&typeof a==="number"&& typeof b ==="number")return this.mul(1/a,1/b);}    
         else if(a&&typeof a==="number")return this.mul(1/a);
         else if(a.x&&a.y&&a.x!==0&&a.y!==0)return this.mul(1/a.x,1/a.y);
