@@ -187,24 +187,6 @@ class Level extends Framework.Level
             case this.inputModes.walk:
             this.walkKeyInput(e);
             break;
-            case this.inputModes.dialog:
-            this.dialogKeyInput(e);
-            break;
-            case this.inputModes.options:
-            this.optionsKeyInput(e);
-            break;
-            case this.inputModes.yesNoDialog:
-            this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.yesNoDialog);
-            break;
-            case this.inputModes.buySellDialog:
-            this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.buySellDialog);
-            break;
-            case this.inputModes.shoppingList:
-            this.optionsKeyInput(e,GameSystem.HTMLObjectContainer.shoppingList);
-            break;
-            case this.inputModes.itemNumberDialog:
-            this.itemNumberDialogKeyInput(e);
-            break;
         }
     }
     walkKeyInput(e)
@@ -257,63 +239,8 @@ class Level extends Framework.Level
             let container=GameSystem.HTMLObjectContainer;
             container.visible=true;
             options.visible=true;
-            this.inputMode=this.inputModes.options;
+           // this.inputMode=this.inputModes.options;
         }
-    }
-  
-    itemNumberDialogKeyInput(e,options)
-    {
-        let GS=GameSystem,KM=GS.Manager.Key,CS=GS.Classes;
-        let container=GameSystem.HTMLObjectContainer;
-        let itemNumber=container.itemNumberDialog;
-        switch(KM.keyMapping[e.key])
-        {
-            case "Up":
-                itemNumber.value++;
-                break;
-            case "Down":
-                itemNumber.value--;
-                break;
-            case "A":
-                this.inputMode=this.inputModes.yesNoDialog;
-                container.yesNoDialog.yesOption.selectSend=function(){console.log("cost " + GameSystem.HTMLObjectContainer.itemNumberDialog.cost);container.yesNoDialog.hide();container.itemNumberDialog.hide()};
-                container.yesNoDialog.show();
-                break;
-            case "B":
-                container.itemNumberDialog.visible=false;
-                break;
-
-        }
-    }
-    optionsKeyInput(e,options)
-    {
-
-        let GS=GameSystem;
-        let KM=GS.Manager.Key;
-        options=options||GameSystem.HTMLObjectContainer.options;
-        let container=GameSystem.HTMLObjectContainer;
-        switch(KM.keyMapping[e.key])
-        {
-            case "Up":
-            options.selectLast();
-            break;
-            case "Down":
-            options.selectNext();
-            break;
-            case "A":
-            options.selectSend();
-            break;
-            case "B":
-            case "Start":  
-            container.visible=false;
-            options.visible=false;
-            if(options.lastInputMode)
-                this.inputMode=options.lastInputMode;//回到上個
-            else
-                this.inputMode=this.inputModes.walk;//直接回到走路
-            break;
-        }
-      
     }
     teardown()
     {
@@ -326,7 +253,6 @@ GameSystem.Classes.Level.InputModes=Object.freeze(
     {
         
             walk:0,
-            options:2,
             yesNoDialog:3,
             buySellDialog:4,
             shoppingList:5,
