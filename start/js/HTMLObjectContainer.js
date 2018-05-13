@@ -61,6 +61,7 @@ class HTMLObjectContainer
     {
         this.dialog=new GameSystem.Classes.Dialog();
         this.addChild(this.dialog);
+        this.dialog.hide();
     }
     initYesNoDialog()
     {
@@ -83,6 +84,7 @@ class HTMLObjectContainer
     initOptions()
     {
         this.options=new GameSystem.Classes.Options();
+        this.options.closeWithContainer=true;
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustrationList.show();;}));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具"));
@@ -109,7 +111,6 @@ class HTMLObjectContainer
         let container=GameSystem.HTMLObjectContainer;
         this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});
         this.shoppingList.autoChangeInputMode=true;
-        this.shoppingList.inputMode=GameSystem.Classes.Level.InputModes.shoppingList;
         this.shoppingList.push(new Option("100円的東東",function(){GameSystem.HTMLObjectContainer.itemNumberDialog.show();}));
         this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.visible=false;}));
         this.addChild(this.shoppingList);

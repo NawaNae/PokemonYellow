@@ -23,20 +23,12 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         this.music.loop=true;
 
         this.menu = new Framework.Sprite(define.imagePath+"Title.png");//"https://imgur.com/6vHYJUz.png");
-        Framework.Game._canvasContainer.classList.add('visualNovel');
-      /*  this.vn = new VisualNovel(Framework.Game._canvasContainer, {
-            content: '[[{"type":"character","url":"http://www.cc.ntut.edu.tw/~t105590029/pages/VisualNovelTest/HIBIKI1.png","name":"導覽員-喵喵","id":"喵喵"},{"type":"talk","text":"主人團子想要與您結婚"},{"type":"talk","text":"您意下如何"},{"type":"hide","object":"character"},{"type":"character","url":"http://www.cc.ntut.edu.tw/~t105590029/Images/tanko.png","name":"團子"},{"type":"select","option":[{"text":"嫑，我喜歡的是你R喵喵","tag":"NEXT_STEP"},{"text":"好","tag":"good"}]},{"type":"show","object":"text"},{"type":"text","text":"團子向你發動攻擊，請守護您的貞操"},{"type":"hide","object":"text"},{"type":"show","object":"character"},{"type":"talk","text":"敬酒不ㄘㄘ法酒"},{"type":"evalAndRemove","text":"Framework.Game.goToNextLevel();"},{"type":"jump","tag":"end"},{"type":"tag","tag":"good"},{"type":"show","object":"character"},{"type":"talk","text":"親愛的結婚吧"},{"type":"hide","object":"character"},{"type":"background","url":"https://imgur.com/LQcVEir.png"},{"type":"talk","text":"你被團子壓死ㄌ"},{"type":"tag","tag":"end"}]]'
-        });
-        this.vn.gameLevel = this;*/
-
 
     },
 
     initialize: function() {
 
         //this.music.play();
-        //為了讓之後的位置較好操控, new出一個位於中心點且可以黏貼任何東西的容器
-        //注意, Position都是用中心點
         this.menu.position = {
             x: Framework.Game.getCanvasWidth() / 2,
             y: Framework.Game.getCanvasHeight() / 2
@@ -51,18 +43,12 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     },
 
     update:function(){     
-        //this.rootScene.update();一定要在第一行
         this.rootScene.update(); 
-
-        //目前的Framework, 當任何一個GameObject不做attach時, 則必須要自行update
     },
 
     draw: function(parentCtx) { 
-        //this.rootScene.draw();一定要在第一行
         this.rootScene.draw(parentCtx);
         this.menu.draw(parentCtx);
-        //this.rootScene.draw();
-        //可支援畫各種單純的圖形和字
         parentCtx.font = '15px Arial';
         parentCtx.fillStyle = 'black';
         parentCtx.textBaseline = 'top';
@@ -71,9 +57,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     },
     keydown:function(e)
     {
-        this.music.pause();
         Framework.Game.goToLevel('palletTown');
-        
     },
     mouseup: function(e) {
     },
@@ -109,5 +93,9 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
     
     touchmove: function (e) {
         this.mousemove(e[0]);
+    },
+    teardown : function()
+    {
+        this.music.pause();
     }
 });
