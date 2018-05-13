@@ -43,12 +43,13 @@ Load.js.import(
 
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
       /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
-      { src: define.jsPath + 'recorder.js', lookFor: 'GameSystem.Classes.Recorder' },
-      { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Recorders' },  
+      { src: define.jsPath + 'record.js', lookFor: 'GameSystem.Classes.Record' },
+      { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Records' },  
 
         { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
         { src: define.jsPath + 'levelPalletTown.js', lookFor: 'PalletTown' },
+        { src: define.jsPath + 'levels.loadRecord.js', lookFor: 'GameSystem.Classes.Levels.LoadRecord' },
         { src: define.jsPath + 'levelRoute01.js', lookFor: 'Route01' },
         { src: define.jsPath+'mainGame.js' }//請最後載入mainGame
 ]);

@@ -4,70 +4,70 @@ class PalletTown extends GameSystem.Classes.Level {
         var GS = GameSystem;
         var CS = GS.Classes;
         this.gates.push(new CS.Connection
-            (
+        (
             new CS.MapPosition
                 (
                 "palletTown",
                 new CS.Position(8,7)
                 ),
             new CS.MapPosition
-                (
-                "protagonistHome1F",
-                new  CS.Position(3, 7)
-                )
-            ));
-        this.gates.push(new CS.Connection
             (
+            "protagonistHome1F",
+            new  CS.Position(3, 7)
+            )
+        ));
+        this.gates.push(new CS.Connection
+        (
             new CS.MapPosition
                 (
                 "palletTown",
                 new CS.Position(13, 3)
                 ),
             new CS.MapPosition
-                (
-                "route01",
-                new CS.Position(10, 39)
-                )
-            ));
-        this.gates.push(new CS.Connection
             (
+            "route01",
+            new CS.Position(10, 39)
+            )
+        ));
+        this.gates.push(new CS.Connection
+        (
             new CS.MapPosition
                 (
                 "palletTown",
                 new CS.Position(14, 3)
                 ),
             new CS.MapPosition
+            (
+            "route01",
+            new CS.Position(11, 39)
+            )
+        ));
+        this.gates.push(new CS.Connection
+        (
+            new CS.MapPosition
                 (
-                "route01",
-                new CS.Position(11, 39)
-                )
-            ));
-            this.gates.push(new CS.Connection
+                "palletTown",
+                new CS.Position(16, 7)
+                ),
+            new CS.MapPosition
+            (
+            "palletTownHouse1",
+            new CS.Position(3, 7)
+            )
+        ));
+        this.gates.push(new CS.Connection
+            (
+            new CS.MapPosition
                 (
-                new CS.MapPosition
-                    (
-                    "palletTown",
-                    new CS.Position(16, 7)
-                    ),
-                new CS.MapPosition
-                    (
-                    "palletTownHouse1",
-                    new CS.Position(3, 7)
-                    )
-                ));
-                this.gates.push(new CS.Connection
-                    (
-                    new CS.MapPosition
-                        (
-                        "doctorsHome",
-                        new CS.Position(5, 11)
-                        ),
-                    new CS.MapPosition
-                        (
-                            "palletTown",
-                            new CS.Position(15, 13)
-                        )
-                    ));
+                "doctorsHome",
+                new CS.Position(5, 11)
+                ),
+            new CS.MapPosition
+            (
+                "palletTown",
+                new CS.Position(15, 13)
+            )
+        ));
     }
     initSubLevels()
     {

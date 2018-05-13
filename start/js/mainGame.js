@@ -3,6 +3,7 @@
 var list = {};
 list['menu'] = new MyMenu();
 Framework.Game.addNewLevel({ menu: list['menu'] });
+Framework.Game.addNewLevel({loadRecord: new GameSystem.Classes.Levels.LoadRecord()});
 Framework.Game.addNewLevel({palletTown: new PalletTown({x:26,y:23})});
 Framework.Game.addNewLevel({route01: new Route01()});
 //Framework.Game.addNewLevel({level1: new MyGame()});
