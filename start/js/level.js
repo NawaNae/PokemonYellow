@@ -209,7 +209,7 @@ class Level extends Framework.Level
                 let levelName=Framework.Game._findLevelNameByLevel(this);
                 let anotherPlace=gate.findAnotherPlaceByMapName(levelName);
                 GS.protagonist.position=anotherPlace.position;
-                Framework.Game.goToLevel(anotherPlace.mapName);
+                GS.protagonist.atMap=(anotherPlace.mapName);
             }
             else if (this.isWalkableAt(newPosition)) {
                 console.log(newPosition);
