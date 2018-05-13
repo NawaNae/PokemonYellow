@@ -61,20 +61,23 @@ GameSystem.Classes.Image=class GameImage
     }
     copy(image)
     {
+        if(!image)
+            return;
+        var Point=GameSystem.Classes.Point;
         if(image.src)
-            this.src=image.src;
+            this.src=image.src||image._src;
        if(image.cutSize)
-            this.cutSize=image.cutSize;
+            this.cutSize=new Point(image.cutSize);
         if(image.cutStartPosition)
-            this.cutStartPosition=image.cutStartPosition;
-       if(image.scale)
-            this.scale=image.scale;
+            this.cutStartPosition=new Point(image.cutStartPosition);
+       if((image.scale&&image.scale.x&&image.scale.x!==1&&image.scale.y&&image.scale.y!==1)||(image.scale&&image.scale._x&&image.scale._x!==1&&image.scale._y&&image.scale._y!==1))
+            this.scale=(new Point(image.scale));
         if(image.position)
-            this.position=image.position;
+            this.position=new Point(image.position);
         if(image.visible)
             this.visible=image.visible;
         if(image.displaySize)
-            this.displaySize=image.displaySize;
+            this.displaySize=new Point(image.displaySize);
     }
     show(){this.visible=true;}
     hide(){this.visible=false;}

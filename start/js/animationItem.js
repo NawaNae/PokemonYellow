@@ -4,6 +4,11 @@ class AnimationItem
 {
     constructor(src,option={position:undefined,displaySize:{x:16,y:16},cutStartPosition:undefined,cutSize:undefined,scale:undefined,group:undefined})
     {
+        if(src.src||src.position||src.displaySize||src.cutStartPosition||src.cutSize||src.scale||src.group)//copy constructor
+        {
+            option=src;
+            src=src.src;
+        }
         this.src=src;
         if(option.cutStartPosition&&option.cutStartPosition.constructor.name=="Position")
             option.cutStartPosition=option.cutStartPosition.toPoint();
