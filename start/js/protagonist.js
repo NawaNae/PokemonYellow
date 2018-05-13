@@ -10,7 +10,7 @@
  */
 GameSystem.Classes.Protagonist = 
 class Protagonist extends GameSystem.Classes.Character {
-    constructor(name = "", position, atMap, storyLineIndex) {
+    constructor(name = "", position=new GameSystem.Classes.Position(3,6), atMap= "protagonistHome2F", storyLineIndex=0) {
         super(name,undefined, position,new GameSystem.Classes.Image( //picture
             define.characterImagePath+"protagonist.png",
             {
@@ -18,7 +18,7 @@ class Protagonist extends GameSystem.Classes.Character {
                 cutSize:{x:16,y:16}
             }
         ));
-        this.storyLineIndex=storyLineIndex||0;
+        this.storyLineIndex=storyLineIndex;
         this._atMap = atMap;
         this._pokemons = [];
         this._props = [];
@@ -30,9 +30,9 @@ class Protagonist extends GameSystem.Classes.Character {
         super.copyFrom(mainChar);
         if(!mainChar)return;
         this.storyLineIndex=mainChar.storyLineIndex||this.storyLineIndex;
-        this._atMap=mainChar._atMap||mainChar.atMap||this.atMap;
-        this._props=mainChar._props||mainChar.props||this._props;
-        this._money=mainChar._money||mainChar.money||this._money;
+        this.atMap=mainChar._atMap||mainChar.atMap||this.atMap;
+        this.props=mainChar._props||mainChar.props||this._props;
+        this.money=mainChar._money||mainChar.money||this._money;
     }
     initialize()
     {
@@ -84,7 +84,7 @@ class Protagonist extends GameSystem.Classes.Character {
 
     set position(np){super.position=np;this.updateImagePosition();}
     get position(){return super.position;}
-    set money(newMap) { this._money = money; }
+    set money(newMoney) { this._money = newMoney; }
     get money() { return this._money; }
 
     /**
