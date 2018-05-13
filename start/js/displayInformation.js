@@ -108,13 +108,18 @@ DisplayInformation.AutoKeyInput={};
 DisplayInformation.AutoKeyInput.Text=
 class Text extends DisplayInformation.Text
 {
+    constructor(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father, textOutputProcessFunction = DisplayInformation.Text.OutputFunctions.Normal)
+    {
+        super(text, prefixString , postfixString, displayHTMLClass, createElementTypeString , father, textOutputProcessFunction );
+        this.autoKeyInput=true;
+    }
     get visible(){return super.visible;}
     set visible(val)
     {
         super.visible=val;
         if(val)
         {
-            if(this.keyInput)
+            if(this.keyInput&&this.autoKeyInput)
             {
                 this.lastKeyInput=GameSystem.Manager.Key.keyInput;
                 GameSystem.Manager.Key.keyInput=this.keyInput;
@@ -122,9 +127,12 @@ class Text extends DisplayInformation.Text
         }
         else
         {
-            if(this.keyInput)
+            if(this.keyInput&&this.autoKeyInput)
             {
-                GameSystem.Manager.Key.keyInput=this.lastKeyInput;
+                if(this.lastKeyInput)
+                    GameSystem.Manager.Key.keyInput=this.lastKeyInput;
+                else if(Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.keyInput)
+                GameSystem.Manager.Key.keyInput=Framework.Game._currentLevel.keyInput;
                 this.lastKeyInput=undefined;
             }
         }
