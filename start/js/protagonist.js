@@ -25,6 +25,15 @@ class Protagonist extends GameSystem.Classes.Character {
         this._money = 3000;
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
     }
+    copyFrom(mainChar)
+    {
+        super.copyFrom(mainChar);
+        if(!mainChar)return;
+        this.storyLineIndex=mainChar.storyLineIndex||this.storyLineIndex;
+        this._atMap=mainChar._atMap||mainChar.atMap||this.atMap;
+        this._props=mainChar._props||mainChar.props||this._props;
+        this._money=mainChar._money||mainChar.money||this._money;
+    }
     initialize()
     {
        //this.initAnimationImages();
