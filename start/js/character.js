@@ -48,6 +48,21 @@ class Character {
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
     }
+    copyFrom(char)
+    {
+        if(!char)return;
+        this._name=char.name||char._name||this._name;
+        this.image.copy(char.image||char._image);
+        if(char.animationLists)
+        {
+            this.animationLists.Up.copyFrom(char.animationLists.Up);
+            this.animationLists.Down.copyFrom(char.animationLists.Down);
+            this.animationLists.Left.copyFrom(char.animationLists.Left);
+            this.animationLists.Right.copyFrom(char.animationLists.Right);
+        }
+        this.facing=char.facing||char._facing||this.facing;
+        this.position=char.position||char._position||this._position;
+    }
     update()
     {
     }
@@ -265,6 +280,8 @@ class Character {
     get y() { return this.point.y;}
     set position(newPosition) 
     {
+ 
+        newPosition=new GameSystem.Classes.Position(newPosition);
          this._position = newPosition;
         // this.updateImagePosition();
      }
