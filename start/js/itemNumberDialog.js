@@ -4,7 +4,7 @@
  * @default 價錢100 買1個
  */
 GameSystem.Classes.ItemNumberDialog=
-class ItemNumberDialog extends DisplayInformation.Text
+class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
 {
     constructor(price=100,number=1)
     {
@@ -33,6 +33,28 @@ class ItemNumberDialog extends DisplayInformation.Text
     {
         return this.moneyItem.value;
     }
+    keyInput(e)
+    {
+        let GS=GameSystem,KM=GS.Manager.Key,CS=GS.Classes;
+        let container=GameSystem.HTMLObjectContainer;
+        let itemNumber=container.itemNumberDialog;
+        switch(KM.keyMapping[e.key])
+        {
+            case "Up":
+                itemNumber.value++;
+                break;
+            case "Down":
+                itemNumber.value--;
+                break;
+            case "A":
+                container.yesNoDialog.yesOption.selectSend=function(){console.log("cost " + GameSystem.HTMLObjectContainer.itemNumberDialog.cost);container.yesNoDialog.hide();container.itemNumberDialog.hide()};
+                container.yesNoDialog.show();
+                break;
+            case "B":
+                container.itemNumberDialog.visible=false;
+                break;
+        }
+    }
     /**
      * set 無法使用請設定value與price 只有get可用
      */
@@ -54,26 +76,4 @@ class ItemNumberDialog extends DisplayInformation.Text
         this.numberItem.value=value;
         this.moneyItem.value=value*this.price;
     }
-    get visible()
-    {return !this._display.classList.contains(this.displayClassName[0]);}
-    set visible(value)
-    {
-        if(Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.inputMode)
-            if(value)
-            {
-                this.lastInputMode=Framework.Game._currentLevel.inputMode;
-                Framework.Game._currentLevel.inputMode=this.inputMode;
-            }
-            else
-            {
-                Framework.Game._currentLevel.inputMode=this.lastInputMode;
-                this.lastInputMode=undefined;
-            }
-        this._display.classList.add(this.displayClassName[value|0]);
-        this._display.classList.remove(this.displayClassName[(!value)|0]);
-    }
-    show()
-    {this.visible=true;}
-    hide()
-    {this.visible=false}
 }
