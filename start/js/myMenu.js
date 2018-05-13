@@ -55,23 +55,43 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         parentCtx.textAlign = 'center';
         parentCtx.fillText('Press Any Key To Start', this.rectPosition.x , this.rectPosition.y, 100);
     },
+    drawEmpty:function(ctx)
+    {
+        ctx.fillStyle="white";
+        ctx.fillRect(0,0,Framework.Game._canvas.width,Framework.Game._canvas.height);
+    },
+    linkStart()
+    {
+        var GS=GameSystem,GM=GS.Manager;
+        var RM=GM.Records,mainChar=GS.protagonist,rival=GS.rival;
+        if(RM.records.length>0)
+            Framework.Game.goToLevel('loadRecord');
+        else
+        {
+            this.draw=this.drawEmpty;
+            let name,rivalName;
+            for(name=null;name===null;name=prompt("請輸入主角名字","小智障"));
+            mainChar.name=name;
+            mainChar.atMap="protagonistHome2F";
+            for(rivalName=null;rivalName===null;rivalName=prompt("請輸入永遠的對手的名字","屁孩茂"));
+            rival.name=rivalName;
+            
+        }
+    }
+    ,
     keydown:function(e)
     {
-        Framework.Game.goToLevel('palletTown');
+        this.linkStart();
     },
     mouseup: function(e) {
     },
 
     mousedown: function(e) {
-
-     this.music.pause();
-        Framework.Game.goToLevel('palletTown')
+        this.linkStart();
     },
 
-    click:function(e){      
-        this.music.pause();
-        Framework.Game.goToLevel('palletTown')
-
+    click:function(e){
+        this.linkStart();
     },
 
     mousemove: function(e) {               
