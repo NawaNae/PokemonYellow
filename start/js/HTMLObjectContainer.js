@@ -88,8 +88,16 @@ class HTMLObjectContainer
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustrationList.show();;}));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具"));
-        this.options.push(new GameSystem.Classes.Option("角色資料"));
-        this.options.push(new GameSystem.Classes.Option("儲存",function(){ GameSystem.HTMLObjectContainer.yesNoDialog.show();}));
+        var characterData=new GameSystem.Classes.Option("角色資料");
+        characterData.updateWhenShow=true;
+        this.options.push(characterData);
+        this.options.push(new GameSystem.Classes.Option("儲存",function(){
+            var dialog = GameSystem.HTMLObjectContainer.yesNoDialog,RM=GameSystem.Manager.Records;
+            dialog.yesOption.selectSend=function(){
+                RM.save();dialog.hide();
+            };
+            dialog.show();
+        }));
         this.options.push(new GameSystem.Classes.Option("離開",function()
         {
             Framework.Game._currentLevel.inputMode=Framework.Game._currentLevel.inputModes.walk;
