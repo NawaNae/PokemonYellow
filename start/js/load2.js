@@ -5,7 +5,11 @@ Load.js.import(
         { src: define.frameworkPath + 'loadFramework.js', lookFor: 'loadFrameworkEnd' }//載入遊戲框架並載入遊戲
     ]
 );
-
+(()=>
+{
+    var item=document.getElementById("loadItemText");
+    item.innerText="Game System";
+})();
 
 
 

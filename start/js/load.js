@@ -77,6 +77,7 @@ Load.js.reload = function reloadJS(url) {
         oldJS.remove();
     Load.js.load(url);
 }
+
 Load.js.import(
     [
        { src: Load.definePath, lookFor: Load.js.defineLookFor },

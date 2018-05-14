@@ -7,6 +7,14 @@ GameSystem.loaded=function ()
     let protagonist=GS.protagonist;
     protagonist.initialize();
     protagonist.image.addToAllLevels();
+
+
 }
 
 GameSystem.loaded();
+(()=>
+{
+    var item=document.getElementById("loadItemText");
+    item.innerText="";
+    document.querySelector(".spinnerContianer").classList.add("hide");
+})();
