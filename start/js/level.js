@@ -77,9 +77,6 @@ class Level extends Framework.Level
          parentCtx.fillRect(0, 0, Framework.Game.getCanvasWidth(), Framework.Game.getCanvasHeight());
  
          this.rootScene.draw(parentCtx);
-         parentCtx.fillStyle = "black";
-         parentCtx.font = "12px 新細明體"
-         parentCtx.fillText("小智", 4 * 16 + 8, 3 * 16 + 14);
          if(GameSystem.isShowGrid)
             this.drawGrid(parentCtx);
      }
