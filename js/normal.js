@@ -126,3 +126,9 @@ $(".removeRecords").on("click",function()
     if(localStorage.records)
         localStorage.removeItem("records");
 });
+$(".showGrid").on("click",function()
+{
+    var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
+    if(GS.isShowGrid)GS.isShowGrid=undefined;
+    else GS.isShowGrid=true;
+})
