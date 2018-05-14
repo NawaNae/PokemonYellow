@@ -15,8 +15,6 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
         this.numberItem.appendTo(this._display);
         this.moneyItem=new DisplayInformation.Digit(number*price,"　","円");
         this.moneyItem.appendTo(this._display);
-        this.displayClassName=['hide','show'];
-        this.inputMode=GameSystem.Classes.Level.InputModes.itemNumberDialog;
         this.hide();
     }
     /**

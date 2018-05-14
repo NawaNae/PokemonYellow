@@ -100,7 +100,6 @@ class HTMLObjectContainer
         }));
         this.options.push(new GameSystem.Classes.Option("離開",function()
         {
-            Framework.Game._currentLevel.inputMode=Framework.Game._currentLevel.inputModes.walk;
             let options=GameSystem.HTMLObjectContainer.options;
             let container=GameSystem.HTMLObjectContainer;
             container.visible=false;

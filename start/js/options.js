@@ -5,7 +5,6 @@ class Options extends DisplayInformation.AutoKeyInput.Text
     {
         super();
         this.options=new Array();
-        this.inputMode=GameSystem.Classes.Level.InputModes.options;
         this._display=document.createElement("div");
         this._display.classList.add(option.className);
         this.displayClassName=['hide','show'];

@@ -159,13 +159,7 @@ class Level extends Framework.Level
     }
     normalKeyInput(e)
     {
-      
-        switch(this.inputMode)
-        {
-            case this.inputModes.walk:
             this.walkKeyInput(e);
-            break;
-        }
     }
     walkKeyInput(e)
     {
@@ -226,13 +220,3 @@ class Level extends Framework.Level
             this.music.pause();
     }
 }
-GameSystem.Classes.Level.InputModes=Object.freeze(
-    {
-        
-            walk:0,
-            yesNoDialog:3,
-            buySellDialog:4,
-            shoppingList:5,
-            itemNumberDialog:6
-        
-    });

@@ -5,7 +5,6 @@ class YesNoDialog extends GameSystem.Classes.Options
     {
         super();
         let Option=GameSystem.Classes.Option;
-        this.inputMode=GameSystem.Classes.Level.InputModes.yesNoDialog;
         this.autoChangeInputMode=true;
         this.yesOption=new Option("是");
         this.noOption=new Option("否");

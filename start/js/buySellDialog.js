@@ -8,7 +8,6 @@ class BuySellDialog extends GameSystem.Classes.Options
         let Option=GS.Classes.Option;
         this.autoChangeInputMode=true;
         this.visible=false;
-        this.inputMode=GameSystem.Classes.Level.InputModes.buySellDialog;
         this.push(new Option("買",()=>{this.buySelectSend()}))
         this.options[0].select=true;
         this.push(new Option("賣",()=>{this.sellSelectSend()}))
