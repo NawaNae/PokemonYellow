@@ -4,48 +4,6 @@ class Level extends Framework.Level
     constructor(sizePosition,name="")
     {
         super();
-        this.counter =
-        new (class Counter {
-            constructor(countTo) {
-                this.count = 0;
-                this.lastTime = 0;
-                this.countTo = countTo;
-                this.fpsNow = 0;
-                this._fpsCount = false;
-                this.enable=false;
-            }
-            set fpsCount(value) {
-               
-                this._fpsCount = value;
-                if (value) {
-                    if(!this.enable)
-                        return ;
-                    this.count = 0;
-                    var callback = () => {
-                        this.fpsNow = this.count;
-                        this.count = 0;
-                        if (this._fpsCount)
-                            setTimeout(callback, 1000);
-                        console.log("fps : " + this.fpsNow);
-                    }
-                    callback();
-                }
-            }
-            get fpsCount() { return this._fpsCount; }
-            countIncrease() {
-                if(!this.enable)
-                return ;
-                if (this._fpsCount)
-                    this.count++;
-                else {
-                    if (this.count == 0)
-                        this.lastTime = Date.now();
-                    if (this.count == this.countTo - 1)
-                        console.log("using " + (Date.now() - this.lastTime) + "ms to count to " + this.countTo);
-                    this.count = (this.count + 1) % this.countTo;
-                }
-            }
-        })(60);
         this.name=name;
         var CS=GameSystem.Classes;
         this.map;
@@ -88,7 +46,6 @@ class Level extends Framework.Level
     {
         this.loadNullSprite();
         GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
-        GameSystem.protagonist.position=GameSystem.protagonist.position;
     }
     loadNullSprite()
     {
@@ -116,7 +73,6 @@ class Level extends Framework.Level
         this.normalKeyInput(e);
     }
     draw(parentCtx) {
-        this.counter.countIncrease();
          parentCtx.fillStyle = "black";
          parentCtx.fillRect(0, 0, Framework.Game.getCanvasWidth(), Framework.Game.getCanvasHeight());
  
@@ -124,7 +80,29 @@ class Level extends Framework.Level
          parentCtx.fillStyle = "black";
          parentCtx.font = "12px 新細明體"
          parentCtx.fillText("小智", 4 * 16 + 8, 3 * 16 + 14);
-         // this.map.draw(parentCtx)
+         if(GameSystem.isShowGrid)
+            this.drawGrid(parentCtx);
+     }
+     drawGrid(ctx)
+     {
+        const Width=160,Height=144;
+        ctx.fillStyle="rgba(150,255,200,0.4)";
+        ctx.beginPath();
+        for(var x=0;x<16;x++)
+        {
+            ctx.moveTo(x*16,0);
+            ctx.lineTo(x*16,144);
+            if(x%5==0)
+                ctx.lineTo(x*16,144);
+        }
+        for(var y=0;y<16;y++)
+        {
+            ctx.moveTo(0,y*16);
+            ctx.lineTo(160,y*16);
+            if(y%5==0)
+                ctx.lineTo(160,y*16);
+        }
+        ctx.stroke();
      }
     isNPCAtThenGet(position)
     {
@@ -246,7 +224,6 @@ class Level extends Framework.Level
     {
         if(this.music)
             this.music.pause();
-        this.counter.fpsCount=false;
     }
 }
 GameSystem.Classes.Level.InputModes=Object.freeze(

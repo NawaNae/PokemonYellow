@@ -5,7 +5,7 @@ class LoadRecord extends GameSystem.Classes.Level
     constructor()
     {
         super();
-        this.options=new GameSystem.Classes.Options({className:"shoppingList"});
+        this.options=new GameSystem.Classes.Options({className:"buySellDialog"});
         var Option=GameSystem.Classes.Option,RM=GameSystem.Manager.Records,linkStart=this.linkStart;
         this.options.push(new Option("載入存檔",function(){RM.load();}));
         this.options.push(new Option("重新開始",function(){linkStart();}));
