@@ -131,5 +131,21 @@ class Protagonist extends GameSystem.Classes.Character {
     indexOfPropItemName(propName) {
         return this._props.reduce((prop, targetIndex, index) => targetIndex < 0 && propName == prop.name ? index : targetIndex, -1);
     }
+
+    /**
+     * 取得可戰鬥的寶可夢數量。
+     * @return {number} 可戰鬥的寶可夢數量。
+     */
+    getAlivePokemonCount() {
+        return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP > 0 ? 1 : 0), 0);
+    }
+
+    /**
+     * 取得昏厥的寶可夢數量。
+     * @return {number} 昏厥的寶可夢數量。
+     */
+    getFaintPokemonCount() {
+        return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP <= 0 ? 1 : 0), 0);
+    }
 }
 GameSystem.Classes.Protagonist.ScreenPosition= Object.freeze(new GameSystem.Classes.Position(4,4));

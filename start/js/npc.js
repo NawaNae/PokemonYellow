@@ -48,4 +48,20 @@ class NPC extends GameSystem.Classes.Character {
     getBattleImagePath() {
         return this._battleImage.src;
     }
+
+    /**
+     * 取得可戰鬥的寶可夢數量。
+     * @return {number} 可戰鬥的寶可夢數量。
+     */
+    getAlivePokemonCount() {
+        return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP > 0 ? 1 : 0), 0);
+    }
+
+    /**
+     * 取得昏厥的寶可夢數量。
+     * @return {number} 昏厥的寶可夢數量。
+     */
+    getFaintPokemonCount() {
+        return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP <= 0 ? 1 : 0), 0);
+    }
 }
