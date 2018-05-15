@@ -7,7 +7,10 @@ class Route01 extends GameSystem.Classes.Level
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
 
-        this.map = new CS.Image(define.imagePath + 'route01.png');
+
+        this.mapImage=new CS.Image(define.imagePath + 'route01.png');
+        this.map = Framework.Scene();
+        this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
         this.music=Load.audio(define.musicPath+"background/106 The Road To Viridian City From Palette.mp3");
         this.music.autoplay=true;
@@ -82,24 +85,5 @@ class Route01 extends GameSystem.Classes.Level
                         new CS.Position(11,39)
                     )
                 ));
-    }
-    initialize() {
-        
-    }
-
-
-
-    touchstart(e) {
-        //為了要讓Mouse和Touch都有一樣的事件
-        //又要減少Duplicated code, 故在Touch事件被觸發時, 去Trigger Mouse事件
-        this.click({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-    }
-    
-    click(e) {  
-
-        if (!this.rectPosition) {
-            return;
-        }  
-        
     }
 }

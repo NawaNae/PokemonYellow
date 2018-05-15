@@ -3,71 +3,13 @@ class PalletTown extends GameSystem.Classes.Level {
     {
         var GS = GameSystem;
         var CS = GS.Classes;
-        this.gates.push(new CS.Connection
-        (
-            new CS.MapPosition
-                (
-                "palletTown",
-                new CS.Position(8,7)
-                ),
-            new CS.MapPosition
-            (
-            "protagonistHome1F",
-            new  CS.Position(3, 7)
-            )
-        ));
-        this.gates.push(new CS.Connection
-        (
-            new CS.MapPosition
-                (
-                "palletTown",
-                new CS.Position(13, 3)
-                ),
-            new CS.MapPosition
-            (
-            "route01",
-            new CS.Position(10, 39)
-            )
-        ));
-        this.gates.push(new CS.Connection
-        (
-            new CS.MapPosition
-                (
-                "palletTown",
-                new CS.Position(14, 3)
-                ),
-            new CS.MapPosition
-            (
-            "route01",
-            new CS.Position(11, 39)
-            )
-        ));
-        this.gates.push(new CS.Connection
-        (
-            new CS.MapPosition
-                (
-                "palletTown",
-                new CS.Position(16, 7)
-                ),
-            new CS.MapPosition
-            (
-            "palletTownHouse1",
-            new CS.Position(3, 7)
-            )
-        ));
-        this.gates.push(new CS.Connection
-            (
-            new CS.MapPosition
-                (
-                "doctorsHome",
-                new CS.Position(5, 11)
-                ),
-            new CS.MapPosition
-            (
-                "palletTown",
-                new CS.Position(15, 13)
-            )
-        ));
+        var newConnectionItem=(map1,x1,y1,map2,x2,y2)=>new CS.Connection(new CS.MapPosition(map1,new CS.Position(x1,y1)),new CS.MapPosition(map2,new  CS.Position(x2, y2)));
+        var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
+        pushItem("palletTown",8,7,"protagonistHome1F",3,7);
+        pushItem("palletTown",13, 3,"route01",10, 39,);
+        pushItem( "palletTown",14, 3, "route01",11, 39);
+        pushItem( "palletTown",16, 7,"palletTownHouse1", 3, 7);
+        pushItem( "doctorsHome",5, 11,"palletTown",15, 13);
     }
     initSubLevels()
     {
@@ -127,49 +69,11 @@ class PalletTown extends GameSystem.Classes.Level {
                 "fatty",
                 CS.Character.Face.Down,
                 new Position(12, 15),
-                new Image(define.characterImagePath + "fatty.png", { cutStartPosition: new Position(4, 0), cutSize: new Position(1, 1) }),
+                new Image(define.characterImagePath + "fatty.png", { cutStartPosition: new Position(0, 0), cutSize: new Position(1, 1) }),
                 10,
                 Drama.Fatty
             )
         );
-        /*let rotateNPC = new NPC(
-            "drawTestNPC",
-            CS.Character.Face.Up,
-            new Position(12, 8),
-            new CS.Image(define.characterImagePath + "protagonist.png", { cutStartPosition: { x: 0, y: 0 }, cutSize: { x: 16, y: 16 } }),
-            undefined,
-            new CS.Plot(
-                "TestCH",
-                [
-                    new CS.Paragraph("旋轉 跳躍 我不停歇"),
-                    new CS.Paragraph("對了 我是主人公拉"),
-                ]
-            )
-        )
-
-
-        //minmumized 載入動畫
-        //rotateNPC.animationLists.Up.push(new Item(define.characterImagePath + "protagonist.png", { group: "Up", cutStartPosition: new Position(1, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Up.push(new Item(define.characterImagePath + "protagonist.png", { group: "Up", cutStartPosition: new Position(6, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Up.push(new Item(define.characterImagePath + "protagonist.png", { group: "Up", cutStartPosition: new Position(7, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Down.push(new Item(define.characterImagePath + "protagonist.png", { group: "Down", cutStartPosition: new Position(0, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Down.push(new Item(define.characterImagePath + "protagonist.png", { group: "Down", cutStartPosition: new Position(4, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Down.push(new Item(define.characterImagePath + "protagonist.png", { group: "Down", cutStartPosition: new Position(5, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Left.push(new Item(define.characterImagePath + "protagonist.png", { group: "Left", cutStartPosition: new Position(2, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Left.push(new Item(define.characterImagePath + "protagonist.png", { group: "Left", cutStartPosition: new Position(8, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Right.push(new Item(define.characterImagePath + "protagonist.png", { group: "Right", cutStartPosition: new Position(3, 0), cutSize: new Position(1, 1) })); rotateNPC.animationLists.Right.push(new Item(define.characterImagePath + "protagonist.png", { group: "Right", cutStartPosition: new Position(9, 0), cutSize: new Position(1, 1) })); rotateNPC.i = 0;
-        rotateNPC.faceMapping =
-            [
-                "Up",
-                "Right",
-                "Down",
-                "Left"
-            ]
-
-        rotateNPC.update = function () {
-
-            if ((i % 60) === 0) {
-                this.facing = this.faceMapping[i / 60];
-                this.move(this.facing);
-                this.updateImagePosition();
-                //console.log(this.position);
-            };
-            i++;
-            i %= 240;
-        }
-        this.npcs.push(rotateNPC);*/
     }
     initSignBoards() {
         let SignBoard = GameSystem.Classes.SignBoard;
@@ -190,8 +94,9 @@ class PalletTown extends GameSystem.Classes.Level {
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=false;
-        //GS.Manager.Key.keyInput = this.keyInput;
-        this.map = new CS.Image(define.imagePath + 'palletTown.png');
+        this.map=new Framework.Scene();
+        this.mapImage = new CS.Image(define.imagePath + 'palletTown.png');
+        this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
         this.loadNPCs();
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
@@ -206,7 +111,7 @@ class PalletTown extends GameSystem.Classes.Level {
         for(let npc of this.npcs)
             if(npc.image)
             {
-                this.rootScene.attach(npc.image);
+                this.map.attach(npc.image);
                 npc.updateImagePosition();            
             }
     }
@@ -291,7 +196,7 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
     {
         for(let npc of this.npcs)
             if(npc.image)
-{                this.rootScene.attach(npc.image);
+{                this.map.attach(npc.image);
             npc.updateImagePosition();            
 }
     }
@@ -303,10 +208,12 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         this.music.autoplay=true;*/
         var CS=GameSystem.Classes;
         var GS=GameSystem;
-        this.map=new CS.Image(define.imagePath+"palletTownHome1F.png");
-        this.walker=new CS.MapWalker({ mapRef: this.map });
+        this.mapImage=new CS.Image(define.imagePath+"palletTownHome1F.png");
+        this.map=new Framework.Scene();
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+        this.map.attach(this.mapImage);
+        this.walker=new CS.MapWalker({ mapRef: this.map });
         this.rootScene.attach(this.map);
         this.loadNPCs();
         this.rootScene.attach(GS.protagonist.image);
@@ -356,9 +263,11 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.music.autoplay=true;
         var CS=GameSystem.Classes;
         var GS=GameSystem;
-        this.map=new CS.Image(define.imagePath+"palletTownHome2F.png");
+        this.mapImage=new CS.Image(define.imagePath+"palletTownHome2F.png");
+        this.map=new Framework.Scene;
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+        this.map.attach(this.mapImage);
         this.walker=new CS.MapWalker({mapRef:this.map});
         this.rootScene.attach(this.map);
         this.rootScene.attach(GS.protagonist.image);
@@ -437,10 +346,12 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.keyInput=this.normalKeyInput;
         KM.keyInput=(e)=>{this.keyInput(e);}
        
-        this.map=new CS.Image(define.imagePath+"palletTownHouse1.png");
+        this.map=new Framework.Scene;
+        this.mapImage=new CS.Image(define.imagePath+"palletTownHouse1.png");
         this.walker=new CS.MapWalker({ mapRef: this.map });
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+        this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
         this.loadNPCs();
         this.rootScene.attach(GS.protagonist.image);
@@ -449,7 +360,7 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
     loadNPCs() {
         for (let npc of this.npcs)
             if (npc.image) {
-                this.rootScene.attach(npc.image);
+                this.map.attach(npc.image);
                 npc.updateImagePosition();
             }
     }
@@ -524,18 +435,22 @@ class DoctorsHome extends GameSystem.Classes.Level {
         this.music.autoplay=true;*/
         var CS=GameSystem.Classes;
         var GS=GameSystem;
-        this.map=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
-        this.walker=new CS.MapWalker({ mapRef: this.map });
+
+        this.mapImage=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
+
+        this.map=new Framework.Scene;
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+        this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
+        this.walker=new CS.MapWalker({ mapRef: this.map });
         this.loadNPCs();
         this.rootScene.attach(GS.protagonist.image);
     }
     loadNPCs() {
         for (let npc of this.npcs)
             if (npc.image) {
-                this.rootScene.attach(npc.image);
+                this.map.attach(npc.image);
                 npc.updateImagePosition();
             }
     }
