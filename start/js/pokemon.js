@@ -118,6 +118,14 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 取得這個寶可夢的「背面」之圖片來源路徑。
+     * @return {string} 圖片的來源路徑。
+     */
+    getBackImagePath() {
+        return this._typeInfo.backImage.src;
+    }
+
+    /**
      * 建立一個此寶可夢的副本。
      * @return {GameSystem.Classes.Pokemon} 新的寶可夢。
      */
