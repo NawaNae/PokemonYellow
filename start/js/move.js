@@ -41,7 +41,7 @@ class Move {
     get type() { return this._type; }
 
     set power(newPower) { this._newPower = newPower; }
-    get power() { return this._newPower; }
+    get power() { return this._power; }
 
     set accuracy(newAccuracy) { this._accuracy = newAccuracy; }
     get accuracy() { return this._accuracy; }
