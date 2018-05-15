@@ -99,6 +99,9 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     let BattleAnimation = GameSystem.Classes.BattleAnimation;
     let DEX = BattleAnimation.Dictionary.AttackTo;
 
+    // ==================== 初始化 AttackTo ==================== //
+
+    // Done
     DEX['投球'] = new BattleAnimation('投球',
         { x: 25, y: 75 },
         function (ctx) {
@@ -119,6 +122,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    // Done
     DEX["電擊"] = new BattleAnimation("電擊",
         { times: 400, r: 30, isInc: false },
         function(ctx) {
@@ -145,4 +149,158 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
+
+    // Done
+    DEX["撞擊"] = new BattleAnimation("撞擊",
+        { R: 5, r: 2, delay: 0 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.R <= 40 || animVars.delay <= 40) {
+                let x, y;
+                ctx.strokeStyle = (animVars.R + animVars.delay) % 10 < 5 ? "#ff9393" : "#ffe5d1";
+                ctx.lineWidth = 2;
+                for (let i = 0, angle = 0; i < 8; i++, angle = (Math.PI / 4) * i) {
+                    x = animVars.R * Math.cos(angle);
+                    y = animVars.R * Math.sin(angle);
+                    ctx.beginPath();
+                    ctx.arc(120 + x, 35 + y, animVars.r, 0, 2 * Math.PI);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                // Increasement
+                animVars.delay += 1;
+                if (animVars.R <= 40 && animVars.delay >= 2) {
+                    animVars.R += 1;
+                    animVars.r += !(animVars.R % 5);
+                    animVars.delay = 0;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["起風"] = new BattleAnimation("起風",
+        { R: 5, r: 2, delay: 0 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.R <= 40 || animVars.delay <= 40) {
+                let x, y;
+                ctx.strokeStyle = (animVars.R + animVars.delay) % 10 < 5 ? "#ff9393" : "#ffe5d1";
+                ctx.lineWidth = 2;
+                for (let i = 0, angle = 0; i < 8; i++, angle = (Math.PI / 4) * i) {
+                    x = animVars.R * Math.cos(angle);
+                    y = animVars.R * Math.sin(angle);
+                    ctx.beginPath();
+                    ctx.arc(120 + x, 35 + y, animVars.r, 0, 2 * Math.PI);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                // Increasement
+                animVars.delay += 1;
+                if (animVars.R <= 40 && animVars.delay >= 2) {
+                    animVars.R += 1;
+                    animVars.r += !(animVars.R % 5);
+                    animVars.delay = 0;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    // ==================== 初始化 AttackedBy ==================== //
+    DEX = BattleAnimation.Dictionary.AttackedBy;
+
+    // Done
+    DEX["電擊"] = new BattleAnimation("電擊",
+        { times: 400, r: 30, isInc: false },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                ctx.fillStyle = (animVars.times % 8 < 4) ? "#DDDDDD" : "#F5E5A5";
+                ctx.beginPath();
+                ctx.arc(40, 70, animVars.r, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = (animVars.times % 4 < 4) ? "#FDFDFD" : "#FFFFFF";
+                ctx.arc(40, 70, animVars.r - 5, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                
+                animVars.r += animVars.isInc ? 4 : -4;
+                animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
+
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    // Done
+    DEX["撞擊"] = new BattleAnimation("撞擊",
+        { R: 5, r: 2, delay: 0 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.R <= 40 || animVars.delay <= 40) {
+                let x, y;
+                ctx.strokeStyle = (animVars.R + animVars.delay) % 10 < 5 ? "#ff9393" : "#ffe5d1";
+                ctx.lineWidth = 2;
+                for (let i = 0, angle = 0; i < 8; i++, angle = (Math.PI / 4) * i) {
+                    x = animVars.R * Math.cos(angle);
+                    y = animVars.R * Math.sin(angle);
+                    ctx.beginPath();
+                    ctx.arc(40 + x, 70 + y, animVars.r, 0, 2 * Math.PI);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                // Increasement
+                animVars.delay += 1;
+                if (animVars.R <= 40 && animVars.delay >= 2) {
+                    animVars.R += 1;
+                    animVars.r += !(animVars.R % 5);
+                    animVars.delay = 0;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["起風"] = new BattleAnimation("起風",
+        { R: 5, r: 2, delay: 0 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.R <= 40 || animVars.delay <= 40) {
+                let x, y;
+                ctx.strokeStyle = (animVars.R + animVars.delay) % 10 < 5 ? "#ff9393" : "#ffe5d1";
+                ctx.lineWidth = 2;
+                for (let i = 0, angle = 0; i < 8; i++, angle = (Math.PI / 4) * i) {
+                    x = animVars.R * Math.cos(angle);
+                    y = animVars.R * Math.sin(angle);
+                    ctx.beginPath();
+                    ctx.arc(40 + x, 70 + y, animVars.r, 0, 2 * Math.PI);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                // Increasement
+                animVars.delay += 1;
+                if (animVars.R <= 40 && animVars.delay >= 2) {
+                    animVars.R += 1;
+                    animVars.r += !(animVars.R % 5);
+                    animVars.delay = 0;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
 })();
