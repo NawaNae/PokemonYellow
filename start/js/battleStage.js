@@ -68,6 +68,7 @@ class BattleStage {
             return battleResult;
         }
 
+        battleResult.addMessage();
         return battleResult;
     }
 
@@ -79,11 +80,11 @@ class BattleStage {
     getNormalDamage(isPlayer, move) {
         // 辨識攻、防兩方的寶可夢
         let [attacker, defender] = isPlayer ? [this._player.pokemon, this._opponent.pokemon] : [this._opponent.pokemon, this._player.pokemon];
-        let against = getAgainstValue(isPlayer);                                                                // 屬性相剋加成
+        let against = this.getAgainstValue(isPlayer);                                                           // 屬性相剋加成
         if (against == 0) return 0;                                                                             // 若攻擊完全被剋，則直接回傳0
 
         let STAB = (attacker.typeA == move.type || attacker.typeB == move.type) ? 1.5 : 1;                      // 屬性一致加成效果
-        let criticalHit = isCriticalHit(isPlayer);                                                              // 「擊中要害」加成
+        let criticalHit = this.isCriticalHit(isPlayer);                                                         // 「擊中要害」加成
         let rndValue = (85 + (Math.random() * 16)) / 100.0;                                                     // 傷害隨機數
 
         // 計算最後的傷害
@@ -99,7 +100,7 @@ class BattleStage {
      */
     getAgainstValue(isPlayer) {
         let typeTable = GameSystem.Classes.StandardStat.AgainstTable;
-        let [player, opponent] = this._player.pokemon, opponent = this._opponent.pokemon;
+        let [player, opponent] = [this._player.pokemon, this._opponent.pokemon];
         let rate = 1;
         if (isPlayer) {
             rate *= (player.typeA && opponent.typeA) ? typeTable[player.typeA][opponent.typeA] : 1;
