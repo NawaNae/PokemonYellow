@@ -1,6 +1,7 @@
 //立即執行函式, 並封裝所有變數避免衝突
 var loadGameEnd;
 Load.css(define.cssPath + "HTMLObjectsContainer.css");
+
 Load.js.import(
 [
         { src: define.jsPath + 'speak.js', lookFor: 'speak' },
@@ -8,6 +9,7 @@ Load.js.import(
         { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' }, 
         { src: define.jsPath + 'mapPosition.js', lookFor: 'GameSystem.Classes.MapPosition' },
         { src: define.jsPath + 'connection.js', lookFor: 'GameSystem.Classes.Connection' },
+        { src: define.jsPath + 'gameObject.js', lookFor: 'GameSystem.Classes.GameObject' },
         { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
         { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
         
@@ -47,6 +49,7 @@ Load.js.import(
       { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Records' },  
 
         { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
+        { src: define.jsPath+'debug.js'},
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
         { src: define.jsPath + 'levelPalletTown.js', lookFor: 'PalletTown' },
         { src: define.jsPath + 'levels.loadRecord.js', lookFor: 'GameSystem.Classes.Levels.LoadRecord' },

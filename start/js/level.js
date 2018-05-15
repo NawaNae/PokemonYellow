@@ -61,6 +61,7 @@ class Level extends Framework.Level
         this.nullSprite.position.x--;
         if (this.nullSprite.position.x < -2)
             this.nullSprite.position.x = -1;
+        this.rootScene.update();
         /*bug 去除 */
     }
     touchstart(e) {
