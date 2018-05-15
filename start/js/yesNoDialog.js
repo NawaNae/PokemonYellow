@@ -30,6 +30,7 @@ class YesNoDialog extends GameSystem.Classes.Options
         this.yesOption.select=false;
         this.noOption.select=true;
     }
+    
 
 
 }

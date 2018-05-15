@@ -216,8 +216,8 @@ class Character {
         let myPos=this.position.toPoint();
         if(this._image)
         {
-            this.image.position.x=-protaPos.x+protaScPos.x+myPos.x;
-            this.image.position.y=-protaPos.y+protaScPos.y+myPos.y;
+            this.image.position.x=myPos.x;
+            this.image.position.y=myPos.y;
         }
     }
     playListAnimation(list)
