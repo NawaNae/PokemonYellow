@@ -39,34 +39,6 @@ class Protagonist extends GameSystem.Classes.Character {
        //this.initAnimationImages();
        this.initializeAnimationLists10PbySrc();
     }
-    initAnimationImages()
-    {
-        var GS = GameSystem, CS = GS.Classes, Item = CS.AnimationItem, Position = CS.Position;
-        var quickItem = (group, x, y=0) => new Item(
-            define.characterImagePath + "protagonist.png",
-            {
-                group: group,
-                cutStartPosition: new Position(x, y),
-                cutSize: new Position(1, 1)
-            }
-        )
-        this.animationLists.Up.push(quickItem("Up", 0));
-        this.animationLists.Up.push(quickItem("Up", 1));
-        this.animationLists.Up.push(quickItem("Up", 0));
-        this.animationLists.Up.push(quickItem("Up", 2));
-        
-        this.animationLists.Down.push(quickItem("Down", 3));
-        this.animationLists.Down.push(quickItem("Down", 4));
-        this.animationLists.Down.push(quickItem("Down", 3));
-        this.animationLists.Down.push(quickItem("Down", 5));
-
-        this.animationLists.Left.push(quickItem("Left", 6));
-        this.animationLists.Left.push(quickItem("Left", 7));
-
-
-        this.animationLists.Right.push(quickItem("Right", 8));
-        this.animationLists.Right.push(quickItem("Right", 9));
-    }
     updateImagePosition()
     {
         let pos=GameSystem.Classes.Protagonist.ScreenPosition.toPoint();

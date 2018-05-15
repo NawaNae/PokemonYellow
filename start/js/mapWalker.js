@@ -58,21 +58,12 @@ class MapWalker
                     let move=this.moveIncrease(key,this.speed);
                     manChar.x+=move.x;
                     manChar.y+=move.y;
-                    for(let npc of this.npcs)
-                    {
-                        npc.x-=move.x;
-                        npc.y-=move.y;
-                    }
                     this.walkCounter[key]+=this.speed;//increase
                     setTimeout(this.timeout,this.movePeriod);//continue to next loop...
                 }
                 else
                 {    
                     this.map.position=this.map.game.newPoint;
-                    for(let npc of this.npcs)
-                    {
-                        npc.updateImagePosition();
-                    }
                     this.walkCounter[key]=0;//reset(initialize)
                 }
             };
