@@ -40,7 +40,7 @@ class BattleResult {
      * @param {string} message 要新增的訊息。
      */
     addMessage(message) {
-        let delay = message.length > 0 ? 2000 : 1000;
+        let delay = message ? 2000 : 1000;
         this._actionList.push({
             type: GameSystem.Classes.BattleResult.ActionType.ShowMessage,
             animation: () => new Promise(res => {
