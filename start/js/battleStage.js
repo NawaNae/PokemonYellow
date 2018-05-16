@@ -51,7 +51,7 @@ class BattleStage {
         // 實作攻擊，並判斷後攻方的寶可夢是否瀕死
         if (defender.acceptDamage(defDamage)) {
             attacker == this._player ? battleResult.playerWins() : battleResult.opponentWins();
-            defender == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+            defender == this._player ? battleResult.addPlayerPokemonFaint(this._player.pokemon.name) : battleResult.addOpponentPokemonFaint(this._opponent.pokemon.name);
             return battleResult;
         }
 
@@ -66,7 +66,7 @@ class BattleStage {
         // 實作攻擊，並判斷先攻方的寶可夢是否瀕死
         if (attacker.acceptDamage(atkDamage)) {
             defender == this._player ? battleResult.playerWins() : battleResult.opponentWins();
-            attacker == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+            attacker == this._player ? battleResult.addPlayerPokemonFaint(this._player.pokemon.name) : battleResult.addOpponentPokemonFaint(this._opponent.pokemon.name);
             return battleResult;
         }
 
@@ -138,7 +138,7 @@ class BattleStage {
         let a = isOpponentATrainer ? 1.5 : 1;   // 對手是否為訓練師
         let t = isObtained ? 1 : 1.5;           // 是否為捕捉寶可夢
         let b = 1;                              // 被打倒的寶可夢之基礎經驗值 (Haven't done yet)
-        let L = this._opponent.level;           // 對手寶可夢之等級
+        let L = this._opponent.pokemon.level;   // 對手寶可夢之等級
         let s = 1;                              // 參加對戰並沒有進入瀕死狀態的寶可夢數量 (Haven't done yet)
         let k = 1;                              // 學習裝置關閉或者寶可夢參加對戰則為1; 學習裝置開啟且寶可夢沒有參加對戰則為2; 學習裝置開啟且同行的寶可夢只有1隻則為0.5
         return Math.ceil((a * t * b * L) / (7 * s * k));
