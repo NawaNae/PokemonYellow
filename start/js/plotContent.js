@@ -21,7 +21,7 @@ class PlotContent
     }
     next()
     {
-        this.plot.step();
+        setTimeout(this.plot.step,0);//結束stack
     }
     get plot()
     {

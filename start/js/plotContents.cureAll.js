@@ -13,6 +13,6 @@ class CureAll extends GameSystem.Classes.PlotContent
             pkm.updateAbilities();
             pkm.HP(pkm.maxHP);
         }
-        this.plot.step();
+        this.next();
     }
 }

@@ -1,5 +1,5 @@
 GameSystem.Classes.PlotContents.MoveCharacter=
-class MoveCharacter extends GameSystem.Classes.PlotContent
+class MoveCharacter extends GameSystem.Classes.Paragraph
 {
     constructor(options={name:"moveCharacter",type:"MoveCharacter",character:undefined,from:undefined,to:undefined,vector:undefined})
     {
@@ -17,7 +17,7 @@ class MoveCharacter extends GameSystem.Classes.PlotContent
         this.character.position=this.from||this.character.position;
         if(!this.to&&!this.vector){console.log("cannot get to or vector from a move plot content.");return;}
         this.to=this.to||this.from.add(this.vector);
-        this.character.moveTo(this.to,()=>{this.plot.step();});
+        this.character.moveTo(this.to,()=>{ this.next();});
     }
 }
  
