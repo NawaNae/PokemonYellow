@@ -40,6 +40,11 @@ class Options extends DisplayInformation.AutoKeyInput.Text
             }
           
     }
+    clear()
+    {
+        this._display.innerHTML="";
+        this.options.length=0;
+    }
     push(option)
     {
         if(this.options.length==0)
