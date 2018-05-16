@@ -6,7 +6,7 @@
  * @classdesc 寶可夢戰鬥時Level
  * 
  * @prop {GameSystem.Classes.Protagonist} protagonist 主人公的資料。
- * @prop {GameSystem.Classes.Pokemon} selectPokemon 玩家所選的寶可夢。
+ * @prop {GameSystem.Classes.Pokemon} playerPokemon 玩家所選的寶可夢。
  * @prop {GameSystem.Classes.NPC | GameSystem.Classes.Pokemon} opponent 為對手NPC或寶可夢。
  * @prop {boolean} isOpponentPokemon 對手是否為(野生)寶可夢。
  * @prop {GameSystem.Classes.BattleStage} battleStage 戰鬥台資訊。
@@ -22,6 +22,8 @@
  * @prop {number} pokemonListSelection 寶可夢清單上的選擇。
  * @prop {number} pokemonListMenuSelection 寶可夢清單中的選單之選擇。
  * @prop {boolean} pokemonInfoPage 寶可夢資訊頁面中的分頁：false為第一頁、true為第二頁。
+ * @prop {Image} playerPokemonImage 玩家的寶可夢之圖像。
+ * @prop {Image} opponentPokemonImage 對手的寶可夢之圖像。
  * @prop {AnimationSet} animationSet 動畫繪製方法集合。
  */
 class BattleLevel extends Framework.Level {
@@ -33,32 +35,36 @@ class BattleLevel extends Framework.Level {
      * 當此戰鬥關卡被讀取時所做的動作。
      */
     load() {
-        this.animationSet = {main: BattleLevel.emptyAnimation};
+        this.animationSet = {main: BattleLevel.emptyAnimation, playerPokemon: BattleLevel.emptyAnimation, opponentPokemon: BattleLevel.emptyAnimation};
         this.enableDraw();
         this._originalKeyHandler = GameSystem.Manager.Key.keyInput;
         GameSystem.Manager.Key.keyInput = (e) => { this._keyInputHandler(e); };
 
         // 取得在 GameSystem.Bridges.BattleData 的橋接資料與 GameSystem.protagonist 主人公資料。
         this._protagonist = GameSystem.protagonist;
-        this._selectPokemon = GameSystem.Bridges.BattleData.selectPokemon;
+        this._playerPokemon = GameSystem.Bridges.BattleData.selectPokemon;
         this._opponent = GameSystem.Bridges.BattleData.opponent;
         this._isOpponentPokemon = this._opponent instanceof GameSystem.Classes.Pokemon;
 
         // 判斷是否為對手(opponent)是否為「寶可夢」或「NPC」
         if (this._isOpponentPokemon) {
-            this._battleStage = new GameSystem.Classes.BattleStage(this._selectPokemon, this._opponent);
+            this._battleStage = new GameSystem.Classes.BattleStage(this._playerPokemon, this._opponent);
         }
         else {
             this._opponentSelect = 0;
-            this._battleStage = new GameSystem.Classes.BattleStage(this._selectPokemon, this._opponent.pokemons[0]);
+            this._battleStage = new GameSystem.Classes.BattleStage(this._playerPokemon, this._opponent.pokemons[0]);
         }
+        
+        // 讀取寶可夢圖像資料
+        this._playerPokemonImage = Load.image(this._playerPokemon.getBackImagePath());
+        this._opponentPokemonImage = this._isOpponentPokemon ? Load.image(this._opponent.getImagePath()) : Load.image(this._opponent.pokemons[0].getImagePath());
 
         // 初始化選單參數
-        this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
-        this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+        this._inputMode = BattleLevel.InputMode.Empty;
+        this._keyInputHandler = this.keyInput_Empty;
         this._menuSelection = 0;
         this._moveListSelection = 0;
-        this._moveListCount = this._selectPokemon.getMoves().length;
+        this._moveListCount = this._playerPokemon.getMoves().length;
         this._backpackItemSelection = 0;
         this._pokemonListSelection = 0;
         this._pokemonListMenuSelection = 0;
@@ -67,10 +73,20 @@ class BattleLevel extends Framework.Level {
         // 確保 HTMLObjectContainer 有顯示
         document.querySelector(".HTMLObjectContainer").classList.remove('hide');
 
-        // 將資料更新至畫面上並顯示畫面
-        GameSystem.BattlePad.resetViews();
-        GameSystem.BattlePad.updateInfo(this._selectPokemon, this._opponent, this._protagonist.pokemons, this._protagonist.props);
-        GameSystem.BattlePad.show();
+        // 更新UI上的資料
+        this.updateDateOnUI();
+        GameSystem.BattlePad.hideMenu();
+        GameSystem.BattlePad.switchPokemonBallView(true);
+        GameSystem.BattlePad.setPlayerPokemonBallsView(GameSystem.protagonist.getFaintPokemonCount(), GameSystem.protagonist.getAlivePokemonCount());
+        if (this._isOpponentPokemon) {
+            GameSystem.BattlePad.setOpponentPokemonBallsView();
+        }
+        else {
+            GameSystem.BattlePad.setOpponentPokemonBallsView(this._opponent.getFaintPokemonCount(), this._opponent.getAlivePokemonCount());
+        }
+
+        // 播放進場動畫
+        this.introAnimation(this._isOpponentPokemon ? undefined : this._opponent.getBattleImagePath());
     }
 
     // #region ============================== KeyInput Handlers ==============================
@@ -127,6 +143,8 @@ class BattleLevel extends Framework.Level {
                 if (this._menuSelection == 0) {
                     this._inputMode = BattleLevel.InputMode.BattlePad_MoveList;
                     this._keyInputHandler = this.keyInput_OnBattlePad_MoveList;
+                    this._moveListSelection = 0;
+                    GameSystem.BattlePad.setMoveListMouseCursor(0);
                     GameSystem.BattlePad.showMoveListPad();
                     GameSystem.BattlePad.showMoveInfoPad();
                 }
@@ -164,8 +182,11 @@ class BattleLevel extends Framework.Level {
                     GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
                 }
                 break;
-            case 'K':
-                // Fighting Action
+            case 'K':   // Fighting Action
+                GameSystem.BattlePad.hideMoveListPad();
+                GameSystem.BattlePad.hideMoveInfoPad();
+                GameSystem.BattlePad.hideMenu();
+                this.doPokemonFight();
                 break;
             case 'B':
                 this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
@@ -301,11 +322,129 @@ class BattleLevel extends Framework.Level {
 
     // #region ============================= Game Handler ====================================
 
-    
+    /**
+     * 更新畫面上的資料。
+     */
+    updateDateOnUI() {
+        // 將資料更新至畫面上並顯示畫面
+        GameSystem.BattlePad.resetViews();
+        GameSystem.BattlePad.updateInfo(this._playerPokemon, this._opponent, this._protagonist.pokemons, this._protagonist.props);
+        GameSystem.BattlePad.show();
+    }
+
+    /**
+     * 實作一回合的寶可夢戰鬥。
+     */
+    doPokemonFight() {
+        let selectedMove = this._playerPokemon.getMoves()[this._moveListSelection];
+        let result = this._battleStage.doOneRoundBattle(selectedMove);
+        this.executeAnimationQueue(result);
+    }
 
     // #endregion ============================================================================
 
     // #region ============================== Animation Actions ==============================
+
+    /**
+     * 進場動畫。
+     * @param {string?} opponentTrainerImagePath 對手訓練師的圖片。若無責直接使用野生寶可夢圖示。
+     */
+    introAnimation(opponentTrainerImagePath) {
+        const playerTrainerImage = Load.image(define.imagePath + "characters/Ash_InBattle.png");
+        let ticks = 0, playerPos = {x: 10, y: 50}, opponentPos = {x: 95, y: 5};
+        // 若有傳入訓練家的圖示位置
+        if (opponentTrainerImagePath) {
+            const opponentTrainerImage = Load.image(define.imagePath + "characters/" + opponentTrainerImagePath);
+            opponentPos.x = 110;
+            GameSystem.BattlePad.setBattleMessage(this._opponent.name + " 想要和你來場戰鬥！");
+            // 將入場動畫設定至動畫集(animationSet)中
+            this.animationSet.main = (ctx) => {
+                ticks += 1;
+
+                if (ticks < 200) {                      // 主角訓練師 與 對手訓練師
+                    ctx.drawImage(playerTrainerImage, playerPos.x, playerPos.y);
+                    ctx.drawImage(opponentTrainerImage, opponentPos.x, opponentPos.y);
+                }
+                else if (200 <= ticks && ticks < 300) { // 兩訓練師移出的動畫
+                    ctx.drawImage(playerTrainerImage, playerPos.x, playerPos.y);
+                    ctx.drawImage(opponentTrainerImage, opponentPos.x, opponentPos.y);
+                    playerPos.x -= 1;
+                    opponentPos.x += 1;
+                }
+                else if (ticks == 300) {                // 微調位置 並 輸出訊息
+                    playerPos.y = 40;
+                    opponentPos.x = 195;
+                    GameSystem.BattlePad.setBattleMessage(this._opponent.name + " 派出了 " + this._opponent.pokemons[0].name + "！");
+                    GameSystem.BattlePad.switchPokemonBallView(false);
+                }
+                else if (500 <= ticks && ticks < 600) { // 主角寶可夢 與 對手寶可夢 移入動畫
+                    ctx.drawImage(this._playerPokemonImage, playerPos.x, playerPos.y);
+                    ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
+                    playerPos.x += 1;
+                    opponentPos.x -= 1;
+                }
+                else if (ticks == 600) {                // 將 寶可夢球 更換為 戰鬥資訊
+                    ctx.drawImage(this._playerPokemonImage, playerPos.x, playerPos.y);
+                    ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
+                    GameSystem.BattlePad.switchPokemonBallView(false);
+                }
+                else if (600 < ticks && ticks < 800) {  // 間距
+                    ctx.drawImage(this._playerPokemonImage, playerPos.x, playerPos.y);
+                    ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
+                }
+                else if (ticks >= 800){                 // 移入完後，將動畫集設定回預備戰鬥狀態 並 將輸入處理設定回「戰鬥選單」
+                    this.animationSet.main = BattleLevel.emptyAnimation;
+                    this.animationSet.playerPokemon = this.drawPlayersPokemon;
+                    this.animationSet.opponentPokemon = this.drawOpponentPokemon;
+                    this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
+                    this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+                    GameSystem.BattlePad.setBattleMessage();                // 最後清空訊息
+                    GameSystem.BattlePad.showMenu();                        // 顯示主選單
+                    GameSystem.BattlePad.switchPokemonBallView(false);
+                }
+            };
+        }
+        else {
+            GameSystem.BattlePad.setBattleMessage("野生的 " + this._opponent.name + " 出現了！");
+            // 將入場動畫設定至動畫集(animationSet)中
+            this.animationSet.main = (ctx) => {
+                ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
+                ticks += 1;
+                
+                if (ticks < 200) {                      // 玩家訓練師
+                    ctx.drawImage(playerTrainerImage, playerPos.x, playerPos.y);
+                }
+                else if (200 <= ticks && ticks < 300) { // 玩家訓練師移出動畫
+                    ctx.drawImage(playerTrainerImage, playerPos.x, playerPos.y);
+                    playerPos.x -= 1;
+                }
+                else if (ticks == 300) {                // 微調位置 並 輸出訊息
+                    playerPos.y = 40;
+                    GameSystem.BattlePad.setBattleMessage("去吧！" + this._playerPokemon.name);
+                }
+                else if (500 <= ticks && ticks < 600) { // 主角寶可夢 移入動畫
+                    ctx.drawImage(this._playerPokemonImage, playerPos.x, playerPos.y);
+                    playerPos.x += 1;
+                }
+                else if (ticks == 600) {                // 將 寶可夢球 更換為 戰鬥資訊
+                    ctx.drawImage(this._playerPokemonImage, playerPos.x, playerPos.y);
+                    GameSystem.BattlePad.switchPokemonBallView(false);
+                }
+                else if (600 < ticks && ticks < 800) {  // 間距
+                    ctx.drawImage(this._playerPokemonImage, playerPos.x, playerPos.y);
+                }
+                else if (ticks >= 800){                 // 移入完後，將動畫集設定回預備戰鬥狀態 並 將輸入處理設定回「戰鬥選單」
+                    this.animationSet.main = BattleLevel.emptyAnimation;
+                    this.animationSet.playerPokemon = this.drawPlayersPokemon;
+                    this.animationSet.opponentPokemon = this.drawOpponentPokemon;
+                    this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
+                    this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+                    GameSystem.BattlePad.setBattleMessage();                // 最後清空訊息
+                    GameSystem.BattlePad.showMenu();                        // 顯示主選單
+                }
+            };
+        }
+    }
 
     /**
      * 執行戰鬥動畫、動作。以BattleResult作為根據來執行一系列的動作。
@@ -317,8 +456,6 @@ class BattleLevel extends Framework.Level {
         // 暫時取消使用者的輸入處理
         this._inputMode = BattleLevel.InputMode.Empty;
         this._keyInputHandler = this.keyInput_Empty;
-
-        GameSystem.BattlePad.hideMenu(); /* !!! For debugging. This line should set in key input handler function. !!! */
 
         // 定義動畫師
         function Animator() {
@@ -345,6 +482,22 @@ class BattleLevel extends Framework.Level {
         GameSystem.BattlePad.showMenu();
     }
 
+    /**
+     * 繪製玩家方的寶可夢。
+     * @param {Context2D} ctx Canvas的Context2D畫布。
+     */
+    drawPlayersPokemon(ctx) {
+        ctx.drawImage(this._playerPokemonImage, 10, 40);
+    }
+
+    /**
+     * 繪製對手方的寶可夢。
+     * @param {Context2D} ctx Canvas的Context2D畫布。
+     */
+    drawOpponentPokemon(ctx) {
+        ctx.drawImage(this._opponentPokemonImage, 95, 5);
+    }
+
     // #endregion ============================================================================
 
     /**
@@ -355,6 +508,9 @@ class BattleLevel extends Framework.Level {
         GameSystem.Manager.Key.keyInput = this._originalKeyHandler;     // 還原上一個Level的按鍵輸入處理
     }
 
+    /**
+     * 啟用繪圖。
+     */
     enableDraw(){
         this.__enableDraw = new Framework.Sprite(define.imagePath + 'null.png');//去除draw bug用的
         this.__enableDraw.position = { x: -1, y: -1 };
@@ -366,6 +522,8 @@ class BattleLevel extends Framework.Level {
     }
 
     draw(ctx) {
+        this.animationSet.playerPokemon.call(this, ctx);
+        this.animationSet.opponentPokemon.call(this, ctx);
         this.animationSet.main(ctx);
     }
 
