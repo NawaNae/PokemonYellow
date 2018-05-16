@@ -19,6 +19,7 @@ Load.js.import(
         { src: define.jsPath + 'occurrence.js', lookFor: 'GameSystem.Classes.Occurrence'},
         { src: define.jsPath + 'battleField.js', lookFor: 'GameSystem.Classes.BattleField'},
         { src: define.jsPath + 'pokemonType.js', lookFor: 'GameSystem.Classes.PokemonType' },
+        {src:define.jsPath+'pokemon.js',lookFor:'GameSystem.Classes.Pokemon'},
         { src: define.jsPath + 'animationItem.js', lookFor: 'GameSystem.Classes.AnimationItem' },
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },
         { src: define.jsPath + 'illustration.js',lookFor:'GameSystem.Classes.Illustration'},

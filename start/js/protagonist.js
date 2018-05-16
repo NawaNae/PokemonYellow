@@ -20,8 +20,9 @@ class Protagonist extends GameSystem.Classes.Character {
         ));
         this.storyLineIndex=storyLineIndex;
         this._atMap = atMap;
-        this._pokemons = [];
-        this._props = [];
+        let DEX = GameSystem.Classes.PokemonType.Dictionary;
+        this._pokemons = [/*new GameSystem.Classes.Pokemon("皮卡丘",DEX["皮卡丘"])*/];
+        this._props = [{name:"小茂的照片",count:"1314520"}];
         this._money = 3000;
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
     }

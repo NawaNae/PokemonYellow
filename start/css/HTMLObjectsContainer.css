@@ -35,6 +35,7 @@
 .HTMLObjectContainer .moneyDialog,
 .HTMLObjectContainer .buySellDialog,
 .HTMLObjectContainer .shoppingList,
+.HTMLObjectContainer .propList,
 .HTMLObjectContainer .itemNumberDialog
 {
     box-sizing: border-box;
@@ -124,13 +125,14 @@
     top:10px;
     left:10px;
 }
-/*買賣清單*/
-.shoppingList
+/*買賣清單、物品清單*/
+.shoppingList,.propList
 {
     position: absolute;
     z-index: 2;
     right:10px;
     top : calc(10px + 3em);
+    min-width: 20%;
     max-width: calc(70% - 10px);
     max-height: calc(60% - 3em - 40px);
 }
