@@ -138,7 +138,7 @@ class HTMLObjectContainer
             {
                 var prop=mainChar._props[i]
                 if(prop)
-                    this.push(new Option(prop.name+" x "+prop.count,mainChar._props[i].execute||function(){}));
+                    this.push(new Option(prop.name+(prop.count?" x "+prop.count:""),mainChar._props[i].execute||function(){}));
             }
                 
             var pList=this;
