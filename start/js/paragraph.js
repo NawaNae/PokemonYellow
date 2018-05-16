@@ -6,7 +6,8 @@
  * @prop {string} content 段落的內容。
  * 
  */
-GameSystem.Classes.Paragraph =
+GameSystem.Classes.PlotContents=GameSystem.Classes.PlotContents||{};
+GameSystem.Classes.PlotContents.Paragraph=GameSystem.Classes.Paragraph =
 class Paragraph extends GameSystem.Classes.PlotContent {
     /**
      * @param {string} content 段落的內容。
@@ -23,21 +24,19 @@ class Paragraph extends GameSystem.Classes.PlotContent {
     start()
     {
         let dialog=GameSystem.HTMLObjectContainer.dialog,container=GameSystem.HTMLObjectContainer;
-        if(this.type=="dialog")
-        {
+
             dialog.plot=this.plot;
             dialog.show();
             container.show();
             dialog.text=this.text;
             if(this.isSpeak)
                 this.speakAudio=speak(dialog.text,this.speakLang);
-        }
+        
     }
     end()
     {
         let dialog=GameSystem.HTMLObjectContainer.dialog,container=GameSystem.HTMLObjectContainer;
-        if(this.type=="dialog")
-        {
+
             dialog.plot=undefined;
             dialog.hide();
             dialog.text="";
@@ -45,7 +44,7 @@ class Paragraph extends GameSystem.Classes.PlotContent {
                 this.speakAudio.pause();
             this.speakAudio=undefined;
             container.hide();
-        }
+        
     }
     set text(newContent) { this._content = newContent; }
     get text() { return this._content; }

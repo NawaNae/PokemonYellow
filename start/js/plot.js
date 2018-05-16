@@ -107,7 +107,7 @@ GameSystem.Resource.Drama = {};
 /** 定義所有的劇本 */
 (() => {
     var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
-    var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,MoveCharacter=PC.MoveCharacter;
+    var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter;
     Drama["PalletTown"] = {
         "WelcomeSign": new Plot("WelcomeSign",[
             new Paragraph("歡迎來到「真新鎮」。"),
@@ -164,12 +164,12 @@ GameSystem.Resource.Drama = {};
         "RivalsSisterMap": new Plot("RivalsSisterMap", [
             new Paragraph("聽說大木老頭找你跑腿阿？真辛苦（嘲諷意味）！"),
             new Paragraph("這給你用吧！"),
-            new Paragraph("$MY_NAME從姐姐手中得到城鎮地圖，然而作者也沒有想實作"),
+            new GiveProp({name:"地圖"}),
             new Script(()=>{GameSystem.protagonist.storyLineIndex++;})
             /*new Paragraph("在道具中使用城鎮地圖，可以看到自己在哪兒"),*/
-        ],()=> GameSystem.protagonist.storyLineIndex==0),
+        ],()=> !GameSystem.protagonist._props.find(ele=>ele.name==="地圖")),
         "RivalsSister": new Plot("RivalsSister", [
-            new Paragraph("經常在一豈能與寶可夢建立良好關係"),
+            new Paragraph("經常在一起能與寶可夢建立良好關係"),
             new Paragraph("$MY_NAME『Madam, 我比較想與你建立良好關係』")
         ]),
         "Gary_First": new Plot("Gary_First", [
