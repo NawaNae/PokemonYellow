@@ -3,41 +3,44 @@
  * @classdesc 紀錄寶可夢一回合戰鬥的結果與動畫。
  * 
  * @prop {List} actionList 存放動畫、動作的清單。
- * @prop {number} status 狀態。 0=雙方都可再戰鬥；1=玩家方無法再戰鬥；2=對手方無法再戰鬥
+ * @prop {BattleResult.State} state 狀態。 0=雙方都可再戰鬥；1=玩家方無法再戰鬥；2=對手方無法再戰鬥
  */
 GameSystem.Classes.BattleResult =
 class BattleResult {
     constructor() {
         this._actionList = [];
-        this._status = 0;
+        this._state = GameSystem.Classes.BattleResult.State.Draw;
     }
+
+    get state() { return this._state; }
 
     /** 判別結果，玩家是否贏了戰鬥。
      * @return {boolean} 玩家是否贏了戰鬥。
      */
-    isPlayerWin() { return this._status == 2; }
+    isPlayerWin() { return this._state == GameSystem.Classes.BattleResult.State.PlayerWin; }
 
     /** 判斷結果，對手是否贏了戰鬥。
      * @return {boolean} 對手是否贏了戰鬥。
      */
-    isOpponentWin() { return this._status == 1; }
+    isOpponentWin() { return this._state == GameSystem.Classes.BattleResult.State.OpponentWin; }
 
     /** 判斷結果，是否雙方都可以再進行戰鬥。
      * @return {boolean} 是否雙方都可以再進行戰鬥
      */
-    isDraw () { return this._status == 0; }
+    isDraw() { return this._state == GameSystem.Classes.BattleResult.State.Draw; }
 
     /** 設定結果: 玩家贏了這場戰鬥。*/
-    playerWins() { this._status = 2; }
+    playerWins() { this._state = GameSystem.Classes.BattleResult.State.PlayerWin; }
 
     /** 設定結果: 對手贏了這場戰鬥。*/
-    opponentWins() { this._status = 1; }
+    opponentWins() { this._state = GameSystem.Classes.BattleResult.State.OpponentWin; }
 
     /** 
      * 將訊息新增至「戰鬥結果」中。
      * @param {string} message 要新增的訊息。
      */
     addMessage(message) {
+        let delay = message.length > 0 ? 2000 : 1000;
         this._actionList.push({
             type: GameSystem.Classes.BattleResult.ActionType.ShowMessage,
             animation: () => new Promise(res => {
@@ -105,6 +108,49 @@ class BattleResult {
     }
 
     /**
+     * 新增對手寶可夢昏厥的動畫。
+     * @param {string} pokemonName 寶可夢的名稱。
+     */
+    addOpponentPokemonFaint(pokemonName) {
+        let resolve;                        // 存放 Promise 的 Resolve
+        let opponentPos = {x: 95, y: 5};    // 設定對手寶可夢的繪製位置
+        let delay = 100;                    // 延遲 100 ticks
+        let battleLevel_animationSet;       // 紀錄 BattleLevel 上的 animationSet
+        /** 移動對手寶可夢的函式 */
+        function MovingOut(ctx) {
+            if (opponentPos.x < 145) {      // 對手寶可夢移出畫面
+                ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
+                opponentPos.x += 1;
+            }
+            else if (delay > 0) {           // 延遲
+                delay -= 1;
+            }
+            else {                          // 結束動畫，將對手寶可夢繪製設為「空動畫」
+                battleLevel_animationSet.opponentPokemon = GameSystem.BattlePad.emptyAnimation;
+                resolve(true);
+            }
+        }
+
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.OpponentPokemonFaint,
+            animation: (animationSet) => new Promise(res => {
+                resolve = res;
+                animationSet.opponentPokemon = MovingOut;
+                battleLevel_animationSet = animationSet;
+                GameSystem.BattlePad.setVisibleOpponentPad(false);
+                GameSystem.BattlePad.setBattleMessage(pokemonName + "倒下了！");
+            })
+        });
+    }
+
+    /**
+     * 新增我方寶可夢昏厥的動畫。 **
+     * @param {string} pokemonName 寶可夢的名稱。
+     */
+    addPlayerPokemonFaint(pokemonName) {
+    }
+
+    /**
      * @typedef AnimationAction
      * @prop {GameSystem.Classes.BattleResult.ActionType} type 表示戰鬥動畫的動作種類。
      * @prop {Function} animation 動畫的Promise。
@@ -139,5 +185,25 @@ GameSystem.Classes.BattleResult.ActionType = Object.freeze({
     HPBarAnimation: Symbol('HPBarAnimation'),
 
     /** 等待個幾秒 */
-    Waiting: Symbol('Waiting')
+    Waiting: Symbol('Waiting'),
+
+    /** 對手寶可夢昏厥 */
+    OpponentPokemonFaint: Symbol('OpponentPokemonFaint'),
+
+    /** 玩家寶可夢昏厥 */
+    PlayerPokemonFaint: Symbol('PlayerPokemonFaint')
+});
+
+/** @enum 戰鬥結果的狀態種類列舉。
+ * @readonly
+ */
+GameSystem.Classes.BattleResult.State = Object.freeze({
+    /** 勝負未分 */
+    Draw: Symbol('Draw'),
+
+    /** 玩家方勝利 */
+    PlayerWin: Symbol('PlayerWin'),
+
+    /** 對手方勝利 */
+    OpponentWin: Symbol('OpponentWin')
 });
