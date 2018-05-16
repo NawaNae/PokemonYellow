@@ -36,10 +36,12 @@ Load.js.import(
         { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'plotContent.js', lookFor: 'GameSystem.Classes.PlotContent' },
+        { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
         { src: define.jsPath + 'plotContents.cureAll.js', lookFor: 'GameSystem.Classes.PlotContents.CureAll' },
         { src: define.jsPath + 'plotContents.script.js', lookFor: 'GameSystem.Classes.PlotContents.Script' },
+        { src: define.jsPath + 'plotContents.giveProp.js', lookFor: 'GameSystem.Classes.PlotContents.GiveProp' },
         { src: define.jsPath + 'plotContents.moveCharacter.js', lookFor: 'GameSystem.Classes.PlotContents.MoveCharacter' },
-        { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
+
         { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
         { src: define.jsPath + 'plotsController.js', lookFor: 'GameSystem.Classes.PlotsController' },
         { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
