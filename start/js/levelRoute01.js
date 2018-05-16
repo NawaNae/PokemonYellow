@@ -9,7 +9,7 @@ class Route01 extends GameSystem.Classes.Level
 
 
         this.mapImage=new CS.Image(define.imagePath + 'route01.png');
-        this.map = Framework.Scene();
+        this.map =new  Framework.Scene();
         this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
         this.music=Load.audio(define.musicPath+"background/106 The Road To Viridian City From Palette.mp3");
