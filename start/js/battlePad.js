@@ -308,17 +308,11 @@ class BattlePad {
     // #endregion
 
     /**
-     * 顯示主選單。
+     * 設定是否顯示主選單。
+     * @param {boolean} visible 是否顯示主顯單。
      */
-    showMenu() {
-        this.menuSet.menuPad.classList.remove('hide');
-    }
-
-    /**
-     * 隱藏主選單。
-     */
-    hideMenu() {
-        this.menuSet.menuPad.classList.add('hide');
+    setVisibleMenu(visible) {
+        visible ? this.menuSet.menuPad.classList.remove('hide') : this.menuSet.menuPad.classList.add('hide');
     }
 
     /**
@@ -435,49 +429,41 @@ class BattlePad {
     }
 
     /**
-     * 隱藏在面板上的戰鬥資訊。
+     * 設定是否顯示面板上的戰鬥資訊。
+     * @param {boolean} visible 是否可視戰鬥訊息面板。
      */
-    hideBattleInfoInPad() {
-        this.playerSet.HPBar.hide();
-        this.playerSet.HPText.classList.add('hide');
-        this.playerSet.HPValue.classList.add('hide');
-        this.playerSet.level.classList.add('hide');
-        this.playerSet.pokemonName.classList.add('hide');
-        this.opponentSet.HPBar.hide();
-        this.opponentSet.HPText.classList.add('hide');
-        this.opponentSet.level.classList.add('hide');
-        this.opponentSet.pokemonName.classList.add('hide');
+    setVisibleBattleInfoInPad(visible) {
+        if (visible) {
+            this.playerSet.HPBar.show();
+            this.playerSet.HPText.classList.remove('hide');
+            this.playerSet.HPValue.classList.remove('hide');
+            this.playerSet.level.classList.remove('hide');
+            this.playerSet.pokemonName.classList.remove('hide');
+            this.opponentSet.HPBar.show();
+            this.opponentSet.HPText.classList.remove('hide');
+            this.opponentSet.level.classList.remove('hide');
+            this.opponentSet.pokemonName.classList.remove('hide');
+        }
+        else {
+            this.playerSet.HPBar.hide();
+            this.playerSet.HPText.classList.add('hide');
+            this.playerSet.HPValue.classList.add('hide');
+            this.playerSet.level.classList.add('hide');
+            this.playerSet.pokemonName.classList.add('hide');
+            this.opponentSet.HPBar.hide();
+            this.opponentSet.HPText.classList.add('hide');
+            this.opponentSet.level.classList.add('hide');
+            this.opponentSet.pokemonName.classList.add('hide');
+        }
     }
 
     /**
-     * 顯示在面板上的戰鬥資訊。
+     * 設定寶可夢球圖片顯示。
+     * @param {boolean} visible 是否可視。
      */
-    showBattleInfoInPad() {
-        this.playerSet.HPBar.show();
-        this.playerSet.HPText.classList.remove('hide');
-        this.playerSet.HPValue.classList.remove('hide');
-        this.playerSet.level.classList.remove('hide');
-        this.playerSet.pokemonName.classList.remove('hide');
-        this.opponentSet.HPBar.show();
-        this.opponentSet.HPText.classList.remove('hide');
-        this.opponentSet.level.classList.remove('hide');
-        this.opponentSet.pokemonName.classList.remove('hide');
-    }
-
-    /**
-     * 隱藏寶可夢球圖片。
-     */
-    hidePokemonBallsInPad() {
-        this.playerSet.imgPokemonBalls.forEach(elem => elem.classList.add('hide'));
-        this.opponentSet.imgPokemonBalls.forEach(elem => elem.classList.add('hide'));
-    }
-
-    /**
-     * 顯示寶可夢球圖片。
-     */
-    showPokemonBallsInPad() {
-        this.playerSet.imgPokemonBalls.forEach(elem => elem.classList.remove('hide'));
-        this.opponentSet.imgPokemonBalls.forEach(elem => elem.classList.remove('hide'));
+    setVisiblePokemonBallsInPad(visible) {
+        this.playerSet.imgPokemonBalls.forEach(elem => visible ? elem.classList.remove('hide') : elem.classList.add('hide'));
+        this.opponentSet.imgPokemonBalls.forEach(elem => visible ? elem.classList.remove('hide') : elem.classList.add('hide'));
     }
 
     /**
@@ -486,12 +472,12 @@ class BattlePad {
      */
     switchPokemonBallView(visible) {
         if (visible) {
-            this.hideBattleInfoInPad();
-            this.showPokemonBallsInPad();
+            this.setVisibleBattleInfoInPad(false);
+            this.setVisiblePokemonBallsInPad(true);
         }
         else {
-            this.hidePokemonBallsInPad();
-            this.showBattleInfoInPad();
+            this.setVisiblePokemonBallsInPad(false);
+            this.setVisibleBattleInfoInPad(true);
         }
     }
 
@@ -767,17 +753,11 @@ class BattlePad {
     // #endregion
 
     /**
-     * 顯示戰鬥面板。
+     * 設定是否顯示戰鬥面板。
+     * @param {boolean} visible 是否顯示。
      */
-    show() {
-        this.battlePad.classList.remove('hide');
-    }
-
-    /**
-     * 影藏戰鬥面板。
-     */
-    hide() {
-        this.battlePad.classList.add('hide');
+    setVisible(visible) {
+        visible ? this.battlePad.classList.remove('hide') : this.battlePad.classList.add('hide');
     }
 
     /**

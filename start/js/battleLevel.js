@@ -75,7 +75,7 @@ class BattleLevel extends Framework.Level {
 
         // 更新UI上的資料
         this.updateDateOnUI();
-        GameSystem.BattlePad.hideMenu();
+        GameSystem.BattlePad.setVisibleMenu(false);
         GameSystem.BattlePad.switchPokemonBallView(true);
         GameSystem.BattlePad.setPlayerPokemonBallsView(GameSystem.protagonist.getFaintPokemonCount(), GameSystem.protagonist.getAlivePokemonCount());
         if (this._isOpponentPokemon) {
@@ -185,7 +185,7 @@ class BattleLevel extends Framework.Level {
             case 'K':   // Fighting Action
                 GameSystem.BattlePad.hideMoveListPad();
                 GameSystem.BattlePad.hideMoveInfoPad();
-                GameSystem.BattlePad.hideMenu();
+                GameSystem.BattlePad.setVisibleMenu(hide);
                 this.doPokemonFight();
                 break;
             case 'B':
@@ -329,7 +329,7 @@ class BattleLevel extends Framework.Level {
         // 將資料更新至畫面上並顯示畫面
         GameSystem.BattlePad.resetViews();
         GameSystem.BattlePad.updateInfo(this._playerPokemon, this._opponent, this._protagonist.pokemons, this._protagonist.props);
-        GameSystem.BattlePad.show();
+        GameSystem.BattlePad.setVisibleMenu(true);
     }
 
     /**
@@ -399,7 +399,7 @@ class BattleLevel extends Framework.Level {
                     this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                     this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                     GameSystem.BattlePad.setBattleMessage();                // 最後清空訊息
-                    GameSystem.BattlePad.showMenu();                        // 顯示主選單
+                    GameSystem.BattlePad.setVisibleMenu(true);              // 顯示主選單
                     GameSystem.BattlePad.switchPokemonBallView(false);
                 }
             };
@@ -440,7 +440,7 @@ class BattleLevel extends Framework.Level {
                     this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                     this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                     GameSystem.BattlePad.setBattleMessage();                // 最後清空訊息
-                    GameSystem.BattlePad.showMenu();                        // 顯示主選單
+                    GameSystem.BattlePad.setVisibleMenu(true);                        // 顯示主選單
                 }
             };
         }
@@ -479,7 +479,7 @@ class BattleLevel extends Framework.Level {
     finishAnimation() {
         this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
         this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
-        GameSystem.BattlePad.showMenu();
+        GameSystem.BattlePad.setVisibleMenu(true);
     }
 
     /**
@@ -504,7 +504,7 @@ class BattleLevel extends Framework.Level {
      * 當離開BattleLevel時的處理。
      */
     teardown() {
-        GameSystem.BattlePad.hide();
+        GameSystem.BattlePad.setVisibleMenu(false);
         GameSystem.Manager.Key.keyInput = this._originalKeyHandler;     // 還原上一個Level的按鍵輸入處理
     }
 
