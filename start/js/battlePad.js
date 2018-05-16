@@ -433,16 +433,21 @@ class BattlePad {
      * @param {boolean} visible 是否可視戰鬥訊息面板。
      */
     setVisibleBattleInfoInPad(visible) {
+        this.setVisiblePlayerPad(visible);
+        this.setVisibleOpponentPad(visible);
+    }
+
+    /**
+     * 設定是否顯示玩家方資訊面板。
+     * @param {boolean} visible 是否要顯示。
+     */
+    setVisiblePlayerPad(visible) {
         if (visible) {
             this.playerSet.HPBar.show();
             this.playerSet.HPText.classList.remove('hide');
             this.playerSet.HPValue.classList.remove('hide');
             this.playerSet.level.classList.remove('hide');
             this.playerSet.pokemonName.classList.remove('hide');
-            this.opponentSet.HPBar.show();
-            this.opponentSet.HPText.classList.remove('hide');
-            this.opponentSet.level.classList.remove('hide');
-            this.opponentSet.pokemonName.classList.remove('hide');
         }
         else {
             this.playerSet.HPBar.hide();
@@ -450,6 +455,21 @@ class BattlePad {
             this.playerSet.HPValue.classList.add('hide');
             this.playerSet.level.classList.add('hide');
             this.playerSet.pokemonName.classList.add('hide');
+        }
+    }
+
+    /**
+     * 設定是否顯示對手方資訊面板。
+     * @param {boolean} visible 是否要顯示。
+     */
+    setVisibleOpponentPad(visible) {
+        if (visible) {
+            this.opponentSet.HPBar.show();
+            this.opponentSet.HPText.classList.remove('hide');
+            this.opponentSet.level.classList.remove('hide');
+            this.opponentSet.pokemonName.classList.remove('hide');
+        }
+        else {
             this.opponentSet.HPBar.hide();
             this.opponentSet.HPText.classList.add('hide');
             this.opponentSet.level.classList.add('hide');
