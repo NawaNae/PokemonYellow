@@ -15,6 +15,16 @@ DisplayInformation.Text = class Text
             this.appendTo(father);
         this.text = text;
         this.updateWhenShow=false;
+        this._onShow=()=>{this.onShow();}
+        this._onHide=()=>{this.onHide();}
+    }
+    onShow()
+    {
+
+    }
+    onHide()
+    {
+        
     }
     updateText()
     {this._display.innerText = DisplayInformation.gameTextProcess(this._prefixString + this._displayProcessFunction(this._text) + this._postfixString);}
@@ -45,6 +55,7 @@ DisplayInformation.Text = class Text
     {return !this._display.classList.contains(this.displayClassName[0]);}
     set visible(value)
     {
+        if(value|0)this.onShow();else this.onHide();
         if(this.updateWhenShow&&value)
             this.updateText();
         this._display.classList.add(this.displayClassName[value|0]);
@@ -60,7 +71,7 @@ DisplayInformation.Text = class Text
     }
     append(child)
     {
-        this._display.append(child);
+        this._display.appendChild(child);
     }
     prepend(child)
     {
