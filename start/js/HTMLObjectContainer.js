@@ -26,6 +26,7 @@ class HTMLObjectContainer
         this.initIllustrationList();
         this.initItemNumber();
         this.initShoppingList();
+        this.initPropList();
         this.resizeCanvas=(width,height)=>
         {
             this.container.style.width=width;
@@ -87,7 +88,7 @@ class HTMLObjectContainer
         this.options.closeWithContainer=true;
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustrationList.show();;}));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
-        this.options.push(new GameSystem.Classes.Option("道具"));
+        this.options.push(new GameSystem.Classes.Option("道具",()=>{this.propList.show();}));
         var characterData=new GameSystem.Classes.Option("角色資料");
         characterData.updateWhenShow=true;
         this.options.push(characterData);
@@ -119,8 +120,32 @@ class HTMLObjectContainer
         this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});
         this.shoppingList.autoChangeInputMode=true;
         this.shoppingList.push(new Option("100円的東東",function(){GameSystem.HTMLObjectContainer.itemNumberDialog.show();}));
-        this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.visible=false;}));
+        this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.hide();}));
         this.addChild(this.shoppingList);
+    }
+    initPropList()
+    {
+        let Option=GameSystem.Classes.Option;
+        let container=GameSystem.HTMLObjectContainer;
+
+        this.propList=new GameSystem.Classes.Options({className:"propList"});
+        var prpoList=this.propList;
+        this.propList.onShow=function()
+        {
+            var mainChar=GameSystem.protagonist;
+            this.clear();
+            for(let i=0;i<mainChar._props.length;i++)
+            {
+                var prop=mainChar._props[i]
+                if(prop)
+                    this.push(new Option(prop.name+" x "+prop.count,mainChar._props[i].execute||function(){}));
+            }
+                
+            var pList=this;
+            this.push(new Option("離開",function(){pList.hide();}));
+        }
+       
+        this.addChild(this.propList);
     }
     get visible()
     {return !this.container.classList.contains(this.displayClassName[0]);}
