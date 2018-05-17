@@ -11,7 +11,7 @@ class CureAll extends GameSystem.Classes.PlotContent
         for(let pkm of pokemons)
         {
             pkm.updateAbilities();
-            pkm.HP(pkm.maxHP);
+            pkm.HP=pkm.maxHP;
         }
         this.next();
     }
