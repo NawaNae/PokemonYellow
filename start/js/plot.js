@@ -206,7 +206,12 @@ GameSystem.Resource.Drama = {};
             new Paragraph("記得確認你的寶可夢的HP是否是足夠的！")
         ])
     };
-
+    Drama["Others"] = {
+        '卡迪諾狂新聞':new Plot("卡迪諾狂新聞",[
+            new Paragraph("歡迎來到本周的卡迪諾狂新聞",undefined,undefined,undefined,false),
+            new Paragraph("$MY_NAME9 4 8 7 9 4 狂",undefined,undefined,undefined,false)
+        ])
+    };
     Drama["Viridian City"] = {
         'WelcomeSign': new Plot("WelcomeSign", [
             new Paragraph("歡迎來到「常磐市」！"),

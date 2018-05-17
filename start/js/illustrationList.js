@@ -23,6 +23,7 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
         list.optionsLoop=true;
         for(let key in dictionary)
         {
+            if(key!=="length")
             list.push(new Option(dictionary[key].id + " " + key,function()
             {
                 let ill=GameSystem.HTMLObjectContainer.illustration;
@@ -30,6 +31,9 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
                 ill.show();
             }));
         }
+       
+        list.push(new Option("length",function(){var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
+            var Drama=GR.Drama;Drama.Others.卡迪諾狂新聞.start();}));
         this.list.appendTo(this._display);
     }
     initNumber()
