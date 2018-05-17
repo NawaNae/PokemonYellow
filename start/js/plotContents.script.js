@@ -1,11 +1,10 @@
 GameSystem.Classes.PlotContents.Script=
-class MoveCharacter extends GameSystem.Classes.PlotContent
+class Script extends GameSystem.Classes.PlotContent
 {
     constructor(script,options={name:"script",type:"script"})
     {
         super(options);
-        autoBind(this);
-        this.script=typeof script==="function"?script:()=>{eval(script)};
+        this.script=script.constructor.name==="Function"?script:()=>{eval(script)};
     }
     start()
     {

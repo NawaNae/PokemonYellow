@@ -1,4 +1,12 @@
 class PalletTown extends GameSystem.Classes.Level {
+    initEvents()
+    {
+        var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
+        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,MoveCharacter=PC.MoveCharacter;
+        var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter;
+        var e0=new Event(new Position(12,10),()=>{for(let i=0;i<this.npcs.length;i++)this.npcs[i].moveTo(GameSystem.protagonist.position)});
+        this.events.push(e0);
+    }
     initGates()
     {
         var GS = GameSystem;
@@ -226,6 +234,7 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
     }
+
     initGates() {
         var CS = GameSystem.Classes;
         this.gates.push(new CS.Connection
