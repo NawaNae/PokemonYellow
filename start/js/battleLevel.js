@@ -25,6 +25,7 @@
  * @prop {Image} playerPokemonImage 玩家的寶可夢之圖像。
  * @prop {Image} opponentPokemonImage 對手的寶可夢之圖像。
  * @prop {AnimationSet} animationSet 動畫繪製方法集合。
+ * @prop {Function[]} messagingQueue 訊息佇列。
  */
 class BattleLevel extends Framework.Level {
     constructor() {
@@ -69,6 +70,7 @@ class BattleLevel extends Framework.Level {
         this._pokemonListSelection = 0;
         this._pokemonListMenuSelection = 0;
         this._pokemonInfoPage = false;
+        this._messagingQueue = [];
 
         // 確保 HTMLObjectContainer 有顯示
         document.querySelector(".HTMLObjectContainer").classList.remove('hide');
@@ -145,7 +147,7 @@ class BattleLevel extends Framework.Level {
                     this._keyInputHandler = this.keyInput_OnBattlePad_MoveList;
                     this._moveListSelection = 0;
                     GameSystem.BattlePad.setMoveListMouseCursor(0);
-                    GameSystem.BattlePad.showMoveListPad();
+                    GameSystem.BattlePad.setVisibleMoveListPad(true);
                     GameSystem.BattlePad.showMoveInfoPad();
                 }
                 else if (this._menuSelection == 1) {
@@ -183,15 +185,15 @@ class BattleLevel extends Framework.Level {
                 }
                 break;
             case 'K':   // Fighting Action
-                GameSystem.BattlePad.hideMoveListPad();
+                GameSystem.BattlePad.setVisibleMoveListPad(false);
                 GameSystem.BattlePad.hideMoveInfoPad();
-                GameSystem.BattlePad.setVisibleMenu(hide);
+                GameSystem.BattlePad.setVisibleMenu(false);
                 this.doPokemonFight();
                 break;
             case 'B':
                 this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                 this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
-                GameSystem.BattlePad.hideMoveListPad();
+                GameSystem.BattlePad.setVisibleMoveListPad(false);
                 GameSystem.BattlePad.hideMoveInfoPad();
         }
     }
@@ -225,6 +227,21 @@ class BattleLevel extends Framework.Level {
                 this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                 this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                 GameSystem.BattlePad.hideBackpackPad();
+        }
+    }
+
+    /**
+     * 在戰鬥版面中回應訊息的輸入處理。
+     * @param {Function} next 表示前進到下一個處理。
+     * @param {KeyboardEvent} e 事件物件。
+     */
+    keyInput_OnBattlePad_Messaging(next, e) {
+        if (this._messagingQueue.length > 0) {
+            let action = this._messagingQueue[0];
+            action(() => this._messagingQueue.splice(0, 1), e);
+        }
+        else {
+            throw new Error("Unended message events.");
         }
     }
 
@@ -339,6 +356,151 @@ class BattleLevel extends Framework.Level {
         let selectedMove = this._playerPokemon.getMoves()[this._moveListSelection];
         let result = this._battleStage.doOneRoundBattle(selectedMove);
         this.executeAnimationQueue(result);
+    }
+
+    /**
+     * 當玩家贏了這一回合時的處理。
+     */
+    playerWinARound() {
+        if (this._isOpponentPokemon) {  // 當對手是野生寶可夢時
+            let exp = this._battleStage.getExperience(!this._isOpponentPokemon, false); // 取得這一場戰鬥之經驗值
+            let updateLevels = this._playerPokemon.gainExperience(exp);                 // 將經驗值增加至寶可夢上
+            this._playerPokemon.gainEffortValue(this._opponent.getPokemonType());       // 取得對手寶可夢之總族值，將其各項值增加至玩家寶可夢之努力值上
+
+            // 顯示經驗值訊息
+            this._messagingQueue.push(next => {
+                GameSystem.BattlePad.setBattleMessage(this._playerPokemon.name + "獲得了 " + exp + "經驗值點數！");
+                next();
+            });
+
+            // 若有升級的話，顯示升級資訊與可能習得的新招式
+            if (updateLevels > 0) {
+                let pokemonType = this._playerPokemon.getPokemonType();
+                let moves = this._playerPokemon.getMoves();
+
+                // 顯示升級訊息
+                this._messagingQueue.push(next => {
+                    GameSystem.BattlePad.setBattleMessage(this._playerPokemon.name + "升級至等級" + this._playerPokemon.level + "了！");
+                    next();
+                });
+
+                // 檢查是否有可習得的招式
+                while (updateLevels > 0) {
+                    let levelDiff = this._playerPokemon.level + (--updateLevels);           // 取得升級的等級
+                    let newMoves = pokemonType.GetPossibleMovesToLearnByLevel(levelDiff);   // 透過等級取得可習得的招式
+                    // 若有可習得的招式
+                    if (newMoves) {
+
+                        // 循每一個可能學到的招式進行動作、判斷
+                        newMoves.forEach(newMove => {
+
+                            // 若該寶可夢擁有的招式量小於4，則直接加入新招式並輸出訊息
+                            if (moves.length < 4) {
+                                moves.push(newMove);
+
+                                // 提示寶可夢已經習得了新的招式
+                                this._messagingQueue.push(next => {
+                                    GameSystem.BattlePad.setBattleMessage("你的寶可夢已經習得了「" + newMove.name + "」招式。");
+                                    next();
+                                });
+                            }
+                            // 若否，則詢問是否習得與撤換招式
+                            else {
+                                let yesNoSelect = true;
+
+                                // 顯示招式上限的提示
+                                this._messagingQueue.push(next => {
+                                    GameSystem.BattlePad.setBattleMessage("您的寶可夢所擁有之招式量已達上限！");
+                                    next();
+                                });
+
+                                // 詢問是否捨棄招式來習得新招式
+                                this._messagingQueue.push(next => {
+                                    GameSystem.BattlePad.setBattleMessage("是否遺忘一項舊有招式來習得新招式呢？");
+                                    GameSystem.BattlePad.setVisibleYesNoPad(true);
+                                    GameSystem.BattlePad.setYesNoPadSelection(true);
+                                    next();
+                                });
+
+                                // 對使用者輸入的結果來判斷下一步動作
+                                this._messagingQueue.push((next, e) => {
+                                    switch(e.key) {
+                                        case "W":
+                                            if (!yesNoSelect) {
+                                                yesNoSelect = true;
+                                                GameSystem.BattlePad.setYesNoPadSelection(yesNoSelect);
+                                            }
+                                            break;
+                                        case "S":
+                                            if (yesNoSelect) {
+                                                yesNoSelect = false;
+                                                GameSystem.BattlePad.setYesNoPadSelection(true);
+                                            }
+                                            break;
+                                        case "K":
+                                            // 關閉「是、否」版面
+                                            GameSystem.BattlePad.setVisibleYesNoPad(false);
+                                            if (yesNoSelect) {  // 顯示招式選擇清單，讓使用者選擇要忘記的招式
+                                                GameSystem.BattlePad.setBattleMessage("捨棄招式");
+                                                GameSystem.BattlePad.updateMoveListPad(this._playerPokemon.getMoves());
+                                                GameSystem.BattlePad.setVisibleMoveListPad(true);
+                                                GameSystem.BattlePad.setMoveListMouseCursor(0);
+                                                this._moveListSelection = 0;
+                                            }
+                                            else {
+                                                GameSystem.BattlePad.setBattleMessage("已捨棄了招式「" + newMove.name + "」。");
+                                                next();         // 多刪除一個，跳過「是」的選項。
+                                            }
+                                            next();
+                                    }
+                                });
+
+                                // 在使用者回應「是」的情況下，顯示招式選單，讓使用者選則欲捨棄的招式。
+                                this._messagingQueue.push((next, e) => {
+                                    switch(e.key) {
+                                        case "W":
+                                            if (this._moveListSelection > 0) {
+                                                this._moveListSelection -= 1;
+                                                GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
+                                            }
+                                            break;
+                                        case "S":
+                                            if (this._moveListSelection + 1 < 4) {
+                                                this._moveListSelection += 1;
+                                                GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
+                                            }
+                                            break;
+                                        case "K":
+                                            let oldMoveName = moves[this._moveListSelection].name;
+                                            moves[this._moveListSelection] = newMove;
+                                            GameSystem.BattlePad.setBattleMessage("忘記「" + oldMoveName + "」.. 學到了「" + newMove.name + "」！");
+                                            next();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+
+            // 最後從戰鬥退出至地圖
+            this._messagingQueue.push(() => {
+                Framework.Game.goToLevel(this._protagonist.atMap);
+            });
+
+            this._inputMode = BattleLevel.InputMode.BattlePad_Message;
+            this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
+        }
+        else {  // 當對手是訓練師時
+
+        }
+    }
+
+    /**
+     * 當玩家輸了這一回合時的處理。 (尚未完成)
+     */
+    playerLoseARound() {
+
     }
 
     // #endregion ============================================================================
@@ -465,7 +627,7 @@ class BattleLevel extends Framework.Level {
                 return action.animation(self.animationSet).then(Animator);
             }
             else {
-                self.finishAnimation();
+                self.finishAnimation(battleResult.state);
                 return true;
             }
         }
@@ -475,11 +637,22 @@ class BattleLevel extends Framework.Level {
 
     /**
      * 當完成動畫時的還原動作。
+     * @param {GameSystem.Classes.BattleResult.State} state 戰鬥完一輪後的狀態。
      */
-    finishAnimation() {
-        this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
-        this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
-        GameSystem.BattlePad.setVisibleMenu(true);
+    finishAnimation(state) {
+        let EnumState = GameSystem.Classes.BattleResult.State;
+        // 根據戰鬥結果來決定下一步該如何進行
+        if (state == EnumState.PlayerWin) {
+            this.playerWinARound();
+        }
+        else if (state == EnumState.OpponentWin) {
+            this.playerLoseARound();
+        }
+        else {
+            this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
+            this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+            GameSystem.BattlePad.setVisibleMenu(true);
+        }
     }
 
     /**
@@ -504,7 +677,7 @@ class BattleLevel extends Framework.Level {
      * 當離開BattleLevel時的處理。
      */
     teardown() {
-        GameSystem.BattlePad.setVisibleMenu(false);
+        GameSystem.BattlePad.setVisible(false);
         GameSystem.Manager.Key.keyInput = this._originalKeyHandler;     // 還原上一個Level的按鍵輸入處理
     }
 
@@ -557,12 +730,34 @@ class BattleLevel extends Framework.Level {
     static emptyAnimation() { /* 空的動畫函式。 */ }
 }
 
+/**
+ * @typedef BattleDate.InputMode
+ * @description 輸入模式之定義。
+ * @enum
+ * @readonly
+ */
 BattleLevel.InputMode = Object.freeze({
+    /** 戰鬥版面下的主選單。 */
     BattlePad_Menu: Symbol("BattlePad_Menu"),
+
+    /** 戰鬥版面下的招式清單 */
     BattlePad_MoveList: Symbol("BattlePad_MoveList"),
+
+    /** 戰鬥版面下的背包物品清單 */
     BattlePad_Backpack: Symbol("BattlePad_Backpack"),
+
+    /** 戰鬥版面下的訊息顯示 */
+    BattlePad_Message: Symbol("BattlePad_Message"),
+
+    /** 寶可夢清單 */
     PokemonList: Symbol("PokemonList"),
+
+    /** 寶可夢清單下的子選單 */
     PokemonList_Menu: Symbol("PokemonList_Menu"),
+
+    /** 寶可夢資訊版面 */
     PokemonInfo: Symbol("PokemonInfo"),
+
+    /** 空處理 */
     Empty: Symbol("Empty")
 });
