@@ -78,15 +78,11 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 
     /**
-     * 增加各項努力值。
-     * @param {number} maxHP 最大生命值。
-     * @param {number} attack 攻擊力。
-     * @param {number} defense 防禦力。
-     * @param {number} special 特殊值。
-     * @param {number} speed 速度值。
+     * 透過總族值來增加各項努力值。
+     * @param {GameSystem.Classes.PokemonType} pokemonType 對手之總族值。
      */
-    gainEffortValue(maxHP, attack, defense, special, speed) {
-        this._EV.gainEffortValue(maxHP, attack, defense, special, speed);
+    gainEffortValue(pokemonType) {
+        this._EV.gainEffortValue(pokemonType.maxHP, pokemonType.attack, pokemonType.defense, pokemonType.special, pokemonType.speed);
         this.updateAbilities();
     }
 
