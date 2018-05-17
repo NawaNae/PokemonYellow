@@ -120,6 +120,8 @@ label {
     --std-line-height: 2rem;
     --lg-font-size: 2rem;
     --lg-line-height: 2.5rem;
+    --xl-font-size: 3rem;
+    --xl-line-height: 3.5rem;
 }
 
 /* ======================================= 生命條樣式 ======================================= */
@@ -468,6 +470,33 @@ div.yesNoPad label.option.select::before {
     border-style: solid;
     border-width: 0.3em 0 0.3em 0.5em;
     border-color: transparent transparent transparent #000;
+}
+
+/* 能力升級資訊版面 */
+#battlePad div.levelUpStatPad {
+    position: absolute;
+    bottom: 240px;  right: 10px;
+    width: 410px;
+    height: 470px;
+    background: white;
+    border: 42px solid black;
+    border-image: url('../image/Pokemonborder.png') 88 round;
+    z-index: 2;
+}
+
+/* 在能力升級版面中 label */
+div.levelUpStatPad label {
+    display: block;
+    font-size: var(--xl-font-size);
+    line-height: var(--xl-font-size);
+}
+
+/* 在能力升級版面中 span */
+div.levelUpStatPad span {
+    display: block;
+    text-align: right;
+    font-size: var(--lg-font-size);
+    line-height: var(--lg-font-size);
 }
 
 /* ======================================== 「寶可夢清單」版面 ======================================== */
