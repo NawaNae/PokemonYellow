@@ -49,9 +49,10 @@ class NPC extends GameSystem.Classes.Character {
     }
     randomlyWalk()
     {
-        var i=Math.floor((Math.random() * 5));
-        var dir=["Up","Down","Left","Right"];//0~4是走路 
-        if(i!==5)//5不走
+        var i=Math.floor((Math.random() * 4));
+        
+        var dir=["Up","Down","Left","Right"];//0~3是走路 
+        if(i!==4)//4不走
             this.walk(dir[i]);
     }
 
