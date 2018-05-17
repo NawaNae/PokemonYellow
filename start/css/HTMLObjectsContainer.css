@@ -1,5 +1,6 @@
 @font-face {
-	font-family:MBitmapSquareHK;
+    font-family:MBitmapSquareHK;
+
 	src: url(../font/MBitmapSquareHK-Light.otf);
 }
 /*物件的顯示用class控制*/
@@ -29,6 +30,7 @@
     line-height: 2.5em;
     margin: auto;
     font-family: "Terminal",MBitmapSquareHK,sans-serif;
+    font-weight: 900;
 }
 .HTMLObjectContainer .dialog,
 .HTMLObjectContainer .options,
