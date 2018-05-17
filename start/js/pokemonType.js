@@ -86,6 +86,16 @@ class PokemonType extends GameSystem.Classes.StandardStat {
     GetInitialMoves() {
         return this._usableMoves.filter(gMove => gMove.minLevel == 1 || !gMove.minLevel).map(gMove => gMove.move);
     }
+
+    /**
+     * 取得在指定等級下，可能習得到的招式。
+     * @param {number} level 指定的等級。
+     * @return {Array | undefined} 若在該等級下有可以習得的招式，則回傳可習得招式；若無則回傳undefined。
+     */
+    GetPossibleMovesToLearnByLevel(level) {
+        let newMoves = this._usableMoves.filter(gMove => gMove.minLevel == level).map(gMove => gMove.move);
+        return newMoves.length > 0 ? newMoves : undefined;
+    }
 }
 
 /** 寶可夢字典 */
