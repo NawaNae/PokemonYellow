@@ -211,6 +211,60 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["搖尾巴"] = new BattleAnimation("搖尾巴", 
+        { times: 400, r: 30, isInc: false },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                ctx.fillStyle = (animVars.times % 8 < 4) ? "#DDDDDD" : "#F5E5A5";
+                ctx.beginPath();
+                ctx.arc(120, 35, animVars.r, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = (animVars.times % 4 < 4) ? "#FDFDFD" : "#FFFFFF";
+                ctx.arc(120, 35, animVars.r - 5, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                
+                animVars.r += animVars.isInc ? 4 : -4;
+                animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
+
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["叫聲"] = new BattleAnimation("搖尾巴", 
+        { times: 400, r: 30, isInc: false },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                ctx.fillStyle = (animVars.times % 8 < 4) ? "#DDDDDD" : "#F5E5A5";
+                ctx.beginPath();
+                ctx.arc(120, 35, animVars.r, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = (animVars.times % 4 < 4) ? "#FDFDFD" : "#FFFFFF";
+                ctx.arc(120, 35, animVars.r - 5, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                
+                animVars.r += animVars.isInc ? 4 : -4;
+                animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
+
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // ==================== 初始化 AttackedBy ==================== //
     DEX = BattleAnimation.Dictionary.AttackedBy;
 
@@ -296,6 +350,60 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                     animVars.r += !(animVars.R % 5);
                     animVars.delay = 0;
                 }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["搖尾巴"] = new BattleAnimation("搖尾巴", 
+        { times: 400, r: 30, isInc: false },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                ctx.fillStyle = (animVars.times % 8 < 4) ? "#DDDDDD" : "#F5E5A5";
+                ctx.beginPath();
+                ctx.arc(40, 70, animVars.r, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = (animVars.times % 4 < 4) ? "#FDFDFD" : "#FFFFFF";
+                ctx.arc(40, 70, animVars.r - 5, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                
+                animVars.r += animVars.isInc ? 4 : -4;
+                animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
+
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["叫聲"] =  new BattleAnimation("叫聲", 
+        { times: 400, r: 30, isInc: false },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                ctx.fillStyle = (animVars.times % 8 < 4) ? "#DDDDDD" : "#F5E5A5";
+                ctx.beginPath();
+                ctx.arc(40, 70, animVars.r, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = (animVars.times % 4 < 4) ? "#FDFDFD" : "#FFFFFF";
+                ctx.arc(40, 70, animVars.r - 5, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                
+                animVars.r += animVars.isInc ? 4 : -4;
+                animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
+
+                animVars.times -= 1;
             }
             else {
                 this._done();
