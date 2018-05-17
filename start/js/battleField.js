@@ -88,8 +88,6 @@ class BattleField {
 
         this._steps += 1;
         let test = Math.random();
-        console.log("PROB: " + test);
-        console.log("FORM: " + BattleField.probabilityFormula(x) * 2);
         if (test <= BattleField.probabilityFormula(x) * 2) {
             this._steps = 0;
             let rndVal = Math.random() * 100;
@@ -100,6 +98,7 @@ class BattleField {
                 let newPokemon = new GameSystem.Classes.Pokemon(occurrence.pokemonType.name, occurrence.pokemonType);
                 newPokemon.level = occurrence.getLevelRandomly();
                 newPokemon.updateAbilities();
+                newPokemon.HP = newPokemon.maxHP;
                 return newPokemon;
             }
             else {
