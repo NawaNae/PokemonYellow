@@ -32,7 +32,7 @@ class Protagonist extends GameSystem.Classes.Character {
         if(!mainChar)return;
         this.storyLineIndex=mainChar.storyLineIndex||this.storyLineIndex;
         this.atMap=mainChar._atMap||mainChar.atMap||this.atMap;
-        this.props=mainChar._props||mainChar.props||this._props;
+        this._props=mainChar._props||mainChar.props||this._props;
         this.money=mainChar._money||mainChar.money||this._money;
     }
     initialize()
@@ -54,7 +54,6 @@ class Protagonist extends GameSystem.Classes.Character {
     get pokemons() { return this._pokemons; }
 
     get props() { return this._props; }
-
     set atMap(newMap) { 
         this._atMap = newMap 
         Framework.Game.goToLevel(newMap);
