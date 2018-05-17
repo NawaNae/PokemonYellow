@@ -94,6 +94,7 @@ class BattlePad {
         this.battlePad.appendChild(this.initMoveInfoPad());       // 建立「招式資訊」面板
         this.battlePad.appendChild(this.initBackpackPad());       // 建立「背包物品清單」面板
         this.battlePad.appendChild(this.initYesNoPad());          // 建立「是、否」面板
+        this.battlePad.appendChild(this.initLevelUpStatPad());    // 建立「能力升級資訊」面板
         
         this.pokemonListPad = new GameSystem.Classes.PokemonListPad();      // 建立「寶可夢清單」面板之控制物件
         this.battlePad.appendChild(this.pokemonListPad.getHTMLElement());   // 取得「寶可夢清單」面板的HTML元件，並將其加入至battlePad中
@@ -337,6 +338,7 @@ class BattlePad {
 
         let labelYes = document.createElement('label');
         labelYes.classList.add('option');
+        labelYes.classList.add('select');
         labelYes.innerText = "是";
 
         let labelNo = document.createElement('label');
@@ -348,6 +350,34 @@ class BattlePad {
         divYesNoPad.appendChild(labelYes);
         divYesNoPad.appendChild(labelNo);
         return divYesNoPad;
+    }
+
+    /**
+     * 建立能力升級資訊版面，並連同內容物也一起建立。
+     * 有: 文字「ATTACK」、「DEFENSE」、「SPECIAL」、「SPEED」與攻擊力、防禦力、特殊值、速度值數值。
+     * 並將其加入至 this.levelUpStatPad 中。
+     */
+    initLevelUpStatPad() {
+        let divLevelUpStatPad = document.createElement('div');
+        divLevelUpStatPad.classList.add('levelUpStatPad');
+        divLevelUpStatPad.classList.add('hide');
+
+        let labelAttack = document.createElement('label');  labelAttack.innerText = "ATTACK";
+        let labelDefense = document.createElement('label'); labelDefense.innerText = "DEFENSE";
+        let labelSpecial = document.createElement('label'); labelSpecial.innerText = "SPECIAL";
+        let labelSpeed = document.createElement('label');   labelSpeed.innerText = "SPEED";
+
+        let spanAttack = document.createElement('span');    spanAttack.innerText = "12";
+        let spanDefense = document.createElement('span');   spanDefense.innerText = "12";
+        let spanSpecial = document.createElement('span');   spanSpecial.innerText = "12";
+        let spanSpeed = document.createElement('span');     spanSpeed.innerText = "12";
+        
+        this.levelUpStatSet = { divLevelUpStatPad, labelAttack, labelDefense, labelSpecial, labelSpeed, spanAttack, spanDefense, spanSpecial, spanSpeed };
+        divLevelUpStatPad.appendChild(labelAttack);     divLevelUpStatPad.appendChild(spanAttack);
+        divLevelUpStatPad.appendChild(labelDefense);    divLevelUpStatPad.appendChild(spanDefense);
+        divLevelUpStatPad.appendChild(labelSpeed);    divLevelUpStatPad.appendChild(spanSpeed);
+        divLevelUpStatPad.appendChild(labelSpecial);      divLevelUpStatPad.appendChild(spanSpecial);
+        return divLevelUpStatPad;
     }
 
     // #endregion ===========================================================================
@@ -629,6 +659,28 @@ class BattlePad {
         }
     }
 
+    /**
+     * 設定是否顯示「能力升級資訊」面板。
+     * @param {boolean} visible 是否顯示。
+     */
+    setVisibleLevelUpStatPad(visible) {
+        visible ? this.levelUpStatSet.divLevelUpStatPad.classList.remove('hide') : this.levelUpStatSet.divLevelUpStatPad.classList.add('hide');
+    }
+
+    /**
+     * 設定在「能力升級資訊」面板上的資料。
+     * @param {number} attack 攻擊力數值。
+     * @param {number} defense 防禦力數值。
+     * @param {number} speed 速度數值。
+     * @param {number} special 特殊數值。
+     */
+    setLevelUpStatValues(attack, defense, speed, special) {
+        this.levelUpStatSet.spanAttack.innerText = attack;
+        this.levelUpStatSet.spanDefense.innerText = defense;
+        this.levelUpStatSet.spanSpeed.innerText = speed;
+        this.levelUpStatSet.spanSpecial.innerText = special;
+    }
+
     // #endregion ======================================================================
 
     // #region ===========================「招式清單」控制有關的方法集合。===========================
@@ -872,8 +924,7 @@ class BattlePad {
         // Debug
         container.classList.remove('hide');
         container.classList.add('show');
-        BattlePad.yesNoSet.divYesNoPad.classList.remove('hide');
-        BattlePad.yesNoSet.labelYes.classList.add('select');
+        BattlePad.levelUpStatSet.divLevelUpStatPad.classList.remove('hide');
     }
 }
 
