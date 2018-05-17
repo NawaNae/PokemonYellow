@@ -26,6 +26,17 @@ class EffortValue extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 重置各項努力數值。
+     */
+    reset() {
+        this.maxHP = 0;
+        this.attack = 0;
+        this.defense = 0;
+        this.special = 0;
+        this.speed = 0;
+    }
+
+    /**
      * 取得努力值的副本。
      * @return {GameSystem.Classes.EffortValue} 此努力值的副本。
      */
