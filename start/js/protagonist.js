@@ -21,7 +21,7 @@ class Protagonist extends GameSystem.Classes.Character {
         this.storyLineIndex=storyLineIndex;
         this._atMap = atMap;
         let DEX = GameSystem.Classes.PokemonType.Dictionary;
-        this._pokemons = [/*new GameSystem.Classes.Pokemon("皮卡丘",DEX["皮卡丘"])*/];
+        this._pokemons = [new GameSystem.Classes.Pokemon("皮卡丘",DEX["皮卡丘"])];
         this._props = [{name:"小茂的照片",count:"1314520"}];
         this._money = 3000;
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
@@ -91,13 +91,19 @@ class Protagonist extends GameSystem.Classes.Character {
     }
     get x() { return this.point.x; }
     set x(val) {
-        var Point = GameSystem.Classes.Point,screenPoint = this._screenPosition.toPoint(), mapPos = Framework.Game._currentLevel.map.position;
+        var Point = GameSystem.Classes.Point,screenPoint = this._screenPosition.toPoint(),mapPos=(Framework&&Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.map)?Framework.Game._currentLevel.map.position:undefined;
+        if(!mapPos) { 
+            /*console.log("無法取得Map以至於無法設定座標");*/return ;
+        }
         mapPos.x = -val + screenPoint.x;
     }
 
     get y() { return this.point.y; }
     set y(val) {
-        var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=Framework.Game._currentLevel.map.position;
+        var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=(Framework&&Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.map)?Framework.Game._currentLevel.map.position:undefined;
+        if(!mapPos) { 
+            /*console.log("無法取得Map以至於無法設定座標");*/return ;
+        }
         mapPos.y=-val+screenPoint.y;
     }
 

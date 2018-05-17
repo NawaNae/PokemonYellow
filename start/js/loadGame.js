@@ -53,7 +53,6 @@ Load.js.import(
         { src: define.jsPath + 'event.js', lookFor: 'GameSystem.Classes.Event' },
         { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
-        { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
         /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
         { src: define.jsPath + 'record.js', lookFor: 'GameSystem.Classes.Record' },
         { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Records' },  
@@ -69,6 +68,7 @@ Load.js.import(
         { src: define.jsPath + 'levels.loadRecord.js', lookFor: 'GameSystem.Classes.Levels.LoadRecord' },
         { src: define.jsPath + 'levelRoute01.js', lookFor: 'Route01' },
         { src: define.jsPath + 'battleLevel.js', lookFor: 'BattleLevel' },
+        { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
         { src: define.jsPath + 'mainGame.js' }                                  //請最後載入mainGame
 ]);
 

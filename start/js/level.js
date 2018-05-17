@@ -205,9 +205,12 @@ class Level extends Framework.Level
                 if((field=this.getBattleFieldAt(newPosition)))
                     if((wildPoke=field.trigger()))
                     {
-                        var oppo=GameSystem.Bridges.BattleData.opponent,selectPoke=GameSystem.Bridges.BattleData.selectPokemon;
-                        oppo=wildPoke;
-                        Framework.Game.goToLevel('battleField');
+                        var BD=GameSystem.Bridges.BattleData
+                        BD.opponent=wildPoke;
+                        BD.selectPokemon=GameSystem.protagonist.pokemons[0];
+                        
+                        
+                        Framework.Game.goToLevel('battleLevel');
                     }
             }
         }else
