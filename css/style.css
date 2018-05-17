@@ -122,6 +122,11 @@ body
     left:3px;
     margin-right: -3px;
 }
+#webLinksContainer2.webLinksContainer
+{
+    top:80px;
+    left:3px;
+}
 .webLinksContainer > *
 {
     margin-right: 3px;

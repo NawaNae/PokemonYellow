@@ -1,13 +1,4 @@
-document.querySelector(".visibleBtn").addEventListener("click",function(){
-    
-    let visible=this.dataset.visible=="true";
-    let contents=['>','<'];
-    visible=!visible;
 
-    $(".webLinks").toggle(visible);
-    this.innerText=contents[visible|0];
-    this.dataset.visible=visible.toString();
-});
 var NawaNawa=NawaNawa||{};
 /**
  * 尋找某元素的祖先
@@ -101,6 +92,15 @@ function(e)
         }
     })
 }
+$(".visibleBtn").on("click",function(){
+    
+    let visible=this.dataset.visible=="true";
+    let contents=['>','<'];
+    visible=!visible;
+    $(this.parentElement.querySelectorAll(".webLinks")).toggle(visible);
+    this.innerText=contents[visible|0];
+    this.dataset.visible=visible.toString();
+});
 $(".nextPageButton").on("click",NawaNawa.nextPageListener);
 $(".lastPageButton").on("click",NawaNawa.lastPageListener);
 $(".webLinks.playHelp").on("click",function()
@@ -126,9 +126,12 @@ $(".removeRecords").on("click",function()
     if(localStorage.records)
         localStorage.removeItem("records");
 });
-$(".showGrid").on("click",function()
+$(".zombieMode").on("click",function()
 {
     var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
-    if(GS.isShowGrid)GS.isShowGrid=undefined;
-    else GS.isShowGrid=true;
+    var level=Framework.Game._currentLevel;
+    var mainChar=GS.protagonist;if(!mainChar){console.log("請等待主人公載入");return;}
+    if(level.npcs)
+        for(let npc of level.npcs)
+            npc.walkTo(mainChar.position);
 })
