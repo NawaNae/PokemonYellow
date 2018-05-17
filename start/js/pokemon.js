@@ -68,6 +68,15 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 寶可夢取得經驗值。 (尚未完成升級處理)
+     * @param {number} exp 寶可夢所取得的經驗值量。
+     * @return {number} 因經驗值而升級的級數。
+     */
+    gainExperience(exp) {
+        this._exp += exp;
+    }
+
+    /**
      * 檢查此寶可夢是否擁有此招式。
      * @param {GameSystem.Classes.Move} move 要檢查的目標招式。
      * @return {boolean} 此寶可夢是否擁有此招式。
