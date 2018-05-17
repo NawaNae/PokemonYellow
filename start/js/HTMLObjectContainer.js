@@ -108,7 +108,33 @@ class HTMLObjectContainer
         }));
         this.options.push(new GameSystem.Classes.Option("以下測試"));
         this.options.push(new GameSystem.Classes.Option("商店",function(){ GameSystem.HTMLObjectContainer.buySellDialog.show();}));
-        this.options.push(new GameSystem.Classes.Option("寶可夢醫院"));
+        this.options.push(new GameSystem.Classes.Option("寶可夢醫院",()=>{
+            var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
+            var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter;
+            (new Plot("PokemonHospital", [
+                new Paragraph("給你治療一下好惹"),
+                new Script(function()
+                {
+                    
+                    var dialog = GameSystem.HTMLObjectContainer.yesNoDialog;
+                    var script=this;
+                    dialog.yesOption.selectSend=()=>{
+                        dialog.hide();GameSystem.HTMLObjectContainer.hide();script.next();
+                    };
+                    var oldNo=dialog.noOption.selectSend;
+                    dialog.noOption.selectSend=()=>
+                    {
+                        dialog.hide();script.index++;GameSystem.HTMLObjectContainer.hide();script.next();
+                        dialog.noOption=oldNo;
+                    }
+                    GameSystem.HTMLObjectContainer.show();
+                    dialog.show();
+                },{autoNext:false}),
+                new CureAll(),
+                new Paragraph("¡Adios!",undefined,undefined,"es",false)
+            ])).start();
+
+        }));
         this.options.options[0].select=true;
         this.options.optionsLoop=true;
         this.addChild(this.options);

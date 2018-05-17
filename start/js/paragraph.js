@@ -13,13 +13,13 @@ class Paragraph extends GameSystem.Classes.PlotContent {
      * @param {string} content 段落的內容。
      * 
      */
-    constructor(content,type="dialog",isSpeak=true,lang="zh-tw") {
+    constructor(content,type="dialog",isSpeak=true,lang="zh-tw",hideContainer=true) {
         super({type:type});
         autoBind(this);
         this._content = content;
         this.speakLang=lang;
         this.isSpeak=speak;
-
+        this.hideContainer=hideContainer;
     }
     start()
     {
@@ -45,7 +45,8 @@ class Paragraph extends GameSystem.Classes.PlotContent {
                 if(this.speakAudio)
                     this.speakAudio.pause();
             this.speakAudio=undefined;
-            container.hide();
+            if(this.hideContainer)
+                container.hide();
             if(this.fatherPlot&&this.fatherPlot.npc)
                 this.fatherPlot.npc.isPlayBehavior=true;
         
