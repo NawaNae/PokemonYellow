@@ -92,7 +92,7 @@ class BattleStage {
         // 計算最後的傷害
         let damage = (((2 * attacker.level + 10) / 250) * (attacker.attack / defender.defense) * move.power + 2) * against * STAB * criticalHit * rndValue;
         
-        return damage < 1 ? 1 : damage;     // 若傷害低於1，則提升到1。
+        return damage < 1 ? 1 : Math.round(damage);     // 若傷害低於1，則提升到1。
     }
 
     /**
