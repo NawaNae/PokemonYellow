@@ -149,6 +149,14 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 取得寶可夢種族資訊。
+     * @return {GameSystem.Classes.PokemonType} 寶可夢種族資訊。
+     */
+    getPokemonType() {
+        return this._typeInfo;
+    }
+
+    /**
      * 建立一個此寶可夢的副本。
      * @return {GameSystem.Classes.Pokemon} 新的寶可夢。
      */
