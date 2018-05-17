@@ -924,7 +924,6 @@ class BattlePad {
         // Debug
         container.classList.remove('hide');
         container.classList.add('show');
-        BattlePad.levelUpStatSet.divLevelUpStatPad.classList.remove('hide');
     }
 }
 
