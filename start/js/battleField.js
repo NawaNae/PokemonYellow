@@ -82,11 +82,12 @@ class BattleField {
      */
     trigger(position) {
         // 若有傳進position參數，則判斷該位置是否在範圍內
+        const x=10;
         if (position && !position.isIn(this._area))
             return undefined;
 
         this._steps += 1;
-        if (Math.random() <= probabilityFormula(x) * 2) {
+        if (Math.random() <= BattleField.probabilityFormula(x) * 2) {
             this._steps = 0;
             let rndVal = Math.random() * 100;
             let base = 0;
