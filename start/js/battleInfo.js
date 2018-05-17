@@ -12,8 +12,8 @@
 GameSystem.Classes.BattleInfo =
 class BattleInfo {
     constructor(pokemon) {
-        this._original = pokemon;
-        this._pokemon = pokemon.clone();
+        //this._original = pokemon;
+        this._pokemon = pokemon;
         this._attackLevel = 0;
         this._defenseLevel = 0;
         this._speedLevel = 0;
@@ -46,7 +46,7 @@ class BattleInfo {
     acceptDamage(damage) {
         this._pokemon.HP = this._pokemon.HP - damage;
         if (this._pokemon.HP <= 0) {
-            this._original.HP = 0;
+            this._pokemon.HP = 0;
             return true;
         }
         else {
