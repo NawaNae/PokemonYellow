@@ -30,6 +30,7 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
         this.visible=true;
      
     }
+
     addToLevelByLevelName(name)
     {
         let level=Framework.Game._findLevel(name);

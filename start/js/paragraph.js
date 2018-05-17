@@ -24,13 +24,14 @@ class Paragraph extends GameSystem.Classes.PlotContent {
     start()
     {
         let dialog=GameSystem.HTMLObjectContainer.dialog,container=GameSystem.HTMLObjectContainer;
-
-            dialog.plot=this.plot;
-            dialog.show();
-            container.show();
-            dialog.text=this.text;
-            if(this.isSpeak)
-                this.speakAudio=speak(dialog.text,this.speakLang);
+        if(this.fatherPlot&&this.fatherPlot.npc)
+            this.fatherPlot.npc.isPlayBehavior=false;
+        dialog.plot=this.plot;
+        dialog.show();
+        container.show();
+        dialog.text=this.text;
+        if(this.isSpeak)
+            this.speakAudio=speak(dialog.text,this.speakLang);
         
     }
     end()
@@ -41,9 +42,12 @@ class Paragraph extends GameSystem.Classes.PlotContent {
             dialog.hide();
             dialog.text="";
             if(this.isSpeak)
-                this.speakAudio.pause();
+                if(this.speakAudio)
+                    this.speakAudio.pause();
             this.speakAudio=undefined;
             container.hide();
+            if(this.fatherPlot&&this.fatherPlot.npc)
+                this.fatherPlot.npc.isPlayBehavior=true;
         
     }
     set text(newContent) { this._content = newContent; }

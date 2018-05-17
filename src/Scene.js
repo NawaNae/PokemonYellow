@@ -95,7 +95,14 @@ var Framework = (function (Framework) {
             target.spriteParent = this;
             target.layer = this.layer + 1;
 		},
-
+        teardown:function()
+        {
+            this.attachArray.forEach(function(ele){
+                if(ele.teardown)
+                    ele.teardown();
+            }, this);  
+        //} 
+        },
         /**
         * 將一個Object移開Scene中, 使其不再跟著連動
         * @method detach

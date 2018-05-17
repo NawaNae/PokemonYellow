@@ -21,8 +21,9 @@ class Character {
         this._name = name;
         this._facing = face||GameSystem.Classes.Character.Face.Up;
         this._position = position || new GameSystem.Classes.Position(0, 0);
-        this._update=()=>{this.update();};
         this.image = image;
+        this.isPlayBehavior=true;
+        this.isWalk=false;
         let aList=GameSystem.Classes.AnimationList;
         this.animationLists={
             Up:new aList(),
@@ -44,7 +45,6 @@ class Character {
                     break;
                 default:
             }
-
         this.newPosition;
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
@@ -64,7 +64,13 @@ class Character {
         this.facing=char.facing||char._facing||this.facing;
         this.position=char.position||char._position||this._position;
     }
+    load()
+    {
+    }
     update()
+    {
+    }
+    teardown()
     {
     }
     getDirection(posCmp)
@@ -83,56 +89,70 @@ class Character {
     }
     walk(moveKey,end=()=>{})
     {
-        var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
-            if(moveKey.constructor.name=="Position")
+        var waitForWalk=()=>{if(this.isWalk)setTimeout(waitForWalk,100);else
             {
-                if(this.position.sub(moveKey).len===1)
-                    moveKey=this.getSingleDirection(moveKey);
-                    else
-                    {console.log("You cannot input a position is without normalized, or try to using 'Up', 'Down', 'Left', 'Right' to replace it.");return;}
-            }
-           
-        let move = this.movePositionVector[moveKey];
-        this.facing=moveKey;
-        if (!level) {
-            this.position.x += move.x;
-            this.position.y += move.y;
-        }
-        else
-        {
-            var newPos = new Position(this.position.x + move.x, this.position.y + move.y);
-            var period=GameSystem.Manager.Key.lockTime*1.5/16||300/16;
-            var movePoint=this.MovePointVector[moveKey];
-            var count=0;
-            var timeout=()=>
-            {
-                this.x+=movePoint.x;
-                this.y+=movePoint.y;
-                count++;
-                if(count<16)
-                    setTimeout(timeout,period);
-                else
-                  { 
-                        this.position.x += move.x;
-                        this.position.y += move.y;
-                        end();
+                var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
+                if(moveKey.constructor.name=="Position")
+                {
+                    if(this.position.sub(moveKey).len===1)
+                        moveKey=this.getSingleDirection(moveKey);
+                        else
+                        {console.log("You cannot input a position is without normalized, or try to using 'Up', 'Down', 'Left', 'Right' to replace it.");return;}
                 }
+               
+            let move = this.movePositionVector[moveKey];
+            this.facing=moveKey;
+            if (!level) {
+                this.position.x += move.x;
+                this.position.y += move.y;
             }
-            timeout();
-
+            else
+            {
+                var newPos = new Position(this.position.x + move.x, this.position.y + move.y);
+                if(!level.isWalkableAt(newPos))
+                    return;
+                this.isWalk=true;
+                this.position=newPos;
+                var period=GameSystem.Manager.Key.lockTime*1.5/16||300/16;
+                var movePoint=this.MovePointVector[moveKey];
+                var count=0;
+                var timeout=()=>
+                {
+                    this.x+=movePoint.x;
+                    this.y+=movePoint.y;
+                    count++;
+                    if(count<16)
+                        setTimeout(timeout,period);
+                    else
+                      { 
+                            end();
+                            this.updateImagePosition();
+                            this.isWalk=false;
+                    }
+                }
+                timeout();
+    
+            }
+            }
         }
+        waitForWalk();
     }
     walkTo(position){this.moveTo(position);}
     moveTo(position,end=()=>{})
     {
+        this.isPlayBehavior=false;
         position = position.constructor.name === "Point" ? position.toPosition() : position;
         var road=this.findRoad(position);
         var timeout=()=>
         {
             if(road.length>0)
                 this.walk(road.pop(),timeout);
-            else if(end)
-                end();
+            else 
+            {
+                if(end)
+                    end();
+                this.isPlayBehavior=true;
+            }
             
         }
         timeout();
@@ -141,6 +161,7 @@ class Character {
     {
         var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel;
         var size={x:gameLevel.size.pos2.x+1,y:gameLevel.size.pos2.y+1};
+        if(!gameLevel.isWalkableAt(to))return ;//終點不可走
         var map=new Array(size.x);
         /**
          * @prop {number} X - 不能走 
@@ -284,17 +305,16 @@ class Character {
  
         newPosition=new GameSystem.Classes.Position(newPosition);
          this._position = newPosition;
-        // this.updateImagePosition();
      }
     get position() { return this._position; }
     set image(newImage) {
         if(newImage)
         {
             this._image = newImage; 
-            //console.log(this._update);
             this.updateImagePosition();
-            this._image.update=this._update;
-            
+            this._image.update=()=>this.update();
+            this._image.teardown=()=>this.teardown();
+            this._image.load=()=>this.load();
         }
     }
     get image() { return this._image; }
