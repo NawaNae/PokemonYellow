@@ -4,10 +4,10 @@ var list = {};
 list['menu'] = new MyMenu();
 
 // !DEBUG!
-GameSystem.protagonist.addPokemon(GameSystem.Resource.Debug.pokemon1);
-GameSystem.protagonist.addPokemon(GameSystem.Resource.Debug.pokemon2);
-GameSystem.Bridges.BattleData.opponent = GameSystem.Resource.Debug.pokemon3;
-GameSystem.Bridges.BattleData.selectPokemon = GameSystem.Resource.Debug.pokemon1;
+GameSystem.protagonist.atMap = "palletTown";
+GameSystem.protagonist.addPokemon(GameSystem.Resource.Debug.pikachu);
+GameSystem.Bridges.BattleData.opponent = GameSystem.Resource.Debug.rattata;
+GameSystem.Bridges.BattleData.selectPokemon = GameSystem.Resource.Debug.pikachu;
 GameSystem.protagonist.addPropItem(new GameSystem.Classes.PropItem("藥水", 2));
 GameSystem.protagonist.addPropItem(new GameSystem.Classes.PropItem("寶可夢球", 1));
 Framework.Game.addNewLevel({
