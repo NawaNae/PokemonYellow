@@ -419,10 +419,12 @@ class BattlePad {
     resetViews() {
         this.hideBackpackPad();
         this.hideMoveInfoPad();
-        this.hideMoveListPad();
+        this.setVisibleMoveListPad(false);
         this.hidePokemonListPad();
         this.hidePokemonListPadMenu();
         this.hidePokemonInfoPad();
+        this.setVisibleYesNoPad(false);
+        this.setVisibleLevelUpStatPad(false);
     }
 
     /**
@@ -685,18 +687,17 @@ class BattlePad {
 
     // #region ===========================「招式清單」控制有關的方法集合。===========================
     /**
-     * 顯示「招式清單」面板
+     * 設定是否顯示「招式清單」面板
+     * @param {boolean} visible 是否顯示。
      */
-    showMoveListPad() {
-        this.setMoveListMouseCursor(0);
-        this.moveListSet.moveListPad.classList.remove('hide');
-    }
-
-    /**
-     * 隱藏「招式清單」面板
-     */
-    hideMoveListPad() {
-        this.moveListSet.moveListPad.classList.add('hide');
+    setVisibleMoveListPad(visible) {
+        if (visible) {
+            this.setMoveListMouseCursor(0);
+            this.moveListSet.moveListPad.classList.remove('hide');
+        }
+        else {
+            this.moveListSet.moveListPad.classList.add('hide');
+        }
     }
 
     /**
