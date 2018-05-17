@@ -34,6 +34,17 @@ class Route01 extends GameSystem.Classes.Level
         
             
     }
+    initBattleFields(){
+        var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position;
+        this.battleFields.push(new Rectangle(new Position(10,39),new Position(11,34)));
+        this.battleFields.push(new Rectangle(new Position(12,33),new Position(15,32)));
+        this.battleFields.push(new Rectangle(new Position(14,11),new Position(17,30)));
+        this.battleFields.push(new Rectangle(new Position(4,33),new Position(7,32)));
+        this.battleFields.push(new Rectangle(new Position(6,31),new Position(9,30)));
+        this.battleFields.push(new Rectangle(new Position(12,27),new Position(15,24)));
+        this.battleFields.push(new Rectangle(new Position(14,17),new Position(17,14)));
+        this.battleFields.push(new Rectangle(new Position(10,11),new Position(17,8)));
+    }
     loadObstacles()
     {
         var GS=GameSystem;
