@@ -135,3 +135,9 @@ $(".zombieMode").on("click",function()
         for(let npc of level.npcs)
             npc.walkTo(mainChar.position);
 })
+$(".debugDefine").on("click",function()
+{
+    var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
+    var Def=GS.debugDefine;if(!Def){console.log("尚未載入完成");return;}
+    Def();
+})
