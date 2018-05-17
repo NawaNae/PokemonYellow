@@ -121,6 +121,7 @@ $(".coverClose").on("click",function()
 {
     $(NawaNawa.ancestorSelector(".coverBackground",this)).fadeToggle(200);
 });
+document.querySelector(".coverClose").click();
 $(".removeRecords").on("click",function()
 {
     if(localStorage.records)
