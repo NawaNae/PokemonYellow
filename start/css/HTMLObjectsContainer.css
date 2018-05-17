@@ -439,6 +439,37 @@ label {
 #battlePad #opponentPad img.pokemonBall:nth-child(6), #battlePad #playerPad img.pokemonBall:nth-child(6)
 { left: calc(var(--start-pos-x) + 5 * var(--pos-x-gap)); bottom: var(--start-pos-y); }
 
+/* 「是、否」版面 */
+#battlePad div.yesNoPad {
+    position: absolute;
+    bottom: 200px;  right: 10px;
+    width: 250px;
+    height: 220px;
+    background: white;
+    border: 42px solid black;
+    border-image: url('../image/Pokemonborder.png') 88 round;
+    z-index: 2;
+}
+
+/* 「是、否」版面中的選項 */
+div.yesNoPad label.option {
+    position: relative;
+    display: block;
+    padding: 10px 0;
+    margin-left: 70px;
+}
+
+/* 「是、否」版面中，選項被選擇後的三角提示  */
+div.yesNoPad label.option.select::before {
+    display:inline-block;
+    position: absolute;
+    top: 18px;  left: -45px;
+    content: '';
+    border-style: solid;
+    border-width: 0.3em 0 0.3em 0.5em;
+    border-color: transparent transparent transparent #000;
+}
+
 /* ======================================== 「寶可夢清單」版面 ======================================== */
 /* 「寶可夢清單」版面的樣式 */
 #pokemonList {
