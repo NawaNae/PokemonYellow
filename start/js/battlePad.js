@@ -43,6 +43,23 @@
  * @prop {number} PP 招式的PP數。
  */
 //
+/** @typedef YesNoSet 「是、否」子選單。
+ * @prop {HTMLDivElement} divYesNoPad 「是、否」版面的HTML容器。
+ * @prop {HTMLLabelElement} labelYes 「是」文字。
+ * @prop {HTMLLabelElement} labelNo 「否」文字。
+ */
+//
+/** @typedef LevelUpStatSet 升級資訊版面。
+ * @prop {HTMLDivElement} divLevelUpStat 升級資訊版面的HTML容器。
+ * @prop {HTMLLabelElement} labelAttack 文字「ATTACK」。
+ * @prop {HTMLSpanElement} spanAttack 升級後的攻擊力數值。
+ * @prop {HTMLLabelElement} labelDefense 文字「DEFENSE」。
+ * @prop {HTMLSpanElement} spanDefense 升級後的防禦力數值。
+ * @prop {HTMLLabelElement} labelSpeed 文字「SPEED」。
+ * @prop {HTMLSpanElement} spanSpeed 升級後的速度值數值。
+ * @prop {HTMLLabelElement} labelSpecial 文字「SPECIAL」。
+ * @prop {HTMLSpanElement} spanSpecial 升級後的特殊值數值。
+ */
 
 /**
  * @class BattlePad
@@ -76,6 +93,7 @@ class BattlePad {
         this.battlePad.appendChild(this.initMoveListPad());       // 建立「招式清單」面板
         this.battlePad.appendChild(this.initMoveInfoPad());       // 建立「招式資訊」面板
         this.battlePad.appendChild(this.initBackpackPad());       // 建立「背包物品清單」面板
+        this.battlePad.appendChild(this.initYesNoPad());          // 建立「是、否」面板
         
         this.pokemonListPad = new GameSystem.Classes.PokemonListPad();      // 建立「寶可夢清單」面板之控制物件
         this.battlePad.appendChild(this.pokemonListPad.getHTMLElement());   // 取得「寶可夢清單」面板的HTML元件，並將其加入至battlePad中
@@ -96,7 +114,7 @@ class BattlePad {
         this.moveInfoList = [];
     }
 
-    // #region 初始化所用的函式集
+    // #region ============================== 初始化所用的函式集 ==============================
     /**
      * 建立玩家方資訊面板HTML元件。並連同內容物也一起建立，
      * 有: 寶可夢名稱、等級、文字「HP」、血量條容器與血量數值。
@@ -305,15 +323,34 @@ class BattlePad {
         this.setBackpackItemCursor(0);
         return this.backpackPad;
     }
-    // #endregion
 
     /**
-     * 設定是否顯示主選單。
-     * @param {boolean} visible 是否顯示主顯單。
+     * 建立「是、否」面板，並聯內容物也一起建立。
+     * 有: 「是」、「否」文字標籤
+     * 並將其加入至 this.yesNoPad 中。
+     * @return {HTMLDivElement} 「是、否」面板的HTML元件。
      */
-    setVisibleMenu(visible) {
-        visible ? this.menuSet.menuPad.classList.remove('hide') : this.menuSet.menuPad.classList.add('hide');
+    initYesNoPad() {
+        let divYesNoPad = document.createElement('div');
+        divYesNoPad.classList.add('yesNoPad');
+        divYesNoPad.classList.add('hide');
+
+        let labelYes = document.createElement('label');
+        labelYes.classList.add('option');
+        labelYes.innerText = "是";
+
+        let labelNo = document.createElement('label');
+        labelNo.classList.add('option');
+        labelNo.innerText = "否";
+
+        this.yesNoSet = { divYesNoPad, labelYes, labelNo };
+
+        divYesNoPad.appendChild(labelYes);
+        divYesNoPad.appendChild(labelNo);
+        return divYesNoPad;
     }
+
+    // #endregion ===========================================================================
 
     /**
      * 更新資料。
@@ -393,6 +430,32 @@ class BattlePad {
         }
         
         return newItem;
+    }
+
+    /**
+     * 取得玩家方的HPBar控制物件。
+     * @return {GameSystem.Classes.HPBarContainer} HPBar控制物件。
+     */
+    getPlayerHPBar() {
+        return this.playerSet.HPBar;
+    }
+
+    /**
+     * 取得對手方的HPBar控制物件。
+     * @return {GameSystem.Classes.HPBarContainer} HPBar控制物件。
+     */
+    getOpponentHPBar() {
+        return this.opponentSet.HPBar;
+    }
+
+    // #region =============================== 介面設定 ================================
+
+    /**
+     * 設定是否顯示主選單。
+     * @param {boolean} visible 是否顯示主顯單。
+     */
+    setVisibleMenu(visible) {
+        visible ? this.menuSet.menuPad.classList.remove('hide') : this.menuSet.menuPad.classList.add('hide');
     }
 
     /**
@@ -544,22 +607,31 @@ class BattlePad {
     }
 
     /**
-     * 取得玩家方的HPBar控制物件。
-     * @return {GameSystem.Classes.HPBarContainer} HPBar控制物件。
+     * 是否顯示「是、否」版面。
+     * @param {boolean} visible 是否顯示。
      */
-    getPlayerHPBar() {
-        return this.playerSet.HPBar;
+    setVisibleYesNoPad(visible) {
+        visible ? this.yesNoSet.divYesNoPad.classList.remove('hide') : this.yesNoSet.divYesNoPad.classList.add('hide');
     }
 
     /**
-     * 取得對手方的HPBar控制物件。
-     * @return {GameSystem.Classes.HPBarContainer} HPBar控制物件。
+     * 設定「是、否」版面上的選擇。
+     * @param {boolean} isYes 是否選擇「是」選項。
      */
-    getOpponentHPBar() {
-        return this.opponentSet.HPBar;
+    setYesNoPadSelection(isYes) {
+        if (isYes) {
+            this.yesNoSet.labelYes.classList.add('select');
+            this.yesNoSet.labelNo.classList.remove('select');
+        }
+        else {
+            this.yesNoSet.labelYes.classList.remove('select');
+            this.yesNoSet.labelNo.classList.add('select');
+        }
     }
 
-    // #region 「招式清單」控制有關的方法集合。
+    // #endregion ======================================================================
+
+    // #region ===========================「招式清單」控制有關的方法集合。===========================
     /**
      * 顯示「招式清單」面板
      */
@@ -613,9 +685,9 @@ class BattlePad {
         }
         this.setMoveListMouseCursor(0);
     }
-    // #endregion
+    // #endregion =================================================================================
 
-    // #region 「招式資訊面板」控制有關的方法集合。
+    // #region =========================「招式資訊面板」控制有關的方法集合。==========================
     /**
      * 顯示招式資訊面板。
      */
@@ -640,9 +712,9 @@ class BattlePad {
         this.moveInfoSet.moveType.innerText = typeName;
         this.moveInfoSet.movePP.innerText = PP + "/ " + maxPP;
     }
-    // #endregion
+    // #endregion =================================================================================
 
-    // #region 「背包物品版面」控制有關的方法集合。
+    // #region =========================「背包物品版面」控制有關的方法集合。==========================
     /**
      * 顯示背包物品版面。
      */
@@ -690,9 +762,9 @@ class BattlePad {
         this.backpackListSelection = select;
     }
 
-    // #endregion 「背包物品版面」控制有關的方法集合。
+    // #endregion =================================================================================
 
-    // #region 「寶可夢清單版面」控制有關的方法集合。
+    // #region =========================「寶可夢清單版面」控制有關的方法集合。=========================
     /**
      * 顯示寶可夢清單版面。
      */
@@ -744,9 +816,9 @@ class BattlePad {
     setPokemonListPadMenuCursor(select) {
         this.pokemonListPad.setMenuCursor(select);
     }
-    // #endregion
+    // #endregion =================================================================================
 
-    // #region 「寶可夢資訊版面」控制有關的方法集合。
+    // #region =========================「寶可夢資訊版面」控制有關的方法集合。=========================
     /**
      * 顯示寶可夢資訊版面。
      * @param {boolean?} isPartTwo 顯示是否為第二部分。
@@ -770,7 +842,7 @@ class BattlePad {
     setPokemonInfoPadData(pokemon) {
         this.pokemonInfoPad.setInfo(pokemon);
     }
-    // #endregion
+    // #endregion =================================================================================
 
     /**
      * 設定是否顯示戰鬥面板。
@@ -800,6 +872,8 @@ class BattlePad {
         // Debug
         container.classList.remove('hide');
         container.classList.add('show');
+        BattlePad.yesNoSet.divYesNoPad.classList.remove('hide');
+        BattlePad.yesNoSet.labelYes.classList.add('select');
     }
 }
 
