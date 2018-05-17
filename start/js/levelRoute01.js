@@ -35,15 +35,18 @@ class Route01 extends GameSystem.Classes.Level
             
     }
     initBattleFields(){
-        var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position;
-        this.battleFields.push(new Rectangle(new Position(10,39),new Position(11,34)));
-        this.battleFields.push(new Rectangle(new Position(12,33),new Position(15,32)));
-        this.battleFields.push(new Rectangle(new Position(14,11),new Position(17,30)));
-        this.battleFields.push(new Rectangle(new Position(4,33),new Position(7,32)));
-        this.battleFields.push(new Rectangle(new Position(6,31),new Position(9,30)));
-        this.battleFields.push(new Rectangle(new Position(12,27),new Position(15,24)));
-        this.battleFields.push(new Rectangle(new Position(14,17),new Position(17,14)));
-        this.battleFields.push(new Rectangle(new Position(10,11),new Position(17,8)));
+        var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position,Occurrence=CS.Occurrence,BattleField=CS.BattleField,DEX=GameSystem.Classes.PokemonType.Dictionary;
+        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["拉達"], 2, 4, 30));field.addOccurrence(new Occurrence(DEX["波波"], 2, 7, 70))};
+        var nField=(x1,y1,x2,y2)=>new BattleField(new Rectangle(new Position(x1,y1),new Position(x2,y2)));
+        var pushField=(x1,y1,x2,y2)=>{let f=nField(x1,y1,x2,y2);addOccur(f);this.battleFields.push(f);};
+        pushField(10,39,11,34);
+        pushField(12,33,15,32);
+        pushField(14,11,17,30);
+        pushField(4, 33,7,32);
+        pushField(6, 31,9,30);
+        pushField(12,27,15,24);
+        pushField(14,17,17,14);
+        pushField(10,11,17,8);
     }
     loadObstacles()
     {

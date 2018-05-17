@@ -144,7 +144,7 @@ class Level extends Framework.Level
     {return this.isInRectamgleArray(position,this.events,"area");}
     getBattleFieldAt(position)
     {
-        return this.isInRectamgleArray(position,this.battleFields);
+        return this.isInRectamgleArray(position,this.battleFields,"_area");
     }
     isWalkableAt(position)
     {
