@@ -41,16 +41,14 @@ Load.js.import(
         { src: define.jsPath + 'plotContents.script.js', lookFor: 'GameSystem.Classes.PlotContents.Script' },
         { src: define.jsPath + 'plotContents.giveProp.js', lookFor: 'GameSystem.Classes.PlotContents.GiveProp' },
         { src: define.jsPath + 'plotContents.moveCharacter.js', lookFor: 'GameSystem.Classes.PlotContents.MoveCharacter' },
-
         { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
         { src: define.jsPath + 'plotsController.js', lookFor: 'GameSystem.Classes.PlotsController' },
+        { src: define.jsPath + 'event.js', lookFor: 'GameSystem.Classes.Event' },
         { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
-
         { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
       /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
       { src: define.jsPath + 'record.js', lookFor: 'GameSystem.Classes.Record' },
       { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Records' },  
-
         { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
         { src: define.jsPath+'debug.js'},
         { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },

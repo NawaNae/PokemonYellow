@@ -17,7 +17,7 @@ class Level extends Framework.Level
         this.parentLevel=undefined;
         this.subLevels=new Array();
         this.obstacles=new Array();
-        this.eventObj=new Array();
+        this.events=new Array();
         this.npcs= new Array();
         this.signBoards= new Array();
         this.gates= new Array();
@@ -31,6 +31,7 @@ class Level extends Framework.Level
         this.initNpcs();
         this.initSignBoards();
         this.initBattleFields();
+        this.initEvents();
         this.keyInput = (e) => {
             this.normalKeyInput(e);
         };
@@ -42,6 +43,7 @@ class Level extends Framework.Level
     initNpcs(){}
     initBattleFields(){}
     initSignBoards(){}
+    initEvents(){}
     load()
     {
         this.loadNullSprite();
@@ -122,13 +124,24 @@ class Level extends Framework.Level
         }
         return undefined;
     }
-    isInRectamgleArray(position,array)
+    isInRectamgleArray(position,array,param)
     {
         for(var i in array)
-            if(position.isIn(array[i]))
-                return array[i]
+            if(param)
+            {
+                if(position.isIn(array[i][param]))
+                   return array[i]
+            }
+            else
+            {
+                if(position.isIn(array[i]))
+                    return array[i];
+            }
+
         return undefined;
     }
+    getEventAreaAt(position)
+    {return this.isInRectamgleArray(position,this.events,"area");}
     getBattleFieldAt(position)
     {
         return this.isInRectamgleArray(position,this.battleFields);
@@ -185,6 +198,9 @@ class Level extends Framework.Level
                 console.log(newPosition);
                 GS.protagonist.position = newPosition;
                 this.walker.keyInput(e);
+                var event;
+                if((event=this.getEventAreaAt(newPosition)))
+                    event.start();
                 var field,wildPoke;
                 if((field=this.getBattleFieldAt(newPosition)))
                     if((wildPoke=field.trigger()))
