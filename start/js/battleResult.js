@@ -126,7 +126,7 @@ class BattleResult {
                 delay -= 1;
             }
             else {                          // 結束動畫，將對手寶可夢繪製設為「空動畫」
-                battleLevel_animationSet.opponentPokemon = GameSystem.BattlePad.emptyAnimation;
+                battleLevel_animationSet.opponentPokemon = BattleLevel.emptyAnimation;
                 resolve(true);
             }
         }
