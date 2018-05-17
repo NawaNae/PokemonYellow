@@ -68,6 +68,25 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 寶可夢取得經驗值。 (尚未完成升級處理)
+     * @param {number} exp 寶可夢所取得的經驗值量。
+     * @return {number} 因經驗值而升級的級數。
+     */
+    gainExperience(exp) {
+        this._exp += exp;
+        this.updateAbilities();
+    }
+
+    /**
+     * 透過總族值來增加各項努力值。
+     * @param {GameSystem.Classes.PokemonType} pokemonType 對手之總族值。
+     */
+    gainEffortValue(pokemonType) {
+        this._EV.gainEffortValue(pokemonType.maxHP, pokemonType.attack, pokemonType.defense, pokemonType.special, pokemonType.speed);
+        this.updateAbilities();
+    }
+
+    /**
      * 檢查此寶可夢是否擁有此招式。
      * @param {GameSystem.Classes.Move} move 要檢查的目標招式。
      * @return {boolean} 此寶可夢是否擁有此招式。
@@ -126,6 +145,14 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 
     /**
+     * 取得寶可夢種族資訊。
+     * @return {GameSystem.Classes.PokemonType} 寶可夢種族資訊。
+     */
+    getPokemonType() {
+        return this._typeInfo;
+    }
+
+    /**
      * 建立一個此寶可夢的副本。
      * @return {GameSystem.Classes.Pokemon} 新的寶可夢。
      */
@@ -153,7 +180,6 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 (() => {
     let DEX = GameSystem.Classes.PokemonType.Dictionary;
     GameSystem.Resource.Debug = GameSystem.Resource.Debug || {};
-    GameSystem.Resource.Debug.pokemon1 = new GameSystem.Classes.Pokemon("妙蛙種子", DEX["妙蛙種子"]);
-    GameSystem.Resource.Debug.pokemon2 = new GameSystem.Classes.Pokemon("小火龍", DEX["小火龍"]);
-    GameSystem.Resource.Debug.pokemon3 = new GameSystem.Classes.Pokemon("傑尼龜", DEX["傑尼龜"]);
+    GameSystem.Resource.Debug.pikachu = new GameSystem.Classes.Pokemon("皮卡丘", DEX["皮卡丘"]);
+    GameSystem.Resource.Debug.rattata = new GameSystem.Classes.Pokemon("小拉達", DEX["小拉達"]);
 })();

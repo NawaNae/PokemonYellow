@@ -49,6 +49,12 @@ class Protagonist extends GameSystem.Classes.Character {
             this.image.position.y=pos.y;
         }
     }
+    
+
+    get pokemons() { return this._pokemons; }
+
+    get props() { return this._props; }
+
     set atMap(newMap) { 
         this._atMap = newMap 
         Framework.Game.goToLevel(newMap);
@@ -78,37 +84,123 @@ class Protagonist extends GameSystem.Classes.Character {
     /**
      * 增加目前身上的金錢量。
      * @param {number} money 增加的金錢量。
-     * @return {number}是否增加金額成功。
+     * @return {boolean} 是否增加金額成功。
      */
     earnMoney(money) {
         this._money += money;
         return true;
     }
-    get x()
-    {return this.point.x;}
-    set x(val)
-    {
+    get x() { return this.point.x; }
+    set x(val) {
+        var Point = GameSystem.Classes.Point,screenPoint = this._screenPosition.toPoint(), mapPos = Framework.Game._currentLevel.map.position;
+        mapPos.x = -val + screenPoint.x;
+    }
+
+    get y() { return this.point.y; }
+    set y(val) {
         var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=Framework.Game._currentLevel.map.position;
-        mapPos.x=-val+screenPoint.x;
-    } 
-    get y()
-    {return this.point.y;}
-    set y(val)
-    {
-    var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=Framework.Game._currentLevel.map.position;
-    mapPos.y=-val+screenPoint.y;}
-    get point()
-    {
+        mapPos.y=-val+screenPoint.y;
+    }
+
+    get point() {
         var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=(Framework&&Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.map)?Framework.Game._currentLevel.map.position:undefined;
-        if(!mapPos){console.log("無法取得Map以至於算不出主角座標點位置");return this.position.toPoint();}
+        if(!mapPos) { 
+            console.log("無法取得Map以至於算不出主角座標點位置");
+            return this.position.toPoint();
+        }
         return new Point(screenPoint.x-mapPos.x,screenPoint.y-mapPos.y);
     }
-    set point(val)
-    {
+
+    set point(val) {
         var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),map=Framework.Game._currentLevel.map;
-        val=val.constructor.name==="Position"?val.toPoint():val;
-        map.x=-val.x+screenPoint.x;
-        map.y=-val.y+screenPoint.y;
+        val = val.constructor.name === "Position" ? val.toPoint() : val;
+        map.x = -val.x + screenPoint.x;
+        map.y = -val.y + screenPoint.y;
+    }
+
+    /**
+     * 新增一個新的寶可夢至主人公上。
+     * @param {GameSystem.Classes.Pokemon} newPokemon 新的寶可夢。
+     */
+    addPokemon(newPokemon) {
+        this._pokemons.push(newPokemon);
+    }
+
+    /**
+     * 新增道具至角色上。
+     * @param {GameSystem.Classes.PropItem} newItem 新的道具。
+     */
+    addPropItem(newItem) {
+        let index = this._props.reduce((prop, targetIndex, index) => targetIndex < 0 && prop.name == newItem.name ? index : targetIndex, -1);
+        if (index >= 0) {
+            this._props[index].count += newItem.count;
+        }
+        else {
+            this._props.push(newItem);
+        }
+    }
+
+    /**
+     * 減少指定道具的堆疊數量。
+     * @param {GameSystem.Classes.PropItem | number} specify 指定要減少的道具。
+     * @return {boolean} 是否成功減少。
+     */
+    decreaseSpecifiedPropItem(specify) {
+        if (typeof specify == 'number') {
+            let propItem = this._props[specify];
+            // 若指定要刪除的道具存在
+            if (propItem) {
+                propItem.count -= 1;
+                // 若堆疊數量為0，則移除
+                if (propItem.count <= 0) {
+                    this._props.splice(specify, 1);
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            let index = this._props.indexOf(specify);
+            // 若該道具存在於使用者上
+            if (index >= 0) {
+                specify.count -= 1;
+                // 若道具堆疊為0
+                if (specify.count <= 0) {
+                    this._props.splice(index, 1);
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 以名稱來尋找指定的道具，並回傳其索引。
+     * @param {string} propName 欲尋找的道具之名稱。
+     * @return {number} 該道具的索引位置。
+     */
+    indexOfPropItemName(propName) {
+        return this._props.reduce((prop, targetIndex, index) => targetIndex < 0 && propName == prop.name ? index : targetIndex, -1);
+    }
+
+    /**
+     * 取得可戰鬥的寶可夢數量。
+     * @return {number} 可戰鬥的寶可夢數量。
+     */
+    getAlivePokemonCount() {
+        return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP > 0 ? 1 : 0), 0);
+    }
+
+    /**
+     * 取得昏厥的寶可夢數量。
+     * @return {number} 昏厥的寶可夢數量。
+     */
+    getFaintPokemonCount() {
+        return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP <= 0 ? 1 : 0), 0);
     }
 }
 GameSystem.Classes.Protagonist.ScreenPosition= Object.freeze(new GameSystem.Classes.Position(4,4));

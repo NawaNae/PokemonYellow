@@ -17,7 +17,7 @@
  * @prop {GameSystem.Classes.Image} image 此種寶可夢的圖示。
  * @prop {GameSystem.Classes.Image} backImage 此種寶可夢的背圖示。
  * @prop {string} name 寶可夢的種族名稱。
- * @prop {GameSystem.Classes.Move[]} usableMoves 此種寶可夢所有可用的招式。
+ * @prop {GameSystem.Classes.GradingMove[]} usableMoves 此種寶可夢所有可用的招式。
  * @prop {GameSystem.Classes.StandardStat.Type} typeA 此種寶可夢所擁有的第一屬性。
  * @prop {GameSystem.Classes.StandardStat.Type} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
  * @prop {String} description 寶可夢描述
@@ -30,7 +30,7 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * @param {GameSystem.Classes.Image} image 此種寶可夢的圖示。
      * @param {GameSystem.Classes.Image} backImage 此寶可夢的背圖示。
      * @param {string} name 寶可夢的種族名稱。
-     * @param {GameSystem.Classes.Move[]?} usableMoves 此種寶可夢所有可用的招式。
+     * @param {GameSystem.Classes.GradingMove[]?} usableMoves 此種寶可夢所有可用的招式。
      * @param {GameSystem.Classes.StandardStat.Type?} typeA 此種寶可夢所擁有的第一屬性。
      * @param {GameSystem.Classes.StandardStat.Type?} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
      * @param {String} description 寶可夢描述
@@ -89,8 +89,18 @@ class PokemonType extends GameSystem.Classes.StandardStat {
      * 取得寶可夢最初所能擁有的招式集。
      * @return {GameSystem.Classes.Move[]} 可用的初始招式清單。
      */
-    GetInitialMove() {
-        return this._usableMoves.filter(move => move.level == 1);
+    GetInitialMoves() {
+        return this._usableMoves.filter(gMove => gMove.minLevel == 1 || !gMove.minLevel).map(gMove => gMove.move);
+    }
+
+    /**
+     * 取得在指定等級下，可能習得到的招式。
+     * @param {number} level 指定的等級。
+     * @return {Array | undefined} 若在該等級下有可以習得的招式，則回傳可習得招式；若無則回傳undefined。
+     */
+    GetPossibleMovesToLearnByLevel(level) {
+        let newMoves = this._usableMoves.filter(gMove => gMove.minLevel == level).map(gMove => gMove.move);
+        return newMoves.length > 0 ? newMoves : undefined;
     }
 }
 
@@ -108,7 +118,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     let MoveDEX = GameSystem.Classes.Move.Dictionary;       // 取得招式字典
     let pokemonImagePath = define.imagePath + "pokemons/";  // 定義對應的寶可夢圖片目錄路徑
     let basicStat, moves, typeA, typeB;                     // 基本狀態值
-
+    
     basicStat = {maxHP: 45, attack: 49, defense: 49, special: 65, speed: 45};
     moves = [new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(7, MoveDEX["寄生種子"]), new GradingMove(13, MoveDEX["藤鞭"]), new GradingMove(20, MoveDEX["毒粉"]), new GradingMove(27, MoveDEX["飛葉快刀"]), new GradingMove(34, MoveDEX["生長"]), new GradingMove(41, MoveDEX["催眠粉"]), new GradingMove(48, MoveDEX["日光束"])];
     DEX["妙蛙種子"] = new PokemonType(basicStat, 1, new Image(pokemonImagePath + "001_妙蛙種子.png"), new Image(pokemonImagePath + "001_妙蛙種子_Back.png"), "妙蛙種子", moves, Type.Grass, Type.Poison);

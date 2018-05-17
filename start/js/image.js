@@ -133,4 +133,6 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
     set x(value){this.position.x=value;}
     get y(){return this.position.y;}
     set y(value){this.position.y=value;}
+
+    get src() { return this._src; }
 }
