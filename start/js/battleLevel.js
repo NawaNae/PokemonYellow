@@ -75,8 +75,9 @@ class BattleLevel extends Framework.Level {
         // 確保 HTMLObjectContainer 有顯示
         document.querySelector(".HTMLObjectContainer").classList.remove('hide');
 
-        // 更新UI上的資料
+        // 開啟UI 並 更新UI上的資料
         this.updateDateOnUI();
+        GameSystem.BattlePad.setVisible(true);
         GameSystem.BattlePad.setVisibleMenu(false);
         GameSystem.BattlePad.switchPokemonBallView(true);
         GameSystem.BattlePad.setPlayerPokemonBallsView(GameSystem.protagonist.getFaintPokemonCount(), GameSystem.protagonist.getAlivePokemonCount());
