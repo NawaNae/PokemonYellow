@@ -157,9 +157,10 @@ GameSystem.Resource.Drama = {};
             new MoveCharacter({to:new Position(4,4)})
         ]),
         "Fatty": new Plot("Fatty", [
-            new Paragraph("科學的力量真是厲害"),
-            new Paragraph("現在利用電腦通信從道具屋傳送寶可夢資料"),
-            new Paragraph("然而作者沒打算做這功能"),
+            new Paragraph("肥宅工程師『從寫完就可以睡覺了』"),
+            new Paragraph("工程師立了一個flag"),
+            new Paragraph("RRRRRR"),
+            new Script(function(){this.fatherPlot.npc.visible=false;}),
         ]),
         "RivalsSisterMap": new Plot("RivalsSisterMap", [
             new Paragraph("聽說大木老頭找你跑腿阿？真辛苦（嘲諷意味）！"),
@@ -225,11 +226,3 @@ GameSystem.Resource.Drama = {};
     };
 
 })();
-/**
- * test func
- */
-(()=>
-{
-    var GS=GameSystem,CS=GameSystem.Classes,level=()=>Framework.Game._currentLevel,container=GS.HTMLObjectContainer,mainChar=GS.protagonist,Position=CS.Position;
-    var t0=new Position()
-})()
