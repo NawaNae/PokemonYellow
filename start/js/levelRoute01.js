@@ -36,7 +36,7 @@ class Route01 extends GameSystem.Classes.Level
     }
     initBattleFields(){
         var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position,Occurrence=CS.Occurrence,BattleField=CS.BattleField,DEX=GameSystem.Classes.PokemonType.Dictionary;
-        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["拉達"], 2, 4, 30));field.addOccurrence(new Occurrence(DEX["波波"], 2, 7, 70))};
+        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["小拉達"], 2, 4, 30));field.addOccurrence(new Occurrence(DEX["波波"], 2, 7, 70))};
         var nField=(x1,y1,x2,y2)=>new BattleField(new Rectangle(new Position(x1,y1),new Position(x2,y2)));
         var pushField=(x1,y1,x2,y2)=>{let f=nField(x1,y1,x2,y2);addOccur(f);this.battleFields.push(f);};
         pushField(10,39,11,34);
