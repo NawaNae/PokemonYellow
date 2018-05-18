@@ -82,7 +82,7 @@ class BattleField {
      */
     trigger(position) {
         // 若有傳進position參數，則判斷該位置是否在範圍內
-        const x=0.25;
+        const x=30;
         if (position && !position.isIn(this._area))
             return undefined;
 
@@ -124,6 +124,6 @@ class BattleField {
      * @param {number} x 影響因素。
      */
     static probabilityFormula(x) {
-        return 1 / (187.5 * x);
+        return x / (187.5  );
     }
 };
