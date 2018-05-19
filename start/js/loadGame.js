@@ -48,6 +48,7 @@ Load.js.import(
         { src: define.jsPath + 'plotContents.script.js', lookFor: 'GameSystem.Classes.PlotContents.Script' },
         { src: define.jsPath + 'plotContents.giveProp.js', lookFor: 'GameSystem.Classes.PlotContents.GiveProp' },
         { src: define.jsPath + 'plotContents.addNpc.js', lookFor: 'GameSystem.Classes.PlotContents.AddNpc' },
+        { src: define.jsPath + 'plotContents.removeNpc.js', lookFor: 'GameSystem.Classes.PlotContents.RemoveNpc' },
         { src: define.jsPath + 'plotContents.moveCharacter.js', lookFor: 'GameSystem.Classes.PlotContents.MoveCharacter' },
         { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
         { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },

@@ -2,7 +2,7 @@ class PalletTown extends GameSystem.Classes.Level {
     initEvents()
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
-        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc;
+        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc;
         var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter;
         var e0=new Event(new Position(12,10),()=>{for(let i=0;i<this.npcs.length;i++)this.npcs[i].moveTo(GameSystem.protagonist.position)});
         this.events.push(e0);
@@ -14,7 +14,8 @@ class PalletTown extends GameSystem.Classes.Level {
             new Plot("OakFightWithPika",[
                 new AddNpc(oak),
                 new MoveChar({character:oak,to:new Position(13,4)}),
-                new Paragraph("hen危險")
+                new Paragraph("hen危險"),
+                new RemoveNpc(oak)
             ])
         )
         this.events.push(e1);
