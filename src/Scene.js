@@ -120,8 +120,8 @@ var Framework = (function (Framework) {
             }
             if(index > -1) {
                 this.attachArray.splice(index, 1);
-                target.spriteParent = {};
-                target.layer = 1;   //default
+                target.spriteParent = undefined;
+                target.layer = undefined;   //default
             }
         },
 
