@@ -68,7 +68,7 @@ class Route01 extends GameSystem.Classes.Level
         this.obstacles.push(new CS.Rectangle({x:4,y:0},{x:9,y:3}));
 
     }
-    loadGates()
+    initGates()
     {
         var GS=GameSystem;
         var CS=GS.Classes;
