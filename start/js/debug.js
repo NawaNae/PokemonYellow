@@ -11,5 +11,5 @@ GameSystem.debugDefine=function()
     GM=GS.Manager;
     RM=GM.Records;
     KM=GM.Key;
-    GR=GS.Recources;
+    GR=GS.Resources;
 }

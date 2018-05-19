@@ -1,5 +1,5 @@
 GameSystem.Classes.PlotContents.MoveCharacter=
-class MoveCharacter extends GameSystem.Classes.Paragraph
+class MoveCharacter extends GameSystem.Classes.PlotContent
 {
     constructor(options={name:"moveCharacter",type:"MoveCharacter",character:undefined,from:undefined,to:undefined,vector:undefined})
     {

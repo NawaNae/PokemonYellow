@@ -106,8 +106,8 @@ GameSystem.Resource.Drama = {};
 
 /** 定義所有的劇本 */
 (() => {
-    var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
-    var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter;
+    var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents, NPC=CS.NPC ;
+    var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc;
     Drama["PalletTown"] = {
         "WelcomeSign": new Plot("WelcomeSign",[
             new Paragraph("歡迎來到「真新鎮」。"),
@@ -183,7 +183,8 @@ GameSystem.Resource.Drama = {};
             new Paragraph("注意喔！在真新鎮周圍有很多的野草。"),
             new Paragraph("這表示了我們有可能走在草叢中會遇到野生的寶可夢。"),
             new Paragraph("記得！帶上你自己的寶可夢，讓牠來保護你！")
-        ])
+        ]),
+        
     };
 
     /** 「一號道路」的 */

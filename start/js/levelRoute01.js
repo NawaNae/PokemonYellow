@@ -22,7 +22,6 @@ class Route01 extends GameSystem.Classes.Level
 
         this.walker=new CS.MapWalker({mapRef:this.map});
    
-        this.loadNPCs();
         this.loadObstacles();
         this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
         this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
@@ -69,7 +68,7 @@ class Route01 extends GameSystem.Classes.Level
         this.obstacles.push(new CS.Rectangle({x:4,y:0},{x:9,y:3}));
 
     }
-    loadNPCs()
+    loadGates()
     {
         var GS=GameSystem;
         var CS=GS.Classes;
