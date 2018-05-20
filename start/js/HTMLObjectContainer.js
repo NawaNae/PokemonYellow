@@ -90,7 +90,6 @@ class HTMLObjectContainer
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具",()=>{this.propList.show();}));
         var characterData=new GameSystem.Classes.Option("角色資料");
-        characterData.updateWhenShow=true;
         this.options.push(characterData);
         this.options.push(new GameSystem.Classes.Option("儲存",function(){
             var dialog = GameSystem.HTMLObjectContainer.yesNoDialog,RM=GameSystem.Manager.Records;
@@ -153,7 +152,7 @@ class HTMLObjectContainer
     {
         let Option=GameSystem.Classes.Option;
         let container=GameSystem.HTMLObjectContainer;
-
+        var Text=DisplayInformation.Text,Digit=DisplayInformation.Digit,X;
         this.propList=new GameSystem.Classes.Options({className:"propList"});
         var prpoList=this.propList;
         this.propList.onShow=function()
@@ -164,7 +163,13 @@ class HTMLObjectContainer
             {
                 var prop=mainChar._props[i]
                 if(prop)
-                    this.push(new Option(prop.name+(prop.count?" x "+prop.count:""),mainChar._props[i].execute||function(){}));
+                {
+                    var option=new Option("",mainChar._props[i].use||function(){});
+                    this.push(option);
+                    option.append(new Text(prop.name,X,X,"name","span"));
+                    if(prop.count)option.append(new Digit(prop.count,"x ",X,"count","span"))
+                }
+                   
             }
                 
             var pList=this;
