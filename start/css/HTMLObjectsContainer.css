@@ -310,7 +310,7 @@ label {
     height: 230px;
     background: white;
     border: 42px solid black;
-    border-image: url('../image/Pokemonborder.png') 88 round;
+    border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 0;
 }
 
@@ -322,7 +322,7 @@ label {
     height: 230px;
     background: white;
     border: 42px solid black;
-    border-image: url('../image/Pokemonborder.png') 88 round;
+    border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 1;
 }
 
@@ -413,7 +413,7 @@ label {
     height: 230px;
     background: white;
     border: 42px solid black;
-    border-image: url('../image/Pokemonborder.png') 88 round;
+    border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 2;
 }
 
@@ -452,7 +452,7 @@ label {
     height: 200px;
     background: white;
     border: 42px solid black;
-    border-image: url('../image/Pokemonborder.png') 88 round;
+    border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 3;
 }
 
@@ -570,7 +570,7 @@ label {
     height: 220px;
     background: white;
     border: 42px solid black;
-    border-image: url('../image/Pokemonborder.png') 88 round;
+    border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 2;
 }
 
@@ -601,7 +601,7 @@ div.yesNoPad label.option.select::before {
     height: 470px;
     background: white;
     border: 42px solid black;
-    border-image: url('../image/Pokemonborder.png') 88 round;
+    border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 2;
 }
 
