@@ -15,6 +15,7 @@ class MoveCharacter extends GameSystem.Classes.PlotContent
     {
         this.character=this.character||this.plot.npc;
         this.character.position=this.from||this.character.position;
+        this.character.updateImagePosition();
         if(!this.to&&!this.vector){console.log("cannot get to or vector from a move plot content.");return;}
         this.to=this.to||this.from.add(this.vector);
         this.character.moveTo(this.to,()=>{ this.next();});
