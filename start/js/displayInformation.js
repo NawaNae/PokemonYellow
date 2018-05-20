@@ -69,9 +69,13 @@ DisplayInformation.Text = class Text
     {
         this._display.remove(this._display);
     }
+ 
     append(child)
     {
-        this._display.appendChild(child);
+        if(this._display.append)
+            this._display.append(child)
+        else 
+            this._display.appendChild(child);
     }
     prepend(child)
     {
@@ -79,7 +83,10 @@ DisplayInformation.Text = class Text
     }
     appendTo(father)
     {
-        father.append(this._display);
+        if(father.append)
+            father.append(this._display);
+        if(father.appendChild)
+            father.appendChild(this._display);
     }
     prependTo(father)
     {

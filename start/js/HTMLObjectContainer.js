@@ -39,7 +39,7 @@ class HTMLObjectContainer
     {        
         this.container=document.createElement("div");
         this.container.classList.add("HTMLObjectContainer");
-        document.body.append(this.container);
+        document.body.appendChild(this.container);
     }
     initIllustration()
     {
@@ -192,7 +192,7 @@ class HTMLObjectContainer
     remove()
     {this._display.remove(this._display);}
     append(child)
-    {this._display.append(child);}
+    {this._display.appendChild(child);}
     prepend(child)
     {this._display.prepend(child);}
     appendTo(father)

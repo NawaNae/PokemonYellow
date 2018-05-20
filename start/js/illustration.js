@@ -25,7 +25,7 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
     {
         this.image=new Image();
         this.image.classList.add("image");
-        this.basicInfo._display.append(this.image);
+        this.basicInfo.append(this.image);
     }
     initBasicInfoRight()
     {

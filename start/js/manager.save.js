@@ -5,11 +5,12 @@ class Records
     constructor()
     {
         this.records=[];
+        this.storage=window.localStorage||localStorage;
         this.loadAll();
     }
     saveAll()
     {
-        localStorage.records=JSON.stringify(this.records);
+        this.storage.records=JSON.stringify(this.records);
     }
     save(options={index:0,mainChar:undefined,rival:undefined,rivalName:undefined,search:false})
     {
@@ -63,8 +64,7 @@ class Records
     }
     loadAll()
     {
-        if(localStorage.records)
-            this.records=JSON.parse(localStorage.records);
+        this.records=JSON.parse(this.storage.records);
     }
 
 }

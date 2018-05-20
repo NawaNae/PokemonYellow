@@ -13,7 +13,7 @@ class PalletTown extends GameSystem.Classes.Level {
             new Rectangle(new Position(13, 4),new Position(14, 4)),
             new Plot("OakFightWithPika",[
                 new AddNpc(oak),
-                new MoveChar({character:oak,to:new Position(13,4)}),
+                new MoveChar({character:oak,to:new Position(13,4),from:new Position(14,9)}),
                 new Paragraph("hen危險"),
                 new RemoveNpc(oak)
             ])
