@@ -72,8 +72,10 @@ DisplayInformation.Text = class Text
  
     append(child)
     {
+        if(child._display&&child._display.__proto__&&child._display.__proto__.__proto__&&child._display.__proto__.__proto__.constructor.name==="HTMLElement")
+            child=child._display; 
         if(this._display.append)
-            this._display.append(child)
+            this._display.append(child);
         else 
             this._display.appendChild(child);
     }

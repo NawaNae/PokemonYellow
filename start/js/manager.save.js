@@ -67,8 +67,6 @@ class Records
         var records=this.storage.getItem("records");
         if(records)
             this.records=JSON.parse(records);
-
-        
     }
 
 }
