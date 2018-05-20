@@ -80,8 +80,11 @@
 /*左側預留空位給箭頭*/
 .option
 {
+    position: relative;
+    display: block;
     line-height: 1em;
 }
+
 .option:not(.select)
 {
     margin-left:0.5em; 
@@ -481,7 +484,7 @@ label {
 }
 
 /* 「背包物品清單」版面的樣式 */
-#battlePad #backpackPad {
+#battlePad #backpackPad,.propList{
     position: absolute;
     bottom: 200px; right: 10px;
     width: calc(100% / 1.25);
@@ -513,14 +516,14 @@ label {
 }
 
 /* 在「背包物品清單」版面中的「背包物品」元件中，定義「物品名稱」的樣式 */
-#backpackPad > div.backpack-item > span.item-name {
+#backpackPad > div.backpack-item > span.item-name,.propList>.option>.name {
     display: block;
     font-size: var(--std-font-size);
     line-height: var(--std-line-height);
 }
 
 /* 在「背包物品清單」版面中的「背包物品」元件中，定義「數量」的樣式 */
-#backpackPad > div.backpack-item > span.item-amount {
+#backpackPad > div.backpack-item > span.item-amount , .propList>.option>.count {
     position: absolute;
     bottom: 10px;  right: 100px;
     font-size: var(--sm-font-size);
@@ -997,4 +1000,9 @@ div.levelUpStatPad span {
     text-align: right;
     padding-right: 15%;
     transform: scaleX(1.25);
+}
+/*覆蓋選單被選display*/
+.option.select>*:first-child
+{
+    display: inline-block;
 }
