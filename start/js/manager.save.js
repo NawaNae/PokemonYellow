@@ -10,7 +10,7 @@ class Records
     }
     saveAll()
     {
-        this.storage.records=JSON.stringify(this.records);
+        this.storage.setItem("records",JSON.stringify(this.records));
     }
     save(options={index:0,mainChar:undefined,rival:undefined,rivalName:undefined,search:false})
     {
@@ -64,7 +64,11 @@ class Records
     }
     loadAll()
     {
-        this.records=JSON.parse(this.storage.records);
+        var records=this.storage.getItem("records");
+        if(records)
+            this.records=JSON.parse(records);
+
+        
     }
 
 }
