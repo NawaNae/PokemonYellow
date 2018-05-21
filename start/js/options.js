@@ -1,3 +1,4 @@
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Options=
 class Options extends DisplayInformation.AutoKeyInput.Text
 {

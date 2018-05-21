@@ -7,6 +7,8 @@
  * @method show 顯示
  * @method hide 隱藏
  */
+var GameSystem=GameSystem||{};
+GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Dialog=
 class Dialog extends DisplayInformation.AutoKeyInput.Text
 {

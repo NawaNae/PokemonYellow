@@ -1,5 +1,4 @@
 var DisplayInformation = DisplayInformation || {};
-
 DisplayInformation.Text = class Text
 {
     constructor(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father, textOutputProcessFunction = DisplayInformation.Text.OutputFunctions.Normal)

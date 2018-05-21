@@ -1,3 +1,4 @@
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.YesNoDialog=
 class YesNoDialog extends GameSystem.Classes.Options
 {

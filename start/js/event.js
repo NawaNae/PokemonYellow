@@ -5,6 +5,7 @@
  * @param {Rectangle|Position}pos
  * @param {Plot} plot
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Event=
 class Event
 {

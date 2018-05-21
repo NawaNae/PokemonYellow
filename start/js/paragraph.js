@@ -6,7 +6,7 @@
  * @prop {string} content 段落的內容。
  * 
  */
-GameSystem.Classes.PlotContents=GameSystem.Classes.PlotContents||{};
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};GameSystem.Classes.PlotContents=GameSystem.Classes.PlotContents||{};
 GameSystem.Classes.PlotContents.Paragraph=GameSystem.Classes.Paragraph =
 class Paragraph extends GameSystem.Classes.PlotContent {
     /**

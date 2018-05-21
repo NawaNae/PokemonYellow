@@ -9,6 +9,7 @@
  * @prop {GameSystem.Classes.Position{}} movePositionVector 角色的位移向量。
  * @prop {GameSystem.Classes.Character.Face} facing 角色的面向。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Character = 
 class Character {
     /**

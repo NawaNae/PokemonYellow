@@ -3,7 +3,8 @@
  * @class ItemNumberDialog
  * @default 價錢100 買1個
  */
-GameSystem.Classes.ItemNumberDialog=
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+ GameSystem.Classes.ItemNumberDialog=
 class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
 {
     constructor(price=100,number=1)

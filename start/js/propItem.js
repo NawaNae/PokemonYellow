@@ -5,6 +5,7 @@
  * @prop {string} name 道具名稱。
  * @prop {number} count 道具的堆疊數量。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.PropItem =
 class PropItem {
     /**

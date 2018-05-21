@@ -2,6 +2,7 @@
  * @class SignBoard
  * @description 告示牌的class
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.SignBoard=
 class SignBoard
 {

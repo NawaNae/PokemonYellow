@@ -1,3 +1,4 @@
+
 /**
  * @class Protagonist
  * @classdesc 主人公。表示玩家操縱的角色。
@@ -8,6 +9,7 @@
  * @prop {number} money 主人公的金錢。
  * @prop {GameSystem.Classes.Position} screenPosition 主人公在螢幕上的位置。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Protagonist = 
 class Protagonist extends GameSystem.Classes.Character {
     constructor(name = "", position=new GameSystem.Classes.Position(3,6), atMap= "protagonistHome2F", storyLineIndex=0) {

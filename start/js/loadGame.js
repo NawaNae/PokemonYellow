@@ -4,15 +4,14 @@ Load.css(define.cssPath + "HTMLObjectsContainer.css");
 
 Load.js.import(
 [
-        { src: define.jsPath + 'speak.js', lookFor: 'speak' },
-       { src: define.jsPath + 'displayInformation.js', lookFor: 'DisplayInformation' },
-        { src: define.jsPath + 'gameSystem.js', lookFor: 'GameSystem' }, 
-        { src: define.jsPath + 'mapPosition.js', lookFor: 'GameSystem.Classes.MapPosition' },
-        { src: define.jsPath + 'connection.js', lookFor: 'GameSystem.Classes.Connection' },
+        { src: define.jsPath + 'speak.js'},
+        { src: define.jsPath + 'displayInformation.js'},
+        { src: define.jsPath + 'gameSystem.js'}, 
+        { src: define.jsPath + 'mapPosition.js' },
+        { src: define.jsPath + 'connection.js'},
         { src: define.jsPath + 'gameObject.js', lookFor: 'GameSystem.Classes.GameObject' },
         { src: define.jsPath + 'image.js', lookFor: 'GameSystem.Classes.Image' },
-        { src: define.jsPath + 'level.js', lookFor: 'GameSystem.Classes.Level' },
-        
+        { src: define.jsPath + 'level.js'  },
         { src: define.jsPath + 'standardStat.js', lookFor: 'GameSystem.Classes.StandardStat'},
         { src: define.jsPath + 'effortValue.js', lookFor: 'GameSystem.Classes.EffortValue' },
         { src: define.jsPath + 'individualValue.js', lookFor: 'GameSystem.Classes.IndividualValue' },
@@ -24,16 +23,27 @@ Load.js.import(
         { src: define.jsPath + 'pokemon.js', lookFor:'GameSystem.Classes.Pokemon'},
         { src: define.jsPath + 'animationItem.js', lookFor: 'GameSystem.Classes.AnimationItem' },
         { src: define.jsPath + 'animationList.js', lookFor: 'GameSystem.Classes.AnimationList' },
-        { src: define.jsPath + 'illustration.js',lookFor:'GameSystem.Classes.Illustration'},
-        { src: define.jsPath + 'illustrationList.js',lookFor:'GameSystem.Classes.IllustrationList'},
-        { src: define.jsPath + 'dialog.js', lookFor: 'GameSystem.Classes.Dialog' },
-        { src: define.jsPath + 'options.js', lookFor: 'GameSystem.Classes.Options' },
-        { src: define.jsPath + 'option.js', lookFor: 'GameSystem.Classes.Option' },
-        { src: define.jsPath + 'itemNumberDialog.js', lookFor: 'GameSystem.Classes.ItemNumberDialog' },
-        { src: define.jsPath + 'moneyDialog.js', lookFor: 'GameSystem.Classes.MoneyDialog' },
-        { src: define.jsPath + 'buySellDialog.js', lookFor: 'GameSystem.Classes.BuySellDialog' },
-        { src: define.jsPath + 'yesNoDialog.js', lookFor: 'GameSystem.Classes.YesNoDialog' },
-        { src: define.jsPath + 'HTMLObjectContainer.js', lookFor: 'GameSystem.Classes.HTMLObjectContainer' },
+        { src: define.jsPath + 'dialog.js', waitFor: 'DisplayInformation'   },
+        { src: define.jsPath + 'options.js'  },
+        { src: define.jsPath + 'option.js' },
+        { src: define.jsPath + 'itemNumberDialog.js' },
+        { src: define.jsPath + 'moneyDialog.js' },
+        { src: define.jsPath + 'buySellDialog.js' },
+        { src: define.jsPath + 'yesNoDialog.js'},
+        { src: define.jsPath + 'illustration.js'},
+        { src: define.jsPath + 'illustrationList.js'},
+        { src: define.jsPath + 'HTMLObjectContainer.js', waitFor:
+        [
+                'GameSystem.Classes.Dialog',
+                'GameSystem.Classes.Options',
+                'GameSystem.Classes.Option',
+                'GameSystem.Classes.ItemNumberDialog',
+                'GameSystem.Classes.MoneyDialog' ,
+                'GameSystem.Classes.BuySellDialog',
+                'GameSystem.Classes.YesNoDialog',
+                'GameSystem.Classes.Illustration',
+                'GameSystem.Classes.IllustrationList'
+        ],lookFor:'GameSystem.HTMLObjectContainer'  },
         { src: define.jsPath + 'signBoard.js', lookFor: 'GameSystem.Classes.SignBoard' },
         { src: define.jsPath + 'hpBarContainer.js', lookFor: 'GameSystem.Classes.HPBarContainer' },
         { src: define.jsPath + 'pokemonListPad.js', lookFor: 'GameSystem.Classes.PokemonListPad' },
@@ -44,7 +54,7 @@ Load.js.import(
         { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
         { src: define.jsPath + 'plotContent.js', lookFor: 'GameSystem.Classes.PlotContent' },
         { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
-        { src: define.jsPath + 'plotContents.cureAll.js', lookFor: 'GameSystem.Classes.PlotContents.CureAll' },
+        { src: define.jsPath + 'plotContents.cureAll.js', waitFor: 'GameSystem.Classes.PlotContent' },
         { src: define.jsPath + 'plotContents.script.js', lookFor: 'GameSystem.Classes.PlotContents.Script' },
         { src: define.jsPath + 'plotContents.giveProp.js', lookFor: 'GameSystem.Classes.PlotContents.GiveProp' },
         { src: define.jsPath + 'plotContents.addNpc.js', lookFor: 'GameSystem.Classes.PlotContents.AddNpc' },
@@ -66,14 +76,27 @@ Load.js.import(
         { src: define.jsPath + 'battleResult.js', lookFor: 'GameSystem.Classes.BattleResult' },
         { src: define.jsPath + 'battleAnimation.js', lookFor: 'GameSystem.Classes.BattleAnimation' },
 
-        { src: define.jsPath + 'myMenu.js', lookFor: 'MyMenu' },
-        { src: define.jsPath + 'levelPalletTown.js', lookFor: 'PalletTown' },
-        { src: define.jsPath + 'levels.loadRecord.js', lookFor: 'GameSystem.Classes.Levels.LoadRecord' },
-        { src: define.jsPath + 'levelRoute01.js', lookFor: 'Route01' },
-        { src: define.jsPath + 'battleLevel.js', lookFor: 'BattleLevel' },
-        { src: define.jsPath + 'gameSystemLoaded.js', lookFor: '' },
-        { src: define.jsPath + 'mainGame.js' }                                  //請最後載入mainGame
+        { src: define.jsPath + 'myMenu.js' },
+        { src: define.jsPath + 'levelPalletTown.js', waitFor:'GameSystem.Classes.Level'},
+        { src: define.jsPath + 'levels.loadRecord.js', },
+        { src: define.jsPath + 'levelRoute01.js'  },
+        { src: define.jsPath + 'battleLevel.js'},
+        { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
+        [
+                'GameSystem.Classes.MapPosition',
+                'GameSystem.Classes.Connection',
+        ] },
+        { src: define.jsPath + 'mainGame.js' ,waitFor:
+        [     
+                'MyMenu',
+                'PalletTown' ,
+                'Route01',
+                'BattleLevel' ,
+                'GameSystem.Classes.Levels.LoadRecord'
+        ]}                                  //請最後載入mainGame
 ]);
+
+
 
 
 

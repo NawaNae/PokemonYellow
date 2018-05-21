@@ -2,6 +2,7 @@
  * @class IllustrationList
  * @description 圖鑑的class
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.IllustrationList=
 class Illustration extends DisplayInformation.AutoKeyInput.Text
 {

@@ -6,6 +6,7 @@
  * @method hide 隱藏
  * @event resizeCanvas 在Canvas被變更時觸發
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.HTMLObjectContainer=
 class HTMLObjectContainer
 {
