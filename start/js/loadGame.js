@@ -44,28 +44,40 @@ Load.js.import(
                 'GameSystem.Classes.Illustration',
                 'GameSystem.Classes.IllustrationList'
         ],lookFor:'GameSystem.HTMLObjectContainer'  },
-        { src: define.jsPath + 'signBoard.js', lookFor: 'GameSystem.Classes.SignBoard' },
+        { src: define.jsPath + 'signBoard.js'},
         { src: define.jsPath + 'hpBarContainer.js', lookFor: 'GameSystem.Classes.HPBarContainer' },
         { src: define.jsPath + 'pokemonListPad.js', lookFor: 'GameSystem.Classes.PokemonListPad' },
         { src: define.jsPath + 'pokemonInfoPad.js', lookFor: 'GameSystem.Classes.PokemonInfoPad' },
         { src: define.jsPath + 'battlePad.js', lookFor: 'GameSystem.Classes.BattlePad' },
-        { src: define.jsPath + 'mapWalker.js', lookFor: 'GameSystem.Classes.MapWalker' },
+        { src: define.jsPath + 'mapWalker.js' },
         { src: define.jsPath + 'propItem.js', lookFor: 'GameSystem.Classes.PropItem' },
-        { src: define.jsPath + 'character.js', lookFor: 'GameSystem.Classes.Character' },
-        { src: define.jsPath + 'plotContent.js', lookFor: 'GameSystem.Classes.PlotContent' },
-        { src: define.jsPath + 'paragraph.js', lookFor: 'GameSystem.Classes.Paragraph' },
-        { src: define.jsPath + 'plotContents.cureAll.js', waitFor: 'GameSystem.Classes.PlotContent' },
-        { src: define.jsPath + 'plotContents.script.js', lookFor: 'GameSystem.Classes.PlotContents.Script' },
-        { src: define.jsPath + 'plotContents.giveProp.js', lookFor: 'GameSystem.Classes.PlotContents.GiveProp' },
-        { src: define.jsPath + 'plotContents.addNpc.js', lookFor: 'GameSystem.Classes.PlotContents.AddNpc' },
-        { src: define.jsPath + 'plotContents.removeNpc.js', lookFor: 'GameSystem.Classes.PlotContents.RemoveNpc' },
-        { src: define.jsPath + 'plotContents.moveCharacter.js', lookFor: 'GameSystem.Classes.PlotContents.MoveCharacter' },
-        { src: define.jsPath + 'npc.js', lookFor: 'GameSystem.Classes.NPC' },
-        { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' },
-        { src: define.jsPath + 'plotsController.js', lookFor: 'GameSystem.Classes.PlotsController' },
-        { src: define.jsPath + 'event.js', lookFor: 'GameSystem.Classes.Event' },
+        { src: define.jsPath + 'character.js'},
+        { src: define.jsPath + 'plotContent.js' },
+        { src: define.jsPath + 'paragraph.js', waitFor: 'GameSystem.Classes.PlotContent',lookFor: 'GameSystem.Classes.Paragraph' },
+        { src: define.jsPath + 'plotContents.cureAll.js'  },
+        { src: define.jsPath + 'plotContents.script.js' },
+        { src: define.jsPath + 'plotContents.giveProp.js'},
+        { src: define.jsPath + 'plotContents.addNpc.js' },
+        { src: define.jsPath + 'plotContents.removeNpc.js' },
+        { src: define.jsPath + 'plotContents.moveCharacter.js'},
+        { src: define.jsPath + 'event.js' },
+        { src: define.jsPath + 'npc.js' ,waitFor:"GameSystem.Classes.Character"},
 
-        { src: define.jsPath + 'protagonist.js', lookFor: 'GameSystem.Classes.Protagonist' },
+        { src: define.jsPath + 'plot.js', lookFor: 'GameSystem.Classes.Plot' ,waitFor:
+        [
+                'GameSystem.Classes.SignBoard' ,
+                'GameSystem.Classes.NPC',
+                'GameSystem.Classes.Event',
+                'GameSystem.Classes.PlotContents.Script' ,
+                'GameSystem.Classes.PlotContents.GiveProp',
+                'GameSystem.Classes.PlotContents.AddNpc' ,
+                'GameSystem.Classes.PlotContents.RemoveNpc',
+                'GameSystem.Classes.PlotContents.MoveCharacter'
+        ]},
+        { src: define.jsPath + 'plotsController.js', lookFor: 'GameSystem.Classes.PlotsController' },
+        
+
+        { src: define.jsPath + 'protagonist.js' },
         /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
         { src: define.jsPath + 'record.js', lookFor: 'GameSystem.Classes.Record' },
         { src: define.jsPath + 'manager.save.js', lookFor: 'GameSystem.Classes.Records' },  
@@ -85,9 +97,12 @@ Load.js.import(
         [
                 'GameSystem.Classes.MapPosition',
                 'GameSystem.Classes.Connection',
+                'GameSystem.Classes.Protagonist',
+               
         ] },
         { src: define.jsPath + 'mainGame.js' ,waitFor:
         [     
+                'GameSystem.Classes.MapWalker',
                 'MyMenu',
                 'PalletTown' ,
                 'Route01',
