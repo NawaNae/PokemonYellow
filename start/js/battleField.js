@@ -5,6 +5,7 @@
  * @prop {GameSystem.Classes.Occurrence[]} events 遇到寶可夢的機率清單。
  * @prop {number} steps 紀錄玩家走此草叢的步數。用於計算機率而用。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.BattleField =
 class BattleField {
     /**

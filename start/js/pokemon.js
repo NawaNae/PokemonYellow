@@ -12,6 +12,7 @@
  * @prop {GameSystem.Classes.EffortValue} EV 寶可夢的「努力值」。
  * @prop {GameSystem.Classes.Move[]} moves 此寶可夢所會的「招式」。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Pokemon =
 class Pokemon extends GameSystem.Classes.StandardStat {
     /**

@@ -22,6 +22,7 @@
  * @prop {GameSystem.Classes.StandardStat.Type} typeB 此種寶可夢所擁有的第二屬性。此項可為空。
  * @prop {String} description 寶可夢描述
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.PokemonType =
 class PokemonType extends GameSystem.Classes.StandardStat {
     /**

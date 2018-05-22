@@ -27,6 +27,7 @@
  * @prop {AnimationSet} animationSet 動畫繪製方法集合。
  * @prop {Function[]} messagingQueue 訊息佇列。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 class BattleLevel extends Framework.Level {
     constructor() {
         super();

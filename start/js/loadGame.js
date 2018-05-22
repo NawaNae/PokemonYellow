@@ -8,10 +8,8 @@ Load.js.import(
         { src: define.jsPath + 'standardStat.js'}, //1
         { src: define.jsPath + 'gameObject.js' },//2
         { src: define.jsPath + 'displayInformation.js'},//3
-
         { src: define.jsPath + 'mapPosition.js' },
         { src: define.jsPath + 'connection.js'},
-
         { src: define.jsPath + 'effortValue.js', waitFor:'GameSystem.Classes.StandardStat'  },//1
         { src: define.jsPath + 'image.js', waitFor: 'GameSystem.Classes.GameObject' },//2
         { src: define.jsPath + 'options.js'  ,waitFor:'DisplayInformation'},//3 4
@@ -19,6 +17,8 @@ Load.js.import(
         { src: define.jsPath + 'move.js'},
         { src: define.jsPath + 'level.js'  },//8
         { src: define.jsPath + 'gradingMove.js'},
+        { src: define.jsPath + 'animationItem.js' },
+        { src: define.jsPath + 'animationList.js' },
         { src: define.jsPath + 'occurrence.js'},
         { src: define.jsPath + 'dialog.js' },//3
         { src: define.jsPath + 'itemNumberDialog.js' },//5
@@ -30,13 +30,12 @@ Load.js.import(
         { src: define.jsPath + 'option.js' },
         { src: define.jsPath + 'battleField.js'},
         { src: define.jsPath + 'pokemonType.js', waitFor: 'GameSystem.Classes.Image'},//2
-        { src: define.jsPath + 'pokemon.js'},
-        { src: define.jsPath + 'animationItem.js' },
-        { src: define.jsPath + 'animationList.js' },
+
 
         { src: define.jsPath + 'HTMLObjectContainer.js'  },
         { src: define.jsPath + 'plotContent.js' },//6
         { src: define.jsPath + 'signBoard.js'},
+        { src: define.jsPath + 'pokemon.js'},
         { src: define.jsPath + 'hpBarContainer.js'  },
         { src: define.jsPath + 'pokemonListPad.js' },
         { src: define.jsPath + 'pokemonInfoPad.js' },

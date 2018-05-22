@@ -11,6 +11,7 @@
  * @prop {BattleAnimation.State} state 動畫的狀態。
  * @prop {Function} promiseResolve Promise的Resolve函式。在動畫播放完畢時，呼叫此函式來推進下一步驟。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.BattleAnimation =
 class BattleAnimation {
     /**

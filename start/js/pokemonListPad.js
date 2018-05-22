@@ -11,6 +11,7 @@
  * @prop {HTMLSpanElement} textHP 寶可夢的生命值數值。
  * @prop {boolean} isSelected 是否為被選取狀態。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.PokemonInfoBar =
 class PokemonInfoBar {
     /**

@@ -5,6 +5,7 @@
  * @prop {GameSystem.Classes.BattleInfo} player 玩家方的寶可夢戰鬥資訊。
  * @prop {GameSystem.Classes.BattleInfo} opponent 對手方的寶可夢戰鬥資訊。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.BattleStage =
 class BattleStage {
     /**

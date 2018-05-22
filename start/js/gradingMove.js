@@ -5,6 +5,7 @@
  * @prop {number} minLevel 最低門檻等級。
  * @prop {GameSystem.Classes.Move} move 指定的招式。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.GradingMove =
 class GradingMove {
     /**

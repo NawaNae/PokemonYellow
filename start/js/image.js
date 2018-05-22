@@ -1,4 +1,4 @@
-var GameSystem=GameSystem || {};
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 /**
  * 警告 請勿將draw複寫(overwrite)
  * @class GameSystem.Classes.Image

@@ -1,3 +1,4 @@
+
 GameSystem.Classes.PlotContents.CureAll=
 class CureAll extends GameSystem.Classes.PlotContent
 {

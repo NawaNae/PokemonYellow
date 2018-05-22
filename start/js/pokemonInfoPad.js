@@ -71,6 +71,7 @@
  * @prop {TypeInfoSet} typeInfoSet 「寶可夢屬性」面板的所有HTML物件。
  * @prop {MoveListSet} moveListSet 「招式清單」面板的所有HTML物件。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.PokemonInfoPad =
 class PokemonInfoPad {
     constructor() {

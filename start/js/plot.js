@@ -6,6 +6,7 @@
  * @prop {Paragraph[]} content 劇情的內容安排。
  * @prop {string} type 自動記錄type會依據目前的content之type變更
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Plot =
 class Plot {
     /**

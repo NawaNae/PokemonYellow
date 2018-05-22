@@ -7,6 +7,7 @@
  * @prop {number} maxLevel 最高等級。
  * @prop {number} probabilty 此種寶可夢的出現機率。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Occurrence =
 class Occurrence {
     /**

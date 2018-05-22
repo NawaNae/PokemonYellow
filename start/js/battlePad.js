@@ -1,3 +1,4 @@
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 /** @typedef PlayerSet 玩家方戰鬥資訊面板的HTML物件集合。
  * @prop {HTMLDivElement} playerPad 玩家方戰鬥資訊面板的HTML容器。
  * @prop {HTMLSpanElement} pokemonName 寶可夢名稱。

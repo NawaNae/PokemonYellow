@@ -5,6 +5,7 @@
  * @prop {List} actionList 存放動畫、動作的清單。
  * @prop {BattleResult.State} state 狀態。 0=雙方都可再戰鬥；1=玩家方無法再戰鬥；2=對手方無法再戰鬥
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.BattleResult =
 class BattleResult {
     constructor() {

@@ -9,6 +9,7 @@
  * @prop {number} accuracyLevel 命中率的能力階級。
  * @prop {number} evasionRateLevel 閃避率的能力階級。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.BattleInfo =
 class BattleInfo {
     constructor(pokemon) {

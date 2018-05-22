@@ -8,6 +8,7 @@
  * @prop {number} HP 當前生命值。
  * @prop {number} percent 生命值條的百分比數。
  */
+var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.HPBarContainer =
 class HPBarContainer {
     /**
