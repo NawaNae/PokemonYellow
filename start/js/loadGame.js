@@ -8,8 +8,11 @@ Load.js.import(
         { src: define.jsPath + 'standardStat.js'}, //1
         { src: define.jsPath + 'gameObject.js' },//2
         { src: define.jsPath + 'displayInformation.js'},//3
+        { src: define.jsPath + 'HTMLObjectContainer.js'  },
         { src: define.jsPath + 'mapPosition.js' },
         { src: define.jsPath + 'connection.js'},
+        { src: define.jsPath + 'animationItem.js' },
+        { src: define.jsPath + 'animationList.js' },
         { src: define.jsPath + 'effortValue.js', waitFor:'GameSystem.Classes.StandardStat'  },//1
         { src: define.jsPath + 'image.js', waitFor: 'GameSystem.Classes.GameObject' },//2
         { src: define.jsPath + 'options.js'  ,waitFor:'DisplayInformation'},//3 4
@@ -17,22 +20,15 @@ Load.js.import(
         { src: define.jsPath + 'move.js'},
         { src: define.jsPath + 'level.js'  },//8
         { src: define.jsPath + 'gradingMove.js'},
-        { src: define.jsPath + 'animationItem.js' },
-        { src: define.jsPath + 'animationList.js' },
         { src: define.jsPath + 'occurrence.js'},
         { src: define.jsPath + 'dialog.js' },//3
-        { src: define.jsPath + 'itemNumberDialog.js' },//5
-        { src: define.jsPath + 'moneyDialog.js' },//5
-        { src: define.jsPath + 'buySellDialog.js' ,waitFor:'GameSystem.Classes.Options'},//4 5
-        { src: define.jsPath + 'yesNoDialog.js'},//5
-        { src: define.jsPath + 'illustration.js'},//5
-        { src: define.jsPath + 'illustrationList.js'},//5
+        { src: define.jsPath + 'itemNumberDialog.js' },
+        { src: define.jsPath + 'moneyDialog.js' },
+        { src: define.jsPath + 'illustration.js'},
+        { src: define.jsPath + 'illustrationList.js'},
         { src: define.jsPath + 'option.js' },
         { src: define.jsPath + 'battleField.js'},
         { src: define.jsPath + 'pokemonType.js', waitFor: 'GameSystem.Classes.Image'},//2
-
-
-        { src: define.jsPath + 'HTMLObjectContainer.js'  },
         { src: define.jsPath + 'plotContent.js' },//6
         { src: define.jsPath + 'signBoard.js'},
         { src: define.jsPath + 'pokemon.js'},
@@ -41,6 +37,8 @@ Load.js.import(
         { src: define.jsPath + 'pokemonInfoPad.js' },
         { src: define.jsPath + 'mapWalker.js' },
         { src: define.jsPath + 'character.js'},//6
+        { src: define.jsPath + 'buySellDialog.js' ,waitFor:'GameSystem.Classes.Options'},//4 
+        { src: define.jsPath + 'yesNoDialog.js'},
         { src: define.jsPath + 'paragraph.js', waitFor: 'GameSystem.Classes.PlotContent' },//5 7
         { src: define.jsPath + 'plotContents.cureAll.js'  },
         { src: define.jsPath + 'plotContents.script.js' },
@@ -54,8 +52,6 @@ Load.js.import(
         { src: define.jsPath + 'npc.js' ,waitFor:"GameSystem.Classes.Character"},//6
         { src: define.jsPath + 'protagonist.js' },
         { src: define.jsPath + 'plotsController.js'},
-
-        /*  { src: define.jsPath + 'text.js', lookFor: 'GameSystem.Classes.Text' },*/
         { src: define.jsPath + 'record.js' },
         { src: define.jsPath + 'manager.save.js'  },  
         { src: define.jsPath + 'debug.js'},
