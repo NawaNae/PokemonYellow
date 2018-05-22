@@ -14,3 +14,7 @@ https://wiki.52poke.com/wiki/%E5%B1%9E%E6%80%A7%E7%9B%B8%E5%85%8B%E8%A1%A8
 
 Game Link:
 https://nawanae.github.io/PokemonYellow/start.html
+
+Speed Up 
+* 36.6% load time decreased:
+https://hackmd.io/s/HJZcrLZyX
