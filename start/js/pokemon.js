@@ -176,10 +176,3 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     }
 };
 
-// For debugging
-(() => {
-    let DEX = GameSystem.Classes.PokemonType.Dictionary;
-    GameSystem.Resource.Debug = GameSystem.Resource.Debug || {};
-    GameSystem.Resource.Debug.pikachu = new GameSystem.Classes.Pokemon("皮卡丘", DEX["皮卡丘"]);
-    GameSystem.Resource.Debug.rattata = new GameSystem.Classes.Pokemon("小拉達", DEX["小拉達"]);
-})();

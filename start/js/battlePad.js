@@ -929,4 +929,3 @@ class BattlePad {
     }
 }
 
-GameSystem.Classes.BattlePad.initBattlePad();

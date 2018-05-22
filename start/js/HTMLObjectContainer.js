@@ -207,4 +207,4 @@ class HTMLObjectContainer
     {father.prepend(this._display);}
 }
 
-GameSystem.HTMLObjectContainer=new GameSystem.Classes.HTMLObjectContainer;
+
