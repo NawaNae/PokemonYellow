@@ -74,8 +74,23 @@ class Pokemon extends GameSystem.Classes.StandardStat {
      * @return {number} 因經驗值而升級的級數。
      */
     gainExperience(exp) {
+        const ExpTable = GameSystem.Classes.PokemonType.ExperienceTable;
+        let expType = this._typeInfo.expType;
+        let levelUps = 0;
         this._exp += exp;
+
+        // 當目前等級小於100時，確認當前經驗是否能夠升級
+        if (this._level < 100) {
+            // 若當前經驗值大於下一等級的門檻時
+            while (this._exp >= ExpTable[expType][this._level + 1]) {
+                levelUps += 1;
+                this._level += 1;
+                this._EV.reset();
+            }
+        }
+
         this.updateAbilities();
+        return levelUps;
     }
 
     /**
@@ -87,6 +102,14 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         this.updateAbilities();
     }
 
+    /**
+     * 取得此寶可夢的基本經驗值。
+     * @return {number} 基本敬有值數值。
+     */
+    getBasicExperience() {
+        return this._typeInfo.basicExp;
+    }
+    
     /**
      * 檢查此寶可夢是否擁有此招式。
      * @param {GameSystem.Classes.Move} move 要檢查的目標招式。
