@@ -16,5 +16,5 @@ Game Link:
 https://nawanae.github.io/PokemonYellow/start.html
 
 Speed Up 
-* 36.6% load time decreased:
-https://hackmd.io/s/HJZcrLZyX
+* 64.48% load time decreased:
+https://hackmd.io/ZJukR56jQbamW3tnDS5lWQ

@@ -383,6 +383,8 @@ class BattleLevel extends Framework.Level {
                 // 顯示升級訊息
                 this._messagingQueue.push(next => {
                     GameSystem.BattlePad.setBattleMessage(this._playerPokemon.name + "升級至等級" + this._playerPokemon.level + "了！");
+                    GameSystem.BattlePad.setLevelUpStatValues(this._playerPokemon.attack, this._playerPokemon.defense, this._playerPokemon.speed, this._playerPokemon.special);
+                    GameSystem.BattlePad.setVisibleLevelUpStatPad(true);
                     next();
                 });
 
@@ -403,6 +405,7 @@ class BattleLevel extends Framework.Level {
                                 // 提示寶可夢已經習得了新的招式
                                 this._messagingQueue.push(next => {
                                     GameSystem.BattlePad.setBattleMessage("你的寶可夢已經習得了「" + newMove.name + "」招式。");
+                                    GameSystem.BattlePad.setVisibleLevelUpStatPad(false);
                                     next();
                                 });
                             }
@@ -413,6 +416,7 @@ class BattleLevel extends Framework.Level {
                                 // 顯示招式上限的提示
                                 this._messagingQueue.push(next => {
                                     GameSystem.BattlePad.setBattleMessage("您的寶可夢所擁有之招式量已達上限！");
+                                    GameSystem.BattlePad.setVisibleLevelUpStatPad(false);
                                     next();
                                 });
 
