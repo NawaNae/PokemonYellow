@@ -38,6 +38,13 @@ class Move {
             this._levelChange = power;
             this._statType = accuracy;
             this._isOpponent = priority;
+            this._priority = 0; 
+        }
+        // 當招式種類為「特殊」時 (Haven't done yet)
+        else if (moveType == GameSystem.Classes.Move.Types.Special) {
+            this._power = power;
+            this._accuracy = accuracy;
+            this._priority = priority; 
         }
     }
 
@@ -50,7 +57,9 @@ class Move {
     set type(newType) { this._type = newType; }
     get type() { return this._type; }
 
-    set power(newPower) { this._newPower = newPower; }
+    get moveType() { return this._moveType; }
+
+    set power(newPower) { this._power = newPower; }
     get power() { return this._power; }
 
     set accuracy(newAccuracy) { this._accuracy = newAccuracy; }
@@ -59,10 +68,13 @@ class Move {
     set priority(newPriority) { this._priority = newPriority; }
     get priority() { return this._priority; }
 
+    /** 能力階級變化 */
     get levelChange() { return this._levelChange; }
 
+    /** 階級變更的目標狀態 */
     get statType() { return this._statType; }
 
+    /** 是否施用對象為對手 */
     get isEffectToOpponent() { return this._isOpponent; }
 }
 
@@ -225,7 +237,7 @@ GameSystem.Classes.Move.Dictionary = {};
     // 初始化所有可用的「蟲」屬性招式
     DEX["吸血"] = new Move("吸血", "吸取對手的血液進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Bug, MoveTypes.Physical, 80, 100);
     DEX["飛彈針"] = new Move("飛彈針", "向對手發射銳利的針進行攻擊。可連續攻擊２～５次。", Types.Bug, MoveTypes.Physical, 25, 95);
-    DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, -2, StatusTypes.Speed, true);                       // Done
+    DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, -2, StatusTypes.Speed, true);                         // Done
     DEX["雙針"] = new Move("雙針", "將２根針刺進對手，連續２次給予傷害。有時會讓對手陷入中毒狀態。", Types.Bug, MoveTypes.Physical, 25, 100);
 
     // 初始化所有可用的「幽靈」屬性招式
