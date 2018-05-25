@@ -46,7 +46,7 @@ class BattleResult {
             type: GameSystem.Classes.BattleResult.ActionType.ShowMessage,
             animation: () => new Promise(res => {
                 GameSystem.BattlePad.setBattleMessage(message);
-                setTimeout(() => res(true), 2000);
+                setTimeout(() => res(true), delay);
             })
         });
     }
