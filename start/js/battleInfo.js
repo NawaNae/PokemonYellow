@@ -54,13 +54,13 @@ class BattleInfo {
             case StatType.Attack:
                 return this._changeAttackLevel(statusMove);
             case StatType.Defnese:
-                return this._changeDefenseLevel(diff);
+                return this._changeDefenseLevel(statusMove);
             case StatType.Speed:
-                return this._changeSpeedLevel(diff);
+                return this._changeSpeedLevel(statusMove);
             case StatType.Accuracy:
-                return this._changeAccuracyLevel(diff);
+                return this._changeAccuracyLevel(statusMove);
             case StatType.EvasionRate:
-                return this._changeEvasionLevel(diff);;
+                return this._changeEvasionLevel(statusMove);;
         }
     }
 
