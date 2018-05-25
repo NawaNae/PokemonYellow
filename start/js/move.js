@@ -76,6 +76,30 @@ class Move {
 
     /** 是否施用對象為對手 */
     get isEffectToOpponent() { return this._isOpponent; }
+
+    /**
+     * 取得狀態效果的文字敘述。
+     * @param {GameSystem.Classes.Move.StatType} statType 狀態種類。
+     * @param {number} curLevel 變更後的等級。
+     * @param {number} diff 等級的差。
+     * @return {string} 文字敘述。
+     */
+    static getStatEffectInfo(statType, curLevel, diff) {
+        switch (diff) {
+            case 1: return statType.name + "降低了！";
+            case 2: return statType.name + "大幅提高了！";
+            case 6: return statType == GameSystem.Classes.Move.StatType.Attack ? "釋放了全部力量！" : statType.name + "被提高到了最大！";
+            case -1: return statType.name + "提高了！";
+            case -2: return statType.name + "大幅降低了！";
+            case 0: return curLevel == 6 ? statType.name + "已經無法再提高了！" : statType.name + "已經無法再降低了！";
+        }
+        if (diff >= 3)
+            return statType.name + "極大幅提高了！";
+        else if (diff <= -3)
+            return statType.name + "極大幅降低了！";
+        else
+            return "能力變化解除了！";
+    }
 }
 
 /** 招式的種類列舉
@@ -103,7 +127,14 @@ GameSystem.Classes.Move.StatType = Object.freeze({
     Accuracy: Symbol("Accuracy"),
     /** 迴避率 */
     EvasionRate: Symbol("EvasionRate")
-})
+});
+
+/** 新增每個狀態相對應的中文名稱。 */
+GameSystem.Classes.Move.StatType.Attack.name = "攻擊力";
+GameSystem.Classes.Move.StatType.Defnese.name = "防禦力";
+GameSystem.Classes.Move.StatType.Speed.name = "速度值";
+GameSystem.Classes.Move.StatType.Accuracy.name = "精準度";
+GameSystem.Classes.Move.StatType.EvasionRate.name = "迴避率";
 
 /** 所有招式集 */
 GameSystem.Classes.Move.Dictionary = {};
