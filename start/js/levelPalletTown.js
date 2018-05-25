@@ -12,9 +12,14 @@ class PalletTown extends GameSystem.Classes.Level {
         (
             new Rectangle(new Position(13, 4),new Position(14, 4)),
             new Plot("OakFightWithPika",[
+                new Paragraph("等等..."),
                 new AddNpc(oak),
                 new MoveChar({character:oak,to:new Position(13,4),from:new Position(14,9)}),
-                new Paragraph("hen危險"),
+                new Paragraph("大木博士:『真是危險，"),
+                new Paragraph("野生的寶可夢會從草叢裡跳出來的』"),
+                new Paragraph("大木博士:『像這種草叢，"),
+                new Paragraph("甚麼時候跳出寶可夢也不EY。"),
+                new Paragraph("如果你有寶可夢的話可以與他戰鬥』"),
                 new RemoveNpc(oak)
             ])
         )

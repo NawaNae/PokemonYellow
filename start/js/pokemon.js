@@ -175,5 +175,17 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
         return newPokemon;
     }
+    copyFrom(pokemon)
+    {
+        this._name=pokemon._name||pokemon.name||this._name;
+        this._level=pokemon._level||pokemon.level||this._level;
+        this._exp=pokemon._exp||pokemon.exp||this._exp;
+        this._typeInfo=pokemon._typeInfo||pokemon.typeInfo||this._typeInfo;//
+        this._IV=pokemon._IV||pokemon.IV||this._IV;//
+        this._EV=pokemon._EV||pokemon.EV||this._EV;//
+        this._moves=pokemon._moves||pokemon.move||this._moves;//
+        this.updateAbilities();
+        this._HP=pokemon._HP||pokemon.HP||this._HP;
+    }
 };
 
