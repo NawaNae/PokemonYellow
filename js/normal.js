@@ -124,8 +124,9 @@ $(".coverClose").on("click",function()
 document.querySelector(".coverClose").click();
 $(".removeRecords").on("click",function()
 {
-    if(localStorage.records)
-        localStorage.removeItem("records");
+    if(confirm('Are you sure you want to delete all records?'))
+        if(localStorage.records)
+            localStorage.removeItem("records");
 });
 $(".zombieMode").on("click",function()
 {
