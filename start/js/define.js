@@ -29,7 +29,7 @@
 		},
 		'mapImagePath':
 		{
-			value:imagePath + 'maps/',
+			value:mainPath + 'image/maps/',
 			writable:false
 		},
 		'characterImagePath': {
