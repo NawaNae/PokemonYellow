@@ -664,17 +664,19 @@ class BattleLevel extends Framework.Level {
     /**
      * 繪製玩家方的寶可夢。
      * @param {Context2D} ctx Canvas的Context2D畫布。
+     * @param {Image} image 對手寶可夢的圖片。
      */
-    drawPlayersPokemon(ctx) {
-        ctx.drawImage(this._playerPokemonImage, 10, 40);
+    drawPlayersPokemon(ctx, image) {
+        ctx.drawImage(image, 10, 40);
     }
 
     /**
      * 繪製對手方的寶可夢。
      * @param {Context2D} ctx Canvas的Context2D畫布。
+     * @param {Image} image 對手寶可夢的圖片。
      */
-    drawOpponentPokemon(ctx) {
-        ctx.drawImage(this._opponentPokemonImage, 95, 5);
+    drawOpponentPokemon(ctx, image) {
+        ctx.drawImage(image, 95, 5);
     }
 
     // #endregion ============================================================================
@@ -701,8 +703,8 @@ class BattleLevel extends Framework.Level {
     }
 
     draw(ctx) {
-        this.animationSet.playerPokemon.call(this, ctx);
-        this.animationSet.opponentPokemon.call(this, ctx);
+        this.animationSet.playerPokemon(ctx, this._playerPokemonImage);
+        this.animationSet.opponentPokemon(ctx, this._opponentPokemonImage);
         this.animationSet.main(ctx);
     }
 

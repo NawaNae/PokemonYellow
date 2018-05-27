@@ -46,7 +46,7 @@ class BattleResult {
             type: GameSystem.Classes.BattleResult.ActionType.ShowMessage,
             animation: () => new Promise(res => {
                 GameSystem.BattlePad.setBattleMessage(message);
-                setTimeout(() => res(true), 2000);
+                setTimeout(() => res(true), delay);
             })
         });
     }
@@ -118,9 +118,9 @@ class BattleResult {
         let delay = 100;                    // 延遲 100 ticks
         let battleLevel_animationSet;       // 紀錄 BattleLevel 上的 animationSet
         /** 移動對手寶可夢的函式 */
-        function MovingOut(ctx) {
+        function MovingOut(ctx, image) {
             if (opponentPos.x < 145) {      // 對手寶可夢移出畫面
-                ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
+                ctx.drawImage(image, opponentPos.x, opponentPos.y);
                 opponentPos.x += 1;
             }
             else if (delay > 0) {           // 延遲

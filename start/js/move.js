@@ -37,7 +37,7 @@ class Move {
                 this._accuracy = accuracy;
                 this._priority = priority;   
             }
-            // 當招式種類為「狀態」時
+                  // 當招式種類為「狀態」時
             else if (moveType == GameSystem.Classes.Move.Types.Status) {
                 this._levelChange = power;
                 this._statType = accuracy;
