@@ -32,6 +32,15 @@ class StandardStat {
 
     set speed(newSpeed) { this._speed = newSpeed; }
     get speed() { return this._speed; }
+
+    copyFrom(staSta)
+    {
+      this._maxHP=staSta._maxHP||staSta.maxHP||this._maxHP;
+      this._attack=staSta._attack||staSta.attack||this._attack;
+      this._defense=staSta._defense||staSta.defense||this._defense;
+      this._special=staSta._special||staSta.special||this._special;
+      this._speed=staSta._speed||staSta.speed||this._speed;
+    }
 }
 
 /**

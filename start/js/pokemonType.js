@@ -53,7 +53,31 @@ class PokemonType extends GameSystem.Classes.StandardStat {
         this._basicExp = basicExp;
         this._expType = expType;
     }
-
+    copyFrom(pType)
+    {
+        var Image=GameSystem.Classes.Image;
+        this._id=pType._id||pType.id||this._id;
+        this._name=pType._name||pType.name||this._name;
+        this._image.copy(pType.image?pType.image:pType._image);
+        this._backImage.copy(pType.backImage?pType.backImage:pType._backImage)
+        if(pType._usableMoves||pType.usableMoves)
+        {
+            var moves=pType._usableMoves||pType.usableMoves;
+            var Move =GameSystem.Classes.Move;
+            this._usableMoves=new Array();
+            for(var i=0;i<moves.length;i++)
+            {
+                var move=moves[i];
+                this._usableMoves.add(new Move(move));
+            } 
+               
+        }
+        this._typeA=pType._typeA||pType.typeA||this._typeA;
+        this._typeB=pType._typeB||pType.typeB||this._typeB;
+        this._description=pType._description||pType.description||this._description;
+        this._basicExp=pType._basicExp||pType.basicExp||this._basicExp;
+        this._expType=pType._expType||pType.expType||this._expType;
+    }
     set id(newId) { this._id = newId; }
     get id() { return this._id; }
 

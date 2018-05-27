@@ -23,24 +23,62 @@ class Move {
      * @param {number?} priority 招式的優先度。當招式種類為「變化」時，此項為指定效果作用為「自己」或「對方」。
      */
     constructor(name, description, type, moveType, power, accuracy, priority = 0) {
-        this._name = name;
-        this._description = description;
-        this._type = type;
-        this._moveType = moveType;
-        // 招式種類為「物理」時
-        if (moveType == GameSystem.Classes.Move.Types.Physical) {
-            this._power = power;
-            this._accuracy = accuracy;
-            this._priority = priority;   
+        if(name.name||name._name)
+            this.copyFrom(name);//copy constructor
+        else
+        {
+            this._name = name;
+            this._description = description;
+            this._type = type;
+            this._moveType = moveType;
+            // 招式種類為「物理」時
+            if (moveType == GameSystem.Classes.Move.Types.Physical) {
+                this._power = power;
+                this._accuracy = accuracy;
+                this._priority = priority;   
+            }
+            // 當招式種類為「狀態」時
+            else if (moveType == GameSystem.Classes.Move.Types.Status) {
+                this._levelChange = power;
+                this._statType = accuracy;
+                this._isOpponent = priority;
+                this._priority = 0; 
+            }
+            // 當招式種類為「特殊」時 (Haven't done yet)
+            else if (moveType == GameSystem.Classes.Move.Types.Special) {
+                this._power = power;
+                this._accuracy = accuracy;
+                this._priority = priority; 
+            }
         }
-        // 當招式種類為「狀態」時
-        else if (moveType == GameSystem.Classes.Move.Types.Status) {
-            this._levelChange = power;
-            this._statType = accuracy;
-            this._isOpponent = priority;
+        
+    }
+    copyFrom(move)
+    {
+        this._name=move._name||move.name||this._name;
+        this._description=move._description||move.description||this._description;
+        this._type=move._type||move.type||this._type;
+        this._moveType=move._moveType||move.moveType||this._moveType;
+        if (this._moveType === GameSystem.Classes.Move.Types.Physical) 
+        {
+            this._power=move._power||move.power||this._power;
+            this._accuracy=move._accuracy||move.accuracy||this._accuracy;
+            this._priority=move._priority||move.priority||this._priority;
+        }
+        else if(this._moveType === GameSystem.Classes.Move.Types.Status)
+        {
+            this._levelChange=move._levelChange||move.levelChange||this._levelChange;
+            this._statType=move._statType||move.statType||this._statType;
+            this._isOpponent=move._isOpponent||move.isOpponent||this._isOpponent;
+            this._priority=move._priority||move.priority||this._priority;
+        }
+        else if(this.moveType === GameSystem.Classes.Move.Types.Special)
+        {
+            this._power=move._power||move.power||this._power;
+            this._accuracy=move._accuracy||move.accuracy||this._accuracy;
+            this._priority=move._priority||move.priority||this._priority;
         }
     }
-
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
 
@@ -50,7 +88,9 @@ class Move {
     set type(newType) { this._type = newType; }
     get type() { return this._type; }
 
-    set power(newPower) { this._newPower = newPower; }
+    get moveType() { return this._moveType; }
+
+    set power(newPower) { this._power = newPower; }
     get power() { return this._power; }
 
     set accuracy(newAccuracy) { this._accuracy = newAccuracy; }
@@ -59,11 +99,38 @@ class Move {
     set priority(newPriority) { this._priority = newPriority; }
     get priority() { return this._priority; }
 
+    /** 能力階級變化 */
     get levelChange() { return this._levelChange; }
 
+    /** 階級變更的目標狀態 */
     get statType() { return this._statType; }
 
+    /** 是否施用對象為對手 */
     get isEffectToOpponent() { return this._isOpponent; }
+
+    /**
+     * 取得狀態效果的文字敘述。
+     * @param {GameSystem.Classes.Move.StatType} statType 狀態種類。
+     * @param {number} curLevel 變更後的等級。
+     * @param {number} diff 等級的差。
+     * @return {string} 文字敘述。
+     */
+    static getStatEffectInfo(statType, curLevel, diff) {
+        switch (diff) {
+            case 1: return statType.name + "降低了！";
+            case 2: return statType.name + "大幅提高了！";
+            case 6: return statType == GameSystem.Classes.Move.StatType.Attack ? "釋放了全部力量！" : statType.name + "被提高到了最大！";
+            case -1: return statType.name + "提高了！";
+            case -2: return statType.name + "大幅降低了！";
+            case 0: return curLevel == 6 ? statType.name + "已經無法再提高了！" : statType.name + "已經無法再降低了！";
+        }
+        if (diff >= 3)
+            return statType.name + "極大幅提高了！";
+        else if (diff <= -3)
+            return statType.name + "極大幅降低了！";
+        else
+            return "能力變化解除了！";
+    }
 }
 
 /** 招式的種類列舉
@@ -91,7 +158,14 @@ GameSystem.Classes.Move.StatType = Object.freeze({
     Accuracy: Symbol("Accuracy"),
     /** 迴避率 */
     EvasionRate: Symbol("EvasionRate")
-})
+});
+
+/** 新增每個狀態相對應的中文名稱。 */
+GameSystem.Classes.Move.StatType.Attack.name = "攻擊力";
+GameSystem.Classes.Move.StatType.Defnese.name = "防禦力";
+GameSystem.Classes.Move.StatType.Speed.name = "速度值";
+GameSystem.Classes.Move.StatType.Accuracy.name = "精準度";
+GameSystem.Classes.Move.StatType.EvasionRate.name = "迴避率";
 
 /** 所有招式集 */
 GameSystem.Classes.Move.Dictionary = {};
@@ -225,7 +299,7 @@ GameSystem.Classes.Move.Dictionary = {};
     // 初始化所有可用的「蟲」屬性招式
     DEX["吸血"] = new Move("吸血", "吸取對手的血液進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Bug, MoveTypes.Physical, 80, 100);
     DEX["飛彈針"] = new Move("飛彈針", "向對手發射銳利的針進行攻擊。可連續攻擊２～５次。", Types.Bug, MoveTypes.Physical, 25, 95);
-    DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, -2, StatusTypes.Speed, true);                       // Done
+    DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, -2, StatusTypes.Speed, true);                         // Done
     DEX["雙針"] = new Move("雙針", "將２根針刺進對手，連續２次給予傷害。有時會讓對手陷入中毒狀態。", Types.Bug, MoveTypes.Physical, 25, 100);
 
     // 初始化所有可用的「幽靈」屬性招式
