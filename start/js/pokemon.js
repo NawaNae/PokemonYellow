@@ -21,22 +21,55 @@ class Pokemon extends GameSystem.Classes.StandardStat {
      */
     constructor(name, typeInfo) {
         super();
-        this._name = name;
-        this._level = 1;
-        this._exp = 0;
-        this._typeInfo = typeInfo;
-
         let IndividualValue = GameSystem.Classes.IndividualValue;
         let EffortValue = GameSystem.Classes.EffortValue;
-
+        let DEX = GameSystem.Classes.PokemonType.Dictionary;
+        if(name.name||name._name)//copyConstructor
+        {
+            this.copyFrom(name);
+        }
+        else
+        {
+            this._name = name;
+            this._level = 1;
+            this._exp = 0;
+            this._typeInfo = typeInfo;
+    
+            this._IV = IndividualValue.GetNewValue();    // 取得新的、隨機生成的個體數值
+            this._EV = EffortValue.GetEmptyValue();      // 取得新的、空的努力數值
+            this._moves = typeInfo.GetInitialMoves();    // 取得寶可夢最初所會的招式
+            
+            this.updateAbilities();     // 更新寶可夢的五大能力值
+            this._HP = this.maxHP;      // 初始化當前生命值
+        }
+    
+    }
+    copyFrom(pokemon)
+    {
+        let IndividualValue = GameSystem.Classes.IndividualValue;
+        let EffortValue = GameSystem.Classes.EffortValue;
+        let DEX = GameSystem.Classes.PokemonType.Dictionary;
+        super.copyFrom(pokemon);
         this._IV = IndividualValue.GetNewValue();    // 取得新的、隨機生成的個體數值
         this._EV = EffortValue.GetEmptyValue();      // 取得新的、空的努力數值
-        this._moves = typeInfo.GetInitialMoves();    // 取得寶可夢最初所會的招式
-        
-        this.updateAbilities();     // 更新寶可夢的五大能力值
-        this._HP = this.maxHP;      // 初始化當前生命值
+        var ti=pokemon.typeInfo||pokemon._typeInfo;//如果有typeinfo
+        var typeName=ti?ti.name||ti._name:name.name||name._name;//有typeInfo從typeinfo取得name沒有直接取得name
+        this._typeInfo =DEX[typeName];
+        this._name=pokemon._name||pokemon.name||this._name;
+        this._level=pokemon._level||pokemon.level||this._level;
+        this._exp=pokemon._exp||pokemon.exp||this._exp;
+        this._IV.copyFrom(pokemon._IV||pokemon.IV||this._IV);//?
+        this._EV.copyFrom(pokemon._EV||pokemon.EV||this._EV);//?
+        var Move=GameSystem.Classes.Move;
+        this._moves=[];
+        var moves=pokemon._moves||pokemon.moves;
+        for(var i=0;i<moves.length;i++)
+        {
+            this._moves.push((new Move(moves[i])))
+        }
+        this.updateAbilities();
+        this._HP=pokemon._HP||pokemon.HP||this._HP;
     }
-
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
 
@@ -198,18 +231,6 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
         return newPokemon;
     }
-    copyFrom(pokemon)
-    {
-        super.copyFrom(pokemon);
-        this._name=pokemon._name||pokemon.name||this._name;
-        this._level=pokemon._level||pokemon.level||this._level;
-        this._exp=pokemon._exp||pokemon.exp||this._exp;
-        this._typeInfo=pokemon._typeInfo||pokemon.typeInfo||this._typeInfo;//?
-        this._IV.copyFrom(pokemon._IV||pokemon.IV||this._IV);//?
-        this._EV.copyFrom(pokemon._EV||pokemon.EV||this._EV);//?
-        this._moves.copyFrom(pokemon._moves||pokemon.move||this._moves);//?
-        this.updateAbilities();
-        this._HP=pokemon._HP||pokemon.HP||this._HP;
-    }
+  
 };
 

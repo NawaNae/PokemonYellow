@@ -24,7 +24,7 @@ class PropItem {
     }
     set isDecreasing(bool){if(typeof this._count==="undefined"){console.warn("請確保有count的情況下再設定");return;}this._isDecreasing=bool;}
     get isDecreasing(){return this._isDecreasing;}
-
+    
     get name() { return this._name; }
     set name(newName) { this._name = newName; }
 

@@ -24,11 +24,11 @@ class Protagonist extends GameSystem.Classes.Character {
         this._atMap = atMap;
         let DEX = GameSystem.Classes.PokemonType.Dictionary;
         let pikachu=new GameSystem.Classes.Pokemon("皮卡丘",DEX["皮卡丘"]);
-        pikachu.level=3;
+        pikachu.level=1;
         pikachu.updateAbilities();
         pikachu.HP=pikachu.maxHP;
         this._pokemons = [pikachu];
-        this._props = [{name:"小茂的照片",count:"1314520"}];
+        this._props = [];
         this._money = 3000;
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
     }
@@ -40,6 +40,18 @@ class Protagonist extends GameSystem.Classes.Character {
         this.atMap=mainChar._atMap||mainChar.atMap||this.atMap;
         this._props=mainChar._props||mainChar.props||this._props;
         this.money=mainChar._money||mainChar.money||this._money;
+        var Pokemon=GameSystem.Classes.Pokemon;
+        var pokemons=mainChar.pokemons||mainChar._pokemons;
+        if(pokemons.length>0)    
+        {
+            this._pokemons=[];
+            for(var i=0;i<pokemons.length;i++)
+            {
+                this.pokemons.push(new Pokemon(pokemons[i]));
+            }    
+        }   
+            
+
     }
     initialize()
     {
