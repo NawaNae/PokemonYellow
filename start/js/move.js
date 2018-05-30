@@ -57,8 +57,8 @@ class Move {
     {
         this._name=move._name||move.name||this._name;
         this._description=move._description||move.description||this._description;
-        this._type=move._type||move.type||this._type;
-        this._moveType=move._moveType||move.moveType||this._moveType;
+        //this._type=move._type||move.type||this._type;
+        //this._moveType=move._moveType||move.moveType||this._moveType;
         if (this._moveType === GameSystem.Classes.Move.Types.Physical) 
         {
             this._power=move._power||move.power||this._power;
@@ -68,7 +68,7 @@ class Move {
         else if(this._moveType === GameSystem.Classes.Move.Types.Status)
         {
             this._levelChange=move._levelChange||move.levelChange||this._levelChange;
-            this._statType=move._statType||move.statType||this._statType;
+         //   this._statType=move._statType||move.statType||this._statType;
             this._isOpponent=move._isOpponent||move.isOpponent||this._isOpponent;
             this._priority=move._priority||move.priority||this._priority;
         }

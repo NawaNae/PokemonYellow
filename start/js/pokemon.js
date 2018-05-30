@@ -54,19 +54,25 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         this._EV = EffortValue.GetEmptyValue();      // 取得新的、空的努力數值
         var ti=pokemon.typeInfo||pokemon._typeInfo;//如果有typeinfo
         var typeName=ti?ti.name||ti._name:name.name||name._name;//有typeInfo從typeinfo取得name沒有直接取得name
+        this._moves=[];
         this._typeInfo =DEX[typeName];
+
         this._name=pokemon._name||pokemon.name||this._name;
         this._level=pokemon._level||pokemon.level||this._level;
+        this._moves=this._typeInfo.GetInitialMoves();
+        for(var i=0;i<=this._level;i++)
+        {
+            var newMoves=this._typeInfo.GetPossibleMovesToLearnByLevel(i);
+            if(newMoves)
+                this._moves=this._moves.concat(newMoves);
+        }
+            
         this._exp=pokemon._exp||pokemon.exp||this._exp;
         this._IV.copyFrom(pokemon._IV||pokemon.IV||this._IV);//?
         this._EV.copyFrom(pokemon._EV||pokemon.EV||this._EV);//?
         var Move=GameSystem.Classes.Move;
-        this._moves=[];
-        var moves=pokemon._moves||pokemon.moves;
-        for(var i=0;i<moves.length;i++)
-        {
-            this._moves.push((new Move(moves[i])))
-        }
+
+        
         this.updateAbilities();
         this._HP=pokemon._HP||pokemon.HP||this._HP;
     }
