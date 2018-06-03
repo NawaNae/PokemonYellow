@@ -249,3 +249,13 @@ GameSystem.Bridges.BattleData = {
     opponent: null,
     selectPokemon: null
 };
+
+/**
+ * 初始化戰鬥結果的橋接：「輸贏結果」與「遇到的寶可夢」之資料模型。
+ * @prop {boolean} isPlayerWon 是否玩家贏了戰鬥。
+ * @prop {Set<string>} fightedPokemonTypes 有交手到的敵對寶可夢之種族名稱。
+ */
+GameSystem.Bridges.BattleResult = {
+    isPlayerWon: false,
+    fightedPokemonTypes: null
+};
