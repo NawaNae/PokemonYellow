@@ -38,7 +38,8 @@
 .HTMLObjectContainer .buySellDialog,
 .HTMLObjectContainer .shoppingList,
 .HTMLObjectContainer .propList,
-.HTMLObjectContainer .itemNumberDialog
+.HTMLObjectContainer .itemNumberDialog,
+.HTMLObjectContainer .characterInfo
 {
     box-sizing: border-box;
     background-color:#f8f8f8e8;
@@ -47,7 +48,7 @@
 }
 
 /*覆蓋窗共通設定*/
-.HTMLObjectContainer .illustrationList,.HTMLObjectContainer .illustration
+.HTMLObjectContainer .illustrationList,.HTMLObjectContainer .illustration,.characterInfo
 {
     background-color:#f8f8f8;
     width: 100%;
@@ -168,7 +169,7 @@
 }
 
 /*整頁覆蓋窗設定*/
-.illustrationList
+.illustrationList,.characterInfo
 {
    z-index: 10;
 }

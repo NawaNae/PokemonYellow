@@ -28,6 +28,7 @@ class HTMLObjectContainer
         this.initItemNumber();
         this.initShoppingList();
         this.initPropList();
+        this.initCharacterInfo();
         this.resizeCanvas=(width,height)=>
         {
             this.container.style.width=width;
@@ -90,7 +91,7 @@ class HTMLObjectContainer
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustrationList.show();;}));
         this.options.push(new GameSystem.Classes.Option("寶可夢"));
         this.options.push(new GameSystem.Classes.Option("道具",()=>{this.propList.show();}));
-        var characterData=new GameSystem.Classes.Option("角色資料");
+        var characterData=new GameSystem.Classes.Option("角色資料",()=>{this.characterInfo.show();});
         this.options.push(characterData);
         this.options.push(new GameSystem.Classes.Option("儲存",function(){
             var dialog = GameSystem.HTMLObjectContainer.yesNoDialog,RM=GameSystem.Manager.Records;
@@ -185,6 +186,25 @@ class HTMLObjectContainer
         }
        
         this.addChild(this.propList);
+    }
+    initCharacterInfo()
+    {
+        var Text=DisplayInformation.Text,Digit=DisplayInformation.Digit,x;
+        var characterInfo=new DisplayInformation.AutoKeyInput.Text(x,x,x,"characterInfo");
+        var mainChar=GameSystem.protagonist;
+        var name=new Text(mainChar.name,"名稱：");
+        var money=new Digit(mainChar.money,"金錢：","円");
+        characterInfo.append(name);
+        characterInfo.append(money);
+        this.addChild(characterInfo);
+        characterInfo.onShow=function()
+        {
+            name.text=mainChar.name;
+            name.money=mainChar.money;
+        }
+        characterInfo.keyInput=()=>{characterInfo.hide();}
+        characterInfo.hide();
+        this.characterInfo=characterInfo;
     }
     get visible()
     {return !this.container.classList.contains(this.displayClassName[0]);}
