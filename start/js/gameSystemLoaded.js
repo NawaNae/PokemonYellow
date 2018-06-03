@@ -1,12 +1,12 @@
 
 GameSystem.loaded=function ()
 {
-    var GS=GameSystem,CS=GS.Classes,Image=CS.Image;
+    var GS=GameSystem,CS=GS.Classes,Image=CS.Image,Position=CS.Position;
     var x;
     defPlot();
     defProp();
     GS.protagonist=new CS.Protagonist();
-    GS.rival=new CS.Character(x,x,x,new Image(define.characterImagePath+"rival.png"),10);
+    GS.rival=new CS.NPC(x,x,x,new Image(define.characterImagePath+"rival.png",{cutStartPosition:new Position(0,0),cutSize:new Position(1,1)}),4);
     let protagonist=GS.protagonist;
     protagonist.initialize();
     protagonist.image.addToAllLevels();

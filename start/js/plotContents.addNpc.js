@@ -30,6 +30,7 @@ class AddNpc extends GameSystem.Classes.PlotContent
         if(!level.map.attach){console.warn("無法attachImage");return;}
         level.map.attach(this.npc.image);
         npcs.push(this.npc);
+        this.npc.updateImagePosition();
         this.next();
     }
 }

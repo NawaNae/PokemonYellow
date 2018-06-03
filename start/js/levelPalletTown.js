@@ -22,7 +22,7 @@ class PalletTown extends GameSystem.Classes.Level {
                 new Paragraph("如果你有寶可夢的話可以與他戰鬥』"),
                 new Paragraph("大木博士:『對了跟我去研究所吧』"),
                 new RemoveNpc(oak),
-                new Script(()=>{mainChar.position=new Position(5,2);mainChar.atMap="doctorsHome";mainChar.storyLineIndex=0.1;}),
+                new Script(()=>mainChar.storyLineIndex=0.1)
   
             ])
             ,()=>mainChar.storyLineIndex===0
@@ -445,12 +445,12 @@ class DoctorsHome extends GameSystem.Classes.Level {
         var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter,mainChar=GS.protagonist;
         var e1=new Event
         (
-            new Rectangle(new Position(5, 6),new Position(4, 6)) ,
-            new Plot(
+            new Rectangle(new Position(5, 2),new Position(5,2)) ,
+            new Plot("OakGivePokemon",
                 [
                     new AddNpc(GS.rival),
-                    new Script(()=>{GS.rival.facing="Up";GS.rival.position=new Position(4,2);}),
-                    new Script(()=>mainChar.storyLineIndex=0.1),
+                    new Script(()=>{GS.rival.facing="Up";GS.rival.position=new Position(4,2);GS.rival.updateImagePosition();}),
+                   
                     new Paragraph("$RIVAL_NAME:『爺爺，道路接通了』"),
                     new Paragraph("大木博士:『$RIVAL_NAME你來拉?"),
                     new Paragraph("$RIVAL_NAME你來拉?』"),
@@ -470,17 +470,18 @@ class DoctorsHome extends GameSystem.Classes.Level {
                     new Paragraph("反正是早晚的事，$MY_NAME這是另一隻我剛剛隨便抓的"),
                     new Paragraph("和人(kirito)還不是那麼親近"),
                     new Paragraph("$MY_NAME得到了皮卡丘"),
+                    new Script(()=>mainChar.storyLineIndex=0.2),
                 ]),
             ()=>mainChar.storyLineIndex===0.1
         )
         this.events.push(e1);
         var e2=new Event
         (
-            new Rectangle(new Position(5, 2),new Position(5, 2)),
+            new Rectangle(new Position(5, 6),new Position(4, 6)),
             new Plot("RivalFirstFight",[
                 new Paragraph("$RIVAL_NAME:『等等！$MY_NAME好不容易從爺爺手中"),
                 new Paragraph("得到寶可夢…就當我的對手練習練習吧♥』"),
-                new MoveChar(GS.rival,{to:mainChar.position.add(0,-1)}),
+                new MoveChar({character:GS.rival,to:new Position(4,6)}),
                 /**
                  * 戰鬥...
                  */

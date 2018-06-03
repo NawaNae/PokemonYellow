@@ -233,8 +233,6 @@ class Character {
     }
     updateImagePosition()
     {
-        let protaScPos=GameSystem.protagonist._screenPosition.toPoint();
-        let protaPos = GameSystem.protagonist.point;
         let myPos=this.position.toPoint();
         if(this._image)
         {
