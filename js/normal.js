@@ -126,7 +126,7 @@ $(".developer").on("click",function()
     let next= document.querySelector(".nextPageButton");
    
     let last=document.querySelector(".lastPageButton");
-    if(next.classList.contains("disable"))next.classList.remove("disable");
+    if(!next.classList.contains("disable"))next.classList.add("disable");
     if(!last.classList.contains("disable"))last.classList.add("disable");
     article.id="playHelp";
     article.dataset.page=0;
