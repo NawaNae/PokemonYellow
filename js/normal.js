@@ -1,4 +1,6 @@
-
+if(typeof navigator.onLine !== "undefined")
+    if(!navigator.onLine)
+        alert("這是網頁，請確保開啟網路，不然會造成無法瀏覽操作說明")
 var NawaNawa=NawaNawa||{};
 /**
  * 尋找某元素的祖先
