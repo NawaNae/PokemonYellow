@@ -165,10 +165,17 @@ class HTMLObjectContainer
                 var prop=mainChar._props[i]
                 if(prop)
                 {
-                    var option=new Option("",mainChar._props[i].use||function(){});
+                    var option=new Option("",function(){this.prop._use();this.propName.text=this.prop.name;if(this.prop.count)this.propCount.value=this.prop.count}||function(){});
+                    option.prop=prop;
                     this.push(option);
-                    option.append(new Text(prop.name,X,X,"name","span"));
-                    if(prop.count)option.append(new Digit(prop.count,"x ",X,"count","span"))
+                    
+ 
+
+                    option.propName=new Text(prop.name,X,X,"name","span");
+                    option.append(option.propName);
+                    option.propCount=new Digit(prop.count,"x ",X,"count","span")
+                    if(prop.count)option.append(option.propCount)
+
                 }
                    
             }

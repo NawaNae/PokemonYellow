@@ -11,5 +11,6 @@ GameSystem.debugDefine=function()
     GM=GS.Manager;
     RM=GM.Records;
     KM=GM.Key;
-    GR=GS.Resources;
+    GR=GS.Resource;
+    PropDict=GR.PropDictionary;
 }

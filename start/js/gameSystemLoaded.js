@@ -4,6 +4,7 @@ GameSystem.loaded=function ()
     var GS=GameSystem,CS=GS.Classes,Image=CS.Image;
     var x;
     defPlot();
+    defProp();
     GS.protagonist=new CS.Protagonist();
     GS.rival=new CS.Character(x,x,x,new Image(define.characterImagePath+"rival.png"),10);
     let protagonist=GS.protagonist;
@@ -12,6 +13,17 @@ GameSystem.loaded=function ()
     GameSystem.HTMLObjectContainer=new GameSystem.Classes.HTMLObjectContainer;
     GameSystem.Classes.BattlePad.initBattlePad();
 
+}
+var defProp=()=>
+{
+    GameSystem.Resource=GameSystem.Resource||{};
+    var GR=GameSystem.Resource;GR.PropDictionary=GR.PropDictionary||{};
+    var Prop=GameSystem.Classes.PropItem;
+    var x;
+    GR.PropDictionary=
+    {
+        "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;}),
+    };
 }
 /** 定義所有的劇本 */
 var defPlot=()=>{

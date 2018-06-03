@@ -39,6 +39,19 @@ class Protagonist extends GameSystem.Classes.Character {
         this.storyLineIndex=mainChar.storyLineIndex||this.storyLineIndex;
         this.atMap=mainChar._atMap||mainChar.atMap||this.atMap;
         this._props=mainChar._props||mainChar.props||this._props;
+        var props=mainChar._props||mainChar.props;
+        var Prop=GameSystem.Classes.PropItem;
+        var GR=GameSystem.Resource,Dict=GR.PropDictionary;
+        if(props.length>0)
+        {
+            this._props=[];
+            for(var prop of props)
+            {
+                var np=new Prop(Dict[prop._name||prop.name]);
+                np.copy(prop);
+                this._props.push(np);
+            }
+        }    
         this.money=mainChar._money||mainChar.money||this._money;
         var Pokemon=GameSystem.Classes.Pokemon;
         var pokemons=mainChar.pokemons||mainChar._pokemons;
