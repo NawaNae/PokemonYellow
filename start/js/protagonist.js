@@ -32,6 +32,13 @@ class Protagonist extends GameSystem.Classes.Character {
         this._money = 3000;
         this.metPokemons=[pikachu.name];
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
+        this.mapMoveVector=//地圖移動向量陣列
+        {
+            Up:new GameSystem.Classes.Point(0,+1),
+            Down:new GameSystem.Classes.Point(0,-1),
+            Right:new GameSystem.Classes.Point(-1,0),
+            Left:new GameSystem.Classes.Point(+1,0),
+        }
     }
     meetPokemon(pokemon)
     {
@@ -79,6 +86,55 @@ class Protagonist extends GameSystem.Classes.Character {
         this.metPokemons=mainChar.metPokemons;
             
 
+    }
+    walk(moveKey,end=()=>{})
+    {
+        var waitForWalk=()=>{if(this.isWalk)setTimeout(waitForWalk,100);else
+            {
+                var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
+                if(moveKey.constructor.name=="Position")
+                {
+                    if(this.position.sub(moveKey).len===1)
+                        moveKey=this.getSingleDirection(moveKey);
+                    else
+                        {console.log("You cannot input a position is without normalized, or try to using 'Up', 'Down', 'Left', 'Right' to replace it.");return;}
+                }
+            var map=Framework.Game._currentLevel.map;if(!map){console.warn("無法取得map");return;}
+            let move=this.movePositionVector[moveKey],mapMoveVector = this.mapMoveVector[moveKey];
+            this.facing=moveKey;
+            if (!level) {
+                this.position.addi(move);
+            }
+            else
+            {
+                var newPos = this.position.add(move) ;
+                if(!level.isWalkableAt(newPos))
+                    return;
+                this.isWalk=true;
+                this.position=newPos;
+                var period=(GameSystem.Manager.Key.lockTime/16-10)||300/16;
+                var mapMovePoint=this.mapMoveVector[moveKey];
+                var count=0;
+                var timeout=()=>
+                {
+                    map.position.x+=mapMovePoint.x;
+                    map.position.y+=mapMovePoint.y;
+                    count++;
+                    if(count<16)
+                        setTimeout(timeout,period);
+                    else
+                      { 
+                            end();
+                            this.updateImagePosition();
+                            this.isWalk=false;
+                    }
+                }
+                timeout();
+    
+            }
+            }
+        }
+        waitForWalk();
     }
     initialize()
     {

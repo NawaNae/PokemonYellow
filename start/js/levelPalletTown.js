@@ -21,8 +21,11 @@ class PalletTown extends GameSystem.Classes.Level {
                 new Paragraph("甚麼時候跳出寶可夢也不EY。"),
                 new Paragraph("如果你有寶可夢的話可以與他戰鬥』"),
                 new Paragraph("大木博士:『對了跟我去研究所吧』"),
+                new MoveChar({character:oak,from:new Position(13,4),to:new Position(14,9)}),
                 new RemoveNpc(oak),
-                new Script(()=>mainChar.storyLineIndex=0.1)
+                new MoveChar({character:mainChar,to:new Position(15,14)}),
+                new Script(()=>mainChar.storyLineIndex=0.1),
+                
   
             ])
             ,()=>mainChar.storyLineIndex===0
