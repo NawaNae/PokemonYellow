@@ -30,7 +30,13 @@ class Protagonist extends GameSystem.Classes.Character {
         this._pokemons = [pikachu];
         this._props = [];
         this._money = 3000;
+        this.metPokemons=[pikachu.name];
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
+    }
+    meetPokemon(pokemon)
+    {
+        if(!this.metPokemons.find(name=>pokemon.name===name))
+            this.metPokemons.push(pokemon.name);
     }
     copyFrom(mainChar)
     {
@@ -63,6 +69,7 @@ class Protagonist extends GameSystem.Classes.Character {
                 this.pokemons.push(new Pokemon(pokemons[i]));
             }    
         }   
+        this.metPokemons=mainChar.metPokemons;
             
 
     }

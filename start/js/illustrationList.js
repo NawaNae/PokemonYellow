@@ -15,6 +15,36 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
         this.lastKeyInput;
         this.keyInput=(e)=>{this._keyInput(e);}
     }
+    onShow()
+    {
+        var mainChar=GameSystem.protagonist;
+        this.findNumber.value=mainChar.metPokemons.length;
+        let list=this.list,dictionary=GameSystem.Classes.PokemonType.Dictionary;
+        var i=0;
+        for(let key in dictionary)
+        {
+            if(key!=="length")
+            {
+                var option=list.options[i]
+                if(mainChar.metPokemons.find(name=>name===key))
+                {
+                    option.text=dictionary[key].id + " " + key;
+                    option.selectSend=function()
+                    {
+                        let ill=GameSystem.HTMLObjectContainer.illustration;
+                        ill.setInfo=dictionary[key];
+                        ill.show();
+                    }
+                }
+                else
+                {
+                    option.text="????";
+                    option.selectSend=()=>{};
+                }
+            }
+            i++;
+        }
+    }
     initList()
     {
         let Options=GameSystem.Classes.Options,Option=GameSystem.Classes.Option;
@@ -25,12 +55,7 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
         for(let key in dictionary)
         {
             if(key!=="length")
-            list.push(new Option(dictionary[key].id + " " + key,function()
-            {
-                let ill=GameSystem.HTMLObjectContainer.illustration;
-                ill.setInfo=dictionary[key];
-                ill.show();
-            }));
+            list.push(new Option("????",function() {}));
         }
        
         list.push(new Option("length",function(){var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
