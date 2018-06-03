@@ -47,6 +47,7 @@ class Level extends Framework.Level
     initEvents(){}
     load()
     {
+  
         this.loadNullSprite();
         GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
     }

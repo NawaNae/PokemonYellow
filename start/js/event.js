@@ -9,7 +9,7 @@ var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.Event=
 class Event
 {
-    constructor(pos,plot)
+    constructor(pos,plot,conditionFunc)
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
         var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,MoveCharacter=PC.MoveCharacter;
@@ -29,11 +29,11 @@ class Event
             plot=new Plot("event",[new Script(plot)]);
 
         this._plotController.push(plot);
-        
+        this.condition=conditionFunc;
             
     }
     start()
-    { this.plot.start();}
+    { if((!this.condition)||(this.condition&&this.condition()))this.plot.start();}
     get plots(){return this._plotController.plots;}
     set plots(val){this._plotController.plots=new Array(val)}
     set plot(newPlot) { this._plotController.plot=newPlot; }

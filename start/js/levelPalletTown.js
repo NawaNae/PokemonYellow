@@ -3,7 +3,7 @@ class PalletTown extends GameSystem.Classes.Level {
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
         var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc;
-        var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter;
+        var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter,mainChar=GS.protagonist;
         var e0=new Event(new Position(12,10),()=>{for(let i=0;i<this.npcs.length;i++)this.npcs[i].moveTo(GameSystem.protagonist.position)});
         this.events.push(e0);
         var oak=new NPC("doctorOak",CS.Character.Face.Down,new Position(14, 9),new Image(define.characterImagePath + "oak.png", { cutStartPosition: new Position(1, 0), cutSize: new Position(1, 1) }),4, Drama.OakNormal);
@@ -20,8 +20,12 @@ class PalletTown extends GameSystem.Classes.Level {
                 new Paragraph("大木博士:『像這種草叢，"),
                 new Paragraph("甚麼時候跳出寶可夢也不EY。"),
                 new Paragraph("如果你有寶可夢的話可以與他戰鬥』"),
-                new RemoveNpc(oak)
+                new Paragraph("大木博士:『對了跟我去研究所吧』"),
+                new RemoveNpc(oak),
+                new Script(()=>{mainChar.position=new Position(5,2);mainChar.atMap="doctorsHome";mainChar.storyLineIndex=0.1;}),
+  
             ])
+            ,()=>mainChar.storyLineIndex===0
         )
         this.events.push(e1);
         
@@ -364,6 +368,7 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 6 }, { x: 0, y: 7 }));
         this.obstacles.push(new CS.Rectangle({ x: 7, y: 6 }, { x: 7, y: 7 }));
      }
+
     load()
     {
         super.load();
@@ -433,6 +438,58 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 )
             ));
     }
+    initEvents()
+    {
+        var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
+        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc;
+        var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter,mainChar=GS.protagonist;
+        var e1=new Event
+        (
+            new Rectangle(new Position(5, 6),new Position(4, 6)) ,
+            new Plot(
+                [
+                    new AddNpc(GS.rival),
+                    new Script(()=>{GS.rival.facing="Up";GS.rival.position=new Position(4,2);}),
+                    new Script(()=>mainChar.storyLineIndex=0.1),
+                    new Paragraph("$RIVAL_NAME:『爺爺，道路接通了』"),
+                    new Paragraph("大木博士:『$RIVAL_NAME你來拉?"),
+                    new Paragraph("$RIVAL_NAME你來拉?』"),
+                    new Paragraph("我不是叫你稍後再來嗎…既然來拉"),
+                    new Paragraph("那就再等一下吧！』"),
+                    new Paragraph("喔～！$MY_NAME給你一個寶可夢吧"),
+                    new Paragraph("就在這麼寶可夢球裡面有著一隻寶可夢"),
+                    new Paragraph("拿去吧～！』"),
+                    new Paragraph("$RIVAL_NAME:『阿～！阿～！偏心！爺爺我也要！』"),
+                    new Paragraph("大木博士:『唉呦！$RIVAL_NAME急甚麼！我等一下"),
+                    new Paragraph("也會給你的』"),
+                    new Paragraph("$RIVAL_NAME:『不管！是我的』"),
+                    new Paragraph("恭喜$MY_NAME的寶可夢球被強走了"),
+                    new Paragraph("大木博士:『畏！$RIVAL_NAME死因仔！你在做啥』"),
+                    new Paragraph("$RIVAL_NAME:『爺爺！人家就是想要這個嘛！』"),
+                    new Paragraph("大木博士:『真拿你沒辦法！好吧那個就給你"),
+                    new Paragraph("反正是早晚的事，$MY_NAME這是另一隻我剛剛隨便抓的"),
+                    new Paragraph("和人(kirito)還不是那麼親近"),
+                    new Paragraph("$MY_NAME得到了皮卡丘"),
+                ]),
+            ()=>mainChar.storyLineIndex===0.1
+        )
+        this.events.push(e1);
+        var e2=new Event
+        (
+            new Rectangle(new Position(5, 2),new Position(5, 2)),
+            new Plot("RivalFirstFight",[
+                new Paragraph("$RIVAL_NAME:『等等！$MY_NAME好不容易從爺爺手中"),
+                new Paragraph("得到寶可夢…就當我的對手練習練習吧♥』"),
+                new MoveChar(GS.rival,{to:mainChar.position.add(0,-1)}),
+                /**
+                 * 戰鬥...
+                 */
+                new RemoveNpc(GS.rival),
+                new Script(()=>mainChar.storyLineIndex=1),
+            ]),()=>mainChar.storyLineIndex===0.2);
+        this.events.push(e2);
+        
+    }
     initObstacles()
     {
         var GS = GameSystem;
@@ -455,7 +512,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 Drama.OakNormal
             )
         );
-
+ 
     }
     load()
     {
