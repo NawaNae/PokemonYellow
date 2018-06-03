@@ -115,7 +115,7 @@ $(".webLinks.playHelp").on("click",function()
     article.id="playHelp";
     article.dataset.page=0;
     
-    $('.coverContent.article>.pages').load("pages/playHelp/0.html",function(){$(this).fadeIn(200);}).hide();
+    $('.coverContent.article>.pages').load("https://nawanae.github.io/PokemonYellow/pages/playHelp/0.html",function(){$(this).fadeIn(200);}).hide();
 })
 $(".coverClose").on("click",function()
 {
