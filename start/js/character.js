@@ -160,9 +160,9 @@ class Character {
     }
     findRoad( to,from=this.position)
     {
-        var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel;
+       
+        var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel,levelName=Framework.Game._findLevelNameByLevel(gameLevel);
         var size={x:gameLevel.size.pos2.x+1,y:gameLevel.size.pos2.y+1};
-        if(!gameLevel.isWalkableAt(to))return ;//終點不可走
         var map=new Array(size.x);
         /**
          * @prop {number} X - 不能走 
@@ -183,6 +183,11 @@ class Character {
             for(var x=i.pos1.x;x<=i.pos2.x;x++)
                 for(var y=i.pos1.y;y<=i.pos2.y;y++)
                     map[x][y]={t:Enum.X,visit:false};
+        for(var i of gameLevel.gates)
+        {
+            var pos=i.findPlaceByMapName(levelName).position;
+            map[pos.x][pos.y]={t:Enum.R,visit:false};
+        }
         map[from.x][from.y]={t:Enum.S,visit:false};
         map[to.x][to.y]={t:Enum.E,visit:false};
         var headPos = from;
