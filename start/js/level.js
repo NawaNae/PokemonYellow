@@ -180,11 +180,13 @@ class Level extends Framework.Level
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
+        var mainChar=GS.protagonist;
        this.npcTalkNow=undefined;//記錄對話的NPC
         if (KM.isMoveKey(e.key)) {
             
             let key = KM.moveKeys[e.key];
-            GS.protagonist.facing = CS.Character.Face[key];
+            mainChar.walk(key);
+           /* GS.protagonist.facing = CS.Character.Face[key];
             var newPosition = new CS.Position(GS.protagonist.position.x + GS.protagonist.movePositionVector[key].x,
                 GS.protagonist.position.y + GS.protagonist.movePositionVector[key].y
             );
@@ -211,12 +213,10 @@ class Level extends Framework.Level
                         GS.protagonist.meetPokemon(wildPoke);
                         BD.opponent=wildPoke;
                         BD.selectPokemon=GameSystem.protagonist.pokemons[0];
-                        
-                        
                         Framework.Game.goToLevel('battleLevel');
                     }
             }
-        }else
+        */}else
         if(KM.keyMapping[e.key]=="A")
         {
             if((this.npcTalkNow=this.isNPCAtThenGet(GS.protagonist.facePosition)))
