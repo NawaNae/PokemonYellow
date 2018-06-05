@@ -1,12 +1,16 @@
 
 GameSystem.loaded=function ()
 {
-    var GS=GameSystem,CS=GS.Classes,Image=CS.Image,Position=CS.Position;
+    var GS=GameSystem,CS=GS.Classes,Image=CS.Image,Position=CS.Position,Pokemon=CS.Pokemon,DEX=CS.PokemonType.Dictionary;
     var x;
     defPlot();
     defProp();
     GS.protagonist=new CS.Protagonist();
-    GS.rival=new CS.NPC(x,x,x,new Image(define.characterImagePath+"rival.png",{cutStartPosition:new Position(0,0),cutSize:new Position(1,1)}),4);
+    let ibu=new Pokemon("伊布",DEX["伊布"]);
+    ibu.level=5;
+    ibu.updateAbilities();
+    ibu.HP=ibu.maxHP;
+    GS.rival=new CS.NPC(x,x,x,new Image(define.characterImagePath+"rival.png",{cutStartPosition:new Position(0,0),cutSize:new Position(1,1)}),4,x,x,x,[ibu],new Image(define.characterImagePath+"Rival_InBattle.png"));
     let protagonist=GS.protagonist;
     protagonist.initialize();
     protagonist.image.addToAllLevels();
@@ -20,9 +24,13 @@ var defProp=()=>
     var GR=GameSystem.Resource;GR.PropDictionary=GR.PropDictionary||{};
     var Prop=GameSystem.Classes.PropItem;
     var x;
+    /*所有物品的陣列 請在此定義物品 */
     GR.PropDictionary=
     {
+        /*String: new Prop("Name",Count,useFunction(請回傳true or 非undefined/false 自動判斷減少物品)) */
         "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;}),
+
+
     };
 }
 /** 定義所有的劇本 */
