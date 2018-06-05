@@ -40,7 +40,7 @@ class Route01 extends GameSystem.Classes.Level
         var pushField=(x1,y1,x2,y2)=>{let f=nField(x1,y1,x2,y2);addOccur(f);this.battleFields.push(f);};
         pushField(10,39,11,34);
         pushField(12,33,15,32);
-        pushField(14,11,17,30);
+        pushField(14,31,17,30);
         pushField(4, 33,7,32);
         pushField(6, 31,9,30);
         pushField(12,27,15,24);
