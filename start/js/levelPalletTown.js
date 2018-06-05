@@ -21,12 +21,10 @@ class PalletTown extends GameSystem.Classes.Level {
                 new Paragraph("甚麼時候跳出寶可夢也不EY。"),
                 new Paragraph("如果你有寶可夢的話可以與他戰鬥』"),
                 new Paragraph("大木博士:『對了跟我去研究所吧』"),
-                new MoveChar({character:oak,from:new Position(13,4),to:new Position(14,9)}),
+                new MoveChar({character:oak,from:new Position(13,4),to:new Position(12,9)}),
                 new RemoveNpc(oak),
-                new MoveChar({character:mainChar,to:new Position(15,14)}),
                 new Script(()=>mainChar.storyLineIndex=0.1),
-                
-  
+                new MoveChar({character:mainChar,to:new Position(15,13)}),
             ])
             ,()=>mainChar.storyLineIndex===0
         )
@@ -444,7 +442,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
     initEvents()
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
-        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc;
+        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc,Fight=PC.Fight;
         var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter,mainChar=GS.protagonist;
         var e1=new Event
         (
@@ -485,11 +483,9 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 new Paragraph("$RIVAL_NAME:『等等！$MY_NAME好不容易從爺爺手中"),
                 new Paragraph("得到寶可夢…就當我的對手練習練習吧♥』"),
                 new MoveChar({character:GS.rival,to:new Position(4,6)}),
-                /**
-                 * 戰鬥...
-                 */
                 new RemoveNpc(GS.rival),
                 new Script(()=>mainChar.storyLineIndex=1),
+                new Fight(GS.rival),
             ]),()=>mainChar.storyLineIndex===0.2);
         this.events.push(e2);
         
