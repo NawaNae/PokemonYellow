@@ -74,6 +74,7 @@ class Protagonist extends GameSystem.Classes.Character {
         }    
         this.money=mainChar._money||mainChar.money||this._money;
         var Pokemon=GameSystem.Classes.Pokemon;
+        this.metPokemons=mainChar.metPokemons;
         var pokemons=mainChar.pokemons||mainChar._pokemons;
         if(pokemons.length>0)    
         {

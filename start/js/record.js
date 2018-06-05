@@ -24,6 +24,6 @@ class Record
         this.storyLineIndex=char.storyLineIndex||char._storyLineIndex||char.name.storyLineIndex||char.name._storyLineIndex||this.storyLineIndex||0;
         this.money=char.money||char._money||char.name.money||char.name._money||this.money||0;
         this.name=char.name.name||char.name||this.name;
-        this.metPokemons=char.metPokemons;
+        this.metPokemons=char.metPokemons||char.name.metPokemons;
     }
 }
