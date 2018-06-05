@@ -45,6 +45,7 @@ Load.js.import(
         { src: define.jsPath + 'plotContents.addNpc.js' },
         { src: define.jsPath + 'plotContents.removeNpc.js' },
         { src: define.jsPath + 'plotContents.moveCharacter.js'},
+        { src: define.jsPath + 'plotContents.fight.js'},
         { src: define.jsPath + 'plotContents.giveProp.js',waitFor: 'GameSystem.Classes.Paragraph'},//7
         { src: define.jsPath + 'battlePad.js'  },
         { src: define.jsPath + 'propItem.js' },
@@ -98,6 +99,7 @@ Load.js.import(
                 'GameSystem.Classes.PlotContents.AddNpc' ,
                 'GameSystem.Classes.PlotContents.RemoveNpc',
                 'GameSystem.Classes.PlotContents.MoveCharacter',
+                'GameSystem.Classes.PlotContents.Fight',
                 'GameSystem.Classes.EffortValue',
                 'GameSystem.Classes.IndividualValue',
                 'GameSystem.Classes.Move',
