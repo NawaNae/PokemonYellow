@@ -24,7 +24,7 @@ class Protagonist extends GameSystem.Classes.Character {
         this._atMap = atMap;
         let DEX = GameSystem.Classes.PokemonType.Dictionary;
         let pikachu=new GameSystem.Classes.Pokemon("皮卡丘",DEX["皮卡丘"]);
-        pikachu.level=1;
+        pikachu.level=5;
         pikachu.updateAbilities();
         pikachu.HP=pikachu.maxHP;
         this._pokemons = [pikachu];
@@ -42,7 +42,7 @@ class Protagonist extends GameSystem.Classes.Character {
     }
     meetPokemon(pokemon)
     {
-        if(pokemons.constructor.name==="Pokemon")
+        if(pokemon.constructor.name==="Pokemon")
             if(!this.metPokemons.find(name=>pokemon.name===name))
                 this.metPokemons.push(pokemon.name);
         else if(pokemon.pokemons)
@@ -87,11 +87,13 @@ class Protagonist extends GameSystem.Classes.Character {
             
 
     }
-    walk(moveKey,end=()=>{})
+    walk(moveKey,end=()=>{},options={walkSpeed:1,blockWidth:16})
     {
+        var GS=GameSystem,CS=GS.Classes,Position= CS.Position;
+        var level,levelName;
         var waitForWalk=()=>{if(this.isWalk)setTimeout(waitForWalk,100);else
             {
-                var level = Framework.Game._currentLevel, Position = GameSystem.Classes.Position;
+                level = Framework.Game._currentLevel;levelName=Framework.Game._findLevelNameByLevel(level);
                 if(moveKey.constructor.name=="Position")
                 {
                     if(this.position.sub(moveKey).len===1)
@@ -108,11 +110,34 @@ class Protagonist extends GameSystem.Classes.Character {
             else
             {
                 var newPos = this.position.add(move) ;
+                var gate = undefined;
+                if((gate = level.isGateAtThenGetGate(newPos)))
+                {
+                    let anotherPlace=gate.findAnotherPlaceByMapName(levelName);
+                   this.position=anotherPlace.position;
+                   this.atMap=(anotherPlace.mapName);
+                   return;
+                }
                 if(!level.isWalkableAt(newPos))
                     return;
+                console.log(newPos);
+                var event;
+                if((event=level.getEventAreaAt(newPos)))
+                    event.start();
+                var field,wildPoke;
+                if((field=level.getBattleFieldAt(newPos)))
+                    if((wildPoke=field.trigger()))
+                    {
+                        var BD=GameSystem.Bridges.BattleData;
+                        this.meetPokemon(wildPoke);
+                        BD.opponent=wildPoke;
+                        BD.selectPokemon=GameSystem.protagonist.pokemons[0];
+                        Framework.Game.goToLevel('battleLevel');
+                    }
                 this.isWalk=true;
                 this.position=newPos;
-                var period=(GameSystem.Manager.Key.lockTime/16-10)||300/16;
+                var lockTime=GameSystem.Manager.Key.lockTime||300;
+                var period=Math.floor(0.8*(lockTime/options.blockWidth));
                 var mapMovePoint=this.mapMoveVector[moveKey];
                 var count=0;
                 var timeout=()=>
@@ -123,7 +148,7 @@ class Protagonist extends GameSystem.Classes.Character {
                     if(count<16)
                         setTimeout(timeout,period);
                     else
-                      { 
+                    { 
                             end();
                             this.updateImagePosition();
                             this.isWalk=false;
