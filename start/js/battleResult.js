@@ -65,26 +65,29 @@ class BattleResult {
     /**
      * 將「生命值條」動畫加入至「戰鬥結果」中。
      * @param {number} diff 血條的差值。可為正值也可為負值。
+     * @param {number} HP 當前的生命值。
      * @param {number} maxHP 寶可夢的最大生命值。
      * @param {boolean} isPlayer 血條是否為玩家。
      */
-    addHPBarAnimation(diff, maxHP, isPlayer) {
+    addHPBarAnimation(diff, HP, maxHP, isPlayer) {
         this._actionList.push({
             type: GameSystem.Classes.BattleResult.ActionType.HPBarAnimation,
             animation: () => new Promise((res) => {
                 let HPBar = isPlayer ? GameSystem.BattlePad.getPlayerHPBar() : GameSystem.BattlePad.getOpponentHPBar();
                 let percentDiff = Math.sign(diff) * Math.ceil(( Math.abs(diff) / maxHP) * 100);     // 計算生命值的變動差
+                if (isPlayer)
+                    GameSystem.BattlePad.setPlayerHPValueText(HP + "/ " + maxHP);
                 // HPBar 變動函式
                 function Changing() {
                     if (percentDiff > 0) {
                         percentDiff -= 1;
                         HPBar.increaseOnePercent();
-                        setTimeout(Changing, 50);
+                        setTimeout(Changing, 25);
                     }
                     else if (percentDiff < 0) {
                         percentDiff += 1;
                         HPBar.decreaseOnePercent();
-                        setTimeout(Changing, 50);
+                        setTimeout(Changing, 25);
                     }
                     else {
                         setTimeout(() => res(true), 1000);
