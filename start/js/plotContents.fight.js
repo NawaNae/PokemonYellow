@@ -9,7 +9,6 @@ class Fight extends GameSystem.Classes.PlotContent
     start()
     {
         var BD=GameSystem.Bridges.BattleData;
-        GameSystem.protagonist.meetPokemon(this.opponent);
         BD.opponent=this.opponent;
         BD.selectPokemon=GameSystem.protagonist.pokemons[0];
         this.plot.end();

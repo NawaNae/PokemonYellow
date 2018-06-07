@@ -43,14 +43,24 @@ class Protagonist extends GameSystem.Classes.Character {
     meetPokemon(pokemon)
     {
         if(pokemon.constructor.name==="Pokemon")
+        {
             if(!this.metPokemons.find(name=>pokemon.name===name))
                 this.metPokemons.push(pokemon.name);
-        else if(pokemon.pokemons)
+        }
+        else if(pokemon.constructor.name==="String")
         {
-            var pokemons=pokemon.pokemons;
+            if(!this.metPokemons.find(name=>pokemon===name))
+                this.metPokemons.push(pokemon);
+        }
+        else if(pokemon.constructor.name==="Array")
+        {
+            var pokemons=pokemon;
             for(pokemon of pokemons)
                 this.meetPokemon(pokemon);
         }
+        else if(pokemon.pokemons)
+            this.meetPokemon(pokemon.pokemons);
+        
     }
     copyFrom(mainChar)
     {

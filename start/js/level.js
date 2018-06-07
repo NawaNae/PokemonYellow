@@ -238,9 +238,8 @@ class Level extends Framework.Level
     fightEnd()
     {
         var mainChar=GameSystem.protagonist;
-        var BR=GameSystem.Bridges.BattleResults;
-        console.log(BR);
-        mainChar.meetPokemon()
+        var BR=GameSystem.Bridges.BattleResult;
+        mainChar.meetPokemon(BR.fightedPokemonTypes);
     }
     teardown()
     {
