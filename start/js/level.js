@@ -36,6 +36,7 @@ class Level extends Framework.Level
         this.keyInput = (e) => {
             this.normalKeyInput(e);
         };
+        this._fightEnd=()=>{this.fightEnd();}
     }
     initObstacles(){}
     initSubLevels(){}
@@ -233,6 +234,10 @@ class Level extends Framework.Level
             options.visible=true;
            // this.inputMode=this.inputModes.options;
         }
+    }
+    fightEnd()
+    {
+
     }
     teardown()
     {
