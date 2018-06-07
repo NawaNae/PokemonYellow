@@ -526,12 +526,11 @@ class BattlePad {
     }
 
     /**
-     * 
-     * @param {boolean} isPlayer 是否為玩家方。
+     * 設定玩家方的生命值數值顯示。
      * @param {number} value HP的數值。
      */
-    setHPValueText(isPlayer, value) {
-        (isPlayer ? this.playerSet : this.opponentSet).HPValue.innerText = value;
+    setPlayerHPValueText(value) {
+        this.playerSet.HPValue.innerText = value;
     }
 
     /**
