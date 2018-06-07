@@ -237,7 +237,15 @@ class Level extends Framework.Level
     }
     fightEnd()
     {
-
+        var mainChar=GameSystem.protagonist;
+        var result=GameSystem.Bridges.BattleResult;
+        if(result.isPlayerWon)
+            for(var poke of result.fightedPokemonTypes)
+                mainChar.metPokemon(poke);
+        else
+        {
+            mainChar.money-=3000;
+        }
     }
     teardown()
     {

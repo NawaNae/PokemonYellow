@@ -130,7 +130,7 @@ class Protagonist extends GameSystem.Classes.Character {
                     if((wildPoke=field.trigger()))
                     {
                         var BD=GameSystem.Bridges.BattleData;
-                        this.meetPokemon(wildPoke);
+                        //this.meetPokemon(wildPoke);
                         BD.opponent=wildPoke;
                         BD.selectPokemon=GameSystem.protagonist.pokemons[0];
                         Framework.Game.goToLevel('battleLevel');
@@ -189,7 +189,7 @@ class Protagonist extends GameSystem.Classes.Character {
 
     set position(np){super.position=np;this.updateImagePosition();}
     get position(){return super.position;}
-    set money(newMoney) { this._money = newMoney; }
+    set money(newMoney) { this._money = newMoney; if(this._money<0)this._money=0; }
     get money() { return this._money; }
 
     /**
