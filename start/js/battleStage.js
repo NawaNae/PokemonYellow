@@ -23,8 +23,7 @@ class BattleStage {
      * @return {GameSystem.Classes.Pokemon[]} 儲存 [先攻的寶可夢, 後攻的寶可夢]。
      */
     getPokemonOrder(playerMove, opponentMove) {
-        let playerPokemon = this._player.pokemon, opponentPokemon = this._opponent.pokemon;
-        return (playerMove.priority >= opponentMove.priority || playerPokemon.speed >= opponentPokemon.speed) ? playerPokemon : opponentPokemon;
+        return (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed) ? playerPokemon : opponentPokemon;
     }
 
     /**
@@ -33,66 +32,203 @@ class BattleStage {
      * @return {GameSystem.Classes.BattleResult} 一回合戰鬥完的結果。
      */
     doOneRoundBattle(playerMove) {
-        const AttackToAnimations = GameSystem.Classes.BattleAnimation.Dictionary.AttackTo;
-        const AttackedByAnimations = GameSystem.Classes.BattleAnimation.Dictionary.AttackedBy;
-
         let opponentMove = this._opponent.pokemon.randomlyTakeMove();
         let [attacker, defender] = (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed) ? [this._player, this._opponent] : [this._opponent, this._player];
         let [atkMove, defMove] = (attacker == this._player) ? [playerMove, opponentMove] : [opponentMove, playerMove];
-
-        let defDamage = this.getNormalDamage(attacker == this._player, atkMove);                // 後攻方的傷害
-        let atkDamage = this.getNormalDamage(defender == this._player, defMove);                // 先攻方的傷害
         let battleResult = new GameSystem.Classes.BattleResult();
-
-        // 將「先攻方攻擊後攻方」的動畫、動作加入到BattleResult中
-        battleResult.addMessage(attacker.pokemon.name + "使用了招式「" + atkMove.name + "」！");
-        battleResult.addBattleAnimation(attacker == this._player ? AttackToAnimations[atkMove.name] : AttackedByAnimations[atkMove.name]);
-        battleResult.addHPBarAnimation(-defDamage, defender.pokemon.maxHP, defender == this._player);
-
-        // 實作攻擊，並判斷後攻方的寶可夢是否瀕死
-        if (defender.acceptDamage(defDamage)) {
-            attacker == this._player ? battleResult.playerWins() : battleResult.opponentWins();
-            defender == this._player ? battleResult.addPlayerPokemonFaint(this._player.pokemon.name) : battleResult.addOpponentPokemonFaint(this._opponent.pokemon.name);
+        
+        // 首先，先處理先攻方(Attacker)對後攻方(Defender)的招式動作
+        if (this._halfRoundBattle(battleResult, attacker, defender, atkMove))
             return battleResult;
-        }
 
         // 停頓1秒
         battleResult.addWaitingTime(1000);
 
-        // 將「後攻方攻擊先攻方」的動畫、動作加入到BattleResult中
-        battleResult.addMessage(defender.pokemon.name + "使用了招式「" + defMove.name + "」！");
-        battleResult.addBattleAnimation(defender == this._player ? AttackToAnimations[defMove.name] : AttackedByAnimations[defMove.name]);
-        battleResult.addHPBarAnimation(-atkDamage, attacker.pokemon.maxHP, attacker == this._player);
-
-        // 實作攻擊，並判斷先攻方的寶可夢是否瀕死
-        if (attacker.acceptDamage(atkDamage)) {
-            defender == this._player ? battleResult.playerWins() : battleResult.opponentWins();
-            attacker == this._player ? battleResult.addPlayerPokemonFaint(this._player.pokemon.name) : battleResult.addOpponentPokemonFaint(this._opponent.pokemon.name);
+        // 再來，先處理後攻方(Defender)對先攻方(Attacker)的招式動作
+        if (this._halfRoundBattle(battleResult, defender, attacker, defMove))
             return battleResult;
-        }
+        
+        // 判斷先攻者是否為燒傷狀態或中毒狀態。
+        // 若為燒傷狀態，則使其接受 (最大生命值 / 16) 的傷害；若為中毒狀態，則使其接受 (最大生命值 / 8) 的傷害
+        if (this._checkBurned(battleResult, attacker) || this._checkPoisoned(battleResult, attacker))
+            return battleResult;
+
+        // 判斷後攻者是否為燒傷狀態或中毒狀態。
+        // 若為燒傷狀態，則使其接受 (最大生命值 / 16) 的傷害；若為中毒狀態，則使其接受 (最大生命值 / 8) 的傷害
+        if (this._checkBurned(battleResult, defender) || this._checkPoisoned(battleResult, defender))
+            return battleResult;
+        
+        this._checkDeforzen(battleResult, attacker);  // 若先攻者為冰凍狀態，則計算解除狀態的機率
+        this._checkDeforzen(battleResult, defender);  // 若後攻者為冰凍狀態，則計算解除狀態的機率
+
+        this._checkWakeUp(battleResult, attacker);    // 若先攻者為睡眠狀態，則計算甦醒機率。
+        this._checkWakeUp(battleResult, defender);    // 若後攻者為睡眠狀態，則計算甦醒機率。
 
         battleResult.addMessage();
         return battleResult;
     }
 
     /**
+     * 實作半場的戰鬥動作。
+     * @param {GameSystem.Classes.BattleResult} battleResult 戰鬥結果物件。
+     * @param {GameSystem.Classes.BattleInfo} attacker 攻擊方。
+     * @param {GameSystem.Classes.BattleInfo} defender 防禦方。(被攻擊方)
+     * @param {GameSystem.Classes.Move} move 攻擊方所出的招式。
+     * @return {boolean} 防禦方是否被擊倒。
+     */
+    _halfRoundBattle(battleResult, attacker, defender, move) {
+        const AttackToAnim = GameSystem.Classes.BattleAnimation.Dictionary.AttackTo;
+        const AttackedByAnim = GameSystem.Classes.BattleAnimation.Dictionary.AttackedBy;
+        const PEffectAnim = GameSystem.Classes.BattleAnimation.Dictionary.PlayerEffect;
+        const OEffectAnim = GameSystem.Classes.BattleAnimation.Dictionary.OpponentEffect;
+        const MoveTypes = GameSystem.Classes.Move.Types;
+
+        // 計算是否失誤
+        if (move.accuracy) {
+            let accuracy = GameSystem.Classes.Move.AccuracyTable[move.accuracy] * attacker.accuracy / defender.evasion;
+            let rndVal = Math.floor(Math.random() * 255) + 1;
+            if (rndVal >= accuracy) {
+                battleResult.addMessage(attacker.name + "使用了招式「" + move.name + "」！");
+                battleResult.addMessage("但是" + attacker.name + "失誤了...");
+                return false;
+            }
+        }
+
+        // 確認是否麻痺。若為麻痺，則計算可使用招式的機率。
+        if (attacker.isParalysis && Math.random() <= 0.25) {
+            battleResult.addMessage(attacker.name + "麻痺了！無法使用招式「" + move.name + "」");
+            return false;
+        }
+
+        // 若寶可夢處於「冰凍狀態」，則無法使用招式。
+        if (attacker.isForzen) {
+            battleResult.addMessage(attacker.name + "處於冰凍狀態！無法使出招式！");
+            return false;
+        }
+
+        // 「物理」類之事 (Special為暫時)
+        if (move.moveType == MoveTypes.Physical || move.moveType == MoveTypes.Special) {
+            let damage = this.getNormalDamage(attacker, defender, move);                    // 取得傷害
+
+            // 將的動畫、動作加入到BattleResult中
+            let isFainted = defender.acceptDamage(damage);
+            battleResult.addMessage(attacker.name + "使用了招式「" + move.name + "」！");
+            battleResult.addBattleAnimation(attacker == this._player ? AttackToAnim[move.name] : AttackedByAnim[move.name]);
+            battleResult.addHPBarAnimation(-damage, defender.HP, defender.maxHP, defender == this._player);
+
+            // 實作攻擊，並判斷後攻方的寶可夢是否瀕死
+            if (isFainted) {
+                attacker == this._player ? battleResult.playerWins() : battleResult.opponentWins();
+                defender == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+                return true;
+            }
+        }
+        else if (move.moveType == MoveTypes.Status) {        // 「變化」類招式
+            let newLevel;
+            // 施加效果的對象為對手
+            if (move.isEffectToOpponent) {
+                newLevel = defender.changeStatLevel(move);                                                                              // 變更狀態階級，並取得最後的變化差
+                battleResult.addMessage(attacker.name + "對" + defender.name + "施加了「" + move.name + "」!");                           // 輸出動作訊息
+                battleResult.addBattleAnimation(attacker == this._player ? PEffectAnim[move.name] : OEffectAnim[move.name]);            // 新增動畫特效
+                battleResult.addMessage(defender.name + "的" + GameSystem.Classes.Move.getStatEffectInfo(move.statType, newLevel, move.levelChange));    // 取得效果訊息
+            }
+            else {
+                newLevel = attacker.changeStatLevel(move);                                                                              // 變更狀態階級，並取得最後的變化差
+                battleResult.addMessage(attacker.name + "對自己使用了「" + move.name + "」!");                                             // 輸出動作訊息
+                battleResult.addBattleAnimation(attacker == this._player ? PEffectAnim[move.name] : OEffectAnim[move.name]);            // 新增動畫特效
+                battleResult.addMessage(attacker.name + "的" + GameSystem.Classes.Move.getStatEffectInfo(move.statType, newLevel, move.levelChange));    // 取得效果訊息
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 確認是否為灼傷狀態。若是，則實作灼傷。
+     * @param {GameSystem.Classes.BattleResult} battleResult 戰鬥結果物件。
+     * @param {GameSystem.Classes.BattleInfo} pokemon 戰鬥訊息物件。
+     * @return {boolean} 寶可夢是否燒到昏厥。
+     */
+    _checkBurned(battleResult, pokemon) {
+        if (pokemon.isBurned) {
+            let burnedDamage = Math.floor(pokemon.maxHP / 16);
+            battleResult.addMessage(pokemon.name + "處於燒傷狀態！");
+            battleResult.addHPBarAnimation(burnedDamage, pokemon.maxHP, pokemon == this._player);
+            battleResult.addMessage(pokemon.name + "受到" + burnedDamage + "點灼傷傷害！");
+            if (pokemon.acceptDamage(burnedDamage)) {
+                pokemon != this._player ? battleResult.playerWins() : battleResult.opponentWins();
+                pokemon == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 確認是否為中毒狀態。若是，則實作中毒。
+     * @param {GameSystem.Classes.BattleResult} battleResult 戰鬥結果物件。
+     * @param {GameSystem.Classes.BattleInfo} pokemon 戰鬥訊息物件。
+     * @return {boolean} 寶可夢是否中毒到昏厥。
+     */
+    _checkPoisoned(battleResult, pokemon) {
+        if (pokemon.isPoisoned) {
+            let burnedDamage = Math.floor(pokemon.maxHP / 8);
+            battleResult.addMessage(pokemon.name + "處於中毒狀態！");
+            battleResult.addHPBarAnimation(burnedDamage, pokemon.maxHP, pokemon == this._player);
+            battleResult.addMessage(pokemon.name + "受到" + burnedDamage + "點中毒傷害！");
+            if (pokemon.acceptDamage(burnedDamage)) {
+                pokemon != this._player ? battleResult.playerWins() : battleResult.opponentWins();
+                pokemon == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 確認及計算解凍機率。 (Haven't done yet)
+     * @param {GameSystem.Classes.BattleResult} battleResult 戰鬥結果物件。
+     * @param {GameSystem.Classes.BattleInfo} pokemon 戰鬥訊息物件。
+     */
+    _checkDeforzen(battleResult, pokemon) {
+        if (pokemon.isForzen && Math.random() <= 0.2) {
+            battleResult.addMessage(pokemon.name + "解凍了！");
+            pokemon.isForzen = false;
+        }
+    }
+
+    /**
+     * 確認及計算甦醒機率。 (Haven't done yet)
+     * @param {GameSystem.Classes.BattleResult} battleResult 戰鬥結果物件。
+     * @param {GameSystem.Classes.BattleInfo} pokemon 戰鬥訊息物件。
+     */
+    _checkWakeUp(battleResult, pokemon) {
+        if (pokemon.isAsleep && --pokemon.asleepTimes <= 0) {
+            battleResult.addMessage(pokemon.name + "從睡眠中醒來了！");
+            pokemon.isAsleep = false;
+        }
+    }
+
+    /**
      * 計算、取得一般傷害值。
-     * @param {boolean} isPlayer 是否由玩家方所發起的攻擊。
+     * @param {GameSystem.Classes.BattleInfo} attacker 攻擊方。
+     * @param {GameSystem.Classes.BattleInfo} defender 防守方。
      * @param {GameSystem.Classes.Move} move 被發動的招式。
      */
-    getNormalDamage(isPlayer, move) {
-        // 辨識攻、防兩方的寶可夢
-        let [attacker, defender] = isPlayer ? [this._player.pokemon, this._opponent.pokemon] : [this._opponent.pokemon, this._player.pokemon];
-        let against = this.getAgainstValue(isPlayer);                                                           // 屬性相剋加成
+    getNormalDamage(attacker, defender, move) {
+        let against = this.getAgainstValue(attacker == this._player);                                           // 屬性相剋加成
         if (against == 0) return 0;                                                                             // 若攻擊完全被剋，則直接回傳0
 
         let STAB = (attacker.typeA == move.type || attacker.typeB == move.type) ? 1.5 : 1;                      // 屬性一致加成效果
-        let criticalHit = this.isCriticalHit(isPlayer);                                                         // 「擊中要害」加成
+        let criticalHit = this.isCriticalHit(attacker == this._player);                                         // 「擊中要害」加成
         let rndValue = (85 + (Math.random() * 16)) / 100.0;                                                     // 傷害隨機數
 
         // 計算最後的傷害
         let damage = (((2 * attacker.level + 10) / 250) * (attacker.attack / defender.defense) * move.power + 2) * against * STAB * criticalHit * rndValue;
-        
+
+        // 若攻擊方處於「灼傷狀態」，則攻擊效果減半。
+        if (attacker.isBurned)
+            damage /= 2;
+
         return damage < 1 ? 1 : Math.round(damage);     // 若傷害低於1，則提升到1。
     }
 
@@ -103,7 +239,7 @@ class BattleStage {
      */
     getAgainstValue(isPlayer) {
         let typeTable = GameSystem.Classes.StandardStat.AgainstTable;
-        let [player, opponent] = [this._player.pokemon, this._opponent.pokemon];
+        let [player, opponent] = [this._player, this._opponent];
         let rate = 1;
         if (isPlayer) {
             rate *= (player.typeA && opponent.typeA) ? typeTable[player.typeA][opponent.typeA] : 1;
