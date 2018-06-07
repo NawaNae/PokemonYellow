@@ -26,8 +26,8 @@ class PropItem {
         this._name = name;
         this._count = count;
         this.use=use;
-        this._use=()=>{
-            if(this.use)var result=this.use();
+        this._use=(param1)=>{
+            if(this.use)var result=this.use(param1);
             if(this.isDecreasing&&result)this.count--;
         }
         this.isDecreasing=isAutoDecreasing;
