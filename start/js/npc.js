@@ -8,6 +8,7 @@ var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
  * @prop {GameSystem.Classes.Plot?} plot 觸發此NPC時所會產生的劇情。
  * @prop {GameSystem.Classes.Pokemon[]?} pokemons 此NPC所擁有的寶可夢。
  * @prop {GameSystem.Classes.Image?} battleImage 戰鬥時的圖片。
+ * @prop {number} money 此NPC所擁有的幾錢。
  */
 GameSystem.Classes.NPC =
 class NPC extends GameSystem.Classes.Character {
@@ -22,8 +23,9 @@ class NPC extends GameSystem.Classes.Character {
      * @param {function} behavior 每過2000ms自動執行的函數 沒有定義則不執行
      * @param {GameSystem.Classes.Pokemon?} pokemons 此NPC所擁有的寶可夢。(可選項)
      * @param {GameSystem.Classes.Image?} battleImage 戰鬥時的圖片。(可選項)
+     * @param {number?} money 此NPC身上所擁有的金錢。(可選項)
      */
-    constructor(name, face, position, image, cutFunctionIndex, plot, randomlyWalk=false, behavior, pokemons, battleImage) {
+    constructor(name, face, position, image, cutFunctionIndex, plot, randomlyWalk=false, behavior, pokemons, battleImage, money = 0) {
         super(name, face, position, image, cutFunctionIndex);
         this.isRandomlyWalk=randomlyWalk;
 
@@ -32,6 +34,7 @@ class NPC extends GameSystem.Classes.Character {
         this._timeNumber;
         this._pokemons = pokemons || [];
         this._battleImage = battleImage;
+        this._money = money;
     }
     behave()
     {  
@@ -71,6 +74,9 @@ class NPC extends GameSystem.Classes.Character {
 
     set battleImage(newBattleImage) { this._battleImage = newBattleImage; }
     get battleImage() { return this._battleImage; }
+
+    set money(newMoney) { this._money = newMoney; }
+    get money() { return this._money; }
 
     /**
      * 取得角色圖片路徑。
