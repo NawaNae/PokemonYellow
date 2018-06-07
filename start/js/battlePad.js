@@ -526,6 +526,14 @@ class BattlePad {
     }
 
     /**
+     * 設定玩家方的生命值數值顯示。
+     * @param {number} value HP的數值。
+     */
+    setPlayerHPValueText(value) {
+        this.playerSet.HPValue.innerText = value;
+    }
+
+    /**
      * 設定是否顯示面板上的戰鬥資訊。
      * @param {boolean} visible 是否可視戰鬥訊息面板。
      */

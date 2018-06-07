@@ -40,6 +40,9 @@ class BattleInfo {
     /** 寶可夢的名稱。 */
     get name() { return this._pokemon.name; }
 
+    /** 寶可夢的當前生命值 */
+    get HP() { return this._pokemon.HP; }
+
     /** 寶可夢的最大血量。 */
     get maxHP() { return this._pokemon.maxHP; }
 
