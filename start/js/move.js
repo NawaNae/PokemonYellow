@@ -37,7 +37,7 @@ class Move {
                 this._accuracy = accuracy;
                 this._priority = priority;   
             }
-                  // 當招式種類為「狀態」時
+            // 當招式種類為「狀態」時
             else if (moveType == GameSystem.Classes.Move.Types.Status) {
                 this._levelChange = power;
                 this._statType = accuracy;
@@ -108,6 +108,10 @@ class Move {
     /** 是否施用對象為對手 */
     get isEffectToOpponent() { return this._isOpponent; }
 
+    /** 設定特殊動作 */
+    set specailAction(action) { this._specailAction = action; }
+    get specailAction() { return this._specailAction; }
+
     /**
      * 取得狀態效果的文字敘述。
      * @param {GameSystem.Classes.Move.StatType} statType 狀態種類。
@@ -116,13 +120,14 @@ class Move {
      * @return {string} 文字敘述。
      */
     static getStatEffectInfo(statType, curLevel, diff) {
+        let typeName = GameSystem.Classes.Move.StatTypeName[statType];
         switch (diff) {
-            case 1: return statType.name + "降低了！";
-            case 2: return statType.name + "大幅提高了！";
-            case 6: return statType == GameSystem.Classes.Move.StatType.Attack ? "釋放了全部力量！" : statType.name + "被提高到了最大！";
-            case -1: return statType.name + "提高了！";
-            case -2: return statType.name + "大幅降低了！";
-            case 0: return curLevel == 6 ? statType.name + "已經無法再提高了！" : statType.name + "已經無法再降低了！";
+            case 1: return typeName + "提高了！";
+            case 2: return typeName + "大幅提高了！";
+            case 6: return statType == GameSystem.Classes.Move.StatType.Attack ? "釋放了全部力量！" : typeName + "被提高到了最大！";
+            case -1: return typeName + "降低了！";
+            case -2: return typeName + "大幅降低了！";
+            case 0: return curLevel == 6 ? typeName + "已經無法再提高了！" : typeName + "已經無法再降低了！";
         }
         if (diff >= 3)
             return statType.name + "極大幅提高了！";
@@ -161,11 +166,21 @@ GameSystem.Classes.Move.StatType = Object.freeze({
 });
 
 /** 新增每個狀態相對應的中文名稱。 */
-GameSystem.Classes.Move.StatType.Attack.name = "攻擊力";
-GameSystem.Classes.Move.StatType.Defnese.name = "防禦力";
-GameSystem.Classes.Move.StatType.Speed.name = "速度值";
-GameSystem.Classes.Move.StatType.Accuracy.name = "精準度";
-GameSystem.Classes.Move.StatType.EvasionRate.name = "迴避率";
+GameSystem.Classes.Move.StatTypeName = {
+    [GameSystem.Classes.Move.StatType.Attack]: "攻擊力",
+    [GameSystem.Classes.Move.StatType.Defnese]: "防禦力",
+    [GameSystem.Classes.Move.StatType.Speed]: "速度值",
+    [GameSystem.Classes.Move.StatType.Accuracy]: "精準度",
+    [GameSystem.Classes.Move.StatType.EvasionRate]: "迴避率"
+}
+
+/** 命中率階級所對應的計算值。
+ * @readonly
+ */
+GameSystem.Classes.Move.AccuracyTable = Object.freeze({
+    100: 255, 95: 242, 90: 229, 85: 216, 80: 204, 
+    75:  191, 70: 178, 60: 153, 55: 140, 50: 127
+});
 
 /** 所有招式集 */
 GameSystem.Classes.Move.Dictionary = {};
@@ -339,7 +354,7 @@ GameSystem.Classes.Move.Dictionary = {};
 
     // 初始化所有可用的「電」屬性招式
     DEX["打雷"] = new Move("打雷", "向對手劈下暴雷進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 110, 70);
-    DEX["電磁波"] = new Move("電磁波", "放出微弱的電流。讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Status, undefined, 90);
+    DEX["電磁波"] = new Move("電磁波", "放出微弱的電流。讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Status, undefined, 90);                                // 
     DEX["十萬伏特"] = new Move("十萬伏特", "向對手放出強力電流進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 90, 100);
     DEX["雷電拳"] = new Move("雷電拳", "用帶有電流的拳頭攻擊對手。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Physical, 75, 100);
     DEX["電擊"] = new Move("電擊", "發出電流刺激對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 40, 100);
@@ -373,3 +388,10 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["龍之怒"] = new Move("龍之怒", "向對手發射憤怒的衝擊波進行攻擊。固定給予４０的傷害。", Types.Dragon, MoveTypes.Special, undefined, 100);
 
 })();
+
+/** 定義有特殊動作的招式 */
+(() => {
+    DEX["電磁波"].specailAction = function () {
+        
+    };
+});
