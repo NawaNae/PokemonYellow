@@ -8,6 +8,12 @@
  * @prop {number} speedLevel 速度的能力階級。
  * @prop {number} accuracyLevel 命中率的能力階級。
  * @prop {number} evasionRateLevel 閃避率的能力階級。
+ * @prop {boolean} isBurned 是否處於「灼燒狀態」。
+ * @prop {boolean} isForzen 是否處於「冰凍狀態」。
+ * @prop {boolean} isParalysis 是否處於「麻痺狀態」。
+ * @prop {boolean} isPoisoned 是否處於「中毒狀態」。
+ * @prop {boolean} isAsleep 是否處於「睡眠狀態」。
+ * @prop {number} asleepTime 處於睡眠的回合數。
  */
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.BattleInfo =
@@ -20,6 +26,12 @@ class BattleInfo {
         this._speedLevel = 0;
         this._accuracyLevel = 0;
         this._evasionRateLevel = 0;
+        this._isBurned = false;
+        this._isForzen = false;
+        this._isParalysis = false;
+        this._isPoisoned = false;
+        this._isAsleep = false;
+        this._asleepTime = 0;
     }
     
     /** 寶可夢本身的資訊。 */
@@ -52,15 +64,15 @@ class BattleInfo {
         let statType = statusMove.statType;
         switch(statType) {
             case StatType.Attack:
-                return this._changeAttackLevel(statusMove);
+                return this._changeAttackLevel(statusMove.levelChange);
             case StatType.Defnese:
-                return this._changeDefenseLevel(statusMove);
+                return this._changeDefenseLevel(statusMove.levelChange);
             case StatType.Speed:
-                return this._changeSpeedLevel(statusMove);
+                return this._changeSpeedLevel(statusMove.levelChange);
             case StatType.Accuracy:
-                return this._changeAccuracyLevel(statusMove);
+                return this._changeAccuracyLevel(statusMove.levelChange);
             case StatType.EvasionRate:
-                return this._changeEvasionLevel(statusMove);;
+                return this._changeEvasionLevel(statusMove.levelChange);;
         }
     }
 
@@ -164,7 +176,8 @@ class BattleInfo {
      * @return {number} 在戰鬥台上的速度值。
      */
     get speed() {
-        return (2 + Math.max(0, this._speedLevel)) / (2 + Math.max(0, -this._speedLevel)) * this.pokemon.speed;
+        let value = (2 + Math.max(0, this._speedLevel)) / (2 + Math.max(0, -this._speedLevel)) * this.pokemon.speed;
+        return value / (this._isParalysis ? 2 : 1);
     }
 
     /**
@@ -184,6 +197,28 @@ class BattleInfo {
     }
 
     // #endregion ============================================================================================
+
+    // #region ======================================== 特殊狀態類 ========================================
+
+    get isBurned() { return this._isBurned; }
+    set isBurned(bool) { this._isBurned = bool; }
+
+    get isForzen() { return this._isForzen; }
+    set isForzen(bool) { this._isForzen = bool; }
+    
+    get isParalysis() { return this._isParalysis; }
+    set isParalysis(bool) { this._isParalysis = bool; }
+
+    get isPoisoned() { return this._isPoisoned; }
+    set isPoisoned(bool) { this._isPoisoned = bool; }
+
+    get isAsleep() { return this._isAsleep; }
+    set isAsleep(bool) { this._isAsleep = bool; }
+
+    get asleepTimes() { return this._asleepTime; }
+    set asleepTimes(times) { this._asleepTime = times; }
+
+    // #endregion =======================================================================================
 
     /**
      * 實作「寶可夢接受傷害」的動作
@@ -212,5 +247,10 @@ class BattleInfo {
         this._speedLevel = 0;
         this._accuracyLevel = 0;
         this._evasionRateLevel = 0;
+        this._isBurned = false;
+        this._isForzen = false;
+        this._isParalysis = false;
+        this._isPoisoned = false;
+        this._isAsleep = false;
     }
 }
