@@ -337,7 +337,13 @@ class PokemonInfoPad {
         this.statusParts.part1.spanHPValue.innerText = pokemon.HP + "/ " + pokemon.maxHP;
         this.statusParts.part1.spanStatus.innerText = "STATUS/ OK";     // ! 尚未實裝 !
         this.statusParts.part2.spanExp.innerText = pokemon.exp;
-        this.statusParts.part2.spanLevelUp.innerText = (65535 - pokemon.exp) + " to :L" + (pokemon.level + 1);  // ! 尚未完成 !
+        if (pokemon.level < 100) {
+            let nextLevelExp = GameSystem.Classes.PokemonType.ExperienceTable[pokemon.getPokemonType().expType][pokemon.level + 1];
+            this.statusParts.part2.spanLevelUp.innerText = (nextLevelExp - pokemon.exp) + " to :L" + (pokemon.level + 1);
+        }
+        else {
+            this.statusParts.part2.spanLevelUp.innerText = "TOP LEVELED!"
+        }
         // 基本能力值區
         this.statValueSet.spanAttack.innerText = pokemon.attack;
         this.statValueSet.spanDefense.innerText = pokemon.defense;
