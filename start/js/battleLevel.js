@@ -105,8 +105,9 @@ class BattleLevel extends Framework.Level {
      * @param {KeyboardEvent} e 事件物件。
      */
     keyInput_OnBattlePad_Menu(e) {
-        switch (e.key) {
-            case 'W':
+        let key=GameSystem.Manager.Key.keyMapping[e.key];
+        switch (key) {
+            case 'Up':
                 if (this._menuSelection == 1) {
                     GameSystem.BattlePad.setMenuCursor(0);
                     this._menuSelection = 0;
@@ -116,7 +117,7 @@ class BattleLevel extends Framework.Level {
                     this._menuSelection = 2;
                 }
                 break;
-            case 'S':
+            case 'Down':
                 if (this._menuSelection == 0) {
                     GameSystem.BattlePad.setMenuCursor(1);
                     this._menuSelection = 1;
@@ -126,7 +127,7 @@ class BattleLevel extends Framework.Level {
                     this._menuSelection = 3;
                 }
                 break;
-            case 'A':
+            case 'Left':
                 if (this._menuSelection == 2) {
                     GameSystem.BattlePad.setMenuCursor(0);
                     this._menuSelection = 0;
@@ -136,7 +137,7 @@ class BattleLevel extends Framework.Level {
                     this._menuSelection = 1;
                 }
                 break;
-            case 'D':
+            case 'Right':
                 if (this._menuSelection == 0) {
                     GameSystem.BattlePad.setMenuCursor(2);
                     this._menuSelection = 2;
@@ -146,7 +147,7 @@ class BattleLevel extends Framework.Level {
                     this._menuSelection = 3;
                 }
                 break;
-            case 'K':
+            case 'A':
                 if (this._menuSelection == 0) {
                     this._inputMode = BattleLevel.InputMode.BattlePad_MoveList;
                     this._keyInputHandler = this.keyInput_OnBattlePad_MoveList;
@@ -176,20 +177,21 @@ class BattleLevel extends Framework.Level {
      * @param {KeyboardEvent} e 事件物件。
      */
     keyInput_OnBattlePad_MoveList(e) {
-        switch(e.key) {
-            case 'W':
+        let key=GameSystem.Manager.Key.keyMapping[e.key];
+        switch(key) {
+            case 'UP':
                 if (this._moveListSelection > 0) {
                     this._moveListSelection -= 1;
                     GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
                 }
                 break;
-            case 'S':
+            case 'Down':
                 if (this._moveListSelection + 1 < this._moveListCount) {
                     this._moveListSelection += 1;
                     GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
                 }
                 break;
-            case 'K':   // Fighting Action
+            case 'A':   // Fighting Action
                 GameSystem.BattlePad.setVisibleMoveListPad(false);
                 GameSystem.BattlePad.hideMoveInfoPad();
                 GameSystem.BattlePad.setVisibleMenu(false);
@@ -208,20 +210,20 @@ class BattleLevel extends Framework.Level {
      * @param {KeyboardEvent} e 事件物件。
      */
     keyInput_OnBattlePad_Backpack(e) {
-        switch(e.key) {
-            case 'W':
+          let key=GameSystem.Manager.Key.keyMapping[e.key];switch(key) {
+            case 'Up':
                 if (this._backpackItemSelection > 0) {
                     this._backpackItemSelection -= 1;
                     GameSystem.BattlePad.setBackpackItemCursor(this._backpackItemSelection);
                 }
                 break;
-            case 'S':
+            case 'Down':
                 if (this._backpackItemSelection + 1 <= this._protagonist.props.length ) {
                     this._backpackItemSelection += 1;
                     GameSystem.BattlePad.setBackpackItemCursor(this._backpackItemSelection);
                 }
                 break;
-            case 'K':
+            case 'A':
                 // 若所選為道具，則執行道具相對應的動作效果
                 if ( this._backpackItemSelection < this._protagonist.props.length ) {
                     // Use prop
@@ -255,20 +257,21 @@ class BattleLevel extends Framework.Level {
      * @param {KeyboardEvent} e 事件物件。
      */
     keyInput_OnPokemonList(e) {
-        switch(e.key) {
-            case 'W':
+          let key=GameSystem.Manager.Key.keyMapping[e.key];
+          switch(key) {
+            case 'Up':
                 if (this._pokemonListSelection > 0) {
                     this._pokemonListSelection -= 1;
                     GameSystem.BattlePad.setPokemonListCursor(this._pokemonListSelection);
                 }
                 break;
-            case 'S':
+            case 'Down':
                 if (this._pokemonListSelection + 1 < this._protagonist._pokemons.length) {
                     this._pokemonListSelection += 1;
                     GameSystem.BattlePad.setPokemonListCursor(this._pokemonListSelection);
                 }
                 break;
-            case 'K':
+            case 'A':
                 this._inputMode = BattleLevel.InputMode.PokemonList_Menu;
                 this._keyInputHandler = this.keyInput_OnPokemonList_Menu;
                 GameSystem.BattlePad.showPokemonListPadMenu();
@@ -285,20 +288,21 @@ class BattleLevel extends Framework.Level {
      * @param {KeyboardEvent} e 事件物件。
      */
     keyInput_OnPokemonList_Menu(e) {
-        switch(e.key) {
-            case 'W':
+          let key=GameSystem.Manager.Key.keyMapping[e.key];
+          switch(key) {
+            case 'Up':
                 if (this._pokemonListMenuSelection > 0) {
                     this._pokemonListMenuSelection -= 1;
                     GameSystem.BattlePad.setPokemonListPadMenuCursor(this._pokemonListMenuSelection);
                 }
                 break;
-            case 'S':
+            case 'Down':
                 if (this._pokemonListMenuSelection < 2) {
                     this._pokemonListMenuSelection += 1;
                     GameSystem.BattlePad.setPokemonListPadMenuCursor(this._pokemonListMenuSelection);
                 }
                 break;
-            case 'K':
+            case 'A':
                 if (this._pokemonListMenuSelection == 0) {
                     this._inputMode = BattleLevel.InputMode.PokemonInfo;
                     this._keyInputHandler = this.keyInput_OnPokemonInfo;
@@ -521,7 +525,7 @@ class BattleLevel extends Framework.Level {
 
                             // 對使用者輸入的結果來判斷下一步動作
                             this._messagingQueue.push((next, e) => {
-                                switch(e.key) {
+                                  let key=GameSystem.Manager.Key.keyMapping[e.key];switch(key) {
                                     case "W":
                                         if (!yesNoSelect) {
                                             yesNoSelect = true;
@@ -554,7 +558,7 @@ class BattleLevel extends Framework.Level {
 
                             // 在使用者回應「是」的情況下，顯示招式選單，讓使用者選則欲捨棄的招式。
                             this._messagingQueue.push((next, e) => {
-                                switch(e.key) {
+                                  let key=GameSystem.Manager.Key.keyMapping[e.key];switch(key) {
                                     case "W":
                                         if (this._moveListSelection > 0) {
                                             this._moveListSelection -= 1;
@@ -796,7 +800,7 @@ class BattleLevel extends Framework.Level {
      * @return {boolean} 是否為方向按鍵。
      */
     static isDirectionKey(key) {
-        return key === 'W' || key === 'S' || key === 'A' || key === 'D';
+        return key === 'Up' || key === 'Down' || key === 'Left' || key === 'Right';
     }
 
     /**
@@ -814,7 +818,7 @@ class BattleLevel extends Framework.Level {
      * @return {boolean} 是否為方向按鍵。
      */
     static isKeyK(key) {
-        return key === 'K';
+        return key === 'A';
     }
 
     static emptyAnimation() { /* 空的動畫函式。 */ }
