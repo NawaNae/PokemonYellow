@@ -27,7 +27,13 @@ class Protagonist extends GameSystem.Classes.Character {
         pikachu.level=5;
         pikachu.updateAbilities();
         pikachu.HP=pikachu.maxHP;
-        this._pokemons = [pikachu];
+        // *** FOR TESTING *** //
+        let lada=new GameSystem.Classes.Pokemon("小拉達",DEX["小拉達"]);
+        lada.level=5;
+        lada.updateAbilities();
+        lada.HP=lada.maxHP;
+        // ******************* //
+        this._pokemons = [pikachu, lada];   // lada for TESTING
         this._props = [];
         this._money = 3000;
         this.metPokemons=[pikachu.name];
