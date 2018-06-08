@@ -30,11 +30,19 @@ class BattleResult {
      */
     isDraw() { return this._state == GameSystem.Classes.BattleResult.State.Draw; }
 
+    /** 判斷結果，是否玩家逃跑了。
+     *  @return {boolean} 是否玩家逃跑了。
+     */
+    isPlayerEscaped() { return this._state == GameSystem.Classes.BattleResult.State.Escape; }
+
     /** 設定結果: 玩家贏了這場戰鬥。*/
     playerWins() { this._state = GameSystem.Classes.BattleResult.State.PlayerWin; }
 
     /** 設定結果: 對手贏了這場戰鬥。*/
     opponentWins() { this._state = GameSystem.Classes.BattleResult.State.OpponentWin; }
+
+    /** 設定結果: 玩家逃跑了。 */
+    playerEscaped() { this._state = GameSystem.Classes.BattleResult.State.Escape; }
 
     /** 
      * 將訊息新增至「戰鬥結果」中。
@@ -209,5 +217,8 @@ GameSystem.Classes.BattleResult.State = Object.freeze({
     PlayerWin: Symbol('PlayerWin'),
 
     /** 對手方勝利 */
-    OpponentWin: Symbol('OpponentWin')
+    OpponentWin: Symbol('OpponentWin'),
+
+    /** 玩家進行逃跑 */
+    Escape: Symbol('Escape')
 });
