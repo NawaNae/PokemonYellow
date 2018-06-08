@@ -180,7 +180,7 @@ class BattleLevel extends Framework.Level {
     keyInput_OnBattlePad_MoveList(e) {
         let key=GameSystem.Manager.Key.keyMapping[e.key];
         switch(key) {
-            case 'UP':
+            case 'Up':
                 if (this._moveListSelection > 0) {
                     this._moveListSelection -= 1;
                     GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
