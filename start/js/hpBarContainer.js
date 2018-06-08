@@ -37,12 +37,12 @@ class HPBarContainer {
      */
     updateHP(newHP, newMaxHP) {
         // 設定maxHP
-        if (newMaxHP != undefined) {
+        if (typeof newMaxHP == 'number') {
             this._maxHP = newMaxHP;
         }
 
         // 設定HP
-        if (newHP)
+        if (typeof newHP == 'number')
             if (newHP > this._maxHP) 
                 this._HP = this._maxHP;
             else if (newHP < 0)
