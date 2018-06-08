@@ -38,7 +38,7 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
                 }
                 else
                 {
-                    option.text="????";
+                    option.text=dictionary[key].id + " ????";
                     option.selectSend=()=>{};
                 }
             }
@@ -55,7 +55,7 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
         for(let key in dictionary)
         {
             if(key!=="length")
-            list.push(new Option("????",function() {}));
+            list.push(new Option(dictionary[key].id+"????",function() {}));
         }
        
         list.push(new Option("length",function(){var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
