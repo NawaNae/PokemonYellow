@@ -844,7 +844,7 @@ class BattlePad {
 
     /**
      * 設定在寶可夢清單版面中的訊息。
-     * @param {string} message 要設定的訓席。
+     * @param {string} message 要設定的訊息。
      */
     setPokemonListMessage(message) {
         this.pokemonListPad.setMessage(message);
