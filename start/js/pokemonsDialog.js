@@ -42,11 +42,11 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
         {
             case 'Up':
                 if(this.menuSelection>0)
-                    this.setPokemonListCursor(this.menuSelection-1);
+                    this.setPokemonListCursor(--this.menuSelection);
             break;
             case 'Down':
-                if(this.menuSelection<this.pokemonsCount)
-                    this.setPokemonListCursor(this.menuSelection+1);
+                if(this.menuSelection<this.pokemonsCount-1)
+                    this.setPokemonListCursor(++this.menuSelection);
             break;
             case 'A':
                 this.selectOrWatchOptions.show();
@@ -60,7 +60,7 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
                             if(selectPoke.HP!==0)
                              {
                                 GameSystem.protagonist.selectPokemon=selectPoke;
-                                this.pokemonsData=this.pokemons;
+                                this.pokemonsData=GameSystem.protagonist.pokemons||this.pokemons;
                              } 
                             else
                             {
@@ -140,11 +140,11 @@ class PokemonsSelectDialog extends GameSystem.Classes.PokemonListPad
         {
             case 'Up':
                 if(this.menuSelection>0)
-                    this.setPokemonListCursor(this.menuSelection-1);
+                    this.setPokemonListCursor(--this.menuSelection);
             break;
             case 'Down':
-                if(this.menuSelection<this.pokemonsCount)
-                    this.setPokemonListCursor(this.menuSelection+1);
+                if(this.menuSelection<this.pokemonsCount-1)
+                    this.setPokemonListCursor(++this.menuSelection);
             break;
             case 'A':
                 if(this.pokemons)
