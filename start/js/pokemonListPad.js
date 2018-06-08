@@ -186,6 +186,14 @@ class PokemonListPad {
     }
 
     /**
+     * 設定訊息至訊息版面中。
+     * @param {string} message 要設定的訊息。
+     */
+    setMessage(message) {
+        this.messageBar.innerText = message;
+    }
+
+    /**
      * 設定寶可夢的資料。
      * @prop {GameSystem.Classes.Pokemon[]} pokemons 指定要設置的寶可夢資料。
      */
