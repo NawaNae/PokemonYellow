@@ -167,7 +167,8 @@ class BattleLevel extends Framework.Level {
                     GameSystem.BattlePad.showPokemonListPad();
                 }
                 else if (this._menuSelection == 3) {
-                    // Run Away
+                    GameSystem.BattlePad.setVisibleMenu(false);
+                    this.runAway();
                 }
         }
     }
@@ -592,6 +593,40 @@ class BattleLevel extends Framework.Level {
 
     }
 
+    /**
+     * 玩家嘗試「逃跑」動作。
+     */
+    runAway() {
+        // 若對手為野生寶可夢
+        if (this._isOpponentPokemon) {
+            let battleResult = this._battleStage.doOneRoundBattle();
+            this.executeAnimationQueue(battleResult);
+        }
+        // 若對手為訓練家，則提示無法逃跑
+        else {
+            this._messagingQueue.push(next => {
+                GameSystem.BattlePad.setVisibleMenu(true);
+                GameSystem.BattlePad.setBattleMessage("");
+                this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
+                this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+                next();
+            });
+            GameSystem.BattlePad.setBattleMessage("對手同為是訓練家，逃跑就太難看了吧！");
+            GameSystem.BattlePad.setVisibleMenu(false);
+            this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
+            this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
+        }
+    }
+
+    /**
+     * 當玩家成功逃跑時的處理動作。
+     */
+    escapeSuccessfully() {
+        GameSystem.Bridges.BattleResult.isPlayerWon = true;
+        Framework.Game.goToLevel(this._protagonist.atMap);
+        Framework.Game._currentLevel._fightEnd();
+    }
+
     // #endregion ============================================================================
 
     // #region ============================== Animation Actions ==============================
@@ -739,6 +774,9 @@ class BattleLevel extends Framework.Level {
         }
         else if (state == EnumState.OpponentWin) {
             this.playerLoseARound();
+        }
+        else if (state == EnumState.Escape) {
+            this.escapeSuccessfully();
         }
         else {
             this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
