@@ -31,7 +31,7 @@ class BattleStage {
 
     /**
      * 做一回合的戰鬥動作。
-     * @param {GameSystem.Classes.Move | GameSystem.Classes.PropItem | undefined} choice 玩家所做出的選擇。
+     * @param {GameSystem.Classes.Move | GameSystem.Classes.PropItem | GameSystem.Classes.Pokemon | undefined} choice 玩家所做出的選擇。
      * 若是招式(Move)，則進行一般的回合制動作；
      * 若是道具(PropItem)，則進行道具使用動作；
      * 若是未定義(undefined)，則嘗試進行逃跑動作。'若逃跑失敗，則會一般地進行戰鬥。
@@ -55,6 +55,17 @@ class BattleStage {
             }
         }
         
+        // 玩家做了更換寶可夢的動作
+        if (choice.constructor == GameSystem.Classes.Pokemon) {
+            // 若寶可夢是在生命值大於0的狀態下更換，則加入移出動畫
+            if (this._player.HP > 0) {
+                let outImage = Load.image(this._player.backImagePath);
+                battleResult.addPlayerPokemonMovingOut(this._player.name, outImage);
+            }
+            this._player.changePokemon(choice);
+            battleResult.addPlayerPokemonMovingIn(choice.name);
+        }
+
         let playerMove = (choice && choice.constructor == GameSystem.Classes.Move) ? choice : undefined;
         let opponentMove = this._opponent.pokemon.randomlyTakeMove();
         let [attacker, defender] = (playerMove && (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed)) ? [this._player, this._opponent] : [this._opponent, this._player];
@@ -142,7 +153,7 @@ class BattleStage {
             // 實作攻擊，並判斷後攻方的寶可夢是否瀕死
             if (isFainted) {
                 attacker == this._player ? battleResult.playerWins() : battleResult.opponentWins();
-                defender == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+                defender == this._player ? battleResult.addPlayerPokemonMovingOut(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
                 return true;
             }
         }
@@ -179,7 +190,7 @@ class BattleStage {
             battleResult.addMessage(pokemon.name + "受到" + burnedDamage + "點灼傷傷害！");
             if (pokemon.acceptDamage(burnedDamage)) {
                 pokemon != this._player ? battleResult.playerWins() : battleResult.opponentWins();
-                pokemon == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+                pokemon == this._player ? battleResult.addPlayerPokemonMovingOut(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
                 return true;
             }
         }
@@ -200,7 +211,7 @@ class BattleStage {
             battleResult.addMessage(pokemon.name + "受到" + burnedDamage + "點中毒傷害！");
             if (pokemon.acceptDamage(burnedDamage)) {
                 pokemon != this._player ? battleResult.playerWins() : battleResult.opponentWins();
-                pokemon == this._player ? battleResult.addPlayerPokemonFaint(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
+                pokemon == this._player ? battleResult.addPlayerPokemonMovingOut(this._player.name) : battleResult.addOpponentPokemonFaint(this._opponent.name);
                 return true;
             }
         }
