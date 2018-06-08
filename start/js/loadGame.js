@@ -67,6 +67,7 @@ Load.js.import(
         { src: define.jsPath + 'levels.loadRecord.js', },
         { src: define.jsPath + 'levelRoute01.js'  },
         { src: define.jsPath + 'battleLevel.js'},
+        { src: define.jsPath + 'levels.ViridianCity.js'},
         { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
         [
                 'GameSystem.Classes.Dialog',
@@ -119,7 +120,8 @@ Load.js.import(
                 'GameSystem.Classes.PokemonListPad' ,
                 'GameSystem.Classes.PokemonInfoPad',
                 'GameSystem.Classes.PokemonsDialog',
-                'GameSystem.Classes.BattlePad'
+                'GameSystem.Classes.BattlePad',
+                'GameSystem.Classes.Levels.ViridianCity'
         ] },
         { src: define.jsPath + 'mainGame.js' ,waitFor:
         [     
