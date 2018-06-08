@@ -15,6 +15,7 @@
  * 
  * @prop {BattleLevel.InputMode} inputMode 目前使用者輸入對應到的操作模式。
  * @prop {Function} keyInputHandler 鍵盤輸入事件的處理者函式變數。
+ * @prop {boolean} isForceToChangePokemon 是否強制更換寶可夢。
  * @prop {number} menuSelection 選單上的選擇。
  * @prop {number} moveListSelection 招式選單上的選擇。
  * @prop {number} moveListCount 招式選單上的招式量。
@@ -64,6 +65,7 @@ class BattleLevel extends Framework.Level {
         // 初始化選單參數
         this._inputMode = BattleLevel.InputMode.Empty;
         this._keyInputHandler = this.keyInput_Empty;
+        this._isForceToChangePokemon = false;
         this._menuSelection = 0;
         this._moveListSelection = 0;
         this._moveListCount = this._playerPokemon.getMoves().length;
@@ -72,6 +74,7 @@ class BattleLevel extends Framework.Level {
         this._pokemonListMenuSelection = 0;
         this._pokemonInfoPage = false;
         this._messagingQueue = [];
+        this._playerPokemonList = GameSystem.protagonist.pokemons.slice(0);
 
         // 初始化資料橋接處GameSystem.Bridges.BattleResult
         GameSystem.Bridges.BattleResult.fightedPokemonTypes = [];
@@ -80,7 +83,7 @@ class BattleLevel extends Framework.Level {
         document.querySelector(".HTMLObjectContainer").classList.remove('hide');
 
         // 開啟UI 並 更新UI上的資料
-        this.updateDateOnUI();
+        this.resetDataOnUI();
         GameSystem.BattlePad.setVisible(true);
         GameSystem.BattlePad.setVisibleMenu(false);
         GameSystem.BattlePad.switchPokemonBallView(true);
@@ -155,6 +158,8 @@ class BattleLevel extends Framework.Level {
                     GameSystem.BattlePad.setMoveListMouseCursor(0);
                     GameSystem.BattlePad.setVisibleMoveListPad(true);
                     GameSystem.BattlePad.showMoveInfoPad();
+                    let move = this._playerPokemon.getMoves()[this._moveListSelection];
+                    GameSystem.BattlePad.setMoveInfoPadData(GameSystem.Classes.StandardStat.TypeName[move.type], move.PP, move.maxPP);
                 }
                 else if (this._menuSelection == 1) {
                     this._inputMode = BattleLevel.InputMode.BattlePad_Backpack;
@@ -165,6 +170,7 @@ class BattleLevel extends Framework.Level {
                     this._inputMode = BattleLevel.InputMode.PokemonList;
                     this._keyInputHandler = this.keyInput_OnPokemonList;
                     GameSystem.BattlePad.showPokemonListPad();
+                    GameSystem.BattlePad.setPokemonListData(this._playerPokemonList);
                 }
                 else if (this._menuSelection == 3) {
                     GameSystem.BattlePad.setVisibleMenu(false);
@@ -183,13 +189,17 @@ class BattleLevel extends Framework.Level {
             case 'Up':
                 if (this._moveListSelection > 0) {
                     this._moveListSelection -= 1;
+                    let move = this._playerPokemon.getMoves()[this._moveListSelection];
                     GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
+                    GameSystem.BattlePad.setMoveInfoPadData(GameSystem.Classes.StandardStat.TypeName[move.type], move.PP, move.maxPP);
                 }
                 break;
             case 'Down':
                 if (this._moveListSelection + 1 < this._moveListCount) {
                     this._moveListSelection += 1;
+                    let move = this._playerPokemon.getMoves()[this._moveListSelection];
                     GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
+                    GameSystem.BattlePad.setMoveInfoPadData(GameSystem.Classes.StandardStat.TypeName[move.type], move.PP, move.maxPP);
                 }
                 break;
             case 'A':   // Fighting Action
@@ -275,12 +285,16 @@ class BattleLevel extends Framework.Level {
             case 'A':
                 this._inputMode = BattleLevel.InputMode.PokemonList_Menu;
                 this._keyInputHandler = this.keyInput_OnPokemonList_Menu;
+                this._pokemonListMenuSelection = 0;
+                GameSystem.BattlePad.setPokemonListPadMenuCursor(0);
                 GameSystem.BattlePad.showPokemonListPadMenu();
                 break;
             case 'B':
-                this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
-                this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
-                GameSystem.BattlePad.hidePokemonListPad();
+                if (!this._isForceToChangePokemon) {
+                    this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
+                    this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+                    GameSystem.BattlePad.hidePokemonListPad();
+                }
         }
     }
 
@@ -313,7 +327,7 @@ class BattleLevel extends Framework.Level {
                     break;
                 }
                 else if (this._pokemonListMenuSelection == 1) {
-                    
+                    this.changingPokemon(this._pokemonListSelection);
                     break;
                 }
             case 'B':
@@ -350,9 +364,9 @@ class BattleLevel extends Framework.Level {
     // #region ============================= Game Handler ====================================
 
     /**
-     * 更新畫面上的資料。
+     * 重置畫面上的資料。
      */
-    updateDateOnUI() {
+    resetDataOnUI() {
         // 將資料更新至畫面上並顯示畫面
         GameSystem.BattlePad.resetViews();
         if (this._isOpponentPokemon) {
@@ -375,6 +389,28 @@ class BattleLevel extends Framework.Level {
     }
 
     /**
+     * 更新畫面上的資料。
+     */
+    updateDataOnUI() {
+        if (this._isOpponentPokemon) {
+            GameSystem.BattlePad.updateInfo(
+                this._playerPokemon,
+                this._opponent,
+                this._protagonist.pokemons,
+                this._protagonist.props
+            );
+        }
+        else {
+            GameSystem.BattlePad.updateInfo(
+                this._playerPokemon,
+                this._opponent.pokemons[this._opponentSelect],
+                this._protagonist.pokemons,
+                this._protagonist.props
+            );
+        }
+    }
+
+    /**
      * 實作一回合的寶可夢戰鬥。
      */
     doPokemonFight() {
@@ -385,6 +421,7 @@ class BattleLevel extends Framework.Level {
 
     /**
      * 當玩家贏了這一回合時的處理。
+     * *** Bug: 沒有「真正」更換到對手的寶可夢於BattleStage中
      */
     playerWinARound() {
         // 當對手是野生寶可夢時
@@ -444,7 +481,7 @@ class BattleLevel extends Framework.Level {
                         }
                         else {
                             GameSystem.BattlePad.setBattleMessage();
-                            this.animationSet.opponentPokemon = this.drawOpponentPokemon;
+                            this.animationSet.opponentPokemon = BattleLevel.drawOpponentPokemon;
                             this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                             this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                         }
@@ -587,10 +624,90 @@ class BattleLevel extends Framework.Level {
     }
 
     /**
-     * 當玩家輸了這一回合時的處理。 (尚未完成)
+     * 當玩家輸了這一回合時的處理。
      */
     playerLoseARound() {
+        // 若使用者還有可用的寶可夢，則顯示寶可夢清單頁面
+        if (this._protagonist.getAlivePokemonCount() > 0) {
+            GameSystem.BattlePad.setBattleMessage(this._protagonist.name + "還有可用的寶可夢，請做出更換寶可夢的選擇！");
+            // 顯示寶可夢清單，並提供使用者做選擇
+            this._messagingQueue.push(next => {
+                GameSystem.BattlePad.setBattleMessage();
+                GameSystem.BattlePad.showPokemonListPad();
+                GameSystem.BattlePad.setPokemonListData(this._playerPokemonList);
+                this._isForceToChangePokemon = true;
+                this._inputMode = BattleLevel.InputMode.PokemonList;
+                this._keyInputHandler = this.keyInput_OnPokemonList;
+                next();
+            });
 
+            this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
+            this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
+        }
+        // 若沒有則顯示訊息並黑掉
+        else {
+            GameSystem.BattlePad.setVisibleOpponentPad(false);
+            GameSystem.BattlePad.setVisiblePlayerPad(false);
+            this.animationSet.main = BattleLevel.blackOutAnimation;
+            GameSystem.BattlePad.setBattleMessage("已經沒有可以派出場的寶可夢了。");
+            // 玩家黑掉的訊息
+            this._messagingQueue.push(next => {
+                GameSystem.BattlePad.setBattleMessage(this._protagonist.name + " 黑掉了。");
+                next();
+            });
+            // 回到地圖上
+            this._messagingQueue.push(next => {
+                let opponentPokemon = this._isOpponentPokemon ? this._opponent : this._opponent.pokemons[this._opponentSelect];
+                GameSystem.Bridges.BattleResult.isPlayerWon = false;
+                GameSystem.Bridges.BattleResult.fightedPokemonTypes.push(opponentPokemon.getPokemonTypeName());
+                Framework.Game.goToLevel(this._protagonist.atMap);
+                Framework.Game._currentLevel._fightEnd();
+            });
+
+            this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
+            this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
+        }
+    }
+
+    /**
+     * 使用者更換寶可夢。
+     * @param {number} index 使用者指定的寶可夢清單中的索引。
+     */
+    changingPokemon(index) {
+        // 提示 index = 0 為當前選擇的寶可夢
+        if (index == 0) {
+            GameSystem.BattlePad.setPokemonListMessage("清單第一項為當前上場的寶可夢，請選擇其他寶可夢。");
+            GameSystem.BattlePad.hidePokemonListPadMenu();
+            this._inputMode = BattleLevel.InputMode.PokemonList;
+            this._keyInputHandler = this.keyInput_OnPokemonList;
+        }
+        // 確認寶可夢的生命值是否大於0(不為昏厥狀態)，則才可以更換
+        else if (this._playerPokemonList[index].HP <= 0) {
+            GameSystem.BattlePad.setPokemonListMessage("所選的寶可夢目前為昏厥狀態，請選擇其他寶可夢。");
+            GameSystem.BattlePad.hidePokemonListPadMenu();
+            this._inputMode = BattleLevel.InputMode.PokemonList;
+            this._keyInputHandler = this.keyInput_OnPokemonList;
+        }
+        // 選擇的寶可夢生命值大於0，且不為目前所選的寶可夢時，做更換動作
+        else {
+            // 變更當前所儲存的寶可夢資料，並且將我方寶可夢繪圖函式切回，最後隱藏寶可夢清單。
+            this._playerPokemon = this._playerPokemonList[index];                           // 紀錄目前所選的寶可夢並交換先後順序位置
+            this._playerPokemonList[index] = this._playerPokemonList[0]
+            this._playerPokemonList[0] = this._playerPokemon;
+            this._playerPokemonImage = Load.image(this._playerPokemon.getBackImagePath());  // 讀取寶可夢圖片
+            this._isForceToChangePokemon = false;                                           // 關閉「強制選擇寶可夢」
+            this._pokemonListSelection = 0;                                                 // 重置游標
+            GameSystem.BattlePad.setPokemonListCursor(0);                                   // 重置顯示上的游標
+            GameSystem.BattlePad.setPokemonListMessage("請選擇一隻寶可夢");                    // 重置訊息
+            GameSystem.BattlePad.hidePokemonListPadMenu();                                  // 隱藏寶可夢清單中的副選單
+            GameSystem.BattlePad.hidePokemonListPad();                                      // 隱藏寶可夢清單
+            GameSystem.BattlePad.setVisibleMenu(false);                                     // 隱藏主選單
+            // 刷新戰鬥版面資料
+            this.updateDataOnUI();
+            // 以「更換寶可夢」來實作一回戰鬥
+            let battleResult = this._battleStage.doOneRoundBattle(this._playerPokemon);
+            this.executeAnimationQueue(battleResult);
+        }
     }
 
     /**
@@ -680,8 +797,8 @@ class BattleLevel extends Framework.Level {
                 }
                 else if (ticks >= 800){                 // 移入完後，將動畫集設定回預備戰鬥狀態 並 將輸入處理設定回「戰鬥選單」
                     this.animationSet.main = BattleLevel.emptyAnimation;
-                    this.animationSet.playerPokemon = this.drawPlayersPokemon;
-                    this.animationSet.opponentPokemon = this.drawOpponentPokemon;
+                    this.animationSet.playerPokemon = BattleLevel.drawPlayersPokemon;
+                    this.animationSet.opponentPokemon = BattleLevel.drawOpponentPokemon;
                     this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                     this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                     GameSystem.BattlePad.setBattleMessage();                // 最後清空訊息
@@ -724,8 +841,8 @@ class BattleLevel extends Framework.Level {
                 }
                 else if (ticks >= 800){                 // 移入完後，將動畫集設定回預備戰鬥狀態 並 將輸入處理設定回「戰鬥選單」
                     this.animationSet.main = BattleLevel.emptyAnimation;
-                    this.animationSet.playerPokemon = this.drawPlayersPokemon;
-                    this.animationSet.opponentPokemon = this.drawOpponentPokemon;
+                    this.animationSet.playerPokemon = BattleLevel.drawPlayersPokemon;
+                    this.animationSet.opponentPokemon = BattleLevel.drawOpponentPokemon;
                     this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                     this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                     GameSystem.BattlePad.setBattleMessage();                // 最後清空訊息
@@ -781,25 +898,29 @@ class BattleLevel extends Framework.Level {
         else {
             this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
             this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+            this._menuSelection = 0;
+            GameSystem.BattlePad.setMenuCursor(0);
             GameSystem.BattlePad.setVisibleMenu(true);
         }
     }
 
     /**
-     * 繪製玩家方的寶可夢。
+     * 常態繪製玩家寶可夢的方法。
+     * @static
      * @param {Context2D} ctx Canvas的Context2D畫布。
      * @param {Image} image 對手寶可夢的圖片。
      */
-    drawPlayersPokemon(ctx, image) {
+    static drawPlayersPokemon(ctx, image) {
         ctx.drawImage(image, 10, 40);
     }
 
     /**
-     * 繪製對手方的寶可夢。
+     * 常態繪製對手寶可夢的方法。
+     * @static
      * @param {Context2D} ctx Canvas的Context2D畫布。
      * @param {Image} image 對手寶可夢的圖片。
      */
-    drawOpponentPokemon(ctx, image) {
+    static drawOpponentPokemon(ctx, image) {
         ctx.drawImage(image, 95, 5);
     }
 
@@ -859,7 +980,14 @@ class BattleLevel extends Framework.Level {
         return key === 'A';
     }
 
-    static emptyAnimation() { /* 空的動畫函式。 */ }
+    /* 空的動畫函式。 */
+    static emptyAnimation() {  }
+
+    /* 黑掉的動畫函式 */
+    static blackOutAnimation(ctx) {
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, 1000, 1000);
+    }
 }
 
 /**
