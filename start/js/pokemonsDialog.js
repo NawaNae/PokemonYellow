@@ -7,6 +7,11 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
         super(name,level,maxHP,HP,image);
         this._keyInput=(e)=>{this.keyInput(e)};
         this.keyInputMode=0;
+        var Option=GameSystem.Classes.Option,Options= GameSystem.Classes.Options;
+        this.selectOrWatchOptions=new Options();
+        this.selectOrWatchOptions.appendTo(this.getHTMLElement())
+        this.selectOrWatchOptions.push(new Option("選擇",function(){}));
+        this.selectOrWatchOptions.push(new Option("觀看",function(){}));
         this.infoPad=new GameSystem.Classes.PokemonInfoPad();
         this.infoPad.index=0;
         this.getHTMLElement().appendChild(this.infoPad.getHTMLElement());
@@ -32,6 +37,7 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
     }
     listKeyInput(key)
     {
+   
         switch(key)
         {
             case 'Up':
@@ -43,14 +49,39 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
                     this.setPokemonListCursor(this.menuSelection+1);
             break;
             case 'A':
-                if(this.pokemons)
-                    if(this.pokemons[this.menuSelection])
-                    {
-                        this.infoPad.setInfo(this.pokemons[this.menuSelection]);
-                        this.infoPad.show();
-                        this.infoPad.showPart1();
-                        this.keyInputMode=1;
-                    }    
+                this.selectOrWatchOptions.show();
+                var selectOption=this.selectOrWatchOptions.find("選擇"),watchOption=this.selectOrWatchOptions.find("觀看");
+                selectOption.selectSend=()=>
+                {
+                    this.selectOrWatchOptions.hide();
+                    var selectPoke;
+                    if(this.pokemons)
+                        if((selectPoke=this.pokemons[this.menuSelection]))
+                            if(selectPoke.HP!==0)
+                             {
+                                GameSystem.protagonist.selectPokemon=selectPoke;
+                                this.pokemonsData=this.pokemons;
+                             } 
+                            else
+                            {
+                                alert("無法選擇血量=0的寶可夢");
+                            }
+
+                }
+                watchOption.selectSend=()=>
+                {
+                    this.selectOrWatchOptions.hide();
+                    if(this.pokemons)
+                        if(this.pokemons[this.menuSelection])
+                        {
+                            this.infoPad.setInfo(this.pokemons[this.menuSelection]);
+                            this.infoPad.show();
+                            this.infoPad.showPart1();
+                            this.keyInputMode=1;
+                        }    
+
+                }
+                
             break;
             case 'B':
                 this.hide();
