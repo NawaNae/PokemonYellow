@@ -29,6 +29,7 @@ class HTMLObjectContainer
         this.initShoppingList();
         this.initPropList();
         this.initCharacterInfo();
+        this.initPokemonsDialog();
         this.resizeCanvas=(width,height)=>
         {
             this.container.style.width=width;
@@ -36,7 +37,12 @@ class HTMLObjectContainer
         }
         Framework.Game.resizeCanvas=this.resizeCanvas;
     }
-
+    initPokemonsDialog()
+    {
+        this.pokemonsDialog=new GameSystem.Classes.PokemonsDialog();
+        this.container.appendChild(this.pokemonsDialog.getHTMLElement());
+        this.pokemonsDialog.hide();
+    }
     initContainer()
     {        
         this.container=document.createElement("div");
@@ -89,7 +95,7 @@ class HTMLObjectContainer
         this.options=new GameSystem.Classes.Options();
         this.options.closeWithContainer=true;
         this.options.push(new GameSystem.Classes.Option("寶可夢圖鑑",function(){GameSystem.HTMLObjectContainer.illustrationList.show();;}));
-        this.options.push(new GameSystem.Classes.Option("寶可夢"));
+        this.options.push(new GameSystem.Classes.Option("寶可夢",()=>{this.pokemonsDialog.pokemonsData=GameSystem.protagonist.pokemons;this.pokemonsDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("道具",()=>{this.propList.show();}));
         var characterData=new GameSystem.Classes.Option("角色資料",()=>{this.characterInfo.show();});
         this.options.push(characterData);

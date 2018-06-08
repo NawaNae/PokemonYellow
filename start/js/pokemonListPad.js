@@ -190,6 +190,7 @@ class PokemonListPad {
      * @prop {GameSystem.Classes.Pokemon[]} pokemons 指定要設置的寶可夢資料。
      */
     setPokemonsData(pokemons) {
+        this.pokemonsCount=pokemons.length;
         for (let i = 0, pokemon; i < 6; i++) {
             let pokemon = pokemons[i]
             if (pokemon) {

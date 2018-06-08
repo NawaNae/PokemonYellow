@@ -59,6 +59,7 @@ Load.js.import(
         { src: define.jsPath + 'battleInfo.js' },
         { src: define.jsPath + 'battleStage.js'  },
         { src: define.jsPath + 'battleResult.js' },
+        { src: define.jsPath + 'pokemonsDialog.js' },
         { src: define.jsPath + 'battleAnimation.js' },
         { src: define.jsPath + 'myMenu.js' },
         { src: define.jsPath + 'plot.js'  },
@@ -117,6 +118,7 @@ Load.js.import(
                 'GameSystem.Classes.HPBarContainer',
                 'GameSystem.Classes.PokemonListPad' ,
                 'GameSystem.Classes.PokemonInfoPad',
+                'GameSystem.Classes.PokemonsDialog',
                 'GameSystem.Classes.BattlePad'
         ] },
         { src: define.jsPath + 'mainGame.js' ,waitFor:
