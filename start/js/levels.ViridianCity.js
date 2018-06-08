@@ -16,11 +16,9 @@ class ViridianCity extends GameSystem.Classes.Level {
         var CS = GS.Classes;
         var newConnectionItem=(map1,x1,y1,map2,x2,y2)=>new CS.Connection(new CS.MapPosition(map1,new CS.Position(x1,y1)),new CS.MapPosition(map2,new  CS.Position(x2, y2)));
         var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
-        pushItem("palletTown",8,7,"protagonistHome1F",3,7);
-        pushItem("palletTown",13, 3,"route01",10, 39,);
-        pushItem( "palletTown",14, 3, "route01",11, 39);
-        pushItem( "palletTown",16, 7,"palletTownHouse1", 3, 7);
-        pushItem( "doctorsHome",5, 11,"palletTown",15, 13);
+        pushItem("route01",10,0,"viridianCity",3,7);
+        pushItem("route01",11,0,"viridianCity",3,7);
+
     }
     initSubLevels()
     {
@@ -67,7 +65,7 @@ class ViridianCity extends GameSystem.Classes.Level {
         var GS = GameSystem,CS = GS.Classes, KM = GS.Manager.Key,Position=CS.Position;
         this.music= Load.audio( define.musicPath+"background/106 The Road To Viridian City From Palette.mp3");
         this.music.loop=true;
-        this.music.autoplay=false;
+        this.music.autoplay=true;
         this.map=new Framework.Scene();
         this.mapImage = new CS.Image(define.mapImagePath + 'viridianCity/gen1.png',{cutStartPosition:new Position(0,0),cutSize:new Position(39,39)});
         this.map.attach(this.mapImage);
