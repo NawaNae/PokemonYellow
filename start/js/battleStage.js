@@ -11,11 +11,11 @@ class BattleStage {
     /**
      * @param {GameSystem.Classes.Pokemon} playerPokemon 玩家方的寶可夢戰鬥資訊。
      * @param {GameSystem.Classes.Pokemon} opponentPokemon 對手方的寶可夢戰鬥資訊。
-     * @param {GameSystem.Classes.NPC?} opponentPlayer 對手資訊。此項為空則表示為野生寶可夢。
      */
     constructor(playerPokemon, opponentPokemon) {
         this._player = new GameSystem.Classes.BattleInfo(playerPokemon);
         this._opponent = new GameSystem.Classes.BattleInfo(opponentPokemon);
+        this._escapeTimes = 0;
     }
 
     get playerPokemon() { return this._player.pokemon; }
@@ -31,24 +31,44 @@ class BattleStage {
 
     /**
      * 做一回合的戰鬥動作。
-     * @param {GameSystem.Classes.Move} playerMove 玩家所選擇的招式。
+     * @param {GameSystem.Classes.Move | GameSystem.Classes.PropItem | undefined} choice 玩家所做出的選擇。
+     * 若是招式(Move)，則進行一般的回合制動作；
+     * 若是道具(PropItem)，則進行道具使用動作；
+     * 若是未定義(undefined)，則嘗試進行逃跑動作。'若逃跑失敗，則會一般地進行戰鬥。
      * @return {GameSystem.Classes.BattleResult} 一回合戰鬥完的結果。
      */
-    doOneRoundBattle(playerMove) {
-        let opponentMove = this._opponent.pokemon.randomlyTakeMove();
-        let [attacker, defender] = (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed) ? [this._player, this._opponent] : [this._opponent, this._player];
-        let [atkMove, defMove] = (attacker == this._player) ? [playerMove, opponentMove] : [opponentMove, playerMove];
+    doOneRoundBattle(choice) {
         let battleResult = new GameSystem.Classes.BattleResult();
+
+        // 若玩家嘗試逃跑，則計算其機率
+        if (!choice) {
+            let a = this._player.speed, b = Math.floor(this._opponent.speed / 4) % 256, c = ++this._escapeTimes;
+            let f = (a * 32) / b + 30 * c;
+            battleResult.addMessage("你嘗試進行逃跑...");
+            if (f > 255 || Math.floor(Math.random() * 256) < f) {
+                battleResult.addMessage("你和你的寶可夢成功地逃走了！");
+                battleResult.playerEscaped();
+                return battleResult;
+            }
+            else {
+                battleResult.addMessage("逃跑失敗！");
+            }
+        }
+        
+        let playerMove = (choice && choice.constructor == GameSystem.Classes.Move) ? choice : undefined;
+        let opponentMove = this._opponent.pokemon.randomlyTakeMove();
+        let [attacker, defender] = (playerMove && (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed)) ? [this._player, this._opponent] : [this._opponent, this._player];
+        let [atkMove, defMove] = (attacker == this._player) ? [playerMove, opponentMove] : [opponentMove, playerMove];
         
         // 首先，先處理先攻方(Attacker)對後攻方(Defender)的招式動作
-        if (this._halfRoundBattle(battleResult, attacker, defender, atkMove))
+        if (atkMove && this._halfRoundBattle(battleResult, attacker, defender, atkMove))
             return battleResult;
 
         // 停頓1秒
         battleResult.addWaitingTime(1000);
 
         // 再來，先處理後攻方(Defender)對先攻方(Attacker)的招式動作
-        if (this._halfRoundBattle(battleResult, defender, attacker, defMove))
+        if (defMove && this._halfRoundBattle(battleResult, defender, attacker, defMove))
             return battleResult;
         
         // 判斷先攻者是否為燒傷狀態或中毒狀態。
