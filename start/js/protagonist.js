@@ -32,8 +32,26 @@ class Protagonist extends GameSystem.Classes.Character {
         lada.level=5;
         lada.updateAbilities();
         lada.HP=lada.maxHP;
+
+        let pikC = new GameSystem.Classes.Pokemon("皮可西",DEX["皮可西"]);
+        pikC.level=200;
+        pikC.HP=0;
+
+        let nineTails = new GameSystem.Classes.Pokemon("九尾",DEX["九尾"]);
+        nineTails.HP=0;
+
+        let fatD = new GameSystem.Classes.Pokemon("胖丁",DEX["胖丁"]);
+        fatD.HP=0;
+
+        let sixTails=new GameSystem.Classes.Pokemon("六尾",DEX["六尾"]);
+        sixTails.level=15;
+        sixTails.updateAbilities();
+        sixTails.HP=lada.maxHP;
+
+        let fatKeD = new GameSystem.Classes.Pokemon("胖可丁",DEX["胖可丁"]);
+        fatKeD.HP=0;
         // ******************* //
-        this._pokemons = [pikachu, lada];   // lada for TESTING
+        this._pokemons = [pikachu,pikC ,lada,nineTails,fatD,sixTails];   // lada for TESTING
         this._props = [];
         this._money = 3000;
         this.metPokemons=[pikachu.name];
@@ -49,14 +67,16 @@ class Protagonist extends GameSystem.Classes.Character {
     rearrangePokemons()
     {
         var diePokes=[];
-        for(var i in this.pokemons)
+        for(var i =0;i<this.pokemons.length;)
         {
             var poke=this.pokemons[i];
             if(poke.HP===0)
             {
                 diePokes.push(poke);
-                this.pokemons=this.pokemons.splice(i,1);
-            }    
+                this.pokemons.splice(i,1);
+            }
+            else
+                i++;    
         }
         this.pokemons=this.pokemons.concat(diePokes);
     }
