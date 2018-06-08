@@ -56,7 +56,7 @@ class BattleStage {
         }
         
         // 玩家做了更換寶可夢的動作
-        if (choice.constructor == GameSystem.Classes.Pokemon) {
+        if (choice && choice.constructor == GameSystem.Classes.Pokemon) {
             // 若寶可夢是在生命值大於0的狀態下更換，則加入移出動畫
             if (this._player.HP > 0) {
                 let outImage = Load.image(this._player.backImagePath);
