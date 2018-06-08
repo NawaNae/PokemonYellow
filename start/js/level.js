@@ -242,7 +242,7 @@ class Level extends Framework.Level
         mainChar.meetPokemon(BR.fightedPokemonTypes);
         if(BR.isPlayerWon)
         {
-
+            mainChar.rearrangePokemons();
         }
         else
         {
