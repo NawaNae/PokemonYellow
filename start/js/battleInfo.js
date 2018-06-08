@@ -55,6 +55,12 @@ class BattleInfo {
     /** 寶可夢的第二屬性。 */
     get typeB() { return this._pokemon.typeB; }
 
+    /** 取得寶可夢正面圖片 */
+    get imagePath() { return this._pokemon.getImagePath(); }
+
+    /** 取得寶可夢背部圖片 */
+    get backImagePath() { return this._pokemon.getBackImagePath(); }
+
     // #region ======================================== 階級變換類 ========================================
 
     /**
@@ -255,5 +261,6 @@ class BattleInfo {
         this._isParalysis = false;
         this._isPoisoned = false;
         this._isAsleep = false;
+        this._asleepTime = 0;
     }
 }
