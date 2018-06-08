@@ -156,10 +156,88 @@ class BattleResult {
     }
 
     /**
-     * 新增我方寶可夢昏厥的動畫。 **
+     * 新增我方寶可夢移出的動畫。
      * @param {string} pokemonName 寶可夢的名稱。
+     * @param {Image?} outImage 表示要移出的寶可夢之圖片。若有此項則表示為「一般更換寶可夢」，否則為「寶可夢昏厥」。
      */
-    addPlayerPokemonFaint(pokemonName) {
+    addPlayerPokemonMovingOut(pokemonName, outImage) {
+        let resolve;                        // 存放 Promise 的 Resolve
+        let playerPos = {x: 10, y: 40};     // 設定我方寶可夢的繪製位置
+        let delay = 250;                    // 延遲 與 預延遲
+        let battleLevel_animationSet;       // 紀錄 BattleLevel 上的 animationSet
+
+        /** 移動玩家寶可夢的函式：「更換寶可夢」 */
+        function MovingOut_Changing(ctx) {
+            if (delay > 0) {                // 預延遲
+                delay -= 1;
+            }
+            else if (playerPos.x > -70) {   // 我方寶可夢移出畫面
+                playerPos.x -= 1;
+            }
+            else {                          // 結束動畫，將對手寶可夢繪製設為「空動畫」
+                battleLevel_animationSet.playerPokemon = BattleLevel.emptyAnimation;
+                setTimeout(() => resolve(true), 500);
+            }
+            ctx.drawImage(outImage, playerPos.x, playerPos.y);
+        }
+        /** 移動玩家寶可夢的函式：「寶可夢昏厥」 */
+        function MovingOut_Fainted(ctx, image) {
+            if (playerPos.x > -70) {      // 我方寶可夢移出畫面
+                ctx.drawImage(image, playerPos.x, playerPos.y);
+                playerPos.x -= 1;
+            }
+            else {                          // 結束動畫，將對手寶可夢繪製設為「空動畫」
+                battleLevel_animationSet.playerPokemon = BattleLevel.emptyAnimation;
+                setTimeout(() => resolve(true), 500);
+            }
+        }
+
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.PlayerPokemonFaint,
+            animation: (animationSet) => new Promise(res => {
+                resolve = res;
+                animationSet.playerPokemon = outImage ? MovingOut_Changing : MovingOut_Fainted;     // 若有指定移出的圖片，則表示純粹更換寶可夢；否則則為因寶可夢昏厥而換的
+                battleLevel_animationSet = animationSet;                                            // 紀錄動畫集合
+                GameSystem.BattlePad.setVisiblePlayerPad(false);                                    // 關閉玩家方寶可夢戰鬥版面
+                GameSystem.BattlePad.setBattleMessage(outImage ? "夠了" + pokemonName + "，回來吧！" : pokemonName + "倒下了！");     // 輸出訊息
+            })
+        });
+    }
+
+    /**
+     * 新增我方寶可夢進入戰鬥的動畫。
+     * @param {string} pokemonName 換上場的寶可夢名稱。
+     */
+    addPlayerPokemonMovingIn(pokemonName) {
+        let resolve;                        // 存放 Promise 的 Resolve
+        let playerPos = {x: -70, y: 40};    // 設定我方寶可夢的繪製位置
+        let delay = 200;                    // 延遲 200 ticks
+        let battleLevel_animationSet;       // 紀錄 BattleLevel 上的 animationSet
+        /** 移動寶可夢的函式 */
+        function MovingIn(ctx, image) {
+            if (playerPos.x < 10) {         // 我方寶可夢移出畫面
+                playerPos.x += 1;
+            }
+            else if (delay > 0) {           // 延遲
+                delay -= 1;
+            }
+            else {                          // 結束動畫，將對手寶可夢繪製設為原先的寶可夢繪製函式
+                battleLevel_animationSet.playerPokemon = BattleLevel.drawPlayersPokemon;
+                resolve(true);
+            }
+            ctx.drawImage(image, playerPos.x, playerPos.y);
+        }
+
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.PlayerPokemonFaint,
+            animation: (animationSet) => new Promise(res => {
+                resolve = res;
+                battleLevel_animationSet = animationSet;                           // 紀錄繪圖函式集
+                GameSystem.BattlePad.setVisiblePlayerPad(true);                    // 顯示玩家方寶可夢的戰鬥面板
+                GameSystem.BattlePad.setBattleMessage("去吧！" + pokemonName);      // 輸出訊息 
+                setTimeout(() => animationSet.playerPokemon = MovingIn, 1000);    // 延遲1秒
+            })
+        });
     }
 
     /**
@@ -203,7 +281,10 @@ GameSystem.Classes.BattleResult.ActionType = Object.freeze({
     OpponentPokemonFaint: Symbol('OpponentPokemonFaint'),
 
     /** 玩家寶可夢昏厥 */
-    PlayerPokemonFaint: Symbol('PlayerPokemonFaint')
+    PlayerPokemonFaint: Symbol('PlayerPokemonFaint'),
+
+    /** 玩家寶可夢移入 */
+    PlayerPokemonMovingIn: Symbol('PlayerPokemonMovingIn')
 });
 
 /** @enum 戰鬥結果的狀態種類列舉。
