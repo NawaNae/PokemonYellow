@@ -40,6 +40,51 @@ class Protagonist extends GameSystem.Classes.Character {
             Left:new GameSystem.Classes.Point(+1,0),
         }
     }
+    rearrangePokemons()
+    {
+        var diePokes=[];
+        for(var i in this.pokemons)
+        {
+            var poke=this.pokemons[i];
+            if(poke.HP===0)
+            {
+                diePokes.push(poke);
+                this.pokemons=this.pokemons.splice(i,1);
+            }    
+        }
+        this.pokemons=this.pokemons.concat(diePokes);
+    }
+    set selectPokemon(pokemon)
+    {
+        var find,index;
+        if(pokemon.constructor.name==="Pokemon")
+        {   
+             if((find=this.pokemons.find(pok=>pok===pokemon)))
+                ;
+            else if((find=this.pokemons.find(pok=>pok.name===pokemon.name)))
+                ;
+        }
+        else if(pokemon.constructor.name==="String")
+        {
+            find=this.pokemons.find(pok=>pok.name===pokemon)
+        }
+        else if(pokemon.constructor.name==="Number")
+        {
+            find=this.pokemons[pokemon];
+        }
+        if(find.HP===0)
+        {
+            console.warn("選擇了血量為0的寶可夢");return;
+        }
+        index=this.pokemons.indexOf(find);
+        this.pokemons[index]=this.pokemons[0];
+        this.pokemons[0]=find;
+        this.rearrangePokemons();
+    }
+    get selectPokemon()
+    {
+        return this.pokemons[0];
+    }
     meetPokemon(pokemon)
     {
         if(pokemon.constructor.name==="Pokemon")
@@ -189,7 +234,7 @@ class Protagonist extends GameSystem.Classes.Character {
     
 
     get pokemons() { return this._pokemons; }
-
+    set pokemons(val){this._pokemons=val;}
     get props() { return this._props; }
     set atMap(newMap) { 
         this._atMap = newMap 
