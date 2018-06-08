@@ -172,12 +172,9 @@ class HTMLObjectContainer
                 var prop=mainChar._props[i]
                 if(prop)
                 {
-                    var option=new Option("",function(){this.prop._use();this.propName.text=this.prop.name;if(this.prop.count)this.propCount.value=this.prop.count}||function(){});
+                    var option=new Option("",function(){this.prop._selectSend();this.propName.text=this.prop.name;if(this.prop.count)this.propCount.value=this.prop.count}||function(){});
                     option.prop=prop;
                     this.push(option);
-                    
- 
-
                     option.propName=new Text(prop.name,X,X,"name","span");
                     option.append(option.propName);
                     option.propCount=new Digit(prop.count,"x ",X,"count","span")
@@ -229,15 +226,15 @@ class HTMLObjectContainer
     hide()
     {this.visible=false}
     remove()
-    {this._display.remove(this._display);}
+    {this.container.remove();}
     append(child)
-    {this._display.appendChild(child);}
+    {this.container.appendChild(child);}
     prepend(child)
-    {this._display.prepend(child);}
+    {this.container.prepend(child);}
     appendTo(father)
-    {father.append(this._display);}
+    {father.append(this.container);}
     prependTo(father)
-    {father.prepend(this._display);}
+    {father.prepend(this.container);}
 }
 
 
