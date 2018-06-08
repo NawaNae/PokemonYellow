@@ -70,33 +70,12 @@ class Route01 extends GameSystem.Classes.Level
     }
     initGates()
     {
-        var GS=GameSystem;
-        var CS=GS.Classes;
-        this.gates.push(new CS.Connection
-            (
-                new CS.MapPosition
-                (
-                    "palletTown",
-                    new CS.Position(13,3)
-                ),
-                new CS.MapPosition
-                (
-                    "route01",
-                    new CS.Position(10,39)
-                )
-            ));
-            this.gates.push(new CS.Connection
-                (
-                    new CS.MapPosition
-                    (
-                        "palletTown",
-                        new CS.Position(14,3)
-                    ),
-                    new CS.MapPosition
-                    (
-                        "route01",
-                        new CS.Position(11,39)
-                    )
-                ));
+        var GS = GameSystem,CS = GS.Classes;
+        var newConnectionItem=(map1,x1,y1,map2,x2,y2)=>new CS.Connection(new CS.MapPosition(map1,new CS.Position(x1,y1)),new CS.MapPosition(map2,new  CS.Position(x2, y2)));
+        var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
+        pushItem("route01",10,0,"viridianCity",20,31);
+        pushItem("route01",11,0,"viridianCity",21,31);
+        pushItem("palletTown",13,3,"route01",10,39)
+        pushItem("palletTown",14,3,"route01",11,39);
     }
 }
