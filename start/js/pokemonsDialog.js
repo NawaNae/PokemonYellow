@@ -84,3 +84,79 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
         this.lastKeyInput=undefined;
     }
 }
+GameSystem.Classes.PokemonsSelectDialog = 
+class PokemonsSelectDialog extends GameSystem.Classes.PokemonListPad
+{
+    constructor(prop,pokemons)
+    {
+        super();
+        if(!pokemons)
+            if(GameSystem.protagonist&&GameSystem.protagonist.pokemons)
+            this.pokemonsData=GameSystem.protagonist.pokemons;
+        this.prop=prop;
+        this._keyInput=(e)=>{this.keyInput(e)};
+        this.show();
+    }
+    set pokemonsData(pokemons)
+    {
+        this.pokemons=pokemons;
+        super.setPokemonsData(pokemons);
+    }
+    keyInput(e)
+    {
+        var key=GameSystem.Manager.Key.keyMapping[e.key];
+        switch(key)
+        {
+            case 'Up':
+                if(this.menuSelection>0)
+                    this.setPokemonListCursor(this.menuSelection-1);
+            break;
+            case 'Down':
+                if(this.menuSelection<this.pokemonsCount)
+                    this.setPokemonListCursor(this.menuSelection+1);
+            break;
+            case 'A':
+                if(this.pokemons)
+                    if(this.pokemons[this.menuSelection])
+                    {
+                        if(this.prop&&this.prop.use)
+                        {
+                            this.prop._use(this.pokemons[this.menuSelection]);
+                            this.hide();
+                        }
+                        else
+                            console.warn("please make sure the prop and prop.use are assigned.");
+                    }    
+            break;
+            case 'B':
+                this.hide();
+        }
+    }
+    show()
+    {
+        super.show();
+        this.appendTo();
+        this.lastKeyInput=GameSystem.Manager.Key.keyInput;
+        GameSystem.Manager.Key.keyInput=this._keyInput;
+    }
+    appendTo(father)
+    {
+        if(!father)
+            father=GameSystem.HTMLObjectContainer;
+        if(father.appendChild)
+            father.appendChild(this.getHTMLElement());
+        else if(father.append)
+            father.append(this.getHTMLElement());
+    }
+    hide()
+    {
+        super.hide();
+        GameSystem.Manager.Key.keyInput=this.lastKeyInput||GameSystem.Manager.Key.keyInput;
+        this.lastKeyInput=undefined;
+        this.remove();
+    }
+    remove()
+    {
+        this.getHTMLElement().remove();
+    }
+}
