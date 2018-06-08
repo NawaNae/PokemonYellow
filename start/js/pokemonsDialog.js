@@ -14,7 +14,7 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
         this.selectOrWatchOptions.push(new Option("觀看",function(){}));
         this.infoPad=new GameSystem.Classes.PokemonInfoPad();
         this.infoPad.index=0;
-        this.getHTMLElement().appendChild(this.infoPad.getHTMLElement());
+    
         this.infoPad.hide();
     }
     set pokemonsData(pokemons)
@@ -78,8 +78,7 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
                             this.infoPad.show();
                             this.infoPad.showPart1();
                             this.keyInputMode=1;
-                        }    
-
+                        }
                 }
                 
             break;
@@ -101,6 +100,11 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
                 this.infoPad.index=0;
                 break;
         }
+    }
+    appendTo(father)
+    {
+        father.append(this.getHTMLElement());
+        father.append(this.infoPad.getHTMLElement());
     }
     show()
     {

@@ -40,7 +40,7 @@ class HTMLObjectContainer
     initPokemonsDialog()
     {
         this.pokemonsDialog=new GameSystem.Classes.PokemonsDialog();
-        this.container.appendChild(this.pokemonsDialog.getHTMLElement());
+        this.pokemonsDialog.appendTo(this.container);
         this.pokemonsDialog.hide();
     }
     initContainer()
