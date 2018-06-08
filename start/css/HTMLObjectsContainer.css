@@ -380,7 +380,8 @@ label {
 }
 
 /* 在訊息面板中，顯示「生命條容器」 */
-#battlePad .hp-bar-container {
+#battlePad .hp-bar-container,
+#pokemonList .hp-bar-container {
     position: absolute;
     top: 107px; left: 80px;
     height: 20px;
@@ -392,14 +393,16 @@ label {
 }
 
 /* 在訊息面板中的「生命條容器」中，顯示「生命條」樣式 */
-#battlePad .hp-bar-container > .hp-bar {
+#battlePad .hp-bar-container > .hp-bar,
+#pokemonList .hp-bar-container > .hp-bar {
     background: lime;
     width: 100%;
     height: 100%;
 }
 
 /* 在玩家訊息面板中，顯示「生命數值」的樣式 */
-#battlePad span.player-hp-value {
+#battlePad span.player-hp-value,
+#pokemonList span.player-hp-value{
     position: absolute;
     bottom: 25px; left: 200px;
     background: transparent;
@@ -675,6 +678,9 @@ div.levelUpStatPad span {
 
 /* 在「寶可夢資料條」中的寶可夢等級 */
 #pokemonList > div.pokemon-info-bar > .level {
+    position: absolute;
+    font-size: var(--std-font-size);
+    line-height: var(--std-line-height);
     top: 7px;  right: 250px;
     transform: scaleX(1.25);
 }
@@ -687,7 +693,12 @@ div.levelUpStatPad span {
 
 /* 在「寶可夢資料條」中的「HP:」文字 */
 #pokemonList > div.pokemon-info-bar > .hp-text {
+    position: absolute;
     bottom: 10px;  left: 145px;
+    font-size: var(--std-font-size);
+    font-weight: 900;
+    line-height: var(--std-line-height);
+    transform: scaleX(1.5);
 }
 
 /* 在「寶可夢資料條」中的生命值數值 */
