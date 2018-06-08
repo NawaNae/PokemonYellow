@@ -66,8 +66,13 @@ class Pokemon extends GameSystem.Classes.StandardStat {
             if(newMoves)
                 this._moves=this._moves.concat(newMoves);
         }
-            
-        this._exp=pokemon._exp||pokemon.exp||this._exp;
+
+        if (typeof pokemon._exp == 'number')
+            this._exp = pokemon._exp;
+        else if (typeof pokemon.exp == 'number')
+            this._exp = pokemon.exp;
+        else if (typeof this._exp == 'number')
+            this._exp = this._exp;
         this._IV.copyFrom(pokemon._IV||pokemon.IV||this._IV);//?
         this._EV.copyFrom(pokemon._EV||pokemon.EV||this._EV);//?
         var Move=GameSystem.Classes.Move;
