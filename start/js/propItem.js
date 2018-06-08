@@ -21,11 +21,19 @@ class PropItem {
      * @param {Prop} Object 複製來源
      * 
      */
-    constructor(name, count, use, isAutoDecreasing=true) {
+    constructor(name, count, use, isAutoDecreasing=true ,selectSend) {
        
         this._name = name;
         this._count = count;
         this.use=use;
+        this.selectSend=selectSend;
+        this._selectSend=param1=>
+        {
+            if(typeof this.selectSend!=='undefined')
+                this.selectSend(param1)
+            else
+                this._use(param1);
+        }
         this._use=(param1)=>{
             if(this.use)var result=this.use(param1);
             if(this.isDecreasing&&result)this.count--;
@@ -43,22 +51,24 @@ class PropItem {
      * @param {*} use 
      * @param {*} isAutoDecreasing 
      */
-    copy(val,count,use,isAutoDecreasing)
+    copy(val,count,use,isAutoDecreasing,selectSend)
     {
         if(typeof val === "undefined")
-            return new this.constructor(this._name,this._count,this.use,this.isDecreasing);
+            return new this.constructor(this._name,this._count,this.use,this.isDecreasing,this.selectSend);
         if(typeof val === "string")
         {
             this._name=val;
             this._count=count;
             this.use=use;
+            this.selectSend=selectSend;
             this.isDecreasing=isAutoDecreasing;
         }
-        else if(val&&(val.name||val._name||val.count||val._count||val.use||val.isAutoDecreasing))
+        else if(val&&(val.name||val._name||val.count||val._count||val.use||val.isAutoDecreasing||val.selectSend||val._selectSend))
         {
             var name=val.name||val._name;
             this._name=name||this.name;
             this._count=val.count||val._count;
+            this.selectSend=val.selectSend||this.selectSend;
             this.use=val.use||this.use;
             this.isDecreasing=val.isDecreasing||val._isDecreasing;
         }
