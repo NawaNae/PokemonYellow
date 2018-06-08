@@ -236,7 +236,7 @@
     border: none;
 }
 
-span {
+span, .pokemon-info-pad span {
     --lg-font-size: 3rem;
     --lg-line-height: 3.5rem;
     --std-font-size: 2rem;
@@ -245,7 +245,7 @@ span {
     --sm-line-height: 2rem;
 }
 
-label {
+label, .pokemon-info-pad label {
     --std-font-size: 1.5rem;
     --std-line-height: 2rem;
     --lg-font-size: 2rem;
@@ -768,6 +768,9 @@ div.levelUpStatPad span {
 #pokemonList > div.menu > span.menu-item:nth-child(3) { top: calc(var(--menu-item-start) + var(--menu-item-gap) * 2);  left: var(--menu-item-left); }
 
 /* ======================================== 「寶可夢資訊」面板 ======================================== */
+
+.pokemon-info-pad * { box-sizing: border-box; }
+
 /* 「寶可夢資訊」版面的樣式定義 */
 #battlePad .pokemon-info-pad, .pokemon-info-pad {
     position: absolute;
@@ -840,20 +843,29 @@ div.levelUpStatPad span {
 /* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 等級的樣式 */
 .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > span.level,
 #battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > span.level {
+    position: absolute;
     top: 5px;
     left: auto;
     right: 150px;
+    font-size: var(--std-font-size);
+    line-height: var(--std-line-height);
 }
 
 /* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 文字「HP:」的樣式 */
 .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > label.hp-text,
 #battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > label.hp-text {
+    position: absolute;
     top: 50px; left: 100px;
+    font-size: var(--std-font-size);
+    font-weight: 900;
+    line-height: var(--std-line-height);
+    transform: scaleX(1.5);
 }
 
 /* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 生命條的樣式 */
 .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .hp-bar-container,
 #battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .hp-bar-container {
+    position: absolute;
     top: 57px; left: 140px;
     width: 67%;
 }
@@ -861,7 +873,12 @@ div.levelUpStatPad span {
 /* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 生命值數值的樣式 */
 .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .player-hp-value,
 #battlePad .pokemon-info-pad > .pokemon-status-pad > .pokemmon-status-part1 > .player-hp-value {
+    position: absolute;
     top: 90px; right: 120px; left: auto;
+    font-size: var(--std-font-size);
+    font-weight: 900;
+    line-height: var(--std-line-height);
+    transform: scale(1.8, 1.2);
 }
 
 /* 「寶可夢資訊」版面 > 「寶可夢狀態」版面 > 「第一部分」版面 > 「狀態敘述」的樣式 */
