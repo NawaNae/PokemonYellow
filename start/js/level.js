@@ -240,6 +240,14 @@ class Level extends Framework.Level
         var mainChar=GameSystem.protagonist;
         var BR=GameSystem.Bridges.BattleResult;
         mainChar.meetPokemon(BR.fightedPokemonTypes);
+        if(BR.isPlayerWon)
+        {
+
+        }
+        else
+        {
+            this.money-=1;
+        }
     }
     teardown()
     {
