@@ -309,10 +309,13 @@ label {
     bottom: 10px; left: 10px;
     width: calc(100% - 20px);
     height: 230px;
+    font-size: 2.5rem;
+    line-height: 3rem;
     background: white;
     border: 42px solid black;
     border-image: url('../image/PokemonBorder.png') 88 round;
     z-index: 0;
+    overflow: scroll;
 }
 
 /* 主功能選單(戰鬥、道具、寶可夢、逃走) */
@@ -698,6 +701,8 @@ div.levelUpStatPad span {
     bottom: 0px;  left: 0px;
     width: 100%;
     height: 230px;
+    font-size: 2.5rem;
+    line-height: 3rem;
     background-color: white;
     border: 48px solid transparent;
     border-image: url('../image/Pokemonborder_white.png') 88 round;
