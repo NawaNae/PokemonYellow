@@ -70,7 +70,7 @@ class PokemonInfoBar {
     updateInfo(name, level, maxHP, HP, image) {
         this.pokemonName.innerText = name;
         this.levelTag.innerHTML = ':L ' + level;
-        this.updateHP(maxHP, HP);
+        this.updateHP(HP, maxHP);
         if (image) {
             this.img.src = image;
         }
