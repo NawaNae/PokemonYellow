@@ -9,6 +9,7 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
         this.keyInputMode=0;
         var Option=GameSystem.Classes.Option,Options= GameSystem.Classes.Options;
         this.selectOrWatchOptions=new Options();
+        this.selectOrWatchOptions._display.classList.add("selectOrWatchDialog");
         this.selectOrWatchOptions.appendTo(this.getHTMLElement())
         this.selectOrWatchOptions.push(new Option("選擇",function(){}));
         this.selectOrWatchOptions.push(new Option("觀看",function(){}));

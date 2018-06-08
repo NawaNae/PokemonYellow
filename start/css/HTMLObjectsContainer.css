@@ -39,14 +39,21 @@
 .HTMLObjectContainer .shoppingList,
 .HTMLObjectContainer .propList,
 .HTMLObjectContainer .itemNumberDialog,
-.HTMLObjectContainer .characterInfo
+.HTMLObjectContainer .characterInfo,
+.HTMLObjectContainer #pokemonList .selectOrWatchDialog
 {
     box-sizing: border-box;
     background-color:#f8f8f8e8;
     border: 42px solid transparent;
     border-image: url("../image/PokemonBorder.png") 88 round;
 }
-
+.HTMLObjectContainer #pokemonList .selectOrWatchDialog
+{
+    position: absolute;
+    top:unset;
+    bottom: 240px;
+    right: 10px;
+}
 /*覆蓋窗共通設定*/
 .HTMLObjectContainer .illustrationList,.HTMLObjectContainer .illustration,.characterInfo
 {
@@ -101,6 +108,7 @@
     top:10px;
     max-height: calc(60% - 10px);
 }
+
 /*yes no 對話框*/
 .yesNoDialog.options
 {
@@ -1023,3 +1031,5 @@ div.levelUpStatPad span {
 {
     display: inline-block;
 }
+
+
