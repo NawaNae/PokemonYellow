@@ -154,6 +154,21 @@ var defPlot=()=>{
             new Paragraph("都可以到處去看一看喔！")
         ])
     };
+    Drama["Hospital"]={
+        'JoiSan':new Plot("JoiSan",[
+            new Paragraph("喬伊小姐『讓我看看！$MY_NAME』"),
+            new Paragraph("好…"),
+            new CureAll(),
+            new Paragraph("你跟寶可夢都這麼有精神阿\n那小心一點喔"),
+            new Paragraph("¡Adios!",undefined,undefined,"es")
+        ]),
+        'Patient':new Plot("Patient",[
+            new Paragraph("患者『我東西被偷了！$MY_NAME，哀…』"),
+            new Paragraph("$MY_NAME『我不想知道』"),
+            new Paragraph("患者『我的心被喬伊小姐偷了』"),
+            new Paragraph("$MY_NAME『嘔嘔嘔嘔嘔嘔』")
+        ]),
+    }
 
 }
 GameSystem.loaded();
