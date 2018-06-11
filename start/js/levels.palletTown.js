@@ -1,3 +1,5 @@
+GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+GameSystem.Classes.Levels.PalletTown=
 class PalletTown extends GameSystem.Classes.Level {
     initEvents()
     {
@@ -45,10 +47,10 @@ class PalletTown extends GameSystem.Classes.Level {
     }
     initSubLevels()
     {
-        let protagonistHome1F=new ProtagonistHome1F();
-        let protagonistHome2F=new ProtagonistHome2F();
-        let palletTownHouse1=new PalletTownHouse1();
-        let doctorsHome=new DoctorsHome();
+        let protagonistHome1F=new GameSystem.Classes.Levels.ProtagonistHome1F();
+        let protagonistHome2F=new GameSystem.Classes.Levels.ProtagonistHome2F();
+        let palletTownHouse1=new GameSystem.Classes.Levels.PalletTownHouse1();
+        let doctorsHome=new GameSystem.Classes.Levels.DoctorsHome();
         this.subLevels.push(protagonistHome1F);
         this.subLevels.push(protagonistHome2F);
         this.subLevels.push(palletTownHouse1);
@@ -150,6 +152,7 @@ class PalletTown extends GameSystem.Classes.Level {
             }
     }
 }
+GameSystem.Classes.Levels.ProtagonistHome1F=
 class ProtagonistHome1F extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;
@@ -253,6 +256,7 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         this.rootScene.attach(GS.protagonist.image);
     }
 }
+GameSystem.Classes.Levels.ProtagonistHome2F=
 class ProtagonistHome2F extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;
@@ -308,6 +312,7 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.rootScene.attach(GS.protagonist.image);
     }
 }
+GameSystem.Classes.Levels.PalletTownHouse1=
 class PalletTownHouse1 extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;
@@ -401,6 +406,7 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
             }
     }
 }
+GameSystem.Classes.Levels.DoctorsHome=
 class DoctorsHome extends GameSystem.Classes.Level {
     constructor() {
         let CS = GameSystem.Classes;

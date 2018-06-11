@@ -1,3 +1,5 @@
+GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+GameSystem.Classes.Levels.Route01=
 class Route01 extends GameSystem.Classes.Level
 {
     load ()

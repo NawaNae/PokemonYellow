@@ -63,11 +63,11 @@ Load.js.import(
         { src: define.jsPath + 'battleAnimation.js' },
         { src: define.jsPath + 'myMenu.js' },
         { src: define.jsPath + 'plot.js'  },
-        { src: define.jsPath + 'levelPalletTown.js', waitFor:'GameSystem.Classes.Level'},//8
+        { src: define.jsPath + 'levels.palletTown.js', waitFor:'GameSystem.Classes.Level'},//8
         { src: define.jsPath + 'levels.hospital.js'},
         { src: define.jsPath + 'levels.mart.js'},
         { src: define.jsPath + 'levels.loadRecord.js', },
-        { src: define.jsPath + 'levelRoute01.js'  },
+        { src: define.jsPath + 'levels.route01.js'  },
         { src: define.jsPath + 'battleLevel.js'},
         { src: define.jsPath + 'levels.viridianCity.js',waitFor:['GameSystem.Classes.Levels.Hospital','GameSystem.Classes.Levels.Mart']},
         { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
@@ -91,10 +91,6 @@ Load.js.import(
                 'GameSystem.Classes.PropItem',
                 'GameSystem.Classes.MapWalker',
                 'GameSystem.Classes.HTMLObjectContainer',
-                'MyMenu',
-                'PalletTown' ,
-                'Route01',
-                'BattleLevel' ,
                 'GameSystem.Classes.SignBoard' ,
                 'GameSystem.Classes.NPC',
                 'GameSystem.Classes.Event',
@@ -123,7 +119,12 @@ Load.js.import(
                 'GameSystem.Classes.PokemonInfoPad',
                 'GameSystem.Classes.PokemonsDialog',
                 'GameSystem.Classes.BattlePad',
-                'GameSystem.Classes.Levels.ViridianCity'
+                'GameSystem.Classes.Levels.ViridianCity',
+                'GameSystem.Classes.Levels.PalletTown' ,
+                'GameSystem.Classes.Levels.Route01',
+                'GameSystem.Classes.Levels.LoadRecord',
+                'BattleLevel' ,
+                'MyMenu',
         ] },
         { src: define.jsPath + 'mainGame.js' ,waitFor:
         [     
