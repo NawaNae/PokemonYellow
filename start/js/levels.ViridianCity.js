@@ -17,18 +17,18 @@ class ViridianCity extends GameSystem.Classes.Level {
         var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
         pushItem("route01",10,0,"viridianCity",20,31);
         pushItem("route01",11,0,"viridianCity",21,31);
-      //  pushItem("pokemonHospital",0,0,"viridianCity",23,25);
+        pushItem("viridianCityHospital",4,7,"viridianCity",23,25);
           //  pushItem("mart",0,0,"viridianCity",29,19);
     }
     initSubLevels()
     {
-        // let protagonistHome1F=new ProtagonistHome1F();
+        let hospital = new GameSystem.Classes.Levels.ViridianCity.Hospital();
 
-        // this.subLevels.push(protagonistHome1F);
+         this.subLevels.push(hospital);
 
-        // for(let level of this.subLevels)
-        //     level.parentLevel=this;
-        // Framework.Game.addNewLevel({"protagonistHome1F":protagonistHome1F});
+         for(let level of this.subLevels)
+             level.parentLevel=this;
+         Framework.Game.addNewLevel({"viridianCityHospital":hospital});
     }
     initObstacles()
     {
@@ -123,109 +123,17 @@ class ViridianCity extends GameSystem.Classes.Level {
             }
     }
 }
-// /*class ProtagonistHome1F extends GameSystem.Classes.Level {
-//     constructor() {
-//         let CS = GameSystem.Classes;
-//         super(new CS.Position(7, 7), 'palletTownHome1F');
-//         this.size.pos1=new CS.Position(0, 1);
-//         this.isSubLevel = true;
-//     }
-//     initGates()
-//     {
-//         let CS = GameSystem.Classes;
-//         this.gates.push(new CS.Connection
-//             (
-//             new CS.MapPosition
-//                 (
-//                 "protagonistHome2F",
-//                 new CS.Position(7, 1)
-//                 ),
-//             new CS.MapPosition
-//                 (
-//                 "protagonistHome1F",
-//                 new CS.Position(7, 1)
-//                 )
-//             ));
-//         this.gates.push(new CS.Connection
-//             (
-//                 new CS.MapPosition
-//                 (
-//                 "palletTown",
-//                 new CS.Position(8,7)
-//                 ),
-//                 new CS.MapPosition
-//                 (
-//                 "protagonistHome1F",
-//                 new CS.Position(3, 7)
-//                 )
-//             ));
-//         this.gates.push(new CS.Connection
-//             (
-//                 new CS.MapPosition
-//                 (
-//                 "palletTown",
-//                 new CS.Position(8,7)
-//                 ),
-//                 new CS.MapPosition
-//                 (
-//                 "protagonistHome1F",
-//                 new CS.Position(2, 7)
-//                 )
-//             ));
-//     }
-//     initObstacles()
-//     {
-//         var GS = GameSystem;
-//         var CS = GS.Classes;
-//         this.obstacles.push(new CS.Rectangle({ x: 3, y: 4 }, { x: 4, y: 5 }));
-//         this.obstacles.push(new CS.Rectangle({ x: 0, y: 1 }, { x: 1, y: 1 }));
-//         this.obstacles.push(new CS.Rectangle({ x: 3, y: 1 }, { x: 3, y: 1 }));
-//     }
-//     initSignBoards()
-//     {
-//         var GS = GameSystem, CS = GS.Classes;
-//         var SignBoard = CS.SignBoard, Position = CS.Position, Polt = CS.Polt, Paragraph = CS.Paragraph,Drama = GS.Resource.Drama.PalletTown;
-//         this.signBoards.push(new SignBoard({ position: new Position(0, 1), content: Drama.Bookshelf }));
-//         this.signBoards.push(new SignBoard({ position: new Position(1, 1), content: Drama.Bookshelf }));
-//         this.signBoards.push(new SignBoard({ position: new Position(3, 1), content: Drama.TV }));
-//     }
-//     initNpcs()
-//     {
-//         var NPC=GameSystem.Classes.NPC,Position=GameSystem.Classes.Position;
-//         var Item=GameSystem.Classes.AnimationItem;
-//         let mom=new NPC("Mother",GameSystem.Classes.Character.Face.Left,new Position(5,4),new GameSystem.Classes.Image(define.characterImagePath+"mom.png",{cutSize:new Position(1,1),cutStartPosition:new Position(2,0)}),undefined,GameSystem.Resource.Drama.PalletTown.Mother);
-//         this.npcs.push(mom);
-//         mom.initializeAnimationLists4PbySrc();
-//         mom.facing=GameSystem.Classes.Character.Face.Left;
-    
-//     }
-//     loadNPCs()
-//     {
-//         for(let npc of this.npcs)
-//             if(npc.image)
-// {                this.map.attach(npc.image);
-//             npc.updateImagePosition();            
-// }
-//     }
-//     load()
-//     {
-//         super.load();
-//         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-//        /* this.music.loop=true;
-//         this.music.autoplay=true;*/
-//         var CS=GameSystem.Classes;
-//         var GS=GameSystem;
-//         this.mapImage=new CS.Image(define.imagePath+"palletTownHome1F.png");
-//         this.map=new Framework.Scene();
-//         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
-//         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
-//         this.map.attach(this.mapImage);
-//         this.walker=new CS.MapWalker({ mapRef: this.map });
-//         this.rootScene.attach(this.map);
-//         this.loadNPCs();
-//         this.rootScene.attach(GS.protagonist.image);
-//     }
-// }
+GameSystem.Classes.Levels.ViridianCity.Hospital=
+class Hospital extends GameSystem.Classes.Levels.Hospital {
+    initGates()
+    {
+        var GS = GameSystem,CS = GS.Classes;
+        var newConnectionItem=(map1,x1,y1,map2,x2,y2)=>new CS.Connection(new CS.MapPosition(map1,new CS.Position(x1,y1)),new CS.MapPosition(map2,new  CS.Position(x2, y2)));
+        var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
+        pushItem("viridianCityHospital",3,7,"viridianCity",23,25);
+        pushItem("viridianCityHospital",4,7,"viridianCity",23,25);
+    }
+}
 // class ProtagonistHome2F extends GameSystem.Classes.Level {
 //     constructor() {
 //         let CS = GameSystem.Classes;

@@ -64,10 +64,11 @@ Load.js.import(
         { src: define.jsPath + 'myMenu.js' },
         { src: define.jsPath + 'plot.js'  },
         { src: define.jsPath + 'levelPalletTown.js', waitFor:'GameSystem.Classes.Level'},//8
+        { src: define.jsPath + 'levels.hospital.js'},
         { src: define.jsPath + 'levels.loadRecord.js', },
         { src: define.jsPath + 'levelRoute01.js'  },
         { src: define.jsPath + 'battleLevel.js'},
-        { src: define.jsPath + 'levels.ViridianCity.js'},
+        { src: define.jsPath + 'levels.viridianCity.js',waitFor:'GameSystem.Classes.Levels.Hospital'},
         { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
         [
                 'GameSystem.Classes.Dialog',
