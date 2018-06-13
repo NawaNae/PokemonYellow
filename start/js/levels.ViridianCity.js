@@ -11,7 +11,7 @@ class ViridianCity extends GameSystem.Classes.Level {
         this.music= Load.audio( define.musicPath+"background/106 The Road To Viridian City From Palette.mp3");
         this.music.loop=true;
         var oak=new NPC("doctorOak",CS.Character.Face.Down,new Position(14, 9),new Image(define.characterImagePath + "oak.png", { cutStartPosition: new Position(1, 0), cutSize: new Position(1, 1) }),4, Drama.OakNormal);
-    }
+    } 
     initGates()
     {
         var GS = GameSystem,CS = GS.Classes;
