@@ -68,6 +68,7 @@ Load.js.import(
         { src: define.jsPath + 'levels.mart.js'},
         { src: define.jsPath + 'levels.loadRecord.js', },
         { src: define.jsPath + 'levels.route01.js'  },
+        { src: define.jsPath + 'levels.route02.js'  },
         { src: define.jsPath + 'battleLevel.js'},
         { src: define.jsPath + 'levels.viridianCity.js',waitFor:['GameSystem.Classes.Levels.Hospital','GameSystem.Classes.Levels.Mart']},
         { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
@@ -122,6 +123,7 @@ Load.js.import(
                 'GameSystem.Classes.Levels.ViridianCity',
                 'GameSystem.Classes.Levels.PalletTown' ,
                 'GameSystem.Classes.Levels.Route01',
+                'GameSystem.Classes.Levels.Route02',
                 'GameSystem.Classes.Levels.LoadRecord',
                 'BattleLevel' ,
                 'MyMenu',

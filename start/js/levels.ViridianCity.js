@@ -21,6 +21,8 @@ class ViridianCity extends GameSystem.Classes.Level {
         pushItem("route01",11,0,"viridianCity",21,31);
         pushItem("viridianCityHospital",4,7,"viridianCity",23,25);
         pushItem("viridianCityMart",4,7,"viridianCity",29,19);
+        pushItem("route02",9,30,"viridianCity",17,0);
+        pushItem("route02",10,30,"viridianCity",18,0);
     }
     initSubLevels()
     {

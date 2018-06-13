@@ -18,13 +18,8 @@ class Route01 extends GameSystem.Classes.Level
         this.music.autoplay=true;
         this.music.loop=true;
         this.size.pos1=new CS.Position(4,0);
-        this.size.pos2=new CS.Position(17,39);
+      //  this.size.pos2=new CS.Position(17,39);
 
-       
-
-        this.walker=new CS.MapWalker({mapRef:this.map});
-   
-        this.loadObstacles();
         this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
         this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
         this.keyInput = (e) => {
@@ -49,7 +44,7 @@ class Route01 extends GameSystem.Classes.Level
         pushField(14,17,17,14);
         pushField(10,11,17,8);
     }
-    loadObstacles()
+    initObstacles()
     {
         var GS=GameSystem;
         var CS=GS.Classes;
