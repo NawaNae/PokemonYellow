@@ -216,10 +216,8 @@ class Gym extends GameSystem.Classes.Level
         var  Position=CS.Position,mainChar=GS.protagonist;
         let shauChanSi=new Pokemon("小拳石",DEX["小拳石"]);
         shauChanSi.level=10;
-        shauChanSi.updateAbilities();
         let daIanSir=new Pokemon("大魯蛇",DEX["大岩蛇"]);
         daIanSir.level=12;
-        daIanSir.updateAbilities();
         var littleGan=new NPC("littleGan",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"));
         this.npcs.push(littleGan);
         littleGan.plot=new Plot("OakGivePokemon",
@@ -231,9 +229,8 @@ class Gym extends GameSystem.Classes.Level
         ],()=>mainChar.storyLineIndex===1.1);
         let diSu=new Pokemon("地鼠",DEX["地鼠"]);
         diSu.level=9;
-        diSu.updateAbilities();
         let chanSanSu=new Pokemon("穿山鼠",DEX["穿山鼠"]);
-        chanSanSu.updateAbilities();
+        chanSanSu.level=9;
         this.npcs.push(
             new NPC("camper",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,
                 x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png")

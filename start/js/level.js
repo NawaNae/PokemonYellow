@@ -50,7 +50,7 @@ class Level extends Framework.Level
     {
   
         this.loadNullSprite();
-        
+
         GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
     }
     loadNPCs()
@@ -59,7 +59,12 @@ class Level extends Framework.Level
             if(npc.image)
             {
                 this.map.attach(npc.image);
-                npc.updateImagePosition();            
+                npc.updateImagePosition();     
+                for(let poke of npc.pokemons)
+                {
+                    poke.updateAbilities();
+                    poke.HP=poke.maxHP;
+                }       
             }
     }
     loadNullSprite()
