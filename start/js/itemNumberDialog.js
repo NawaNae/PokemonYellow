@@ -10,11 +10,15 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
     constructor(item,number=1)
     {
         super("","","","itemNumberDialog");
-        this._price=price;
-        this.item=tiem;
+        if(item)
+        this._price=item.price;
+        this.item=item;
         this.numberItem=new DisplayInformation.Digit(number,"X");
         this.numberItem.appendTo(this._display);
-        this.moneyItem=new DisplayInformation.Digit(number*price,"　","円");
+        if(item)
+            this.moneyItem=new DisplayInformation.Digit(number*item.price,"　","円");
+        else
+        this.moneyItem=new DisplayInformation.Digit(200,"　","円");
         this.moneyItem.appendTo(this._display);
         this.hide();
     }
@@ -49,11 +53,11 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
                 container.yesNoDialog.yesOption.selectSend=()=>
                 {
                     var mainChar=GameSystem.protagonist;
-                    mainChar.money -=this.cost;
-                    mainChar.props.push(this.item);
+                    mainChar.money -=itemNumber.cost;
+                    
                     container.yesNoDialog.hide();
                     container.itemNumberDialog.hide();
-                    container.hide();
+                    //container.hide();
                 };
                 container.yesNoDialog.show();
                 break;

@@ -149,7 +149,7 @@ class HTMLObjectContainer
     initShoppingList()
     {
         let Option=GameSystem.Classes.Option;
-        let container=GameSystem.HTMLObjectContainer;
+        let container=this;
         
 
         this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});

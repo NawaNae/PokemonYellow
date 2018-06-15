@@ -133,6 +133,12 @@ class Protagonist extends GameSystem.Classes.Character {
             this.meetPokemon(pokemon.pokemons);
         
     }
+    addProp(prop)
+    {
+        var Prop=GameSystem.Classes.PropItem;
+        if(!this.props.find(item=>prop.name===item.name))
+            this.props.push(new Prop())
+    }
     copyFrom(mainChar)
     {
         super.copyFrom(mainChar);
