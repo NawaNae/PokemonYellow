@@ -59,7 +59,6 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
                     mainChar.addProp(newItem);
                     container.yesNoDialog.hide();
                     container.itemNumberDialog.hide();
-                    //container.hide();
                 };
                 container.yesNoDialog.show();
                 break;

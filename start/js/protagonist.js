@@ -229,7 +229,7 @@ class Protagonist extends GameSystem.Classes.Character {
                 if((event=level.getEventAreaAt(newPos)))
                     event.start();
                 var field,wildPoke;
-                if((field=level.getBattleFieldAt(newPos)))
+                if((field=level.getBattleFieldAt(newPos))&&typeof this.avoidFight === "undefined")
                     if((wildPoke=field.trigger()))
                     {
                         var BD=GameSystem.Bridges.BattleData;

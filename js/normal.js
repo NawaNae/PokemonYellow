@@ -159,3 +159,49 @@ $(".debugDefine").on("click",function()
     var Def=GS.debugDefine;if(!Def){console.log("尚未載入完成");return;}
     Def();
 })
+$(".moneyup").on("click",function()
+{
+    var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
+    var mainChar=GameSystem.protagonist;if(!mainChar){console.log("請等待載入");return;}
+    var newMoney;
+    while(true)
+    {
+        newMoney=prompt("輸入金額",8700);
+        if(newMoney===null)return;
+        newMoney=Number(newMoney);
+        if((newMoney.constructor.name==="Number"&&newMoney>0))
+            break;
+        alert("請重新輸入>=0");
+    }
+    mainChar.money=newMoney;
+});
+$(".levelup").on("click",function()
+{
+    var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
+    var mainChar=GameSystem.protagonist;if(!mainChar){console.log("請等待載入");return;}
+    var increase;
+    while(true)
+    {
+        increase=prompt("輸入等級",100);
+        if(increase===null)return;
+        increase=Number(increase);
+        if((increase.constructor.name==="Number"&&increase>0))
+            break;
+        alert("請重新輸入>=0");
+    }
+    for(var poke of mainChar.pokemons)
+     {
+        poke.level+=increase;
+        poke.updateAbilities();
+        poke.HP=poke.maxHP;
+     }   
+});
+$(".avoidMonster").on("click",function()
+{
+    var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
+    var mainChar=GameSystem.protagonist;if(!mainChar){console.log("請等待載入");return;}
+    if(typeof mainChar.avoidFight === "undefined")
+        mainChar.avoidFight=true;
+    else
+        mainChar.avoidFight=undefined;
+});
