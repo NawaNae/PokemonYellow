@@ -24,8 +24,8 @@ class Mart extends GameSystem.Classes.Level {
     initSignBoards()
     {
         let SignBoard = GameSystem.Classes.SignBoard;
-        let Drama = GameSystem.Resource.Drama.Hospital;
-        this.signBoards.push(new SignBoard({ position: new GameSystem.Classes.Position(1, 5), content: Drama.JoiSan }));
+        let Drama = GameSystem.Resource.Drama.Mart;
+        this.signBoards.push(new SignBoard({ position: new GameSystem.Classes.Position(1, 5), content: Drama.Seller }));
     }
     initNpcs()
     {

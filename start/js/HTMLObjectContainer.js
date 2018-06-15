@@ -222,8 +222,11 @@ class HTMLObjectContainer
         characterInfo.hide();
         this.characterInfo=characterInfo;
     }
+    
     get visible()
-    {return !this.container.classList.contains(this.displayClassName[0]);}
+    {
+        return !this.container.classList.contains(this.displayClassName[0]);
+    }
     set visible(value)
     {
         this.container.classList.add(this.displayClassName[value|0]);

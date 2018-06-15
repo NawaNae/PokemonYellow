@@ -176,12 +176,19 @@ var defPlot=()=>{
         ])
     };
     Drama["Mart"]={
-        'Seller':new Script(()=>{
+        'Seller':new Plot("Seller",[
+        new Script(function(){
+
             var container=GameSystem.HTMLObjectContainer;
-            var buySellDialog=container.buySellDialog();
+            var buySellDialog=container.buySellDialog;
             container.show();
             buySellDialog.show();
-        })
+            var that=this;
+            buySellDialog.onHide=function()
+            {
+                that.next();
+            }
+        },{autoNext:false})])
     };
     Drama["Hospital"]={
         'JoiSan':new Plot("JoiSan",[

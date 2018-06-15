@@ -88,7 +88,7 @@ class Plot {
     }
     set index(value){
         this._index=value;
-        this.type=this.type||this._content[this._index].type;
+        //this.type=this.type||(this._content[this._index])?this._content[this._index].type:undefined;
     }
     get currentLevel(){return Framework.Game._currentLevel;}
     set currentLevel(val){console.log("current level is read only getter");}
