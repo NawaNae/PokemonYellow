@@ -28,8 +28,9 @@ var defProp=()=>
     GR.PropDictionary=
     {
         /*String: new Prop("Name",Count,useFunction(請回傳true or 非undefined/false 自動判斷減少物品)) */
-        "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;}),
-        "女僕咖啡廳的紅藥水":new Prop("女僕咖啡廳的紅藥水",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);})
+        "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;},x,x,9999),
+        "寶可夢球":new Prop("寶可夢球",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200),
+        "女僕咖啡廳的紅藥水":new Prop("女僕咖啡廳的紅藥水",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200)
     };
 }
 /** 定義所有的劇本 */
@@ -153,6 +154,14 @@ var defPlot=()=>{
             new Paragraph("在這個市中有寶可夢中心、寶可夢商店以及道館"),
             new Paragraph("都可以到處去看一看喔！")
         ])
+    };
+    Drama["Mart"]={
+        'Seller':new Script(()=>{
+            var container=GameSystem.HTMLObjectContainer;
+            var buySellDialog=container.buySellDialog();
+            container.show();
+            buySellDialog.show();
+        })
     };
     Drama["Hospital"]={
         'JoiSan':new Plot("JoiSan",[

@@ -71,6 +71,7 @@ Load.js.import(
         { src: define.jsPath + 'levels.route02.js'  },
         { src: define.jsPath + 'battleLevel.js'},
         { src: define.jsPath + 'levels.viridianCity.js',waitFor:['GameSystem.Classes.Levels.Hospital','GameSystem.Classes.Levels.Mart']},
+        { src: define.jsPath + 'levels.pewterCity.js'},
         { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
         [
                 'GameSystem.Classes.Dialog',
@@ -121,6 +122,7 @@ Load.js.import(
                 'GameSystem.Classes.PokemonsDialog',
                 'GameSystem.Classes.BattlePad',
                 'GameSystem.Classes.Levels.ViridianCity',
+                'GameSystem.Classes.Levels.PewterCity',
                 'GameSystem.Classes.Levels.PalletTown' ,
                 'GameSystem.Classes.Levels.Route01',
                 'GameSystem.Classes.Levels.Route02',

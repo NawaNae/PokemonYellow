@@ -28,7 +28,7 @@ class Route02 extends GameSystem.Classes.Level
     }
     initBattleFields(){
         var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position,Occurrence=CS.Occurrence,BattleField=CS.BattleField,DEX=GameSystem.Classes.PokemonType.Dictionary;
-        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["波波"], 3, 7, 30));field.addOccurrence(new Occurrence(DEX["小拉達"], 3, 4, 40));field.addOccurrence(new Occurrence(DEX["尼多蘭"], 3, 6, 15));field.addOccurrence(new Occurrence(DEX["尼多蘭"], 3, 6, 15))};
+        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["波波"], 3, 7, 30));field.addOccurrence(new Occurrence(DEX["小拉達"], 3, 4, 40));field.addOccurrence(new Occurrence(DEX["尼多蘭"], 3, 6, 15));field.addOccurrence(new Occurrence(DEX["尼多朗"], 3, 6, 15))};
         var nField=(x1,y1,x2,y2)=>new BattleField(new Rectangle(new Position(x1,y1),new Position(x2,y2)));
         var pushField=(x1,y1,x2,y2)=>{let f=nField(x1,y1,x2,y2);addOccur(f);this.battleFields.push(f);};
         pushField(6,11,11,8);
@@ -104,7 +104,8 @@ class House extends GameSystem.Classes.Level
         var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
         pushItem("route02",5,3,"route02House",5,7);
         pushItem("route02",5,3,"route02House",4,7);
-        pushItem("route02Part2",4,3,"route02House",5,0);
+        pushItem("route02Part2",5,12,"route02House",5,0);
+
     }
     initObstacles()
     {
@@ -148,7 +149,7 @@ class Route02Part2 extends GameSystem.Classes.Level
     }
     initBattleFields(){
         var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position,Occurrence=CS.Occurrence,BattleField=CS.BattleField,DEX=GameSystem.Classes.PokemonType.Dictionary;
-        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["波波"], 3, 7, 30));field.addOccurrence(new Occurrence(DEX["小拉達"], 3, 4, 40));field.addOccurrence(new Occurrence(DEX["尼多蘭"], 3, 6, 15));field.addOccurrence(new Occurrence(DEX["尼多蘭"], 3, 6, 15))};
+        var addOccur=field=>{field.addOccurrence(new Occurrence(DEX["波波"], 3, 7, 30));field.addOccurrence(new Occurrence(DEX["小拉達"], 3, 4, 40));field.addOccurrence(new Occurrence(DEX["尼多蘭"], 3, 6, 15));field.addOccurrence(new Occurrence(DEX["尼多朗"], 3, 6, 15))};
         var nField=(x1,y1,x2,y2)=>new BattleField(new Rectangle(new Position(x1,y1),new Position(x2,y2)));
         var pushField=(x1,y1,x2,y2)=>{let f=nField(x1,y1,x2,y2);addOccur(f);this.battleFields.push(f);};
         pushField(2,8,9,3);
@@ -160,6 +161,8 @@ class Route02Part2 extends GameSystem.Classes.Level
         var newConnectionItem=(map1,x1,y1,map2,x2,y2)=>new CS.Connection(new CS.MapPosition(map1,new CS.Position(x1,y1)),new CS.MapPosition(map2,new  CS.Position(x2, y2)));
         var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
         pushItem("route02Part2",5,13,"route02House",5,0);
+        pushItem("route02Part2",10,0,"pewterCity",18,34);
+        pushItem("route02Part2",11,0,"pewterCity",19,34);
     }
     initObstacles()
     {

@@ -150,9 +150,21 @@ class HTMLObjectContainer
     {
         let Option=GameSystem.Classes.Option;
         let container=GameSystem.HTMLObjectContainer;
+        
+
         this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});
         this.shoppingList.autoChangeInputMode=true;
-        this.shoppingList.push(new Option("100円的東東",function(){GameSystem.HTMLObjectContainer.itemNumberDialog.show();}));
+
+        this.shoppingList.push(new Option("200円 女僕咖啡廳的紅藥水",function(){
+            var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
+            container.itemNumberDialog.item=Dictionary["女僕咖啡廳的紅藥水"];
+            container.itemNumberDialog.show();
+        }));
+        this.shoppingList.push(new Option("200円 寶可夢球",function(){
+            var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
+            container.itemNumberDialog.item=Dictionary["寶可夢球"];
+            GameSystem.HTMLObjectContainer.itemNumberDialog.show();
+        }));
         this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.hide();}));
         this.addChild(this.shoppingList);
     }

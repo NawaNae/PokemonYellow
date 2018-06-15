@@ -7,11 +7,11 @@ var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
  GameSystem.Classes.ItemNumberDialog=
 class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
 {
-    constructor(price=100,number=1)
+    constructor(item,number=1)
     {
         super("","","","itemNumberDialog");
         this._price=price;
-
+        this.item=tiem;
         this.numberItem=new DisplayInformation.Digit(number,"X");
         this.numberItem.appendTo(this._display);
         this.moneyItem=new DisplayInformation.Digit(number*price,"　","円");
@@ -23,11 +23,11 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
      */
     set price(value)
     {
-        this._price=value;
-        this.moneyItem.value=this._price*this.value;
+        this.price=value;
+        this.moneyItem.value=this.price*this.value;
     }
     get price()
-    {   return this._price;}
+    {   return this.item.price;}
     get cost()
     {
         return this.moneyItem.value;
@@ -46,7 +46,15 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
                 itemNumber.value--;
                 break;
             case "A":
-                container.yesNoDialog.yesOption.selectSend=function(){console.log("cost " + GameSystem.HTMLObjectContainer.itemNumberDialog.cost);container.yesNoDialog.hide();container.itemNumberDialog.hide()};
+                container.yesNoDialog.yesOption.selectSend=()=>
+                {
+                    var mainChar=GameSystem.protagonist;
+                    mainChar.money -=this.cost;
+                    mainChar.props.push(this.item);
+                    container.yesNoDialog.hide();
+                    container.itemNumberDialog.hide();
+                    container.hide();
+                };
                 container.yesNoDialog.show();
                 break;
             case "B":

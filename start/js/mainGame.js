@@ -18,6 +18,7 @@ Framework.Game.addNewLevel({loadRecord: new GameSystem.Classes.Levels.LoadRecord
 Framework.Game.addNewLevel({palletTown: new GameSystem.Classes.Levels.PalletTown({x:26,y:23})});
 Framework.Game.addNewLevel({route01: new GameSystem.Classes.Levels.Route01()});
 Framework.Game.addNewLevel({viridianCity: new GameSystem.Classes.Levels.ViridianCity()});
+Framework.Game.addNewLevel({pewterCity: new GameSystem.Classes.Levels.PewterCity()});
 Framework.Game.addNewLevel({route02: new GameSystem.Classes.Levels.Route02()});
 Framework.Game.addNewLevel({'battleLevel': new BattleLevel()});
 //Framework.Game.addNewLevel({level1: new MyGame()});

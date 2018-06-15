@@ -14,7 +14,6 @@ class Mart extends GameSystem.Classes.Level {
             this.music= Load.audio( define.musicPath+"background/106 The Road To Viridian City From Palette.mp3");
             this.music.loop=true;
         }
-    
     }
     initObstacles()
     {
