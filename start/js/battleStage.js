@@ -68,8 +68,14 @@ class BattleStage {
 
         // 玩家選擇了道具作為這一回合戰鬥的動作
         if (choice && choice.constructor == GameSystem.Classes.PropItem) {
-            let battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult};
-            choice.battleAction(battlePackage);
+            // 寶可夢求需要做特殊的處理
+            if (choice.name == '寶可夢球') {
+                
+            }
+            else {
+                let battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult};
+                choice.battleAction(battlePackage);
+            }
         }
 
         let playerMove = (choice && choice.constructor == GameSystem.Classes.Move) ? choice : undefined;
@@ -268,6 +274,10 @@ class BattleStage {
         // 若攻擊方處於「灼傷狀態」，則攻擊效果減半。
         if (attacker.isBurned)
             damage /= 2;
+        
+        // 若傷害大於防禦者當前的生命值，則直接將傷害設定為防禦者的生命值
+        if (damage > defender.HP)
+            damage = defender.HP;
 
         return damage < 1 ? 1 : Math.round(damage);     // 若傷害低於1，則提升到1。
     }
