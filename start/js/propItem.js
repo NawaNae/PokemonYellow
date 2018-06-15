@@ -36,12 +36,12 @@ class PropItem {
                 this._use(param1);
         }
         this._use=(param1)=>{
-            if(this.use)this.use(param1);
             if(this.isDecreasing)
                 if(GameSystem.protagonist)
                     GameSystem.protagonist.decreaseSpecifiedPropItem(this);
                 else
                     this.count--;
+            if(this.use)this.use(param1);
                 
         }
         this.isDecreasing=isAutoDecreasing;

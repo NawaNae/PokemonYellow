@@ -133,11 +133,18 @@ class Protagonist extends GameSystem.Classes.Character {
             this.meetPokemon(pokemon.pokemons);
         
     }
+     /**
+     * 新增道具至角色上。
+     * @param {GameSystem.Classes.PropItem} prop 新的道具。
+     * @param {String} prop 新的道具的名稱
+     */
     addProp(prop)
     {
         var Prop=GameSystem.Classes.PropItem;
         var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
         var findItem=this.props.find(item=>prop.name===item.name)
+        if(prop.constructor.name==="String")
+            prop=Dictionary[prop];
         if(!findItem)
         {
             this.props.push(new Prop(prop));
@@ -354,19 +361,8 @@ class Protagonist extends GameSystem.Classes.Character {
         this._pokemons.push(newPokemon);
     }
 
-    /**
-     * 新增道具至角色上。
-     * @param {GameSystem.Classes.PropItem} newItem 新的道具。
-     */
-    addPropItem(newItem) {
-        let index = this._props.reduce((prop, targetIndex, index) => targetIndex < 0 && prop.name == newItem.name ? index : targetIndex, -1);
-        if (index >= 0) {
-            this._props[index].count += newItem.count;
-        }
-        else {
-            this._props.push(newItem);
-        }
-    }
+   
+
 
     /**
      * 減少指定道具的堆疊數量。

@@ -174,8 +174,8 @@ class HTMLObjectContainer
         let container=GameSystem.HTMLObjectContainer;
         var Text=DisplayInformation.Text,Digit=DisplayInformation.Digit,X;
         this.propList=new GameSystem.Classes.Options({className:"propList"});
-        var prpoList=this.propList;
-        this.propList.onShow=function()
+        var propList=this.propList;
+        propList.update=function()
         {
             var mainChar=GameSystem.protagonist;
             this.clear();
@@ -184,20 +184,21 @@ class HTMLObjectContainer
                 var prop=mainChar._props[i]
                 if(prop)
                 {
-                    var option=new Option("",function(){this.prop._selectSend();this.propName.text=this.prop.name;if(this.prop.count)this.propCount.value=this.prop.count}||function(){});
+                    var option=new Option("",function(){this.prop._selectSend();this.propName.text=this.prop.name;if(this.prop.count)this.propCount.value=this.prop.count});
                     option.prop=prop;
                     this.push(option);
                     option.propName=new Text(prop.name,X,X,"name","span");
                     option.append(option.propName);
                     option.propCount=new Digit(prop.count,"x ",X,"count","span")
                     if(prop.count)option.append(option.propCount)
-
                 }
-                   
             }
-                
             var pList=this;
             this.push(new Option("離開",function(){pList.hide();}));
+        }
+        propList.onShow=function()
+        {
+            propList.update();
         }
        
         this.addChild(this.propList);
