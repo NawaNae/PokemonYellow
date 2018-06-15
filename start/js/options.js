@@ -62,7 +62,7 @@ class Options extends DisplayInformation.AutoKeyInput.Text
             {
                 ele.select=false;
                 lastEle.select=true;
-                lastEle._display.scrollIntoViewIfNeeded();
+                lastEle._display.scrollIntoView({block: "end", behavior: "smooth"});
                 break;
             }
             lastEle=ele;
@@ -115,7 +115,7 @@ class Options extends DisplayInformation.AutoKeyInput.Text
         }
         ele.select=false;
         nextEle.select=true;
-        nextEle._display.scrollIntoViewIfNeeded();
+        nextEle._display.scrollIntoView({block: "end", behavior: "smooth"});
     }
     get select()
     {
@@ -130,7 +130,7 @@ class Options extends DisplayInformation.AutoKeyInput.Text
                 if(obj==item)
                 {
                     obj.select=true;
-                    obj._display.scrollIntoViewIfNeeded();
+                    obj._display.scrollIntoView({block: "end", behavior: "smooth"});
                 }
         else if(item.constructor.name=="String")
             for(let obj of this.options)
@@ -138,7 +138,7 @@ class Options extends DisplayInformation.AutoKeyInput.Text
                 {
                     obj.select=true;
 
-                    obj._display.scrollIntoViewIfNeeded();
+                    obj._display.scrollIntoView({block: "end", behavior: "smooth"});
                 }
         else if(item.constructor.name=="Number")
         {
