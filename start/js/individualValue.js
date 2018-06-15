@@ -31,7 +31,8 @@ class IndividualValue extends GameSystem.Classes.StandardStat {
      * @return {IndividualValue} 一個新的、隨機生成過的個體數值。
      */
     static GetNewValue() {
-        let newIV = new IndividualValue(Math.floor(Math.random() * 16),
+        let newIV = new IndividualValue(1,
+                                        Math.floor(Math.random() * 16),
                                         Math.floor(Math.random() * 16),
                                         Math.floor(Math.random() * 16),
                                         Math.floor(Math.random() * 16));
