@@ -63,7 +63,7 @@ class PropItem {
      * @param {*} use 
      * @param {*} isAutoDecreasing 
      */
-    copy(val,count,use,isAutoDecreasing,selectSend,price)
+    copy(val,count,use,isAutoDecreasing,selectSend,price,inBattleUse)
     {
         if(typeof val === "undefined")
             return new this.constructor(this._name,this._count,this.use,this.isDecreasing,this.selectSend,this.price,this._originBattleUse);
