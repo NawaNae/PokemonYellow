@@ -164,6 +164,9 @@ class BattleLevel extends Framework.Level {
                 else if (this._menuSelection == 1) {
                     this._inputMode = BattleLevel.InputMode.BattlePad_Backpack;
                     this._keyInputHandler = this.keyInput_OnBattlePad_Backpack;
+                    this._backpackItemSelection = 0;
+                    GameSystem.BattlePad.setBackpackPad(this._protagonist.props);
+                    GameSystem.BattlePad.setBackpackItemCursor(0);
                     GameSystem.BattlePad.showBackpackPad();
                 }
                 else if (this._menuSelection == 2) {
@@ -237,7 +240,26 @@ class BattleLevel extends Framework.Level {
             case 'A':
                 // 若所選為道具，則執行道具相對應的動作效果
                 if ( this._backpackItemSelection < this._protagonist.props.length ) {
-                    // Use prop
+                    let propItem = this._protagonist.props[this._backpackItemSelection];
+                    // 判斷這個道具是否適用於戰鬥中
+                    if (propItem.battleAction) {
+                        GameSystem.BattlePad.setVisibleMenu(false);
+                        GameSystem.BattlePad.hideBackpackPad();
+                        this.playerUsePropItem(propItem);
+                    }
+                    else {
+                        this._messagingQueue.push(next => {
+                            GameSystem.BattlePad.setBattleMessage();
+                            GameSystem.BattlePad.setVisibleMenu(true);
+                            this._inputMode = BattleLevel.InputMode.BattlePad_Backpack;
+                            this._keyInputHandler = this.keyInput_OnBattlePad_Backpack;
+                            next();
+                        });
+                        GameSystem.BattlePad.setBattleMessage('這項道具不能在戰鬥中使用！');
+                        GameSystem.BattlePad.setVisibleMenu(false);
+                        this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
+                        this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
+                    }
                     break;
                 }
                 // else: 若所選為「返回」(清單中最後一項)，則返回至主選單
@@ -708,6 +730,15 @@ class BattleLevel extends Framework.Level {
             let battleResult = this._battleStage.doOneRoundBattle(this._playerPokemon);
             this.executeAnimationQueue(battleResult);
         }
+    }
+
+    /**
+     * 玩家以「使用道具」來推進這一回合的戰鬥。
+     * @param {GameSystem.Classes.PropItem} propItem 要使用的道具。
+     */
+    playerUsePropItem(propItem) {
+        let battleResult = this._battleStage.doOneRoundBattle(propItem);
+        this.executeAnimationQueue(battleResult);
     }
 
     /**
