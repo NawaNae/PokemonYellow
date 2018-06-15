@@ -110,11 +110,11 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         let EV = this._EV;
         let level = this._level;
 
-        this.maxHP = Math.floor( ((TP.maxHP + IV.maxHP + Math.sqrt(EV.maxHP) / 8) + level) / 50 + 10 + level );
-        this.attack = Math.floor( ((TP.attack + IV.attack + Math.sqrt(EV.attack) / 8) + level) / 50 + 5 );
-        this.defense = Math.floor( ((TP.defense + IV.defense + Math.sqrt(EV.defense) / 8) + level) / 50 + 5 );
-        this.special = Math.floor( ((TP.special + IV.special + Math.sqrt(EV.special) / 8) + level) / 50 + 5 );
-        this.speed = Math.floor( ((TP.speed + IV.speed + Math.sqrt(EV.speed) / 8) + level) / 50 + 5 );
+        this.maxHP = Math.floor( ((TP.maxHP + IV.maxHP + Math.sqrt(EV.maxHP) / 8) * level) / 50 + 10 + level );
+        this.attack = Math.floor( ((TP.attack + IV.attack + Math.sqrt(EV.attack) / 8) * level) / 50 + 5 );
+        this.defense = Math.floor( ((TP.defense + IV.defense + Math.sqrt(EV.defense) / 8) * level) / 50 + 5 );
+        this.special = Math.floor( ((TP.special + IV.special + Math.sqrt(EV.special) / 8) * level) / 50 + 5 );
+        this.speed = Math.floor( ((TP.speed + IV.speed + Math.sqrt(EV.speed) / 8) * level) / 50 + 5 );
     }
 
     /**
