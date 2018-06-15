@@ -37,10 +37,10 @@ class IndividualValue extends GameSystem.Classes.StandardStat {
                                         Math.floor(Math.random() * 16),
                                         Math.floor(Math.random() * 16));
         
-        newIV.maxHP = (this.attack  % 2) ? 8 : 0 +
-                      (this.defnese % 2) ? 4 : 0 +
-                      (this.special % 2) ? 2 : 0 +
-                      (this.speed   % 2) ? 1 : 0;
+        newIV.maxHP = (newIV.attack  % 2) ? 8 : 0 +
+                      (newIV.defnese % 2) ? 4 : 0 +
+                      (newIV.special % 2) ? 2 : 0 +
+                      (newIV.speed   % 2) ? 1 : 0;
         return newIV;
     }
 }
