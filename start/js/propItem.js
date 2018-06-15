@@ -21,7 +21,7 @@ class PropItem {
      * @param {Prop} Object 複製來源
      * 
      */
-    constructor(name, count, use, isAutoDecreasing=true ,selectSend,price=200) {
+    constructor(name, count, use, isAutoDecreasing=true ,selectSend,price=200,inBattleUse) {
        
         this._name = name;
         this._count = count;
@@ -44,6 +44,12 @@ class PropItem {
             if(this.use)this.use(param1);
                 
         }
+        if (inBattleUse) {
+            this._originBattleUse = inBattleUse;
+            this._inBattleUse = function(battleNeeds) {
+                inBattleUse(battleNeeds);
+            };
+        }
         this.isDecreasing=isAutoDecreasing;
         if(name&&(name.name||name._name||name.count||name._count||name.use||name.isAutoDecreasing))
         {
@@ -57,10 +63,10 @@ class PropItem {
      * @param {*} use 
      * @param {*} isAutoDecreasing 
      */
-    copy(val,count,use,isAutoDecreasing,selectSend,price)
+    copy(val,count,use,isAutoDecreasing,selectSend,price,inBattleUse)
     {
         if(typeof val === "undefined")
-            return new this.constructor(this._name,this._count,this.use,this.isDecreasing,this.selectSend,this.price);
+            return new this.constructor(this._name,this._count,this.use,this.isDecreasing,this.selectSend,this.price,this._originBattleUse);
         if(typeof val === "string")
         {
             this._name=val;
@@ -69,6 +75,12 @@ class PropItem {
             this.selectSend=selectSend;
             this.isDecreasing=isAutoDecreasing;
             this.price=price;
+            if (inBattleUse) {
+                this._originBattleUse = inBattleUse;
+                this._inBattleUse = function(battleNeeds) {
+                    this._originBattleUse(battleNeeds);
+                };
+            }
         }
         else if(val&&(val.name||val._name||val.count||val._count||val.use||val.isAutoDecreasing||val.selectSend||val._selectSend))
         {
@@ -79,6 +91,12 @@ class PropItem {
             this.price=price;
             this.use=val.use||this.use;
             this.isDecreasing=val.isDecreasing||val._isDecreasing;
+            if (val.battleAction) {
+                this._originBattleUse = val._originBattleUse;
+                this._inBattleUse = function(battleNeeds) {
+                    this._originBattleUse(battleNeeds);
+                };
+            }
         }
     }
     set isDecreasing(bool){if(typeof this._count==="undefined"){console.warn("請確保有count的情況下再設定");return;}this._isDecreasing=bool;}
@@ -89,4 +107,6 @@ class PropItem {
 
     get count() { return this._count; }
     set count(newCount) { this._count = newCount; }
+
+    get battleAction() { return this._inBattleUse; }
 };

@@ -66,6 +66,12 @@ class BattleStage {
             battleResult.addPlayerPokemonMovingIn(choice.name);
         }
 
+        // 玩家選擇了道具作為這一回合戰鬥的動作
+        if (choice && choice.constructor == GameSystem.Classes.PropItem) {
+            let battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult};
+            choice.battleAction(battlePackage);
+        }
+
         let playerMove = (choice && choice.constructor == GameSystem.Classes.Move) ? choice : undefined;
         let opponentMove = this._opponent.pokemon.randomlyTakeMove();
         let [attacker, defender] = (playerMove && (playerMove.priority >= opponentMove.priority || this._player.speed >= this._opponent.speed)) ? [this._player, this._opponent] : [this._opponent, this._player];

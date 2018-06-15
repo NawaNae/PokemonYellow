@@ -118,6 +118,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     AttackedBy: {},
     PlayerEffect: {},
     OpponentEffect: {},
+    MiscEffect: {}
 };
 
 (() => {
@@ -555,5 +556,28 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     );
 
     // #region ======================================================== //
+
+    // #region =================== 初始化 MiscEffect =================== //
+    DEX = BattleAnimation.Dictionary.MiscEffect;
+
+    DEX["藥水"] = new BattleAnimation("藥水",
+        { r: 1 },
+        function (ctx) {
+            ctx.strokeStyle = "rgba(255, 0, 0, " + (255 - this._animVars.r * 10) + ")";
+            ctx.lineWidth = 6 - Math.ceil(this._animVars.r / 12)
+            if (this._animVars.r <= 60) {
+                ctx.beginPath();
+                ctx.arc(40, 70, Math.ceil(this._animVars.r), 0, PI2);
+                ctx.closePath();
+                ctx.stroke();
+                this._animVars.r += 0.5;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    // #endregion ====================================================== //
 
 })();
