@@ -215,7 +215,7 @@ class HTMLObjectContainer
         characterInfo.onShow=function()
         {
             name.text=mainChar.name;
-            name.money=mainChar.money;
+            money.value=mainChar.money;
         }
         characterInfo.keyInput=()=>{characterInfo.hide();}
         characterInfo.hide();
