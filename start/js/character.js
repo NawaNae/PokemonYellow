@@ -138,7 +138,7 @@ class Character {
         }
         waitForWalk();
     }
-    walkTo(position){this.moveTo(position);}
+    walkTo(position,end=()=>{}){this.moveTo(position,end);}
     moveTo(position,end=()=>{})
     {
         this.isPlayBehavior=false;

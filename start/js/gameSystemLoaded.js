@@ -158,6 +158,7 @@ var defPlot=()=>{
             new Paragraph("記得確認你的寶可夢的HP是否是足夠的！")
         ])
     };
+ 
     Drama["Others"] = {
         '卡迪諾狂新聞':new Plot("卡迪諾狂新聞",[
             new Paragraph("歡迎來到本周的卡迪諾狂新聞",undefined,undefined,undefined,false),

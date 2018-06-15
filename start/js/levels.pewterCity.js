@@ -211,17 +211,53 @@ class Gym extends GameSystem.Classes.Level
     }
     initNpcs()
     {
-        var x,GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon, NPC = CS.NPC,Face=CS.Character.Face, Drama = GameSystem.Resource.Drama.PalletTown,DEX=CS.PokemonType.Dictionary;
+        var x,GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon, NPC = CS.NPC,Face=CS.Character.Face, DEX=CS.PokemonType.Dictionary;
+        var PC=CS.PlotContents,Plot=CS.Plot,Paragraph=CS.Paragraph,Script=PC.Script,Fight=PC.Fight;
+        var  Position=CS.Position,mainChar=GS.protagonist;
         let shauChanSi=new Pokemon("小拳石",DEX["小拳石"]);
         shauChanSi.level=10;
         shauChanSi.updateAbilities();
         let daIanSir=new Pokemon("大魯蛇",DEX["大岩蛇"]);
         daIanSir.level=12;
         daIanSir.updateAbilities();
+        var littleGan=new NPC("littleGan",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"));
+        this.npcs.push(littleGan);
+        littleGan.plot=new Plot("OakGivePokemon",
+        [
+            new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),
+            new Paragraph("那麼就戰鬥吧』"),
+            new Script(()=>mainChar.storyLineIndex=2),
+            new Fight(littleGan)
+        ],()=>mainChar.storyLineIndex===1.1);
+        let diSu=new Pokemon("地鼠",DEX["地鼠"]);
+        diSu.level=9;
+        diSu.updateAbilities();
+        let chanSanSu=new Pokemon("穿山鼠",DEX["穿山鼠"]);
+        chanSanSu.updateAbilities();
         this.npcs.push(
-            new NPC("littleGan",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,
-                x/*plot*/,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png")
+            new NPC("camper",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,
+                x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png")
             )
         );
+    }
+    initEvents()
+    {
+        var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
+        var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc,Fight=PC.Fight;
+        var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter,mainChar=GS.protagonist;
+        var camper=this.npcs.find(npc=>npc.name==="camper");
+        var e1=new Event
+        (
+            new Rectangle(new Position(1, 6),new Position(8,6)) ,
+            new Plot("OakGivePokemon",
+                [
+                    new Paragraph("帳篷青年:『$MY_NAME，想要找小剛剛先過我這關』"),
+                    new Script(function(){camper.walkTo(mainChar.position,()=>this.next())},{autoNext:false}),
+                    new Script(()=>mainChar.storyLineIndex=1.1),
+                    new Fight(camper)
+                ]),
+            ()=>mainChar.storyLineIndex===1
+        )
+        this.events.push(e1);
     }
 }
