@@ -79,7 +79,12 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
         
         this.updateAbilities();
-        this._HP=pokemon._HP||pokemon.HP||this._HP;
+        if (typeof pokemon._HP == 'number') 
+            this._HP = pokemon._HP;
+        else if (typeof pokemon.HP == 'number')
+            this._HP = pokemon.HP;
+        else if (typeof this._HP == 'number')
+            this._HP = this._HP;
     }
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
