@@ -329,11 +329,11 @@ GameSystem.Classes.PokemonType.Dictionary = {};
 
     basicStat = {maxHP: 70, attack: 45, defense: 48, special: 60, speed: 35};
     moves = [new GradingMove(undefined, MoveDEX["拍擊"]), new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(13, MoveDEX["唱歌"]), new GradingMove(18, MoveDEX["連環巴掌"]), new GradingMove(24, MoveDEX["變小"]), new GradingMove(31, MoveDEX["揮指"]), new GradingMove(39, MoveDEX["變圓"]), new GradingMove(48, MoveDEX["光牆"])];
-    DEX["皮皮"] = new PokemonType(basicStat, 35, new Image(pokemonImagePath + "035_皮皮.png"), new Image(pokemonImagePath + "035_皮皮_Back.png"), "皮皮", moves, undefined, undefined, "它的造型和動作都非常的可愛，所以非常受人歡迎。不過因為數量很少，所以不容易發現。", 68, ExpType.Faster);
+    DEX["皮皮"] = new PokemonType(basicStat, 35, new Image(pokemonImagePath + "035_皮皮.png"), new Image(pokemonImagePath + "035_皮皮_Back.png"), "皮皮", moves, Type.Normal, undefined, "它的造型和動作都非常的可愛，所以非常受人歡迎。不過因為數量很少，所以不容易發現。", 68, ExpType.Faster);
 
     basicStat = {maxHP: 95, attack: 70, defense: 73, special: 85, speed: 60};
     moves = [new GradingMove(undefined, MoveDEX["唱歌"]), new GradingMove(undefined, MoveDEX["連環巴掌"]), new GradingMove(undefined, MoveDEX["變小"]), new GradingMove(undefined, MoveDEX["揮指"])];
-    DEX["皮可西"] = new PokemonType(basicStat, 36, new Image(pokemonImagePath + "036_皮可西.png"), new Image(pokemonImagePath + "036_皮可西_Back.png"), "皮可西", moves, undefined, undefined, "非常重視屬於自己族群的世界，不容易在人類面其出現，是妖精們的夥伴。", 129, ExpType.Faster);
+    DEX["皮可西"] = new PokemonType(basicStat, 36, new Image(pokemonImagePath + "036_皮可西.png"), new Image(pokemonImagePath + "036_皮可西_Back.png"), "皮可西", moves, Type.Normal, undefined, "非常重視屬於自己族群的世界，不容易在人類面其出現，是妖精們的夥伴。", 129, ExpType.Faster);
 
     basicStat = {maxHP: 38, attack: 41, defense: 40, special: 65, speed: 65};
     moves = [new GradingMove(undefined, MoveDEX["火花"]), new GradingMove(undefined, MoveDEX["搖尾巴"]), new GradingMove(16, MoveDEX["電光一閃"]), new GradingMove(21, MoveDEX["吼叫"]), new GradingMove(28, MoveDEX["奇異之光"]), new GradingMove(35, MoveDEX["噴射火焰"]), new GradingMove(42, MoveDEX["火焰旋渦"])];
