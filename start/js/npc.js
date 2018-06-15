@@ -29,7 +29,7 @@ class NPC extends GameSystem.Classes.Character {
         super(name, face, position, image, cutFunctionIndex);
         this.isRandomlyWalk=randomlyWalk;
 
-        this._behavior = behavior;
+        this._behavior = behavior||function(){};
         this._plotController=new GameSystem.Classes.PlotsController(plot,this);
         this._timeNumber;
         this._pokemons = pokemons || [];

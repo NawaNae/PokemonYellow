@@ -211,7 +211,7 @@ class Gym extends GameSystem.Classes.Level
     }
     initNpcs()
     {
-        var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon, NPC = CS.NPC,Face=CS.Character.Face, Drama = GameSystem.Resource.Drama.PalletTown,DEX=CS.PokemonType.Dictionary;
+        var x,GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon, NPC = CS.NPC,Face=CS.Character.Face, Drama = GameSystem.Resource.Drama.PalletTown,DEX=CS.PokemonType.Dictionary;
         let shauChanSi=new Pokemon("小拳石",DEX["小拳石"]);
         shauChanSi.level=10;
         shauChanSi.updateAbilities();
@@ -220,7 +220,7 @@ class Gym extends GameSystem.Classes.Level
         daIanSir.updateAbilities();
         this.npcs.push(
             new NPC("littleGan",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,
-                x/*plot*/,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png")
+                x/*plot*/,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png")
             )
         );
     }

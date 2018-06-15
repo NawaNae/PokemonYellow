@@ -4,7 +4,7 @@ class PlotsController
 {
     constructor(items,npc)
     {
-        if(item.constructor.name==="PlotsController")
+        if(items&&items.constructor.name==="PlotsController")
         {
             npc=items.npc;
             items=items.plots;
