@@ -4,6 +4,11 @@ class PlotsController
 {
     constructor(items,npc)
     {
+        if(item.constructor.name==="PlotsController")
+        {
+            npc=items.npc;
+            items=items.plots;
+        }    
         this._npc=npc;
         this.plots=items;
     }

@@ -29,6 +29,7 @@ class PewterCity extends GameSystem.Classes.Level {
         pushItem("route02Part2",11,0,"pewterCity",19,34);
         pushItem("pewterCityHospital",3,7,"pewterCity",13,27);
         pushItem("pewterCityMart",3,7,"pewterCity",23,19);
+        pushItem("pewterCityGym",4,13,"pewterCity",16,19);
      //   pushItem("route01",11,0,"viridianCity",21,31);
 
     }
@@ -36,12 +37,15 @@ class PewterCity extends GameSystem.Classes.Level {
     {
         let hospital = new GameSystem.Classes.Levels.PewterCity.Hospital("pewterCityHospital");
         let mart=new GameSystem.Classes.Levels.PewterCity.Mart("pewterCityMart");
+        let gym=new GameSystem.Classes.Levels.PewterCity.Gym();
         this.subLevels.push(hospital);
         this.subLevels.push(mart);
+        this.subLevels.push(gym);
          for(let level of this.subLevels)
              level.parentLevel=this;
          Framework.Game.addNewLevel({"pewterCityHospital":hospital});
          Framework.Game.addNewLevel({"pewterCityMart":mart});
+         Framework.Game.addNewLevel({"pewterCityGym":gym});
     }
     initObstacles()
     {
@@ -126,15 +130,7 @@ class PewterCity extends GameSystem.Classes.Level {
         this.rootScene.attach(GS.protagonist.image);
         GS.protagonist.position=GS.protagonist.position;
     }
-    loadNPCs()
-    {
-        for(let npc of this.npcs)
-            if(npc.image)
-            {
-                this.map.attach(npc.image);
-                npc.updateImagePosition();            
-            }
-    }
+
 }
 GameSystem.Classes.Levels.PewterCity.Hospital=
 class Hospital extends GameSystem.Classes.Levels.Hospital {
@@ -157,4 +153,75 @@ class Mart extends GameSystem.Classes.Levels.Mart {
         pushItem("pewterCityMart",4,7,"pewterCity",23,19);
     }
     
+}
+GameSystem.Classes.Levels.PewterCity.Gym=
+class Gym extends GameSystem.Classes.Level
+{
+    constructor()
+    {
+        var x,GS=GameSystem,CS=GS.Classes,Position=CS.Position;
+        super(x,"pewterCityGym");
+        
+        this.music= Load.audio( define.musicPath+"background/109 Pewter City's Theme.mp3");
+        this.music.loop=true;
+        this.size.pos1=new Position(0,1);
+        this.size.pos2=new Position(9,13);
+    }
+    initGates()
+    {
+        var GS = GameSystem,CS = GS.Classes;
+        var newConnectionItem=(map1,x1,y1,map2,x2,y2)=>new CS.Connection(new CS.MapPosition(map1,new CS.Position(x1,y1)),new CS.MapPosition(map2,new  CS.Position(x2, y2)));
+        var pushItem=(map1,x1,y1,map2,x2,y2)=>this.gates.push(newConnectionItem(map1,x1,y1,map2,x2,y2));
+        pushItem("pewterCityGym",4,13,"pewterCity",16,19);
+        pushItem("pewterCityGym",5,13,"pewterCity",16,19);
+    }
+    load() 
+    {
+        super.load();
+        var GS = GameSystem,CS = GS.Classes, KM = GS.Manager.Key,Position=CS.Position;
+        this.music.play();
+
+        this.map=new Framework.Scene();
+        this.mapImage = new CS.Image(define.mapImagePath + 'pewterCity/gen1.png',{cutStartPosition:new Position(40,0),cutSize:new Position(10,14)});
+
+        this.map.attach(this.mapImage);
+        this.rootScene.attach(this.map);
+        this.loadNPCs();
+        this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
+        this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
+        this.rootScene.attach(GS.protagonist.image);
+        GS.protagonist.position=GS.protagonist.position;
+    }
+    initObstacles()
+    {
+        var GS = GameSystem,CS = GS.Classes,Rectangle=CS.Rectangle;
+        var pushItem=(x1,y1,x2,y2)=>this.obstacles.push(new Rectangle({x:x1,y:y1},{x:x2,y:y2}));
+        pushItem(0,1,0,9);
+        pushItem(1,9,3,9);
+        pushItem(3,9,3,10);
+        pushItem(6,9,6,10);
+        pushItem(6,9,9,9);
+        pushItem(9,9,9,1);
+        pushItem(6,3,8,3);
+        pushItem(1,3,3,3);
+        pushItem(2,5,2,5);
+        pushItem(5,5,7,5);
+        pushItem(2,7,2,7);
+        pushItem(5,7,7,7);        
+    }
+    initNpcs()
+    {
+        var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon, NPC = CS.NPC,Face=CS.Character.Face, Drama = GameSystem.Resource.Drama.PalletTown,DEX=CS.PokemonType.Dictionary;
+        let shauChanSi=new Pokemon("小拳石",DEX["小拳石"]);
+        shauChanSi.level=10;
+        shauChanSi.updateAbilities();
+        let daIanSir=new Pokemon("大魯蛇",DEX["大岩蛇"]);
+        daIanSir.level=12;
+        daIanSir.updateAbilities();
+        this.npcs.push(
+            new NPC("littleGan",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,
+                x/*plot*/,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png")
+            )
+        );
+    }
 }

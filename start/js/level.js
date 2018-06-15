@@ -50,7 +50,17 @@ class Level extends Framework.Level
     {
   
         this.loadNullSprite();
+        
         GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
+    }
+    loadNPCs()
+    {
+        for(let npc of this.npcs)
+            if(npc.image)
+            {
+                this.map.attach(npc.image);
+                npc.updateImagePosition();            
+            }
     }
     loadNullSprite()
     {
