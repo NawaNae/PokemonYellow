@@ -54,7 +54,9 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
                 {
                     var mainChar=GameSystem.protagonist;
                     mainChar.money -=itemNumber.cost;
-                    
+                    var newItem=itemNumber.item.copy();
+                    newItem.count=itemNumber.cost/itemNumber.price;
+                    mainChar.addProp(newItem);
                     container.yesNoDialog.hide();
                     container.itemNumberDialog.hide();
                     //container.hide();
