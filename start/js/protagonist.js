@@ -52,7 +52,7 @@ class Protagonist extends GameSystem.Classes.Character {
         fatKeD.HP=0;
         // ******************* //
         this._pokemons = [pikachu,pikC ,lada,nineTails,fatD,sixTails];   // lada for TESTING
-        this._props = [];
+        this._props = [new GameSystem.Classes.PropItem(GameSystem.Resource.PropDictionary['女僕咖啡廳的紅藥水'])];
         this._money = 3000;
         this.metPokemons=[pikachu.name];
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
