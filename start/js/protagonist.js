@@ -136,8 +136,17 @@ class Protagonist extends GameSystem.Classes.Character {
     addProp(prop)
     {
         var Prop=GameSystem.Classes.PropItem;
-        if(!this.props.find(item=>prop.name===item.name))
-            this.props.push(new Prop())
+        var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
+        var findItem=this.props.find(item=>prop.name===item.name)
+        if(!findItem)
+        {
+            this.props.push(new Prop(prop));
+        }
+        else
+        {
+            findItem.count+=prop.count;
+        }
+            
     }
     copyFrom(mainChar)
     {
