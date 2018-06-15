@@ -24,13 +24,33 @@ var defProp=()=>
     var GR=GameSystem.Resource;GR.PropDictionary=GR.PropDictionary||{};
     var Prop=GameSystem.Classes.PropItem;
     var x;
+
+    // Note:
+    // The form of battlePackage is:
+    // battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult}
+    // and the following function must be used by PropItem.
+    function UsePotion(battlePackage) {
+        let animation = GameSystem.Classes.BattleAnimation.Dictionary.MiscEffect['藥水'];
+        let originHP = battlePackage.player.HP;
+        battlePackage.player.HP += 20;
+        if (battlePackage.player.HP > battlePackage.player.maxHP) {
+            battlePackage.player.HP = battlePackage.player.maxHP;
+        }
+        let diff = battlePackage.player.HP - originHP;
+        battlePackage.battleResult.addMessage("你對" + battlePackage.player.name + "使用了「" + this.name + "」！");
+        battlePackage.battleResult.addBattleAnimation(animation);
+        battlePackage.battleResult.addHPBarAnimation(battlePackage.player.HP - originHP, battlePackage.player.HP, battlePackage.player.maxHP, true);
+        battlePackage.battleResult.addMessage(battlePackage.player.name + "恢復了" + diff + "點生命值");
+        GameSystem.protagonist.decreaseSpecifiedPropItem(this);
+    }
+
     /*所有物品的陣列 請在此定義物品 */
     GR.PropDictionary=
     {
         /*String: new Prop("Name",Count,useFunction(請回傳true or 非undefined/false 自動判斷減少物品)) */
         "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;},x,x,9999),
         "寶可夢球":new Prop("寶可夢球",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200),
-        "女僕咖啡廳的紅藥水":new Prop("女僕咖啡廳的紅藥水",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200)
+        "女僕咖啡廳的紅藥水":new Prop("女僕咖啡廳的紅藥水",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200,UsePotion)
     };
 }
 /** 定義所有的劇本 */
