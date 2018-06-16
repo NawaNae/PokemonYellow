@@ -357,6 +357,43 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["綁緊"] = new BattleAnimation("綁緊", 
+        { x: 123, y: 33, r1: 40, r2: 40, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 > animVars.minr) {
+                    animVars.r1 -= 1;
+                }
+                else if (animVars.r2 > animVars.minr) {
+                    animVars.r2 -= 1;
+                }
+                else {
+                    animVars.r1 = animVars.maxr;
+                    animVars.r2 = animVars.maxr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // #endregion ==================================================== //
 
     // #region =================== 初始化 AttackedBy =================== //
@@ -557,6 +594,43 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 animVars.times -= 1;
             }
             else{
+                this._done();
+            }
+        }
+    );
+
+    DEX["綁緊"] = new BattleAnimation("綁緊", 
+        { x: 38, y: 68, r1: 40, r2: 40, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 > animVars.minr) {
+                    animVars.r1 -= 1;
+                }
+                else if (animVars.r2 > animVars.minr) {
+                    animVars.r2 -= 1;
+                }
+                else {
+                    animVars.r1 = animVars.maxr;
+                    animVars.r2 = animVars.maxr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
                 this._done();
             }
         }
