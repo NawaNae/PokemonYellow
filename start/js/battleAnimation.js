@@ -676,6 +676,48 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    function sand_path(x, x0, y0) { return -0.4117 * (x - x0) + y0; }
+    function sand_particle_sizing(x) { return 10 - ((x - 80) ** 2) / 260; }
+    DEX["潑沙"] = new BattleAnimation("潑沙",
+        { phase: 0, x: 35, startX: 38, startY: 68, endX: 130, endY: 30, particles: []},
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.phase == 0) {
+                let n = Math.floor(Math.random() * 5) + 10;
+                let angle, R, amp;
+                for (let i = 0; i < n; i++) {
+                    angle = PI2 * Math.random();
+                    R = Math.floor(Math.random() * 30) + 1;
+                    amp = Math.random() + 1;
+                    animVars.particles.push({ angle, R, amp });
+                }
+                animVars.phase += 1;
+            }
+            else if (animVars.phase == 1) {
+                if (animVars.x <= animVars.endX) {
+                    let x, y, r, color, x0, y0;
+                    x0 = animVars.x;
+                    y0 = sand_path(x0, animVars.startX, animVars.startY);
+                    animVars.particles.forEach(data => {
+                        x = x0 + data.R * Math.cos(data.angle);
+                        y = y0 - data.R * Math.sin(data.angle);
+                        r = data.amp * sand_particle_sizing(x0);
+                        color = Math.floor(Math.random() * 50) + 170;
+                        ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, PI2);
+                        ctx.closePath();
+                        ctx.fill();
+                    });
+                    animVars.x += 1;
+                }
+                else {
+                    this._done();
+                }
+            }
+        }
+    );
+
     // #endregion ===================================================== //
 
     // #region ================= 初始化 OpponentEffect ================= //
@@ -728,6 +770,46 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
             else {
                 this._done();
+            }
+        }
+    );
+
+    DEX["潑沙"] = new BattleAnimation("潑沙",
+        { phase: 0, x: 130, startX: 130, startY: 30, endX: 35, endY: 70, particles: []},
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.phase == 0) {
+                let n = Math.floor(Math.random() * 5) + 10;
+                let angle, R, amp;
+                for (let i = 0; i < n; i++) {
+                    angle = PI2 * Math.random();
+                    R = Math.floor(Math.random() * 30) + 1;
+                    amp = Math.random() + 1;
+                    animVars.particles.push({ angle, R, amp });
+                }
+                animVars.phase += 1;
+            }
+            else if (animVars.phase == 1) {
+                if (animVars.x >= animVars.endX) {
+                    let x, y, r, color, x0, y0;
+                    x0 = animVars.x;
+                    y0 = sand_path(x0, animVars.startX, animVars.startY);
+                    animVars.particles.forEach(data => {
+                        x = x0 + data.R * Math.cos(data.angle);
+                        y = y0 - data.R * Math.sin(data.angle);
+                        r = data.amp * sand_particle_sizing(x0);
+                        color = Math.floor(Math.random() * 50) + 170;
+                        ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, PI2);
+                        ctx.closePath();
+                        ctx.fill();
+                    });
+                    animVars.x -= 1;
+                }
+                else {
+                    this._done();
+                }
             }
         }
     );
