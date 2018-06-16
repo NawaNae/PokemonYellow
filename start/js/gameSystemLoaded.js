@@ -1,16 +1,18 @@
 
 GameSystem.loaded=function ()
 {
-    var GS=GameSystem,CS=GS.Classes,Image=CS.Image,Position=CS.Position,Pokemon=CS.Pokemon,DEX=CS.PokemonType.Dictionary;
-    var x;
+   
     defPlot();
     defProp();
+    var GS=GameSystem,CS=GS.Classes,Image=CS.Image,Position=CS.Position,Pokemon=CS.Pokemon,DEX=CS.PokemonType.Dictionary,GR=GS.Resource,Drama=GR.Drama,FightEndP=Drama.FightEnd;
+    var x;
     GS.protagonist=new CS.Protagonist();
     let ibu=new Pokemon("伊布",DEX["伊布"]);
     ibu.level=5;
     ibu.updateAbilities();
     ibu.HP=ibu.maxHP;
     GS.rival=new CS.NPC(x,x,x,new Image(define.characterImagePath+"rival.png",{cutStartPosition:new Position(0,0),cutSize:new Position(1,1)}),4,x,x,x,[ibu],new Image(define.characterImagePath+"Rival_InBattle.png"));
+    GS.rival.fightEndPlot=FightEndP.Rival;
     let protagonist=GS.protagonist;
     protagonist.initialize();
     protagonist.image.addToAllLevels();
@@ -208,7 +210,6 @@ var defPlot=()=>{
     Drama["Mart"]={
         'Seller':new Plot("Seller",[
         new Script(function(){
-
             var container=GameSystem.HTMLObjectContainer;
             var buySellDialog=container.buySellDialog;
             container.show();
@@ -220,6 +221,40 @@ var defPlot=()=>{
             }
         },{autoNext:false})])
     };
+    Drama["FightEnd"]={
+        'Rival':new Plot("RivalFightEnd",[
+            new Paragraph("$RIVAL_NAME『$MY_NAME，你贏了"),
+            new Paragraph("這附近已經沒人欄的住你了...."),
+            new Paragraph("往北兩個城市去'尼比市'找小剛PK吧")
+        ]),
+        'Camper':new Plot("CamperEnd",[
+            new Paragraph("$RIVAL_NAME『$MY_NAME，你贏了"),
+            new Paragraph("你可以去找小剛了"),
+            new Paragraph("對了，小剛很強喔，他可是最終BOSS"),
+            new Paragraph("還有要打我隨時都可以找我對話..."),
+        ]),
+        'LittleGan':new Plot("littleGan",
+        [
+                new Paragraph("$RIVAL_NAME『$MY_NAME，你贏了"),
+                new Paragraph("你已經稱霸'黃叫獸'的世界了"),
+                new Script(function(){
+                    var mainChar=GameSystem.protagonist;
+                    if(mainChar.storyLineIndex>5)
+                        this.plot.end();
+                    else 
+                        this.next();
+                },{autoNext:false}),
+                new Paragraph("讓你看看未來吧..."),
+                new Script(()=>{
+                    var mainChar=GameSystem.protagonist;
+                    mainChar.Position=new GameSystem.Classes.Position(6,8);
+                    var container=new DisplayInformation.AutoKeyInput.Text(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father);
+
+                    mainChar.atMap="final";
+                    
+                })
+        ]),
+    }
     Drama["Hospital"]={
         'JoiSan':new Plot("JoiSan",[
             new Paragraph("喬伊小姐『讓我看看！$MY_NAME』"),
@@ -238,12 +273,7 @@ var defPlot=()=>{
 
 }
 GameSystem.loaded();
-(()=>
-{
-    var item=document.getElementById("loadItemText");
-    item.innerText="";
-    document.querySelector(".spinnerContianer").classList.add("hide");
-})();
+
 
 
 

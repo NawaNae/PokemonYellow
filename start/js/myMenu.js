@@ -23,7 +23,12 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         this.music.loop=true;
 
         this.menu = new Framework.Sprite(define.imagePath+"Title.png");//"https://imgur.com/6vHYJUz.png");
-
+        (()=>
+        {
+            var item=document.getElementById("loadItemText");
+            item.innerText="";
+            document.querySelector(".spinnerContianer").classList.add("hide");
+        })();
     },
 
     initialize: function() {
