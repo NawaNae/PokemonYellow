@@ -265,7 +265,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
-    DEX["叫聲"] = new BattleAnimation("搖尾巴", 
+    DEX["叫聲"] = new BattleAnimation("叫聲", 
         { times: 400, r: 30, isInc: false },
         function(ctx) {
             let animVars = this._animVars;
@@ -291,6 +291,30 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
+
+    DEX["電光一閃"] = new BattleAnimation("電光一閃",
+        { x: 123, y: 33, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 30) + 1;
+                let r = Math.floor(Math.random() * 11) + 5;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"; 
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, PI2);
+                ctx.closePath();
+                ctx.fill();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // #endregion ==================================================== //
 
     // #region =================== 初始化 AttackedBy =================== //
@@ -431,6 +455,29 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
 
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["電光一閃"] = new BattleAnimation("電光一閃",
+        { x: 38, y: 68, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 30) + 1;
+                let r = Math.floor(Math.random() * 11) + 5;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"; 
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, PI2);
+                ctx.closePath();
+                ctx.fill();
                 animVars.times -= 1;
             }
             else {
@@ -581,6 +628,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    // Done
     DEX['收服成功'] = new BattleAnimation('收服成功',
         { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
           oppoX: 95, oppoY: 5, oppoSize: 56, oppoSrcXY: 0},
@@ -660,6 +708,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    // Done
     DEX['收服失敗'] = new BattleAnimation('收服失敗',
         { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
           oppoX: 95, oppoY: 5, oppoSize: 56, oppoSrcXY: 0},
