@@ -81,7 +81,14 @@
     left: 0;
     
 }
-
+.coverText
+{
+    font-family:微軟正黑體,sans-serif;
+    color:navajowhite;
+    font-size: 1.5;
+    position: relative;
+    background-color: black;
+}
 /*選項*/
 
 /*非被選中的選項*/

@@ -44,6 +44,18 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         }
     
     }
+    updateMovesUntilFull()
+    {
+        this._moves=this._typeInfo.GetInitialMoves();
+        for(var i=0;i<=this._level;i++)
+        {
+            var newMoves=this._typeInfo.GetPossibleMovesToLearnByLevel(i);
+            if(newMoves)
+                this._moves=this._moves.concat(newMoves);
+            if(this._moves.length===4)
+                return;
+        }
+    }
     copyFrom(pokemon)
     {
         let IndividualValue = GameSystem.Classes.IndividualValue;
@@ -64,12 +76,7 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         console.log(pokemon);
         for(var move of pokemon._moves)
             this._moves.push(moveDEX[move._name]);
-        // for(var i=0;i<=this._level;i++)
-        // {
-        //     var newMoves=this._typeInfo.GetPossibleMovesToLearnByLevel(i);
-        //     if(newMoves)
-        //         this._moves=this._moves.concat(newMoves);
-        // }
+        
 
         if (typeof pokemon._exp == 'number')
             this._exp = pokemon._exp;

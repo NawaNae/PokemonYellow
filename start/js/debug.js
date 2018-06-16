@@ -13,4 +13,6 @@ GameSystem.debugDefine=function()
     KM=GM.Key;
     GR=GS.Resource;
     PropDict=GR.PropDictionary;
+    DEX = GameSystem.Classes.PokemonType.Dictionary;  
+    Pokemon=CS.Pokemon;
 }

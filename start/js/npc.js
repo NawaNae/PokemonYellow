@@ -35,6 +35,7 @@ class NPC extends GameSystem.Classes.Character {
         this._pokemons = pokemons || [];
         this._battleImage = battleImage;
         this._money = money;
+        this.fightEndPlot;//對戰你贏的時候
     }
     behave()
     {  

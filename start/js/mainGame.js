@@ -20,6 +20,7 @@ Framework.Game.addNewLevel({route01: new GameSystem.Classes.Levels.Route01()});
 Framework.Game.addNewLevel({viridianCity: new GameSystem.Classes.Levels.ViridianCity()});
 Framework.Game.addNewLevel({pewterCity: new GameSystem.Classes.Levels.PewterCity()});
 Framework.Game.addNewLevel({route02: new GameSystem.Classes.Levels.Route02()});
+Framework.Game.addNewLevel({final: new GameSystem.Classes.Levels.Final()});
 Framework.Game.addNewLevel({'battleLevel': new BattleLevel()});
 //Framework.Game.addNewLevel({level1: new MyGame()});
 

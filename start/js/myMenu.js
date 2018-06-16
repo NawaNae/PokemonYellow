@@ -27,6 +27,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu , {
         {
             var item=document.getElementById("loadItemText");
             item.innerText="";
+            if(!document.querySelector(".spinnerContianer").classList.contains("hide"))
             document.querySelector(".spinnerContianer").classList.add("hide");
         })();
     },
