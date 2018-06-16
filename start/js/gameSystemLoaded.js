@@ -44,12 +44,42 @@ var defProp=()=>
         GameSystem.protagonist.decreaseSpecifiedPropItem(this);
     }
 
+    // Note: not a complete original formula
+    function UsePokemonBall(battlePackage) {
+        const MiscAnim = GameSystem.Classes.BattleAnimation.Dictionary.MiscEffect;
+        let battleResult = battlePackage.battleResult;
+        let targetPkm = battlePackage.opponent;
+        let rndVal = Math.floor(Math.random() * 256);
+        let secRndVal = Math.floor(Math.random() * 256);
+        let f = Math.floor((targetPkm.maxHP * 255 / 12) / (targetPkm.HP / 4))
+        let isCaught = false;
+        if (f > 255) f = 255;
+        if (f <= 0) f = 1;
+        isCaught = (rndVal < 25 && (targetPkm.isAsleep || targetPkm.isForzen)) ||
+                   (rndVal < 12 && (targetPkm.isBurned || targetPkm.isParalysis || targetPkm.isPoisoned)) ||
+                   (rndVal <= targetPkm.catchRate && f >= secRndVal);
+        battleResult.addMessage("你將寶可夢球丟向了野生的" + targetPkm.name);
+        // If caught target pokemon
+        if (isCaught) {
+            battleResult.addBattleAnimation(MiscAnim['收服成功']);
+            battleResult.addAfterCaughtPokemon();
+            battleResult.addMessage("你抓到了野生的" + targetPkm.name + "了！");
+            battleResult.caughtPokemon();
+        }
+        else {
+            battleResult.addBattleAnimation(MiscAnim['收服失敗']);
+            battleResult.addMessage(targetPkm.name + "掙脫了！");
+        }
+        GameSystem.protagonist.decreaseSpecifiedPropItem(this);
+        return isCaught;
+    }
+
     /*所有物品的陣列 請在此定義物品 */
     GR.PropDictionary=
     {
         /*String: new Prop("Name",Count,useFunction(請回傳true or 非undefined/false 自動判斷減少物品)) */
         "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;},x,x,9999),
-        "寶可夢球":new Prop("寶可夢球",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200),
+        "寶可夢球":new Prop("寶可夢球",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200,UsePokemonBall),
         "女僕咖啡廳的紅藥水":new Prop("女僕咖啡廳的紅藥水",1,function(pokemon){var propList=GameSystem.HTMLObjectContainer.propList;pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;propList.update();},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200,UsePotion)
     };
 }
