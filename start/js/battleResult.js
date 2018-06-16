@@ -41,6 +41,9 @@ class BattleResult {
     /** 設定結果: 對手贏了這場戰鬥。*/
     opponentWins() { this._state = GameSystem.Classes.BattleResult.State.OpponentWin; }
 
+    /** 設定結果: 玩家抓到了寶可夢。 */
+    caughtPokemon() { this._state = GameSystem.Classes.BattleResult.State.CaughtPokemon; }
+
     /** 設定結果: 玩家逃跑了。 */
     playerEscaped() { this._state = GameSystem.Classes.BattleResult.State.Escape; }
 
@@ -241,6 +244,19 @@ class BattleResult {
     }
 
     /**
+     * 抓完寶可夢之後的繪圖處理。
+     */
+    addAfterCaughtPokemon() {
+        this._actionList.push({
+            type: GameSystem.Classes.BattleResult.ActionType.AfterCaughtPokemon,
+            animation: (animationSet) => new Promise(res => {
+                animationSet.opponentPokemon = BattleLevel.drawOpponentPokemonBall;
+                res(true);
+            })
+        });
+    }
+
+    /**
      * @typedef AnimationAction
      * @prop {GameSystem.Classes.BattleResult.ActionType} type 表示戰鬥動畫的動作種類。
      * @prop {Function} animation 動畫的Promise。
@@ -284,7 +300,10 @@ GameSystem.Classes.BattleResult.ActionType = Object.freeze({
     PlayerPokemonFaint: Symbol('PlayerPokemonFaint'),
 
     /** 玩家寶可夢移入 */
-    PlayerPokemonMovingIn: Symbol('PlayerPokemonMovingIn')
+    PlayerPokemonMovingIn: Symbol('PlayerPokemonMovingIn'),
+
+    /** 抓完野生寶可夢 */
+    AfterCaughtPokemon: Symbol('AfterCaughtPokemon')
 });
 
 /** @enum 戰鬥結果的狀態種類列舉。
@@ -301,5 +320,8 @@ GameSystem.Classes.BattleResult.State = Object.freeze({
     OpponentWin: Symbol('OpponentWin'),
 
     /** 玩家進行逃跑 */
-    Escape: Symbol('Escape')
+    Escape: Symbol('Escape'),
+
+    /** 抓到野生寶可夢 */
+    CaughtPokemon: Symbol('CaughtPokemon')
 });
