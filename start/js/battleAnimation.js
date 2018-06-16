@@ -574,6 +574,34 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["瞪眼"] = new BattleAnimation("瞪眼", 
+        { x: 38, y: 68, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 20) + 1;
+                let halfLen = Math.floor(Math.random() * 8) + 3;
+                let width = Math.floor(Math.random() * 3) + 1;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.strokeStyle = "rgb( 0, " + color + ", " + color + ")"; 
+                ctx.lineWidth = width;
+                ctx.beginPath();
+                ctx.moveTo(x, y - halfLen);
+                ctx.lineTo(x, y + halfLen);
+                ctx.moveTo(x - halfLen, y);
+                ctx.lineTo(x + halfLen, y);
+                ctx.closePath();
+                ctx.stroke();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // #endregion ===================================================== //
 
     // #region ================= 初始化 OpponentEffect ================= //
@@ -598,6 +626,34 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
             else {
                 animVars.doneCircle = true;
+            }
+        }
+    );
+
+    DEX["瞪眼"] = new BattleAnimation("瞪眼", 
+        { x: 123, y: 33, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 20) + 1;
+                let halfLen = Math.floor(Math.random() * 8) + 3;
+                let width = Math.floor(Math.random() * 3) + 1;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.strokeStyle = "rgb( 0, " + color + ", " + color + ")"; 
+                ctx.lineWidth = width;
+                ctx.beginPath();
+                ctx.moveTo(x, y - halfLen);
+                ctx.lineTo(x, y + halfLen);
+                ctx.moveTo(x - halfLen, y);
+                ctx.lineTo(x + halfLen, y);
+                ctx.closePath();
+                ctx.stroke();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
             }
         }
     );
