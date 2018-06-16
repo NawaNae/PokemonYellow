@@ -126,6 +126,14 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     let BattleAnimation = GameSystem.Classes.BattleAnimation;
     let DEX = BattleAnimation.Dictionary.AttackTo;
 
+    // Unlity math function
+    function grab_fx(x) { return x * Math.cos(0.375 * PI2); }
+    function grab_fy(y) { return -y * Math.sin(0.375 * PI2); }
+    function grab_fdx(x) { return x * Math.cos(0.125 * PI2); }
+    function grab_fdy(y) { return -y * Math.sin(0.125 * PI2); }
+    function sand_path(x, x0, y0) { return -0.4117 * (x - x0) + y0; }
+    function sand_particle_sizing(x) { return 10 - ((x - 80) ** 2) / 260; }
+
     // #region ==================== 初始化 AttackTo ==================== //
 
     // Done
@@ -265,7 +273,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
-    DEX["叫聲"] = new BattleAnimation("搖尾巴", 
+    DEX["叫聲"] = new BattleAnimation("叫聲", 
         { times: 400, r: 30, isInc: false },
         function(ctx) {
             let animVars = this._animVars;
@@ -291,6 +299,101 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
+
+    DEX["電光一閃"] = new BattleAnimation("電光一閃",
+        { x: 123, y: 33, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 30) + 1;
+                let r = Math.floor(Math.random() * 11) + 5;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"; 
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, PI2);
+                ctx.closePath();
+                ctx.fill();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["抓"] = new BattleAnimation("抓",
+        { x: 123, y: 33, t1: 30, t2: 30, startT: 30, endT: -30, d: 5, times: 3 },
+        function (ctx) {
+            let animVars = this._animVars;
+            for (let i = -3; i <= 3; i++) {
+                let startX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t1);
+                let endX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t2);
+                let startY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t1);
+                let endY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t2);
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = animVars.times % 2 ? 1 : 2;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.closePath();
+                ctx.stroke();
+            }
+            if (animVars.t1 > animVars.endT){
+                animVars.t1 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 > animVars.endT){
+                animVars.t2 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 <= animVars.endT && animVars.times > 1) {
+                animVars.t1 = animVars.startT;
+                animVars.t2 = animVars.startT;
+                animVars.times -= 1;
+            }
+            else{
+                this._done();
+            }
+        }
+    );
+
+    DEX["綁緊"] = new BattleAnimation("綁緊", 
+        { x: 123, y: 33, r1: 40, r2: 40, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 > animVars.minr) {
+                    animVars.r1 -= 1;
+                }
+                else if (animVars.r2 > animVars.minr) {
+                    animVars.r2 -= 1;
+                }
+                else {
+                    animVars.r1 = animVars.maxr;
+                    animVars.r2 = animVars.maxr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // #endregion ==================================================== //
 
     // #region =================== 初始化 AttackedBy =================== //
@@ -439,6 +542,100 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["電光一閃"] = new BattleAnimation("電光一閃",
+        { x: 38, y: 68, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 30) + 1;
+                let r = Math.floor(Math.random() * 11) + 5;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"; 
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, PI2);
+                ctx.closePath();
+                ctx.fill();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["抓"] = new BattleAnimation("抓",
+        { x: 38, y: 68, t1: 30, t2: 30, startT: 30, endT: -30, d: 5, times: 3 },
+        function (ctx) {
+            let animVars = this._animVars;
+            for (let i = -3; i <= 3; i++) {
+                let startX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t1);
+                let endX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t2);
+                let startY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t1);
+                let endY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t2);
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = animVars.times % 2 ? 1 : 2;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.closePath();
+                ctx.stroke();
+            }
+            if (animVars.t1 > animVars.endT){
+                animVars.t1 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 > animVars.endT){
+                animVars.t2 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 <= animVars.endT && animVars.times > 1) {
+                animVars.t1 = animVars.startT;
+                animVars.t2 = animVars.startT;
+                animVars.times -= 1;
+            }
+            else{
+                this._done();
+            }
+        }
+    );
+
+    DEX["綁緊"] = new BattleAnimation("綁緊", 
+        { x: 38, y: 68, r1: 40, r2: 40, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 > animVars.minr) {
+                    animVars.r1 -= 1;
+                }
+                else if (animVars.r2 > animVars.minr) {
+                    animVars.r2 -= 1;
+                }
+                else {
+                    animVars.r1 = animVars.maxr;
+                    animVars.r2 = animVars.maxr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // #endregion ======================================================== //
 
     // #region ================== 初始化 PlayerEffect ================== //
@@ -527,6 +724,111 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["瞪眼"] = new BattleAnimation("瞪眼", 
+        { x: 38, y: 68, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 20) + 1;
+                let halfLen = Math.floor(Math.random() * 8) + 3;
+                let width = Math.floor(Math.random() * 3) + 1;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.strokeStyle = "rgb( 0, " + color + ", " + color + ")"; 
+                ctx.lineWidth = width;
+                ctx.beginPath();
+                ctx.moveTo(x, y - halfLen);
+                ctx.lineTo(x, y + halfLen);
+                ctx.moveTo(x - halfLen, y);
+                ctx.lineTo(x + halfLen, y);
+                ctx.closePath();
+                ctx.stroke();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["潑沙"] = new BattleAnimation("潑沙",
+        { phase: 0, x: 35, startX: 38, startY: 68, endX: 130, endY: 30, particles: []},
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.phase == 0) {
+                let n = Math.floor(Math.random() * 5) + 10;
+                let angle, R, amp;
+                for (let i = 0; i < n; i++) {
+                    angle = PI2 * Math.random();
+                    R = Math.floor(Math.random() * 30) + 1;
+                    amp = Math.random() + 1;
+                    animVars.particles.push({ angle, R, amp });
+                }
+                animVars.phase += 1;
+            }
+            else if (animVars.phase == 1) {
+                if (animVars.x <= animVars.endX) {
+                    let x, y, r, color, x0, y0;
+                    x0 = animVars.x;
+                    y0 = sand_path(x0, animVars.startX, animVars.startY);
+                    animVars.particles.forEach(data => {
+                        x = x0 + data.R * Math.cos(data.angle);
+                        y = y0 - data.R * Math.sin(data.angle);
+                        r = data.amp * sand_particle_sizing(x0);
+                        color = Math.floor(Math.random() * 50) + 170;
+                        ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, PI2);
+                        ctx.closePath();
+                        ctx.fill();
+                    });
+                    animVars.x += 1;
+                }
+                else {
+                    this._done();
+                }
+            }
+        }
+    );
+
+    DEX["刺耳聲"] = new BattleAnimation("刺耳聲",
+        { x: 38, y: 68, r1: 5, r2: 5, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 < animVars.maxr) {
+                    animVars.r1 += 1;
+                }
+                else if (animVars.r2 < animVars.maxr) {
+                    animVars.r2 += 1;
+                }
+                else {
+                    animVars.r1 = animVars.minr;
+                    animVars.r2 = animVars.minr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     // #endregion ===================================================== //
 
     // #region ================= 初始化 OpponentEffect ================= //
@@ -551,6 +853,111 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
             else {
                 animVars.doneCircle = true;
+            }
+        }
+    );
+
+    DEX["瞪眼"] = new BattleAnimation("瞪眼", 
+        { x: 123, y: 33, times: 300 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let R = Math.floor(Math.random() * 20) + 1;
+                let halfLen = Math.floor(Math.random() * 8) + 3;
+                let width = Math.floor(Math.random() * 3) + 1;
+                let angle = PI2 * Math.random();
+                let color = Math.floor(Math.random() * 70) + 180;
+                let x = animVars.x + R * Math.cos(angle), y = animVars.y + R * Math.sin(angle); 
+                ctx.strokeStyle = "rgb( 0, " + color + ", " + color + ")"; 
+                ctx.lineWidth = width;
+                ctx.beginPath();
+                ctx.moveTo(x, y - halfLen);
+                ctx.lineTo(x, y + halfLen);
+                ctx.moveTo(x - halfLen, y);
+                ctx.lineTo(x + halfLen, y);
+                ctx.closePath();
+                ctx.stroke();
+                animVars.times -= 1;
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["潑沙"] = new BattleAnimation("潑沙",
+        { phase: 0, x: 130, startX: 130, startY: 30, endX: 35, endY: 70, particles: []},
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.phase == 0) {
+                let n = Math.floor(Math.random() * 5) + 10;
+                let angle, R, amp;
+                for (let i = 0; i < n; i++) {
+                    angle = PI2 * Math.random();
+                    R = Math.floor(Math.random() * 30) + 1;
+                    amp = Math.random() + 1;
+                    animVars.particles.push({ angle, R, amp });
+                }
+                animVars.phase += 1;
+            }
+            else if (animVars.phase == 1) {
+                if (animVars.x >= animVars.endX) {
+                    let x, y, r, color, x0, y0;
+                    x0 = animVars.x;
+                    y0 = sand_path(x0, animVars.startX, animVars.startY);
+                    animVars.particles.forEach(data => {
+                        x = x0 + data.R * Math.cos(data.angle);
+                        y = y0 - data.R * Math.sin(data.angle);
+                        r = data.amp * sand_particle_sizing(x0);
+                        color = Math.floor(Math.random() * 50) + 170;
+                        ctx.fillStyle = "rgb(" + color + ", " + color + ", 0)"
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, PI2);
+                        ctx.closePath();
+                        ctx.fill();
+                    });
+                    animVars.x -= 1;
+                }
+                else {
+                    this._done();
+                }
+            }
+        }
+    );
+
+    DEX["刺耳聲"] = new BattleAnimation("刺耳聲",
+        { x: 123, y: 33, r1: 5, r2: 5, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 < animVars.maxr) {
+                    animVars.r1 += 1;
+                }
+                else if (animVars.r2 < animVars.maxr) {
+                    animVars.r2 += 1;
+                }
+                else {
+                    animVars.r1 = animVars.minr;
+                    animVars.r2 = animVars.minr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
             }
         }
     );
@@ -581,6 +988,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    // Done
     DEX['收服成功'] = new BattleAnimation('收服成功',
         { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
           oppoX: 95, oppoY: 5, oppoSize: 56, oppoSrcXY: 0},
@@ -660,6 +1068,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    // Done
     DEX['收服失敗'] = new BattleAnimation('收服失敗',
         { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
           oppoX: 95, oppoY: 5, oppoSize: 56, oppoSrcXY: 0},
