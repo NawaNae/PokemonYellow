@@ -96,10 +96,22 @@ class BattleField {
             let occurrence = this._events.find(ocur => base <= rndVal && rndVal < base + ocur.probabilty ? true : (base += ocur.probabilty, false));
             // 若有取得到機率寶可夢
             if (occurrence) {
-                let newPokemon = new GameSystem.Classes.Pokemon(occurrence.pokemonType.name, occurrence.pokemonType);
+                const pokemonType = occurrence.pokemonType;
+                let newPokemon = new GameSystem.Classes.Pokemon(pokemonType.name, pokemonType);
                 newPokemon.level = occurrence.getLevelRandomly();
                 newPokemon.updateAbilities();
                 newPokemon.HP = newPokemon.maxHP;
+                // 取得更好的招式
+                let level = newPokemon.level;
+                let usableMoves = pokemonType.usableMoves;
+                let index = newPokemon.moves.length >= 3 ? 0 : newPokemon.moves.length;
+                // 循著每個可用的招式檢查，若有更好的招式就夾到寶可夢身上；若已經滿了，則把較舊的招式複寫掉
+                usableMoves.forEach(gmove => {
+                    if (level >= gmove.minLevel) {
+                        newPokemon.moves[index] = gmove.move;
+                        index = index >= 3 ? 0 : index + 1;
+                    }
+                });
                 return newPokemon;
             }
             else {
