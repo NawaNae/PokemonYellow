@@ -2,6 +2,11 @@ GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
 GameSystem.Classes.Levels.Route01=
 class Route01 extends GameSystem.Classes.Level
 {
+    constructor()
+    {
+        super({x:17,y:39},"route01");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("palletTown",new GameSystem.Classes.Position(8,8));
+    }
     load ()
     {
         super.load();
@@ -18,7 +23,6 @@ class Route01 extends GameSystem.Classes.Level
         this.music.autoplay=true;
         this.music.loop=true;
         this.size.pos1=new CS.Position(4,0);
-      //  this.size.pos2=new CS.Position(17,39);
 
         this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
         this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;

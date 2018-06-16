@@ -1,6 +1,11 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
 GameSystem.Classes.Levels.PalletTown=
 class PalletTown extends GameSystem.Classes.Level {
+    constructor()
+    {
+        super({x:26,y:23},"palletTown");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("palletTown",new GameSystem.Classes.Position(8,8));
+    }
     initEvents()
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
@@ -25,7 +30,7 @@ class PalletTown extends GameSystem.Classes.Level {
                 new Paragraph("大木博士:『對了跟我去研究所吧』"),
                 new MoveChar({character:oak,from:new Position(13,4),to:new Position(12,9)}),
                 new RemoveNpc(oak),
-                new Script(()=>mainChar.storyLineIndex=0.1),
+                new Script(()=>mainChar.storyLineIndex=1),
                 new MoveChar({character:mainChar,to:new Position(15,13)}),
             ])
             ,()=>mainChar.storyLineIndex===0
@@ -126,7 +131,6 @@ class PalletTown extends GameSystem.Classes.Level {
         super.load();
         var GS = GameSystem;
         var CS = GS.Classes;
-        var KM = GS.Manager.Key;
         this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
         this.music.loop=true;
         this.music.autoplay=false;
@@ -138,18 +142,8 @@ class PalletTown extends GameSystem.Classes.Level {
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
 
-        this.walker = new CS.MapWalker({ mapRef: this.map });
         this.rootScene.attach(GS.protagonist.image);
         GS.protagonist.position=GS.protagonist.position;
-    }
-    loadNPCs()
-    {
-        for(let npc of this.npcs)
-            if(npc.image)
-            {
-                this.map.attach(npc.image);
-                npc.updateImagePosition();            
-            }
     }
 }
 GameSystem.Classes.Levels.ProtagonistHome1F=
@@ -413,7 +407,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
         super(new CS.Position(9, 11), 'palletTownDoctorsHome');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
-
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("palletTown",new GameSystem.Classes.Position(8,8));
     }
     initGates()
     {
@@ -477,9 +471,9 @@ class DoctorsHome extends GameSystem.Classes.Level {
                     new Paragraph("反正是早晚的事，$MY_NAME這是另一隻我剛剛隨便抓的"),
                     new Paragraph("和人(kirito)還不是那麼親近"),
                     new Paragraph("$MY_NAME得到了皮卡丘"),
-                    new Script(()=>mainChar.storyLineIndex=0.2),
+                    new Script(()=>mainChar.storyLineIndex=2),
                 ]),
-            ()=>mainChar.storyLineIndex===0.1
+            ()=>mainChar.storyLineIndex===1
         )
         this.events.push(e1);
         var e2=new Event
@@ -490,9 +484,9 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 new Paragraph("得到寶可夢…就當我的對手練習練習吧♥』"),
                 new MoveChar({character:GS.rival,to:new Position(4,6)}),
                 new RemoveNpc(GS.rival),
-                new Script(()=>mainChar.storyLineIndex=1),
+                new Script(()=>mainChar.storyLineIndex=3),
                 new Fight(GS.rival),
-            ]),()=>mainChar.storyLineIndex===0.2);
+            ]),()=>mainChar.storyLineIndex===2);
         this.events.push(e2);
         
     }

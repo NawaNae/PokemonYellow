@@ -193,6 +193,10 @@ class XYBase
     get x(){return this._x;}
     set y(value){this._y=value;}
     get y(){return this._y;}
+    get copy()
+    {
+        return new this.constructor(this._x,this._y);
+    }
 }
 GameSystem.Classes.Point=
 class Point extends GameSystem.Classes.XYBase
@@ -200,10 +204,6 @@ class Point extends GameSystem.Classes.XYBase
    toPosition()
    {
        return new GameSystem.Classes.Position(this._x/16,this._y/16);
-   }
-   get copy()
-   {
-       return new Point(this._x,this._y);
    }
 }
 GameSystem.Classes.Position=
@@ -216,10 +216,6 @@ class Position  extends GameSystem.Classes.XYBase/*block 位置*/
     isIn(rectangle)
     {
         return rectangle.topLeftPos.x <= this._x &&rectangle.topLeftPos.y <= this._y &&rectangle.bottomRightPos.x >= this._x &&rectangle.bottomRightPos.y >= this._y ;
-    }
-    get copy()
-    {
-        return new Position(this._x,this._y);
     }
 }
 GameSystem.Classes.Rectangle=

@@ -64,7 +64,7 @@ class NPC extends GameSystem.Classes.Character {
     get behavior() { return this._behavior; }
     
     get plots(){return this._plotController.plots;}
-    set plots(val){this._plotController.plots=new Array(val)}
+    set plots(val){this._plotController.plots=val}
 
     set plot(newPlot) { this._plotController.plot=newPlot; }
     get plot() { return this._plotController.plot; }

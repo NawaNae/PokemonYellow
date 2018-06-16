@@ -2,6 +2,11 @@ GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
 GameSystem.Classes.Levels.Route02=
 class Route02 extends GameSystem.Classes.Level
 {
+    constructor()
+    {
+        super({x:11,y:12},"route02");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("viridianCity",new GameSystem.Classes.Position(23,26));
+    }
     load ()
     {
         super.load();
@@ -122,6 +127,11 @@ class House extends GameSystem.Classes.Level
 GameSystem.Classes.Levels.Route02.Part2=
 class Route02Part2 extends GameSystem.Classes.Level
 {
+    constructor()
+    {
+        super({x:11,y:12},"route02Part2");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("viridianCity",new GameSystem.Classes.Position(23,26));
+    }
     load ()
     {
         super.load();
@@ -136,7 +146,6 @@ class Route02Part2 extends GameSystem.Classes.Level
         this.music.autoplay=true;
         this.music.loop=true;
         this.size.pos1=new Position(2,0);
-        this.size.pos2=new Position(11,12);
 
 
         this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
