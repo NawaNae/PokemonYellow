@@ -4,12 +4,11 @@ class PewterCity extends GameSystem.Classes.Level {
     constructor()
     {
         var x,GS=GameSystem,CS=GS.Classes,Position=CS.Position;
-        super(x,"pewterCity");
-        
+        super(new Position(38,33),"pewterCity");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("pewterCity",new GameSystem.Classes.Position(13,28));
         this.music= Load.audio( define.musicPath+"background/109 Pewter City's Theme.mp3");
         this.music.loop=true;
         this.size.pos1=new Position(4,4);
-        this.size.pos2=new Position(38,33);
     }
     initEvents()
     {
@@ -160,12 +159,11 @@ class Gym extends GameSystem.Classes.Level
     constructor()
     {
         var x,GS=GameSystem,CS=GS.Classes,Position=CS.Position;
-        super(x,"pewterCityGym");
-        
+        super(new Position(9,13),"pewterCityGym");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("pewterCity",new GameSystem.Classes.Position(13,28));
         this.music= Load.audio( define.musicPath+"background/109 Pewter City's Theme.mp3");
         this.music.loop=true;
         this.size.pos1=new Position(0,1);
-        this.size.pos2=new Position(9,13);
     }
     initGates()
     {
@@ -220,40 +218,44 @@ class Gym extends GameSystem.Classes.Level
         daIanSir.level=12;
         var littleGan=new NPC("小剛",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"));
         this.npcs.push(littleGan);
-        littleGan.plot=new Plot("OakGivePokemon",
-        [
-            new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),
-            new Paragraph("那麼就戰鬥吧』"),
-            new Script(()=>mainChar.storyLineIndex=2),
-            new Fight(littleGan)
-        ],()=>mainChar.storyLineIndex===1.1);
+        littleGan.plots=[
+            new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),new Paragraph("那麼就戰鬥吧』"),new Script(()=>mainChar.storyLineIndex=5),new Fight(littleGan)],()=>mainChar.storyLineIndex>=4),
+            new Plot("Nofight",[new Paragraph("小剛:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...")])
+        ];
         let diSu=new Pokemon("地鼠",DEX["地鼠"]);
         diSu.level=9;
         let chanSanSu=new Pokemon("穿山鼠",DEX["穿山鼠"]);
         chanSanSu.level=9;
-        this.npcs.push(
-            new NPC("露營青年",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,
-                x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png")
-            )
-        );
+        let camper=new NPC("露營青年",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png"))
+        camper.plots=[
+            new Plot("camperFight",
+            [
+                new Paragraph("露營青年:『$MY_NAME，想要找小剛剛先過我這關』"),
+                new Script(function(){camper.walkTo(mainChar.position,()=>this.next())},{autoNext:false}),
+                new Script(()=>mainChar.storyLineIndex=4),
+                new Fight(camper)
+            ],()=>mainChar.storyLineIndex>=3),
+            new Plot("camper", [new Paragraph("露營青年:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...』")])
+        ]
+        this.npcs.push(camper);
     }
     initEvents()
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
         var Drama=GR.Drama,Plot=CS.Plot,Paragraph=CS.Paragraph,CureAll=PC.CureAll,Script=PC.Script,GiveProp=PC.GiveProp,MoveCharacter=PC.MoveCharacter,Event=CS.Event,AddNpc=PC.AddNpc,RemoveNpc=PC.RemoveNpc,Fight=PC.Fight;
         var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter,mainChar=GS.protagonist;
-        var camper=this.npcs.find(npc=>npc.name==="camper");
+        var camper=this.npcs.find(npc=>npc.name==="露營青年");
         var e1=new Event
         (
             new Rectangle(new Position(1, 6),new Position(8,6)) ,
-            new Plot("OakGivePokemon",
+            new Plot("camperFight",
                 [
-                    new Paragraph("帳篷青年:『$MY_NAME，想要找小剛剛先過我這關』"),
+                    new Paragraph("露營青年:『$MY_NAME，想要找小剛剛先過我這關』"),
                     new Script(function(){camper.walkTo(mainChar.position,()=>this.next())},{autoNext:false}),
-                    new Script(()=>mainChar.storyLineIndex=1.1),
+                    new Script(()=>mainChar.storyLineIndex=4),
                     new Fight(camper)
                 ]),
-            ()=>mainChar.storyLineIndex===1
+            ()=>mainChar.storyLineIndex===3
         )
         this.events.push(e1);
     }

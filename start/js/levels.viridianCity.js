@@ -1,6 +1,11 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
 GameSystem.Classes.Levels.ViridianCity=
 class ViridianCity extends GameSystem.Classes.Level {
+    constructor()
+    {
+        super({x:35,y:30},"viridianCity");
+        this.reviveMapPosition=new GameSystem.Classes.MapPosition("viridianCity",new GameSystem.Classes.Position(23,26));
+    }
     initEvents()
     {
         var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,Rectangle=CS.Rectangle,PC=CS.PlotContents, NPC=CS.NPC, Image=CS.Image ;
@@ -105,7 +110,6 @@ class ViridianCity extends GameSystem.Classes.Level {
         var GS = GameSystem,CS = GS.Classes, KM = GS.Manager.Key,Position=CS.Position;
         this.music.play();
         this.size.pos1=new CS.Position(0,0);
-        this.size.pos2=new CS.Position(35,30);
         this.map=new Framework.Scene();
         this.mapImage = new CS.Image(define.mapImagePath + 'viridianCity/gen1.png',{cutStartPosition:new Position(0,0),cutSize:new Position(39,39)});
         this.map.attach(this.mapImage);
