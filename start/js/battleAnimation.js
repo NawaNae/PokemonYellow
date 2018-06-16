@@ -126,6 +126,12 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     let BattleAnimation = GameSystem.Classes.BattleAnimation;
     let DEX = BattleAnimation.Dictionary.AttackTo;
 
+    // Unlity math function
+    function grab_fx(x) { return x * Math.cos(0.375 * PI2); }
+    function grab_fy(y) { return -y * Math.sin(0.375 * PI2); }
+    function grab_fdx(x) { return x * Math.cos(0.125 * PI2); }
+    function grab_fdy(y) { return -y * Math.sin(0.125 * PI2); }
+
     // #region ==================== 初始化 AttackTo ==================== //
 
     // Done
@@ -315,6 +321,40 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["抓"] = new BattleAnimation("抓",
+        { x: 123, y: 33, t1: 30, t2: 30, startT: 30, endT: -30, d: 5, times: 3 },
+        function (ctx) {
+            let animVars = this._animVars;
+            for (let i = -3; i <= 3; i++) {
+                let startX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t1);
+                let endX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t2);
+                let startY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t1);
+                let endY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t2);
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = animVars.times % 2 ? 1 : 2;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.closePath();
+                ctx.stroke();
+            }
+            if (animVars.t1 > animVars.endT){
+                animVars.t1 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 > animVars.endT){
+                animVars.t2 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 <= animVars.endT && animVars.times > 1) {
+                animVars.t1 = animVars.startT;
+                animVars.t2 = animVars.startT;
+                animVars.times -= 1;
+            }
+            else{
+                this._done();
+            }
+        }
+    );
+
     // #endregion ==================================================== //
 
     // #region =================== 初始化 AttackedBy =================== //
@@ -481,6 +521,40 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 animVars.times -= 1;
             }
             else {
+                this._done();
+            }
+        }
+    );
+
+    DEX["抓"] = new BattleAnimation("抓",
+        { x: 38, y: 68, t1: 30, t2: 30, startT: 30, endT: -30, d: 5, times: 3 },
+        function (ctx) {
+            let animVars = this._animVars;
+            for (let i = -3; i <= 3; i++) {
+                let startX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t1);
+                let endX = animVars.x + grab_fx(i * animVars.d) + grab_fdx(animVars.t2);
+                let startY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t1);
+                let endY = animVars.y + grab_fy(i * animVars.d) + grab_fdy(animVars.t2);
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = animVars.times % 2 ? 1 : 2;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.closePath();
+                ctx.stroke();
+            }
+            if (animVars.t1 > animVars.endT){
+                animVars.t1 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 > animVars.endT){
+                animVars.t2 -= 3;
+            }
+            else if (animVars.t1 <= animVars.endT && animVars.t2 <= animVars.endT && animVars.times > 1) {
+                animVars.t1 = animVars.startT;
+                animVars.t2 = animVars.startT;
+                animVars.times -= 1;
+            }
+            else{
                 this._done();
             }
         }
