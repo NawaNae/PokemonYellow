@@ -28,7 +28,7 @@ class Protagonist extends GameSystem.Classes.Character {
         pikachu.updateAbilities();
         pikachu.HP=pikachu.maxHP;
         // *** FOR TESTING *** //
-        let lada=new GameSystem.Classes.Pokemon("小拉達",DEX["小拉達"]);
+       /*let lada=new GameSystem.Classes.Pokemon("小拉達",DEX["小拉達"]);
         lada.level=5;
         lada.updateAbilities();
         lada.HP=lada.maxHP;
@@ -49,9 +49,9 @@ class Protagonist extends GameSystem.Classes.Character {
         sixTails.HP=lada.maxHP;
 
         let fatKeD = new GameSystem.Classes.Pokemon("胖可丁",DEX["胖可丁"]);
-        fatKeD.HP=0;
+        fatKeD.HP=0;*/
         // ******************* //
-        this._pokemons = [pikachu,pikC ,lada,nineTails,fatD,sixTails];   // lada for TESTING
+        this._pokemons = [pikachu/*,pikC ,lada,nineTails,fatD,sixTails*/];   // lada for TESTING
         this._props = [new GameSystem.Classes.PropItem(GameSystem.Resource.PropDictionary['女僕咖啡廳的紅藥水'])];
         this._money = 3000;
         this.metPokemons=[pikachu.name];
