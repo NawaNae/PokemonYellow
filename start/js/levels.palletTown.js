@@ -4,6 +4,8 @@ class PalletTown extends GameSystem.Classes.Level {
     constructor()
     {
         super({x:26,y:23},"palletTown");
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
         this.reviveMapPosition=new GameSystem.Classes.MapPosition("palletTown",new GameSystem.Classes.Position(8,8));
     }
     initEvents()
@@ -131,9 +133,7 @@ class PalletTown extends GameSystem.Classes.Level {
         super.load();
         var GS = GameSystem;
         var CS = GS.Classes;
-        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-        this.music.loop=true;
-        this.music.autoplay=false;
+        this.music.play();
         this.map=new Framework.Scene();
         this.mapImage = new CS.Image(define.imagePath + 'palletTown.png');
         this.map.attach(this.mapImage);
@@ -153,6 +153,8 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHome1F');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
     }
     initGates()
     {
@@ -223,20 +225,11 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         mom.facing=GameSystem.Classes.Character.Face.Left;
     
     }
-    loadNPCs()
-    {
-        for(let npc of this.npcs)
-            if(npc.image)
-{                this.map.attach(npc.image);
-            npc.updateImagePosition();            
-}
-    }
     load()
     {
         super.load();
-        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-       /* this.music.loop=true;
-        this.music.autoplay=true;*/
+  
+        this.music.play();
         var CS=GameSystem.Classes;
         var GS=GameSystem;
         this.mapImage=new CS.Image(define.imagePath+"palletTownHome1F.png");
@@ -313,6 +306,8 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         super(new CS.Position(7, 7), 'palletTownHouse1');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
     }
     initNpcs() {
         var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position, NPC = CS.NPC, Drama = GameSystem.Resource.Drama.PalletTown, Item = CS.AnimationItem;
@@ -372,9 +367,8 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
     load()
     {
         super.load();
-        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-       /* this.music.loop=true;
-        this.music.autoplay=true;*/
+   
+        this.music.play();
         var CS=GameSystem.Classes;
         var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
@@ -407,6 +401,8 @@ class DoctorsHome extends GameSystem.Classes.Level {
         super(new CS.Position(9, 11), 'palletTownDoctorsHome');
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
+        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
+        this.music.loop=true;
         this.reviveMapPosition=new GameSystem.Classes.MapPosition("palletTown",new GameSystem.Classes.Position(8,8));
     }
     initGates()
@@ -517,9 +513,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
     load()
     {
         super.load();
-        this.music= Load.audio( define.musicPath+"background/102 Palette Town Theme.mp3");
-      /*  this.music.loop=true;
-        this.music.autoplay=true;*/
+        this.music.play();
         var CS=GameSystem.Classes;
         var GS=GameSystem;
 
