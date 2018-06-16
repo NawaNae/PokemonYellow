@@ -486,12 +486,12 @@ class BattleLevel extends Framework.Level {
             // 當對手仍有寶可夢可選時
             else {
                 let opponentPokemon = this._opponent.pokemons[this._opponentSelect];
-                this._opponentPokemonImage = this._opponent.pokemons[this._opponentSelect].getImagePath();  // 更換寶可夢圖片
+                this._opponentPokemonImage = Load.image(opponentPokemon.getImagePath());  // 更換寶可夢圖片
 
                 // 顯示對手更換寶可夢的訊息以及進場動畫
                 this._messagingQueue.push(next => {
                     GameSystem.BattlePad.setBattleMessage(this._opponent.name + " 派出了 " + opponentPokemon.name);
-                    let x = 145, delay = 50;
+                    let x = 145, delay = 200;
                     // 設定移入動畫
                     this.animationSet.opponentPokemon = (ctx, image) => {
                         if (x > 95) {
@@ -502,12 +502,19 @@ class BattleLevel extends Framework.Level {
                         }
                         else {
                             GameSystem.BattlePad.setBattleMessage();
+                            GameSystem.BattlePad.setVisibleMenu(true);
+                            GameSystem.BattlePad.setVisibleOpponentPad(true);
+                            this.updateDataOnUI();
+                            this._battleStage.changeOpponentPokemon(opponentPokemon);
                             this.animationSet.opponentPokemon = BattleLevel.drawOpponentPokemon;
                             this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
                             this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                         }
                         ctx.drawImage(image, x, 5);
                     };
+                    this._inputMode = BattleLevel.InputMode.Empty;
+                    this._keyInputHandler = this.keyInput_Empty;
+                    next();
                 });
             }
         }

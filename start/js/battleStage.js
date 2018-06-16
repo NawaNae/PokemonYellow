@@ -21,6 +21,10 @@ class BattleStage {
     get playerPokemon() { return this._player.pokemon; }
     get opponentPokemon() { return this._opponent.pokemon; }
 
+    changeOpponentPokemon(pokemon) {
+        this._opponent.changePokemon(pokemon);
+    }
+
     /**
      * 取得先後攻的順序。
      * @return {GameSystem.Classes.Pokemon[]} 儲存 [先攻的寶可夢, 後攻的寶可夢]。
