@@ -50,7 +50,6 @@ class Level extends Framework.Level
     {
   
         this.loadNullSprite();
-
         GameSystem.Manager.Key.keyInput=(e)=>{this.keyInput(e);}
     }
     loadNPCs()
@@ -186,6 +185,12 @@ class Level extends Framework.Level
         return undefined;
 
     }
+
+    /*loadingProgress(ctx,pa)
+    {
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,Framework.Game._canvas.width,Framework.Game._canvas.height);
+    }*/
     normalKeyInput(e)
     {
             this.walkKeyInput(e);
@@ -259,11 +264,12 @@ class Level extends Framework.Level
         if(BR.isPlayerWon)
         {
             mainChar.rearrangePokemons();
+            if(opponent)
+                opponent.fightEndPlot.start();
         }
         else
         {
             mainChar.money-=500;
-            if(opponent)mainChar.storyLineIndex--;
             if(this.reviveMapPosition)
             {
                 mainChar.position=this.reviveMapPosition.position.copy;
@@ -271,6 +277,9 @@ class Level extends Framework.Level
                 for(var poke of mainChar.pokemons)
                     poke.HP=poke.maxHP;
             }
+            if(opponent)
+                mainChar.storyLineIndex--;
+
         }
     }
     teardown()
