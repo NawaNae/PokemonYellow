@@ -256,7 +256,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["大針蜂"] = new PokemonType(basicStat, 15, new Image(pokemonImagePath + "015_大針蜂.png"), new Image(pokemonImagePath + "015_大針蜂_Back.png"), "大針蜂", moves, Type.Bug, Type.Poison, "利用兩手及尾部的三根毒針，進行將敵人刺穿的攻擊行動。", 159, ExpType.Fast, 45);
 
     basicStat = {maxHP: 40, attack: 45, defense: 40, special: 35, speed: 56};
-    moves = [new GradingMove(undefined, MoveDEX["起風"]), new GradingMove(5, MoveDEX["潑沙"]), new GradingMove(12, MoveDEX["電光一閃"]), new GradingMove(19, MoveDEX["吹飛"]), new GradingMove(28, MoveDEX["翅膀攻擊"]), new GradingMove(36, MoveDEX["高速移動"]), new GradingMove(44, MoveDEX["鸚鵡學舌"])];
+    moves = [new GradingMove(undefined, MoveDEX["起風"]), new GradingMove(5, MoveDEX["潑沙"]), new GradingMove(12, MoveDEX["電光一閃"])/*,  new GradingMove(19, MoveDEX["吹飛"]), new GradingMove(28, MoveDEX["翅膀攻擊"]), new GradingMove(36, MoveDEX["高速移動"]), new GradingMove(44, MoveDEX["鸚鵡學舌"]) */];
     DEX["波波"] = new PokemonType(basicStat, 16, new Image(pokemonImagePath + "016_波波.png"), new Image(pokemonImagePath + "016_波波_Back.png"), "波波", moves, Type.Normal, Type.Flying, "個性非常老實，就算害怕的時候也不會反擊，當牠將泥沙捲起來時，大部分只是為了保護自己而已。", 55, ExpType.Slow, 255);
 
     basicStat = {maxHP: 63, attack: 60, defense: 55, special: 50, speed: 71};
@@ -268,7 +268,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["大比鳥"] = new PokemonType(basicStat, 18, new Image(pokemonImagePath + "018_大比鳥.png"), new Image(pokemonImagePath + "018_大比鳥_Back.png"), "大比鳥", moves, Type.Normal, Type.Flying, "以二馬赫的速度飛行，並尋找食物，如果被牠那巨大的爪子抓到，將是很可怕的。", 172, ExpType.Slow, 45);
 
     basicStat = {maxHP: 30, attack: 56, defense: 35, special: 25, speed: 72};
-    moves = [new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(undefined, MoveDEX["搖尾巴"]), new GradingMove(7, MoveDEX["電光一閃"]), new GradingMove(14, MoveDEX["必殺門牙"]), new GradingMove(23, MoveDEX["聚氣"]), new GradingMove(34, MoveDEX["憤怒門牙"])];
+    moves = [new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(undefined, MoveDEX["搖尾巴"]), new GradingMove(7, MoveDEX["電光一閃"])/*,  new GradingMove(14, MoveDEX["必殺門牙"]), new GradingMove(23, MoveDEX["聚氣"]), new GradingMove(34, MoveDEX["憤怒門牙"]) */];
     DEX["小拉達"] = new PokemonType(basicStat, 19, new Image(pokemonImagePath + "019_小拉達.png"), new Image(pokemonImagePath + "019_小拉達_Back.png"), "小拉達", moves, Type.Normal, undefined, "嘴裡有兩顆牙齒，總而言之任何東西都能咬穿，只要發現一隻的話，就表示約有四十隻左右在附近棲息著。", 57, ExpType.Fast, 255);
 
     basicStat = {maxHP: 55, attack: 81, defense: 60, special: 50, speed: 97};
@@ -300,7 +300,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["雷丘"] = new PokemonType(basicStat, 26, new Image(pokemonImagePath + "026_雷丘.png"), new Image(pokemonImagePath + "026_雷丘_Back.png"), "雷丘", moves, Type.Electric, undefined, "在體內積存電流後，會變成富有攻擊性的性格，即使在黑暗的地方，牠也能讓四周明亮。", 122, ExpType.Fast, 75);
 
     basicStat = {maxHP: 50, attack: 75, defense: 85, special: 30, speed: 40};
-    moves = [new GradingMove(undefined, MoveDEX["抓"]), new GradingMove(10, MoveDEX["潑沙"]), new GradingMove(17, MoveDEX["劈開"]), new GradingMove(24, MoveDEX["毒針"]), new GradingMove(31, MoveDEX["高速星星"]), new GradingMove(38, MoveDEX["亂抓"])];
+    moves = [new GradingMove(undefined, MoveDEX["抓"]), new GradingMove(10, MoveDEX["潑沙"])/* , new GradingMove(17, MoveDEX["劈開"]), new GradingMove(24, MoveDEX["毒針"]), new GradingMove(31, MoveDEX["高速星星"]), new GradingMove(38, MoveDEX["亂抓"]) */];
     DEX["穿山鼠"] = new PokemonType(basicStat, 27, new Image(pokemonImagePath + "027_穿山鼠.png"), new Image(pokemonImagePath + "027_穿山鼠_Back.png"), "穿山鼠", moves, Type.Ground, Type.Ice, "身體外面有如皮革一般，但是，當夜晚氣溫下降時，據說牠的皮膚上會附著著露水。", 93, ExpType.Fast, 255);
 
     basicStat = {maxHP: 75, attack: 100, defense: 110, special: 55, speed: 65};
@@ -308,7 +308,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["穿山王"] = new PokemonType(basicStat, 28, new Image(pokemonImagePath + "028_穿山王.png"), new Image(pokemonImagePath + "028_穿山王_Back.png"), "穿山王", moves, Type.Ground, Type.Ice, "雖然牠很擅長用角去攻擊敵人，但有時也會發生角被折斷的情形，但隔一天之後就會再長出來。", 163, ExpType.Fast, 90);
 
     basicStat = {maxHP: 55, attack: 47, defense: 52, special: 40, speed: 41};
-    moves = [new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(8, MoveDEX["抓"]), new GradingMove(12, MoveDEX["二連踢"]), new GradingMove(17, MoveDEX["毒針"]), new GradingMove(23, MoveDEX["搖尾巴"]), new GradingMove(30, MoveDEX["咬住"]), new GradingMove(38, MoveDEX["亂抓"])];
+    moves = [new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(8, MoveDEX["抓"])/*,  new GradingMove(12, MoveDEX["二連踢"]), new GradingMove(17, MoveDEX["毒針"]), new GradingMove(23, MoveDEX["搖尾巴"]), new GradingMove(30, MoveDEX["咬住"]), new GradingMove(38, MoveDEX["亂抓"]) */];
     DEX["尼多蘭"] = new PokemonType(basicStat, 29, new Image(pokemonImagePath + "029_尼多蘭.png"), new Image(pokemonImagePath + "029_尼多蘭_Back.png"), "尼多蘭", moves, Type.Poison, undefined, "性格平和不愛戰鬥，小犄角會滲出毒液，要小心。", 59, ExpType.Slow, 235);
 
     basicStat = {maxHP: 70, attack: 62, defense: 67, special: 55, speed: 56};
@@ -320,7 +320,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["尼多后"] = new PokemonType(basicStat, 31, new Image(pokemonImagePath + "031_尼多后.png"), new Image(pokemonImagePath + "031_尼多后_Back.png"), "尼多后", moves, Type.Poison, Type.Ground, "堅硬的鱗片覆蓋住健壯的身體，鱗片會不斷更新。", 194, ExpType.Slow, 45);
 
     basicStat = {maxHP: 46, attack: 57, defense: 40, special: 40, speed: 50};
-    moves = [new GradingMove(undefined, MoveDEX["瞪眼"]), new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(8, MoveDEX["角撞"]), new GradingMove(12, MoveDEX["二連踢"]), new GradingMove(17, MoveDEX["毒針"]), new GradingMove(23, MoveDEX["聚氣"]), new GradingMove(30, MoveDEX["亂擊"]), new GradingMove(38, MoveDEX["角鑽"])];
+    moves = [new GradingMove(undefined, MoveDEX["瞪眼"]), new GradingMove(undefined, MoveDEX["撞擊"])/*, new GradingMove(8, MoveDEX["角撞"]), new GradingMove(12, MoveDEX["二連踢"]), new GradingMove(17, MoveDEX["毒針"]), new GradingMove(23, MoveDEX["聚氣"]), new GradingMove(30, MoveDEX["亂擊"]), new GradingMove(38, MoveDEX["角鑽"]) */];
     DEX["尼多朗"] = new PokemonType(basicStat, 32, new Image(pokemonImagePath + "032_尼多朗.png"), new Image(pokemonImagePath + "032_尼多朗_Back.png"), "尼多朗", moves, Type.Poison, Type.Normal, "隨時都會把大耳朵立起來戒備四周的環境，有危險的時候就會使用有毒的尖角。", 60, ExpType.Slow, 235);
 
     basicStat = {maxHP: 61, attack: 72, defense: 57, special: 55, speed: 65};
@@ -392,7 +392,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["摩魯蛾"] = new PokemonType(basicStat, 49, new Image(pokemonImagePath + "049_摩魯蛾.png"), new Image(pokemonImagePath + "049_摩魯蛾_Back.png"), "摩魯蛾", moves, Type.Bug, Type.Poison, "翅膀上的磷粉沾到身上就很難去除。而且有毒成分會從那裡滲入。", 138, ExpType.Fast, 75);
 
     basicStat = {maxHP: 10, attack: 55, defense: 25, special: 45, speed: 95};
-    moves = [new GradingMove(undefined, MoveDEX["抓"]), new GradingMove(15, MoveDEX["叫聲"]), new GradingMove(19, MoveDEX["挖洞"]), new GradingMove(24, MoveDEX["潑沙"]), new GradingMove(31, MoveDEX["劈開"]), new GradingMove(40, MoveDEX["地震"])];
+    moves = [new GradingMove(undefined, MoveDEX["抓"]), new GradingMove(15, MoveDEX["叫聲"])/* , new GradingMove(19, MoveDEX["挖洞"]), new GradingMove(24, MoveDEX["潑沙"]), new GradingMove(31, MoveDEX["劈開"]), new GradingMove(40, MoveDEX["地震"]) */];
     DEX["地鼠"] = new PokemonType(basicStat, 50, new Image(pokemonImagePath + "050_地鼠.png"), new Image(pokemonImagePath + "050_地鼠_Back.png"), "地鼠", moves, Type.Ground, undefined, "喜歡黑暗的地方。雖然基本上都在地下生活，不過在洞窟裡經常露臉。", 81, ExpType.Fast, 255);
 
     basicStat = {maxHP: 35, attack: 80, defense: 50, special: 70, speed: 120};
@@ -488,7 +488,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["毒刺水母"] = new PokemonType(basicStat, 73, new Image(pokemonImagePath + "073_毒刺水母.png"), new Image(pokemonImagePath + "073_毒刺水母_Back.png"), "毒刺水母", moves, Type.Water, Type.Poison, "80隻觸手自由伸縮纏住獵物注入毒素使其變弱。", 205, ExpType.Slower, 60);
 
     basicStat = {maxHP: 40, attack: 80, defense: 100, special: 30, speed: 20};
-    moves = [new GradingMove(undefined, MoveDEX["撞擊"]), new GradingMove(11, MoveDEX["變圓"]), new GradingMove(16, MoveDEX["落石"]), new GradingMove(21, MoveDEX["自爆"]), new GradingMove(26, MoveDEX["變硬"]), new GradingMove(31, MoveDEX["地震"]), new GradingMove(36, MoveDEX["大爆炸"])];
+    moves = [new GradingMove(undefined, MoveDEX["撞擊"])/*,  new GradingMove(11, MoveDEX["變圓"]), new GradingMove(16, MoveDEX["落石"]), new GradingMove(21, MoveDEX["自爆"]), new GradingMove(26, MoveDEX["變硬"]), new GradingMove(31, MoveDEX["地震"]), new GradingMove(36, MoveDEX["大爆炸"]) */];
     DEX["小拳石"] = new PokemonType(basicStat, 74, new Image(pokemonImagePath + "074_小拳石.png"), new Image(pokemonImagePath + "074_小拳石_Back.png"), "小拳石", moves, Type.Rock, Type.Ground, "大量生存在山路之類的地方。不小心踩上去的話會生氣，要小心。", 73, ExpType.Slow, 255);
 
     basicStat = {maxHP: 55, attack: 95, defense: 115, special: 45, speed: 35};
