@@ -4,9 +4,16 @@ class LoadRecord extends GameSystem.Classes.Level
 {
     constructor()
     {
-        super();
-        this.options=new GameSystem.Classes.Options({className:"buySellDialog"});
+        super({x:0,y:0});
+        var Options=GameSystem.Classes.Options;
+        this.options=new Options({className:"buySellDialog"});
         var Option=GameSystem.Classes.Option,RM=GameSystem.Manager.Records,linkStart=this.linkStart;
+        this.options.keyInput=(e)=>
+        {
+            var key=GameSystem.Manager.Key.keyMapping[e.key];
+            if(key!=="B")
+                this.options._keyInput.call(this.options,e);
+        }
         this.options.push(new Option("載入存檔",function(){RM.load();}));
         this.options.push(new Option("重新開始",function(){linkStart();}));
     }
