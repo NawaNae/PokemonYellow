@@ -228,14 +228,14 @@ var defPlot=()=>{
             new Paragraph("往北兩個城市去'尼比市'找小剛PK吧")
         ]),
         'Camper':new Plot("CamperEnd",[
-            new Paragraph("$RIVAL_NAME『$MY_NAME，你贏了"),
+            new Paragraph("帳棚青年『$MY_NAME，你贏了"),
             new Paragraph("你可以去找小剛了"),
             new Paragraph("對了，小剛很強喔，他可是最終BOSS"),
             new Paragraph("還有要打我隨時都可以找我對話..."),
         ]),
         'LittleGan':new Plot("littleGan",
         [
-                new Paragraph("$RIVAL_NAME『$MY_NAME，你贏了"),
+                new Paragraph("小剛『$MY_NAME，你贏了"),
                 new Paragraph("你已經稱霸'黃叫獸'的世界了"),
                 new Script(function(){
                     var mainChar=GameSystem.protagonist;
@@ -245,14 +245,14 @@ var defPlot=()=>{
                         this.next();
                 },{autoNext:false}),
                 new Paragraph("讓你看看未來吧..."),
-                new Script(()=>{
+                new Script(function(){
                     var mainChar=GameSystem.protagonist;
                     mainChar.Position=new GameSystem.Classes.Position(6,8);
-                    var container=new DisplayInformation.AutoKeyInput.Text(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father);
-
+                    //var container=new DisplayInformation.AutoKeyInput.Text(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father);
+                    this.plot.end();
                     mainChar.atMap="final";
                     
-                })
+                },{autoNext:false})
         ]),
     }
     Drama["Hospital"]={

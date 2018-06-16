@@ -13,6 +13,7 @@ class Final extends GameSystem.Classes.Level
         super.load();
         var GS=GameSystem;
         var CS=GS.Classes;
+        var Position=CS.Position;
         this.mapImage=new CS.Image(define.mapImagePath + 'palletTown/gen3.png',{cutStartPosition:new Position(0,0),cutSize:new Position(27,27)});
         this.map =new  Framework.Scene();
         this.map.attach(this.mapImage);
