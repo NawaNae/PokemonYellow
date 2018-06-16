@@ -1,0 +1,163 @@
+﻿.visualNovel  *{
+    font-family:微軟正黑體Litght,微軟正黑體;
+  
+}
+.visualNovel {
+    text-shadow: 0 0 2px white;
+    position: fixed;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    display: block;
+    background: rgba(0,0,0,0.8);
+}
+    .visualNovel .voptions ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .visualNovel li.option {
+        text-align:center;
+        color:darkgrey;
+        font-size:50px;
+        line-height:60px;
+    }
+    .visualNovel button {
+        z-index: 30;
+        position: absolute;
+        left: 10px;
+    }
+    .visualNovel .background {
+        z-index: 11;
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top:0px;
+        left:0px;
+    }
+    .visualNovel .characterImage {
+        z-index: 12;
+        position: absolute;
+        height: 100%;
+        right:50px;
+        bottom:10px;
+    }
+    .visualNovel .nameBox {
+        z-index: 13;
+        position: absolute;
+        color: rgb(0, 255, 185);
+        text-shadow: rgb(0, 16, 73) 0px 0px 4px;
+        background: rgba(128, 128, 128, 0.71);
+        width: 150px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        bottom: calc(30% + 50px);
+        left: 50px;
+    }
+    .visualNovel .dialog {
+        z-index: 14;
+        padding: 10px 30px;
+        position: absolute;
+        color: navajowhite;
+        bottom: 10px;
+        font-size: 30px;
+        background: rgba(0, 9, 38, 0.67);
+        width: calc(100% - 40px);
+        min-height: 30%;
+    }
+    .visualNovel .voiceOver,.visualNovel .voptions {
+        z-index: 15;
+        position: absolute;
+        top:0px;
+        color: antiquewhite;
+        background: rgba(0,0,0,0.8);
+        font-size: 35px;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        /* display: none; */
+    }
+    .visualNovel .screenChapter {
+        z-index: 16;
+        top:0px;
+        left:0px;
+        display: none;
+        position: absolute;
+        color: rgb(0, 2, 21);
+        background: rgb(255, 232, 194);
+        width: 100%;
+        height: 100%;
+        line-height: 400px;
+        font-size: 100px;
+    }
+.visualNovelSpinner {
+    z-index: 17;
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    margin: 100px auto;
+    background-color: rgb(255, 149, 211);
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+.visualNovel .voptions
+{
+    
+  z-index:18;
+}
+    .visualNovel .voptions .option {
+        margin-bottom: 4px;
+        box-shadow: 0 0 2px 2px black;
+        background-color: rgba(0,0,0,0.6);
+        transition: color 0.5s;
+        transition: background-color 0.3s;
+    }
+        .visualNovel .voptions .option:hover {
+            color: white;
+            margin-bottom:4px;
+            box-shadow: 0 0 2px 2px black, inset 0px 1px 1px 0px rgba(255, 255, 255, 0.5),inset 1px -1px 1px 0px rgba(255, 255, 255, 0.5);
+            background-color: rgba(43, 21, 0, 0.92);
+        }
+.visualNovel .screenCover {
+    z-index: 19;
+    top:0px;
+    left:0px;
+    display: none;
+    position: absolute;
+    color: rgb(0, 2, 21);
+    background: rgb(255, 232, 194);
+    width: 100%;
+    height: 100%;
+    line-height: 400px;
+    font-size: 100px;
+}
+@-webkit-keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0)
+    }
+
+    100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+        opacity: 0;
+    }
+}

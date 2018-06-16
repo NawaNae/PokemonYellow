@@ -4,7 +4,7 @@
     <script type="text/javascript" src="start/js/load.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="Shortcut Icon" type="image/x-icon" href="start/image/tanko.ico" />
-
+    <script src="js/visualNovel.js"></script>
 </head>
 <div class="webLinksContainer">
         <a class="webLinks index" target="_blank" title="官網" alt="官網" href="https://nawanae.github.io/PokemonWebV2/">
@@ -24,6 +24,7 @@
         <img src="images/avoid.png" alt="避開遇怪" title="避開遇怪" class="webLinks  avoidMonster">
         <img src="images/levelup.png" alt="升等" title="升等" class="webLinks  levelup">
         <img src="images/money.png" alt="加錢" title="加錢" class="webLinks  moneyup">
+        <img src="images/travel.png" alt="傳送" title="傳送" class="webLinks  changemap">
 <button class="visibleBtn wButton" data-visible="false"><</button>
 </div>
 <div id="playHelp" class="coverBackground">
@@ -43,5 +44,18 @@
             <div class="cssload-loader"></div>
     </div>
 </div>
-
+<div id="mapSelect" class="visualNovel hide">
+    <div class="voptions show">
+            <ul >
+                    <li class="option" onclick="mapMove('palletTown',4,4);">口袋鎮</li>
+                    <li class="option" onclick="mapMove('viridianCity',20,31);" >常磐市</li>
+                    <li class="option" onclick="mapMove('pewterCity',18,34);">深灰市</li>
+                    <li class="option" onclick="mapMove('pewterCityGym',4,13);">深灰道館</li>
+                    <li class="option" onclick="mapMove('route01',10,39);">道路1</li>
+                    <li class="option" onclick="mapMove('route02',10,30);">道路2-1</li>
+                    <li class="option" onclick="mapMove('route02Part2',5,13);">道路2-2</li>
+                </ul>
+    </div>
+    
+</div>
 <script src="js/normal.js"></script>
