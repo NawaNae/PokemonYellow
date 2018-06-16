@@ -254,6 +254,7 @@ class Level extends Framework.Level
     {
         var mainChar=GameSystem.protagonist;
         var BR=GameSystem.Bridges.BattleResult;
+        var BD=GameSystem.Bridges.BattleData;if(BD.opponent.constructor.name==="NPC")var opponent=BD.opponent;
         mainChar.meetPokemon(BR.fightedPokemonTypes);
         if(BR.isPlayerWon)
         {
@@ -261,7 +262,15 @@ class Level extends Framework.Level
         }
         else
         {
-            this.money-=1;
+            mainChar.money-=500;
+            if(opponent)mainChar.storyLineIndex--;
+            if(this.reviveMapPosition)
+            {
+                mainChar.position=this.reviveMapPosition.position.copy;
+                mainChar.atMap=this.reviveMapPosition.mapName;
+                for(var poke of mainChar.pokemons)
+                    poke.HP=poke.maxHP;
+            }
         }
     }
     teardown()
