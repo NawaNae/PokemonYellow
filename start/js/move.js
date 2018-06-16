@@ -354,7 +354,7 @@ GameSystem.Classes.Move.Dictionary = {};
 
     // 初始化所有可用的「電」屬性招式
     DEX["打雷"] = new Move("打雷", "向對手劈下暴雷進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 110, 70);
-    DEX["電磁波"] = new Move("電磁波", "放出微弱的電流。讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Status, undefined, 90);                                // 
+    DEX["電磁波"] = new Move("電磁波", "放出微弱的電流。讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Status, -1, StatusTypes.Speed, true);                                // Tricky done
     DEX["十萬伏特"] = new Move("十萬伏特", "向對手放出強力電流進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 90, 100);
     DEX["雷電拳"] = new Move("雷電拳", "用帶有電流的拳頭攻擊對手。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Physical, 75, 100);
     DEX["電擊"] = new Move("電擊", "發出電流刺激對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 40, 100);
