@@ -59,13 +59,17 @@ class Pokemon extends GameSystem.Classes.StandardStat {
 
         this._name=pokemon._name||pokemon.name||this._name;
         this._level=pokemon._level||pokemon.level||this._level;
-        this._moves=this._typeInfo.GetInitialMoves();
-        for(var i=0;i<=this._level;i++)
-        {
-            var newMoves=this._typeInfo.GetPossibleMovesToLearnByLevel(i);
-            if(newMoves)
-                this._moves=this._moves.concat(newMoves);
-        }
+        //this._moves=this._typeInfo.GetInitialMoves();
+        let moveDEX = GameSystem.Classes.Move.Dictionary;
+        console.log(pokemon);
+        for(var move of pokemon._moves)
+            this._moves.push(moveDEX[move._name]);
+        // for(var i=0;i<=this._level;i++)
+        // {
+        //     var newMoves=this._typeInfo.GetPossibleMovesToLearnByLevel(i);
+        //     if(newMoves)
+        //         this._moves=this._moves.concat(newMoves);
+        // }
 
         if (typeof pokemon._exp == 'number')
             this._exp = pokemon._exp;

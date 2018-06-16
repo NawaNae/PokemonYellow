@@ -7,7 +7,7 @@ $(document).ready(function () {
 });//html完全載入
 */
 
-Load.css(define.cssPath + 'VisualNovel.css');
+Load.css('css/VisualNovel.css');
 class VisualNovel {
     constructor(father, contentObject = { src: undefined, content: undefined }) {
         this.gameLevel;
@@ -327,10 +327,16 @@ class VisualNovel {
     }
     show(htmElement)
     {
-        htmElement.style.display = "block";
+        if(!htmElement.classList.contains("show"))
+            htmElement.classList.add("show");
+        if(htmElement.classList.contains("hide"))
+            htmElement.classList.remove("hide");
     }
     hide(htmElement) {
-        htmElement.style.display = "none";
+        if(htmElement.classList.contains("show"))
+            htmElement.classList.remove("show");
+        if(!htmElement.classList.contains("hide"))
+            htmElement.classList.add("hide");
     }
     appendTo(father)
     {
