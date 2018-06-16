@@ -95,6 +95,8 @@ class PokemonType extends GameSystem.Classes.StandardStat {
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
 
+    get usableMoves() { return this._usableMoves; }
+
     set typeA(newType) { this._typeA = typeA; }
     get typeA() { return this._typeA; }
 
