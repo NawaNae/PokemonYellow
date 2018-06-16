@@ -44,7 +44,7 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         }
     
     }
-    updateMovesUntilFull(fromSelfLevel=false,fromLevel=0)
+    updateMovesUntilFull(fromSelfLevel=true,fromLevel=0)
     {
         if(fromSelfLevel)
             fromLevel=this.level+1;
