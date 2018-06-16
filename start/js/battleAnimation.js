@@ -131,6 +131,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     function grab_fy(y) { return -y * Math.sin(0.375 * PI2); }
     function grab_fdx(x) { return x * Math.cos(0.125 * PI2); }
     function grab_fdy(y) { return -y * Math.sin(0.125 * PI2); }
+    function sand_path(x, x0, y0) { return -0.4117 * (x - x0) + y0; }
+    function sand_particle_sizing(x) { return 10 - ((x - 80) ** 2) / 260; }
 
     // #region ==================== 初始化 AttackTo ==================== //
 
@@ -676,8 +678,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
-    function sand_path(x, x0, y0) { return -0.4117 * (x - x0) + y0; }
-    function sand_particle_sizing(x) { return 10 - ((x - 80) ** 2) / 260; }
     DEX["潑沙"] = new BattleAnimation("潑沙",
         { phase: 0, x: 35, startX: 38, startY: 68, endX: 130, endY: 30, particles: []},
         function (ctx) {
@@ -714,6 +714,43 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 else {
                     this._done();
                 }
+            }
+        }
+    );
+
+    DEX["刺耳聲"] = new BattleAnimation("刺耳聲",
+        { x: 38, y: 68, r1: 5, r2: 5, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 < animVars.maxr) {
+                    animVars.r1 += 1;
+                }
+                else if (animVars.r2 < animVars.maxr) {
+                    animVars.r2 += 1;
+                }
+                else {
+                    animVars.r1 = animVars.minr;
+                    animVars.r2 = animVars.minr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
             }
         }
     );
@@ -810,6 +847,43 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 else {
                     this._done();
                 }
+            }
+        }
+    );
+
+    DEX["刺耳聲"] = new BattleAnimation("刺耳聲",
+        { x: 123, y: 33, r1: 5, r2: 5, minr: 5, maxr: 40, times: 3 },
+        function(ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                let x1, y1, x2, y2;
+                ctx.strokeStyle = "#FF0000";
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 16; i++) {
+                    x1 = animVars.x + animVars.r1 * Math.cos(i * (PI2 / 16));
+                    y1 = animVars.y - animVars.r1 * Math.sin(i * (PI2 / 16));
+                    x2 = animVars.x + animVars.r2 * Math.cos(i * (PI2 / 16));
+                    y2 = animVars.y - animVars.r2 * Math.sin(i * (PI2 / 16));
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                if (animVars.r1 < animVars.maxr) {
+                    animVars.r1 += 1;
+                }
+                else if (animVars.r2 < animVars.maxr) {
+                    animVars.r2 += 1;
+                }
+                else {
+                    animVars.r1 = animVars.minr;
+                    animVars.r2 = animVars.minr;
+                    animVars.times -= 1;
+                }
+            }
+            else {
+                this._done();
             }
         }
     );
