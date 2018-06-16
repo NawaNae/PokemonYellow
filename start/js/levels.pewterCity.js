@@ -221,7 +221,8 @@ class Gym extends GameSystem.Classes.Level
         var littleGan=new NPC("小剛",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"));
         this.npcs.push(littleGan);
         littleGan.plots=[
-            new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),new Paragraph("那麼就戰鬥吧』"),new Script(()=>mainChar.storyLineIndex=5),new Fight(littleGan)],()=>mainChar.storyLineIndex>=4),
+            new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME董ㄟ，你又來了阿"),new Paragraph("那麼就開始吧』"),new Script(()=>mainChar.storyLineIndex=6),new Fight(littleGan)],()=>mainChar.storyLineIndex>=5),
+            new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),new Paragraph("那麼就戰鬥吧』"),new Script(()=>mainChar.storyLineIndex=5),new Fight(littleGan)],()=>mainChar.storyLineIndex===4),
             new Plot("Nofight",[new Paragraph("小剛:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...")])
         ];
         littleGan.fightEndPlot=FightEndP.LittleGan;

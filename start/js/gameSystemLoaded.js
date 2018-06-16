@@ -248,7 +248,47 @@ var defPlot=()=>{
                 new Script(function(){
                     var mainChar=GameSystem.protagonist;
                     mainChar.Position=new GameSystem.Classes.Position(6,8);
-                    //var container=new DisplayInformation.AutoKeyInput.Text(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father);
+                    var container=new DisplayInformation.AutoKeyInput.Text( "",  "", "", "coverText",  "div",GameSystem.HTMLObjectContainer);
+                    GameSystem.HTMLObjectContainer.show();
+                    var header=new DisplayInformation.Text( "",  "",  "", "head",  "div", container);
+                    var content=new DisplayInformation.Text( "",  "",  "", "content",  "div", container);
+                    var list=[
+                        ["恭喜通關","感謝遊玩，盧冠宇大帥哥系列-口袋怪獸黃"],
+                        ["開發人員-NawaNawa","負責 : 官網、網頁介面、遊戲UI、檔案、地圖、買賣、劇情、事件"],
+                        ["開發人員-PrismRealm","負責 : 戰鬥、寶可夢數值計算、class規劃、戰鬥UI"],
+                        ["開發人員-傳益","負責 : 攻略頁面"],
+                        ["特別感謝-盧冠宇大帥哥","本系列核心"],
+                        ["使用","框架 : 北科自主開發白牌框架\n庫 : jQuery\n語言 : 中文、javascript、HTML、CSS"]
+                    ];
+                    var index=0;
+                    var period=1800;
+                    var fadeinTime=300;
+                    var fadeOutTime=fadeinTime/2;
+                    period+=fadeinTime+fadeOutTime
+                    var ftimeout=()=>
+                    {
+                        $(header._display).fadeOut(fadeOutTime);
+                        $(content._display).fadeOut(fadeOutTime);
+                    }
+                    var timeout=()=>
+                    {
+                        if(index<list.length)
+                        {
+                            setTimeout(ftimeout,period-fadeOutTime-30);
+                            header.text=list[index][0];
+                            content.text=list[index][1];
+                            $(header._display).fadeIn(fadeinTime);
+                            $(content._display).fadeIn(fadeinTime);
+                            index++;
+                            setTimeout(timeout,period);
+                        }
+                        else
+                        {
+                            container.remove();
+                            GameSystem.HTMLObjectContainer.hide();
+                        }
+                    }
+                    timeout();
                     this.plot.end();
                     mainChar.atMap="final";
                     
