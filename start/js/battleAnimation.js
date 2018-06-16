@@ -555,11 +555,14 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
-    // #region ======================================================== //
+    // #endregion ======================================================== //
 
     // #region =================== 初始化 MiscEffect =================== //
     DEX = BattleAnimation.Dictionary.MiscEffect;
 
+    const pokemonBallImage = Load.image(define.imagePath + "AlivePokemonBall.png");
+
+    // Done
     DEX["藥水"] = new BattleAnimation("藥水",
         { r: 1 },
         function (ctx) {
@@ -574,6 +577,179 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
             else {
                 this._done();
+            }
+        }
+    );
+
+    DEX['收服成功'] = new BattleAnimation('收服成功',
+        { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
+          oppoX: 95, oppoY: 5, oppoSize: 56, oppoSrcXY: 0},
+        function (ctx) {
+            let animVars = this._animVars;
+            // Throwing ball
+            if (animVars.phase == 1) {
+                if (animVars.x < 120) {
+                    animVars.x += 1;
+                    animVars.y = 0.02 * (animVars.x - 90) ** 2 + 15;
+                }
+                else animVars.phase += 1;
+            }
+            // Ball waiting
+            else if (animVars.phase == 2) {
+                if (animVars.delay > 0)
+                    animVars.delay -= 1;
+                else 
+                    animVars.phase += 1;
+            }
+            // Ball shaking
+            else if (animVars.phase == 3) {
+                animVars.x += animVars.dx;
+                if (animVars.shaking % 4 == 3 && animVars.x >= 125) {               // Moving Right
+                    animVars.dx = -1;
+                    animVars.shaking -= 1;
+                }
+                else if (animVars.shaking % 4 == 2 && animVars.x <= 115) {          // Moving left
+                    animVars.dx = 1;
+                    animVars.shaking -= 1;
+                }
+                else if (animVars.shaking % 4 == 1 && animVars.x == 120) {          // Moving right (back to origin)
+                    animVars.dx = 0; 
+                    animVars.delay = 100;
+                    animVars.shaking -= 1;
+                }
+                else if (animVars.shaking % 4 == 0 && --animVars.delay <= 0) {      // Waiting
+                    animVars.dx = 1;
+                    animVars.shaking -= 1;
+                    if (animVars.shaking < 0)
+                        animVars.phase += 1;
+                }
+            }
+            // 'Done' particles and finished
+            else if (animVars.phase == 4) {
+                if (animVars.particle_r <= 40) {
+                    ctx.strokeStyle = "#FFFF00";
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(animVars.x + 7, animVars.y + 7, animVars.particle_r, 0, PI2);
+                    ctx.closePath();
+                    ctx.stroke();
+                    animVars.particle_r += 0.25;
+                }
+                else {
+                    this._done();
+                }
+            }
+            ctx.drawImage(pokemonBallImage, animVars.x, animVars.y, 14, 14);
+        },
+        undefined,
+        function (ctx, image) {
+            let animVars = this._animVars;
+            if (animVars.phase < 2) {
+                ctx.drawImage(image, 95, 5);
+            }
+            else if (animVars.phase == 2) {
+                if (animVars.oppoSize > 0) {
+                    ctx.drawImage(image, animVars.oppoSrcXY, animVars.oppoSrcXY, animVars.oppoSize, animVars.oppoSize,
+                        animVars.oppoX, animVars.oppoY, animVars.oppoSize, animVars.oppoSize);
+                    animVars.oppoSize -= 2;
+                    animVars.oppoSrcXY += 1;
+                    animVars.oppoX += 1;
+                    animVars.oppoY += 1;
+                }
+            }
+        }
+    );
+
+    DEX['收服失敗'] = new BattleAnimation('收服失敗',
+        { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
+          oppoX: 95, oppoY: 5, oppoSize: 56, oppoSrcXY: 0},
+        function (ctx) {
+            let animVars = this._animVars;
+            // Throwing ball
+            if (animVars.phase == 1) {
+                if (animVars.x < 120) {
+                    animVars.x += 1;
+                    animVars.y = 0.02 * (animVars.x - 90) ** 2 + 15;
+                }
+                else animVars.phase += 1;
+            }
+            // Ball waiting
+            else if (animVars.phase == 2) {
+                if (animVars.delay > 0)
+                    animVars.delay -= 1;
+                else 
+                    animVars.phase += 1;
+            }
+            // Ball shaking
+            else if (animVars.phase == 3) {
+                animVars.x += animVars.dx;
+                if (animVars.shaking % 4 == 3 && animVars.x >= 125) {               // Moving Right
+                    animVars.dx = -1;
+                    animVars.shaking -= 1;
+                }
+                else if (animVars.shaking % 4 == 2 && animVars.x <= 115) {          // Moving left
+                    animVars.dx = 1;
+                    animVars.shaking -= 1;
+                }
+                else if (animVars.shaking % 4 == 1 && animVars.x == 120) {          // Moving right (back to origin)
+                    animVars.dx = 0; 
+                    animVars.delay = 100;
+                    animVars.shaking -= 1;
+                }
+                else if (animVars.shaking % 4 == 0 && --animVars.delay <= 0) {      // Waiting
+                    animVars.dx = 1;
+                    animVars.shaking -= 1;
+                    if (animVars.shaking < 0)
+                        animVars.phase += 1;
+                }
+            }
+            // 'Done' particles and finished
+            else if (animVars.phase == 4) {
+                animVars.y -= 3;
+                if (animVars.particle_r <= 120) {
+                    ctx.strokeStyle = "#FF8888";
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(127, 42, animVars.particle_r, 0, PI2);
+                    ctx.closePath();
+                    ctx.stroke();
+                    animVars.particle_r += 2;
+                }
+                else {
+                    this._done();
+                }
+            }
+            ctx.drawImage(pokemonBallImage, animVars.x, animVars.y, 14, 14);
+        },
+        undefined,
+        function (ctx, image) {
+            let animVars = this._animVars;
+            if (animVars.phase < 2) {
+                ctx.drawImage(image, 95, 5);
+            }
+            else if (animVars.phase == 2) {
+                if (animVars.oppoSize > 0) {
+                    ctx.drawImage(image, animVars.oppoSrcXY, animVars.oppoSrcXY, animVars.oppoSize, animVars.oppoSize,
+                        animVars.oppoX, animVars.oppoY, animVars.oppoSize, animVars.oppoSize);
+                    animVars.oppoSize -= 2;
+                    animVars.oppoSrcXY += 1;
+                    animVars.oppoX += 1;
+                    animVars.oppoY += 1;
+                }
+            }
+            else if (animVars.phase == 3);
+            else if (animVars.phase == 4) {
+                if (animVars.oppoSize < 56) {
+                    ctx.drawImage(image, animVars.oppoSrcXY, animVars.oppoSrcXY, animVars.oppoSize, animVars.oppoSize,
+                        animVars.oppoX, animVars.oppoY, animVars.oppoSize, animVars.oppoSize);
+                    animVars.oppoSize += 2;
+                    animVars.oppoSrcXY -= 1;
+                    animVars.oppoX -= 1;
+                    animVars.oppoY -= 1;
+                }
+                else {
+                    ctx.drawImage(image, 95, 5);
+                }
             }
         }
     );
