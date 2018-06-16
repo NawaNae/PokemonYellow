@@ -737,8 +737,49 @@ class BattleLevel extends Framework.Level {
      * @param {GameSystem.Classes.PropItem} propItem 要使用的道具。
      */
     playerUsePropItem(propItem) {
+        // 當道具為寶可夢球時，則進行特別判斷
+        if (propItem.name == '寶可夢球') {
+            let fullPokemon = this._protagonist.pokemons.length >= 6;   // 若玩家身上的寶可夢數量已達上限，則提醒無法在捕捉寶可夢
+            let notWildPokemon = !this._isOpponentPokemon;              // 若對手為訓練家，則提示不可使用寶可夢球
+            if (fullPokemon || notWildPokemon) {
+                GameSystem.BattlePad.setBattleMessage(
+                    fullPokemon ? "你目前所擁有的寶可夢數量已達上限，無法再捕捉新的寶可夢。" : "你不可以捕捉對手訓練師的寶可夢，這是偷竊行為！");
+                // 結束提示並返回主選單
+                this._messagingQueue.push(next => {
+                    GameSystem.BattlePad.setBattleMessage();
+                    GameSystem.BattlePad.setVisibleMenu(true);
+                    this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
+                    this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
+                    next();
+                });
+
+                this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
+                this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
+                return;
+            }
+        }
         let battleResult = this._battleStage.doOneRoundBattle(propItem);
         this.executeAnimationQueue(battleResult);
+    }
+
+    /**
+     * 玩家抓到了野生寶可夢後的動作。
+     */
+    playerCaughtPokemon() {
+        this._playerAfterWinningFlow(this._opponent);   // 先處理寶可夢的經驗值、升等與新招式處理
+        // 最後從戰鬥退出至地圖
+        this._messagingQueue.push(() => {
+            GameSystem.Bridges.BattleResult.isPlayerWon = true;
+            GameSystem.Bridges.BattleResult.fightedPokemonTypes.push(this._opponent.getPokemonTypeName());
+            Framework.Game.goToLevel(this._protagonist.atMap);
+            Framework.Game._currentLevel._fightEnd();
+        });
+
+        // 將新的寶可夢加入至玩家的寶可夢清單中
+        this._protagonist.pokemons.push(this._opponent);
+
+        this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
+        this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
     }
 
     /**
@@ -926,6 +967,9 @@ class BattleLevel extends Framework.Level {
         else if (state == EnumState.Escape) {
             this.escapeSuccessfully();
         }
+        else if (state == EnumState.CaughtPokemon) {
+            this.playerCaughtPokemon();
+        }
         else {
             this._inputMode = BattleLevel.InputMode.BattlePad_Menu;
             this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
@@ -953,6 +997,15 @@ class BattleLevel extends Framework.Level {
      */
     static drawOpponentPokemon(ctx, image) {
         ctx.drawImage(image, 95, 5);
+    }
+
+    /**
+     * 繪製抓到寶可夢球後的寶可夢球繪圖方法。
+     * @static
+     * @param {Context2D} ctx Canvas的Context2D畫布。
+     */
+    static drawOpponentPokemonBall(ctx) {
+        ctx.drawImage(BattleLevel.pokemonBallImage, 120, 33);
     }
 
     // #endregion ============================================================================
@@ -1020,6 +1073,9 @@ class BattleLevel extends Framework.Level {
         ctx.fillRect(0, 0, 1000, 1000);
     }
 }
+
+/** 寶可夢球圖片 */
+BattleLevel.pokemonBallImage = Load.image(define.imagePath + "AlivePokemonBall.png");
 
 /**
  * @typedef BattleDate.InputMode

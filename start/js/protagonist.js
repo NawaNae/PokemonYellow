@@ -63,6 +63,8 @@ class Protagonist extends GameSystem.Classes.Character {
             Right:new GameSystem.Classes.Point(-1,0),
             Left:new GameSystem.Classes.Point(+1,0),
         }
+        this.addProp('女僕咖啡廳的紅藥水');
+        this.addProp('寶可夢球'); this.addProp('寶可夢球'); this.addProp('寶可夢球');
     }
     rearrangePokemons()
     {
@@ -142,9 +144,10 @@ class Protagonist extends GameSystem.Classes.Character {
     {
         var Prop=GameSystem.Classes.PropItem;
         var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
-        var findItem=this.props.find(item=>prop.name===item.name)
         if(prop.constructor.name==="String")
             prop=Dictionary[prop];
+        var findItem=this.props.find(item=>prop.name===item.name)
+        
         if(!findItem)
         {
             this.props.push(new Prop(prop));

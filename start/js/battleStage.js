@@ -34,6 +34,7 @@ class BattleStage {
      * @param {GameSystem.Classes.Move | GameSystem.Classes.PropItem | GameSystem.Classes.Pokemon | undefined} choice 玩家所做出的選擇。
      * 若是招式(Move)，則進行一般的回合制動作；
      * 若是道具(PropItem)，則進行道具使用動作；
+     * 若是寶可夢(Pokemon)，則進行更換寶可夢的動作；
      * 若是未定義(undefined)，則嘗試進行逃跑動作。'若逃跑失敗，則會一般地進行戰鬥。
      * @return {GameSystem.Classes.BattleResult} 一回合戰鬥完的結果。
      */
@@ -68,14 +69,10 @@ class BattleStage {
 
         // 玩家選擇了道具作為這一回合戰鬥的動作
         if (choice && choice.constructor == GameSystem.Classes.PropItem) {
-            // 寶可夢求需要做特殊的處理
-            if (choice.name == '寶可夢球') {
-                
-            }
-            else {
-                let battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult};
-                choice.battleAction(battlePackage);
-            }
+            let battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult};
+            // 經使用道具後，若因道具關係而結束回合，則直接回傳戰鬥結果
+            if (choice.battleAction(battlePackage))
+                return battleResult;
         }
 
         let playerMove = (choice && choice.constructor == GameSystem.Classes.Move) ? choice : undefined;

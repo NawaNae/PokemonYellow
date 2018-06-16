@@ -44,12 +44,7 @@ class PropItem {
             if(this.use)this.use(param1);
                 
         }
-        if (inBattleUse) {
-            this._originBattleUse = inBattleUse;
-            this._inBattleUse = function(battleNeeds) {
-                inBattleUse(battleNeeds);
-            };
-        }
+        this._inBattleUse = inBattleUse;
         this.isDecreasing=isAutoDecreasing;
         if(name&&(name.name||name._name||name.count||name._count||name.use||name.isAutoDecreasing))
         {
@@ -66,7 +61,7 @@ class PropItem {
     copy(val,count,use,isAutoDecreasing,selectSend,price,inBattleUse)
     {
         if(typeof val === "undefined")
-            return new this.constructor(this._name,this._count,this.use,this.isDecreasing,this.selectSend,this.price,this._originBattleUse);
+            return new this.constructor(this._name,this._count,this.use,this.isDecreasing,this.selectSend,this.price,this._inBattleUse);
         if(typeof val === "string")
         {
             this._name=val;
@@ -75,12 +70,7 @@ class PropItem {
             this.selectSend=selectSend;
             this.isDecreasing=isAutoDecreasing;
             this.price=price;
-            if (inBattleUse) {
-                this._originBattleUse = inBattleUse;
-                this._inBattleUse = function(battleNeeds) {
-                    this._originBattleUse(battleNeeds);
-                };
-            }
+            this._inBattleUse = GameSystem.Resource.PropDictionary[this._name].battleAction;
         }
         else if(val&&(val.name||val._name||val.count||val._count||val.use||val.isAutoDecreasing||val.selectSend||val._selectSend))
         {
@@ -91,12 +81,7 @@ class PropItem {
             this.price=price;
             this.use=val.use||this.use;
             this.isDecreasing=val.isDecreasing||val._isDecreasing;
-            if (val.battleAction) {
-                this._originBattleUse = val._originBattleUse;
-                this._inBattleUse = function(battleNeeds) {
-                    this._originBattleUse(battleNeeds);
-                };
-            }
+            this._inBattleUse = GameSystem.Resource.PropDictionary[this._name].battleAction;
         }
     }
     set isDecreasing(bool){if(typeof this._count==="undefined"){console.warn("請確保有count的情況下再設定");return;}this._isDecreasing=bool;}
