@@ -62,6 +62,9 @@ class BattleInfo {
     /** 取得寶可夢背部圖片 */
     get backImagePath() { return this._pokemon.getBackImagePath(); }
 
+    /** 取的此寶可夢的捕獲率 */
+    get catchRate() { return this._pokemon.getPokemonType().catchRate; }
+
     // #region ======================================== 階級變換類 ========================================
 
     /**
