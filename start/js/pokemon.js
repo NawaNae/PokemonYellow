@@ -101,6 +101,8 @@ class Pokemon extends GameSystem.Classes.StandardStat {
     get typeA() { return this._typeInfo.typeA; }
     get typeB() { return this._typeInfo.typeB; }
 
+    get moves() { return this._moves; }
+
     /**
      * 更新寶可夢的五個基本數值。
      */
