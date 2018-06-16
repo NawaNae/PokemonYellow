@@ -1,6 +1,7 @@
 if(typeof navigator.onLine !== "undefined")
     if(!navigator.onLine)
         alert("這是網頁，請確保開啟網路，不然會造成無法瀏覽操作說明")
+
 var NawaNawa=NawaNawa||{};
 /**
  * 尋找某元素的祖先
@@ -205,3 +206,24 @@ $(".avoidMonster").on("click",function()
     else
         mainChar.avoidFight=undefined;
 });
+$(".changemap").on("click",function()
+{
+    var mapSelect= document.querySelector("#mapSelect");
+    if(!mapSelect)return;
+    mapSelect.classList.toggle("hide");
+});
+function mapMove(mapName,x,y)
+{
+    var mapSelect= document.querySelector("#mapSelect");
+    if(!mapSelect)return;
+    if(!Framework){console.warn("請等待載入");return;}
+    var Game=Framework.Game;if(!Game){console.warn("請等待載入");return;}
+    var goToLevel=Game.goToLevel;if(!goToLevel){console.warn("請等待載入");return;}
+    if(!GameSystem){console.warn("請等待載入");return;}
+    var mainChar=GameSystem.protagonist;if(!mainChar){console.warn("請等待載入");return;}
+    var CS=GameSystem.Classes;if(!CS){console.warn("請等待載入");return;}
+    var Position=CS.Position;;if(!Position){console.warn("請等待載入");return;}
+    mainChar.position=new Position(x,y);
+    mainChar.atMap=mapName;
+    mapSelect.classList.toggle("hide");
+}
