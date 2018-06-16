@@ -51,8 +51,8 @@ class Protagonist extends GameSystem.Classes.Character {
         let fatKeD = new GameSystem.Classes.Pokemon("胖可丁",DEX["胖可丁"]);
         fatKeD.HP=0;
         // ******************* //
-        this._pokemons = [pikachu,pikC ,lada,nineTails,fatD,sixTails];   // lada for TESTING
-        this._props = [new GameSystem.Classes.PropItem(GameSystem.Resource.PropDictionary['女僕咖啡廳的紅藥水'])];
+        this._pokemons = [pikachu,pikC ,lada,nineTails,fatD];   // lada for TESTING
+        this._props = [];
         this._money = 3000;
         this.metPokemons=[pikachu.name];
         this._screenPosition=GameSystem.Classes.Protagonist.ScreenPosition;
@@ -63,6 +63,8 @@ class Protagonist extends GameSystem.Classes.Character {
             Right:new GameSystem.Classes.Point(-1,0),
             Left:new GameSystem.Classes.Point(+1,0),
         }
+        this.addProp('女僕咖啡廳的紅藥水');
+        this.addProp('寶可夢球'); this.addProp('寶可夢球'); this.addProp('寶可夢球');
     }
     rearrangePokemons()
     {
@@ -142,9 +144,10 @@ class Protagonist extends GameSystem.Classes.Character {
     {
         var Prop=GameSystem.Classes.PropItem;
         var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
-        var findItem=this.props.find(item=>prop.name===item.name)
         if(prop.constructor.name==="String")
             prop=Dictionary[prop];
+        var findItem=this.props.find(item=>prop.name===item.name)
+        
         if(!findItem)
         {
             this.props.push(new Prop(prop));
