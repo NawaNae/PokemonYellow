@@ -209,23 +209,28 @@ class Gym extends GameSystem.Classes.Level
     }
     initNpcs()
     {
-        var x,GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon, NPC = CS.NPC,Face=CS.Character.Face, DEX=CS.PokemonType.Dictionary;
-        var PC=CS.PlotContents,Plot=CS.Plot,Paragraph=CS.Paragraph,Script=PC.Script,Fight=PC.Fight;
+        var x,GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position,Pokemon=CS.Pokemon,GR=GS.Resource, NPC = CS.NPC,Face=CS.Character.Face, DEX=CS.PokemonType.Dictionary;
+        var PC=CS.PlotContents,Plot=CS.Plot,Paragraph=CS.Paragraph,Script=PC.Script,Fight=PC.Fight,Drama=GR.Drama,FightEndP=Drama["FightEnd"];
         var  Position=CS.Position,mainChar=GS.protagonist;
+        var mDEX = GameSystem.Classes.Move.Dictionary;
         let shauChanSi=new Pokemon("小拳石",DEX["小拳石"]);
         shauChanSi.level=10;
         let daIanSir=new Pokemon("大魯蛇",DEX["大岩蛇"]);
         daIanSir.level=12;
+        daIanSir._moves=[mDEX["撞擊"],mDEX["刺耳聲"],mDEX["綁緊"]];
         var littleGan=new NPC("小剛",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"));
         this.npcs.push(littleGan);
         littleGan.plots=[
             new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),new Paragraph("那麼就戰鬥吧』"),new Script(()=>mainChar.storyLineIndex=5),new Fight(littleGan)],()=>mainChar.storyLineIndex>=4),
             new Plot("Nofight",[new Paragraph("小剛:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...")])
         ];
+        littleGan.fightEndPlot=FightEndP.LittleGan;
         let diSu=new Pokemon("地鼠",DEX["地鼠"]);
         diSu.level=9;
+        diSu.updateMovesUntilFull();
         let chanSanSu=new Pokemon("穿山鼠",DEX["穿山鼠"]);
         chanSanSu.level=9;
+        chanSanSu.updateMovesUntilFull();
         let camper=new NPC("露營青年",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png"))
         camper.plots=[
             new Plot("camperFight",
@@ -237,6 +242,7 @@ class Gym extends GameSystem.Classes.Level
             ],()=>mainChar.storyLineIndex>=3),
             new Plot("camper", [new Paragraph("露營青年:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...』")])
         ]
+        camper.fightEndPlot=FightEndP.Camper;
         this.npcs.push(camper);
     }
     initEvents()
