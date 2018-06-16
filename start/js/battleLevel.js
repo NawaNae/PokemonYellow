@@ -272,10 +272,9 @@ class BattleLevel extends Framework.Level {
 
     /**
      * 在戰鬥版面中回應訊息的輸入處理。
-     * @param {Function} next 表示前進到下一個處理。
      * @param {KeyboardEvent} e 事件物件。
      */
-    keyInput_OnBattlePad_Messaging(next, e) {
+    keyInput_OnBattlePad_Messaging(e) {
         if (this._messagingQueue.length > 0) {
             let action = this._messagingQueue[0];
             action(() => this._messagingQueue.splice(0, 1), e);
@@ -585,24 +584,25 @@ class BattleLevel extends Framework.Level {
 
                             // 對使用者輸入的結果來判斷下一步動作
                             this._messagingQueue.push((next, e) => {
-                                  let key=GameSystem.Manager.Key.keyMapping[e.key];switch(key) {
-                                    case "W":
+                                let key=GameSystem.Manager.Key.keyMapping[e.key];
+                                switch(key) {
+                                    case "Up":
                                         if (!yesNoSelect) {
                                             yesNoSelect = true;
                                             GameSystem.BattlePad.setYesNoPadSelection(yesNoSelect);
                                         }
                                         break;
-                                    case "S":
+                                    case "Down":
                                         if (yesNoSelect) {
                                             yesNoSelect = false;
                                             GameSystem.BattlePad.setYesNoPadSelection(yesNoSelect);
                                         }
                                         break;
-                                    case "K":
+                                    case "A":
                                         // 關閉「是、否」版面
                                         GameSystem.BattlePad.setVisibleYesNoPad(false);
                                         if (yesNoSelect) {  // 顯示招式選擇清單，讓使用者選擇要忘記的招式
-                                            GameSystem.BattlePad.setBattleMessage("捨棄招式");
+                                            GameSystem.BattlePad.setBattleMessage("請選擇");
                                             GameSystem.BattlePad.updateMoveListPad(this._playerPokemon.getMoves());
                                             GameSystem.BattlePad.setVisibleMoveListPad(true);
                                             GameSystem.BattlePad.setMoveListMouseCursor(0);
@@ -619,21 +619,22 @@ class BattleLevel extends Framework.Level {
                             // 在使用者回應「是」的情況下，顯示招式選單，讓使用者選則欲捨棄的招式。
                             this._messagingQueue.push((next, e) => {
                                   let key=GameSystem.Manager.Key.keyMapping[e.key];switch(key) {
-                                    case "W":
+                                    case "Up":
                                         if (this._moveListSelection > 0) {
                                             this._moveListSelection -= 1;
                                             GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
                                         }
                                         break;
-                                    case "S":
+                                    case "Down":
                                         if (this._moveListSelection + 1 < 4) {
                                             this._moveListSelection += 1;
                                             GameSystem.BattlePad.setMoveListMouseCursor(this._moveListSelection);
                                         }
                                         break;
-                                    case "K":
+                                    case "A":
                                         let oldMoveName = moves[this._moveListSelection].name;
                                         moves[this._moveListSelection] = newMove;
+                                        GameSystem.BattlePad.setVisibleMoveListPad(false);
                                         GameSystem.BattlePad.setBattleMessage("忘記「" + oldMoveName + "」.. 學到了「" + newMove.name + "」！");
                                         next();
                                 }
