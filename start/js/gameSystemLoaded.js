@@ -145,8 +145,7 @@ var defPlot=()=>{
         "RivalsSisterMap": new Plot("RivalsSisterMap", [
             new Paragraph("聽說大木老頭找你跑腿阿？真辛苦（嘲諷意味）！"),
             new Paragraph("這給你用吧！"),
-            new GiveProp({name:"地圖"}),
-            new Script(()=>{GameSystem.protagonist.storyLineIndex++;})
+            new GiveProp({name:"地圖"})
             /*new Paragraph("在道具中使用城鎮地圖，可以看到自己在哪兒"),*/
         ],()=> !GameSystem.protagonist._props.find(ele=>ele.name==="地圖")),
         "RivalsSister": new Plot("RivalsSister", [

@@ -15,7 +15,7 @@ list['menu'] = new MyMenu();
 
 Framework.Game.addNewLevel({ menu: list['menu'] });
 Framework.Game.addNewLevel({loadRecord: new GameSystem.Classes.Levels.LoadRecord()});
-Framework.Game.addNewLevel({palletTown: new GameSystem.Classes.Levels.PalletTown({x:26,y:23})});
+Framework.Game.addNewLevel({palletTown: new GameSystem.Classes.Levels.PalletTown()});
 Framework.Game.addNewLevel({route01: new GameSystem.Classes.Levels.Route01()});
 Framework.Game.addNewLevel({viridianCity: new GameSystem.Classes.Levels.ViridianCity()});
 Framework.Game.addNewLevel({pewterCity: new GameSystem.Classes.Levels.PewterCity()});
