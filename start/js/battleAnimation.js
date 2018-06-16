@@ -857,6 +857,35 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
         }
     );
 
+    DEX["叫聲"] = new BattleAnimation("叫聲", 
+        { times: 3, r: 5, delay: 0 },
+        function (ctx) {
+            let animVars = this._animVars;
+            if (animVars.times > 0) {
+                if (animVars.delay <= 0) {
+                    ctx.lineWidth = 5;
+                    ctx.strokeStyle = "#ff6759";
+                    ctx.beginPath();
+                    ctx.arc(opponent.x + 25, opponent.y + 30, animVars.r, 0, PI2);
+                    ctx.closePath();
+                    ctx.stroke();
+                    animVars.r += 1;
+                    if (animVars.r >= 35) {
+                        animVars.delay = 50;
+                        animVars.times -= 1;
+                        animVars.r = 5;
+                    }
+                }
+                else {
+                    animVars.delay -= 1;
+                }
+            }
+            else {
+                this._done();
+            }
+        }
+    );
+
     DEX["瞪眼"] = new BattleAnimation("瞪眼", 
         { x: 123, y: 33, times: 300 },
         function (ctx) {
