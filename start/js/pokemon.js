@@ -44,14 +44,27 @@ class Pokemon extends GameSystem.Classes.StandardStat {
         }
     
     }
-    updateMovesUntilFull()
+    updateMovesUntilFull(fromSelfLevel=false,fromLevel=0)
     {
-        this._moves=this._typeInfo.GetInitialMoves();
-        for(var i=0;i<=this._level;i++)
+        if(fromSelfLevel)
+            fromLevel=this.level+1;
+        for(var i=fromLevel;i<=this._level;i++)
         {
             var newMoves=this._typeInfo.GetPossibleMovesToLearnByLevel(i);
             if(newMoves)
-                this._moves=this._moves.concat(newMoves);
+            {
+                if(newMoves.constructor.name==="Array")
+                {
+                    for(var move of newMoves)
+                        if(!this.isHaveMove(newMoves))
+                            this._moves.push(move);
+                } 
+                else if(newMoves.constructor.name==="Move")
+                    if(!this.isHaveMove(newMoves))
+                        this._moves.push(newMoves);
+
+            }
+                
             if(this._moves.length===4)
                 return;
         }
