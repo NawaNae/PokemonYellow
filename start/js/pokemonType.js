@@ -294,7 +294,7 @@ GameSystem.Classes.PokemonType.Dictionary = {};
     DEX["阿柏怪"] = new PokemonType(basicStat, 24, new Image(pokemonImagePath + "024_阿柏怪.png"), new Image(pokemonImagePath + "024_阿柏怪_Back.png"), "阿柏怪", moves, Type.Poison, Type.Normal, "根據研究出來的結果，阿柏怪腹部的可怕花紋，目前已經有六個種類可以確認。", 147, ExpType.Fast, 90);
 
     basicStat = {maxHP: 35, attack: 55, defense: 30, special: 50, speed: 90};
-    moves = [new GradingMove(undefined, MoveDEX["電擊"]), new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(6, MoveDEX["搖尾巴"]), new GradingMove(8, MoveDEX["電磁波"]), new GradingMove(11, MoveDEX["電光一閃"]), new GradingMove(15, MoveDEX["影子分身"]), new GradingMove(20, MoveDEX["摔打"]), new GradingMove(26, MoveDEX["十萬伏特"]), new GradingMove(33, MoveDEX["高速移動"]), new GradingMove(41, MoveDEX["打雷"]), new GradingMove(50, MoveDEX["光牆"])];
+    moves = [new GradingMove(undefined, MoveDEX["電擊"]), new GradingMove(undefined, MoveDEX["叫聲"]), new GradingMove(6, MoveDEX["搖尾巴"]), new GradingMove(8, MoveDEX["電磁波"]), new GradingMove(11, MoveDEX["電光一閃"])/*, new GradingMove(15, MoveDEX["影子分身"]), new GradingMove(20, MoveDEX["摔打"]), new GradingMove(26, MoveDEX["十萬伏特"]), new GradingMove(33, MoveDEX["高速移動"]), new GradingMove(41, MoveDEX["打雷"]), new GradingMove(50, MoveDEX["光牆"])*/];
     DEX["皮卡丘"] = new PokemonType(basicStat, 25, new Image(pokemonImagePath + "025_皮卡丘.png"), new Image(pokemonImagePath + "025_皮卡丘_Back.png"), "皮卡丘", moves, Type.Electric, undefined, "會將尾巴豎起來，去感覺周圍是否安全。所以，如果隨便去拉牠的尾巴，會被咬喔。", 82, ExpType.Fast, 190);
 
     basicStat = {maxHP: 60, attack: 90, defense: 55, special: 90, speed: 100};
