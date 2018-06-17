@@ -36,7 +36,7 @@ class PropItem {
                 this._use(param1);
         }
         this._use=(param1)=>{
-            if(this.isDecreasing)
+            if(this.use&&this.isDecreasing)
                 if(GameSystem.protagonist)
                     GameSystem.protagonist.decreaseSpecifiedPropItem(this);
                 else

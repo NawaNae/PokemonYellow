@@ -83,7 +83,7 @@ var defProp=()=>
     {
         /*String: new Prop("Name",Count,useFunction(請回傳true or 非undefined/false 自動判斷減少物品)) */
         "小帽的照片": new Prop("小帽的照片",5201314,function(){return true;}),
-        "寶可夢球":new Prop("寶可夢球",1,function(pokemon){pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;return true;},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200,UsePokemonBall),
+        "寶可夢球":new Prop("寶可夢球",1,x,x,x,200,UsePokemonBall),
         "女僕咖啡廳的紅藥水":new Prop("女僕咖啡廳的紅藥水",1,function(pokemon){var propList=GameSystem.HTMLObjectContainer.propList;pokemon.HP+=10;if(pokemon.HP>pokemon.maxHP)pokemon.HP=pokemon.maxHP;propList.update();},x,function(){new GameSystem.Classes.PokemonsSelectDialog(this);},200,UsePotion)
     };
 }
