@@ -21,12 +21,14 @@ class HTMLObjectContainer
         this.initOptions();
         this.initYesNoDialog();
         this.initDialog();
-        this.initBuySellDialog();
         this.initMoneyDialog();
+        this.initBuySellDialog();
+
         this.initIllustration();
         this.initIllustrationList();
         this.initItemNumber();
         this.initShoppingList();
+        this.initSellList();
         this.initPropList();
         this.initCharacterInfo();
         this.initPokemonsDialog();
@@ -63,8 +65,10 @@ class HTMLObjectContainer
     }
     initItemNumber()
     {
-        this.itemNumberDialog=new GameSystem.Classes.ItemNumberDialog();
-        this.addChild(this.itemNumberDialog);
+        this.itemNumberDialogBuy=new GameSystem.Classes.ItemNumberDialog();
+        this.addChild(this.itemNumberDialogBuy);
+        this.itemNumberDialogSell=new GameSystem.Classes.ItemNumberDialogSell();
+        this.addChild(this.itemNumberDialogSell);
     }
     initDialog()
     {
@@ -113,7 +117,7 @@ class HTMLObjectContainer
             container.visible=false;
             options.visible=false;
         }));
-        this.options.push(new GameSystem.Classes.Option("以下測試"));
+        this.options.push(new GameSystem.Classes.Option("回選單",()=>Framework.Game.goToLevel("menu")));
         this.options.push(new GameSystem.Classes.Option("商店",function(){ GameSystem.HTMLObjectContainer.buySellDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("寶可夢醫院",()=>{
             var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
@@ -146,6 +150,38 @@ class HTMLObjectContainer
         this.options.optionsLoop=true;
         this.addChild(this.options);
     }
+    initSellList()
+    {
+        let Option=GameSystem.Classes.Option;
+        let container=this;
+        this.sellList=new GameSystem.Classes.Options({className:"sellList"});
+        this.sellList.hide();
+        this.sellList.update=function()
+        {
+            /*this is sellList */
+            this.clear();
+            var GS=GameSystem;if(!GS)return;
+            var mainChar=GS.protagonist;
+            for(var prop of mainChar.props)
+                if(prop.constructor.name==="PropItem"&&typeof prop.price!=="undefined")
+                {
+                    var option=new Option(prop.price+"円 "+prop.name+" x "+prop.count,function(){
+                        container.itemNumberDialogSell.item=this.prop;
+                        container.itemNumberDialogSell.value=1;
+                        container.itemNumberDialogSell.show();
+                    });
+                    option.prop=prop;
+                    this.push(option);
+                }
+                    
+            this.push(new Option("離開",()=>{this.hide();}))
+        }
+        this.sellList.onShow=function()
+        {
+            this.update();
+        };
+        this.addChild(this.sellList);
+    }
     initShoppingList()
     {
         let Option=GameSystem.Classes.Option;
@@ -156,14 +192,25 @@ class HTMLObjectContainer
         this.shoppingList.autoChangeInputMode=true;
 
         this.shoppingList.push(new Option("200円 女僕咖啡廳的紅藥水",function(){
-            var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
-            container.itemNumberDialog.item=Dictionary["女僕咖啡廳的紅藥水"];
-            container.itemNumberDialog.show();
+            var GR=GameSystem.Resource,Dictionary=GR.PropDictionary,mainChar=GameSystem.protagonist;
+            
+            if(mainChar.money<200)
+            {
+                alert("餘額不足");return;
+            }    
+            container.itemNumberDialogBuy.item=Dictionary["女僕咖啡廳的紅藥水"];
+            container.itemNumberDialogBuy.value=1;
+            container.itemNumberDialogBuy.show();
         }));
         this.shoppingList.push(new Option("200円 寶可夢球",function(){
-            var GR=GameSystem.Resource,Dictionary=GR.PropDictionary;
-            container.itemNumberDialog.item=Dictionary["寶可夢球"];
-            GameSystem.HTMLObjectContainer.itemNumberDialog.show();
+            var GR=GameSystem.Resource,Dictionary=GR.PropDictionary,mainChar=GameSystem.protagonist;
+            if(mainChar.money<200)
+            {
+                alert("餘額不足");return;
+            }    
+            container.itemNumberDialogBuy.item=Dictionary["寶可夢球"];
+            container.itemNumberDialogBuy.value=1;
+            container.itemNumberDialogBuy.show();
         }));
         this.shoppingList.push(new Option("離開",function(){GameSystem.HTMLObjectContainer.shoppingList.hide();}));
         this.addChild(this.shoppingList);

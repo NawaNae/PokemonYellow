@@ -372,12 +372,12 @@ class Protagonist extends GameSystem.Classes.Character {
      * @param {GameSystem.Classes.PropItem | number} specify 指定要減少的道具。
      * @return {boolean} 是否成功減少。
      */
-    decreaseSpecifiedPropItem(specify) {
+    decreaseSpecifiedPropItem(specify,number=1) {
         if (typeof specify == 'number') {
             let propItem = this._props[specify];
             // 若指定要刪除的道具存在
             if (propItem) {
-                propItem.count -= 1;
+                propItem.count -= number;
                 // 若堆疊數量為0，則移除
                 if (propItem.count <= 0) {
                     this._props.splice(specify, 1);
@@ -392,7 +392,7 @@ class Protagonist extends GameSystem.Classes.Character {
             let index = this._props.indexOf(specify);
             // 若該道具存在於使用者上
             if (index >= 0) {
-                specify.count -= 1;
+                specify.count -= number;
                 // 若道具堆疊為0
                 if (specify.count <= 0) {
                     this._props.splice(index, 1);

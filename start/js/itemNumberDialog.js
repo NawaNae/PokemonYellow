@@ -40,7 +40,7 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
     {
         let GS=GameSystem,KM=GS.Manager.Key,CS=GS.Classes;
         let container=GameSystem.HTMLObjectContainer;
-        let itemNumber=container.itemNumberDialog;
+        let itemNumber=container.itemNumberDialogBuy;
         switch(KM.keyMapping[e.key])
         {
             case "Up":
@@ -58,12 +58,12 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
                     newItem.count=itemNumber.cost/itemNumber.price;
                     mainChar.addProp(newItem);
                     container.yesNoDialog.hide();
-                    container.itemNumberDialog.hide();
+                    container.itemNumberDialogBuy.hide();
                 };
                 container.yesNoDialog.show();
                 break;
             case "B":
-                container.itemNumberDialog.visible=false;
+                container.itemNumberDialogBuy.visible=false;
                 break;
         }
     }
@@ -85,6 +85,8 @@ class ItemNumberDialog extends DisplayInformation.AutoKeyInput.Text
             value=1;
         if(value==0)
             value=99;
+        if(value*this.price>GameSystem.protagonist.money)
+            return;
         this.numberItem.value=value;
         this.moneyItem.value=value*this.price;
     }

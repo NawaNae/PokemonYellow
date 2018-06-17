@@ -19,7 +19,6 @@ class MoneyDialog extends DisplayInformation.Digit
     }
     updateMoney()
     {
-        console.log("update")
         if(GameSystem&&GameSystem.protagonist)
         this.value=GameSystem.protagonist.money;
     }

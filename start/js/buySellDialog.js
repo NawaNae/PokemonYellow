@@ -31,7 +31,7 @@ class BuySellDialog extends GameSystem.Classes.Options
     }
     sellSelectSend()
     {
-        GameSystem.HTMLObjectContainer.shoppingList.show();
+        GameSystem.HTMLObjectContainer.sellList.show();
     }
     cancelSelectSend()
     {

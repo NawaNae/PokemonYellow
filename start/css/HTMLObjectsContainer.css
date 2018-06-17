@@ -37,6 +37,7 @@
 .HTMLObjectContainer .moneyDialog,
 .HTMLObjectContainer .buySellDialog,
 .HTMLObjectContainer .shoppingList,
+.HTMLObjectContainer  .sellList,
 .HTMLObjectContainer .propList,
 .HTMLObjectContainer .itemNumberDialog,
 .HTMLObjectContainer .characterInfo,
@@ -165,7 +166,7 @@
     left:10px;
 }
 /*買賣清單、物品清單*/
-.shoppingList,.propList
+.shoppingList, .sellList,.propList
 {
     position: absolute;
     z-index: 2;

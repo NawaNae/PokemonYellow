@@ -21,7 +21,7 @@ class PropItem {
      * @param {Prop} Object 複製來源
      * 
      */
-    constructor(name, count, use, isAutoDecreasing=true ,selectSend,price=200,inBattleUse) {
+    constructor(name, count, use, isAutoDecreasing=true ,selectSend,price,inBattleUse) {
        
         this._name = name;
         this._count = count;
@@ -78,7 +78,7 @@ class PropItem {
             this._name=name||this.name;
             this._count=val.count||val._count;
             this.selectSend=val.selectSend||this.selectSend;
-            this.price=price;
+            this.price=val.price;
             this.use=val.use||this.use;
             this.isDecreasing=val.isDecreasing||val._isDecreasing;
             this._inBattleUse = GameSystem.Resource.PropDictionary[this._name].battleAction;

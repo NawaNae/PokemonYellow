@@ -22,7 +22,7 @@ Load.js.import(
         { src: define.jsPath + 'gradingMove.js'},
         { src: define.jsPath + 'occurrence.js'},
         { src: define.jsPath + 'dialog.js' },//3
-        { src: define.jsPath + 'itemNumberDialog.js' },
+        { src: define.jsPath + 'itemNumberDialog.js' },//9
         { src: define.jsPath + 'moneyDialog.js' },
         { src: define.jsPath + 'illustration.js'},
         { src: define.jsPath + 'illustrationList.js'},
@@ -45,7 +45,8 @@ Load.js.import(
         { src: define.jsPath + 'plotContents.addNpc.js' },
         { src: define.jsPath + 'plotContents.removeNpc.js' },
         { src: define.jsPath + 'plotContents.moveCharacter.js'},
-        { src: define.jsPath + 'plotContents.fight.js'},
+        { src: define.jsPath + 'plotContents.fight.js'},//9
+        { src: define.jsPath + 'itemNumberDialogSell.js' },
         { src: define.jsPath + 'plotContents.giveProp.js',waitFor: 'GameSystem.Classes.Paragraph'},//7
         { src: define.jsPath + 'battlePad.js'  },
         { src: define.jsPath + 'propItem.js' },
@@ -114,6 +115,7 @@ Load.js.import(
                 'GameSystem.Classes.Pokemon',
                 'GameSystem.Classes.AnimationItem',
                 'GameSystem.Classes.AnimationList',
+                'GameSystem.Classes.ItemNumberDialogSell',
                 'GameSystem.Classes.MapPosition',
                 'GameSystem.Classes.Connection',
                 'GameSystem.Classes.Protagonist',
