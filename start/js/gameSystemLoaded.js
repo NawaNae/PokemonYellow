@@ -238,6 +238,7 @@ var defPlot=()=>{
             var that=this;
             buySellDialog.onHide=function()
             {
+                container.moneyDialog.hide();
                 that.next();
             }
         },{autoNext:false})])

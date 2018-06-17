@@ -51,6 +51,11 @@ class PewterCity extends GameSystem.Classes.Level {
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
+
+        this.obstacles.push(new CS.Rectangle({x:27,y:8},{x:27,y:7}));
+        this.obstacles.push(new CS.Rectangle({x:26,y:7},{x:26,y:6}));
+        this.obstacles.push(new CS.Rectangle({x:27,y:5},{x:24,y:5}));
+        this.obstacles.push(new CS.Rectangle({x:18,y:7},{x:23,y:4}));
         /*sign boards */
         this.obstacles.push(new CS.Rectangle({x:19,y:31},{x:19,y:31}));//welcome
         this.obstacles.push(new CS.Rectangle({x:15,y:11},{x:15,y:11}));//common
@@ -200,7 +205,7 @@ class Gym extends GameSystem.Classes.Level
     {
         var GS = GameSystem,CS = GS.Classes,Rectangle=CS.Rectangle;
         var pushItem=(x1,y1,x2,y2)=>this.obstacles.push(new Rectangle({x:x1,y:y1},{x:x2,y:y2}));
-    
+        
         pushItem(0,1,0,9);
         pushItem(1,9,3,9);
         pushItem(3,9,3,10);
