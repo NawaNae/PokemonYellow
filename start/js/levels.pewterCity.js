@@ -235,7 +235,7 @@ class Gym extends GameSystem.Classes.Level
         littleGan.plots=[
             new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME董ㄟ，你又來了阿"),new Paragraph("那麼就開始吧』"),new Script(()=>mainChar.storyLineIndex=6),new Fight(littleGan)],()=>mainChar.storyLineIndex>=5),
             new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME，沒想到你已經能來到我面前拉"),new Paragraph("那麼就戰鬥吧』"),new Script(()=>mainChar.storyLineIndex=5),new Fight(littleGan)],()=>mainChar.storyLineIndex===4),
-            new Plot("Nofight",[new Paragraph("小剛:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...")])
+            new Plot("Nofight",[new Paragraph("小剛:『$MY_NAME，你還沒跟$RIVAL_NAME打過?小朋友你迷路瞜...")])
         ];
         littleGan.fightEndPlot=FightEndP.LittleGan;
         let diSu=new Pokemon("地鼠",DEX["地鼠"]);
@@ -253,7 +253,7 @@ class Gym extends GameSystem.Classes.Level
                 new Script(()=>mainChar.storyLineIndex=4),
                 new Fight(camper)
             ],()=>mainChar.storyLineIndex>=3),
-            new Plot("camper", [new Paragraph("露營青年:『$MY_NAME，你還沒跟小茂打過?小朋友你迷路瞜...』")])
+            new Plot("camper", [new Paragraph("露營青年:『$MY_NAME，你還沒跟$RIVAL_NAME打過?小朋友你迷路瞜...』")])
         ]
         camper.fightEndPlot=FightEndP.Camper;
         this.npcs.push(camper);
