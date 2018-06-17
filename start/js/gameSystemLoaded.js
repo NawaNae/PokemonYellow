@@ -137,8 +137,7 @@ var defPlot=()=>{
         "Girl1": new Plot("Girl1", [
             new Paragraph("我也在養寶可夢，如果夠強的話還可以當你的保鑣呢！"),
             new Paragraph("$MY_NAME『阿不就好棒棒』"),
-            new Paragraph("倫加4女森耶。我要去4,4ㄌ888"),
-            new MoveCharacter({to:new Position(4,4)})
+            new Paragraph("亨!"),
         ]),
         "Fatty": new Plot("Fatty", [
             new Paragraph("肥宅工程師『從寫完就可以睡覺了』"),
