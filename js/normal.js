@@ -212,6 +212,13 @@ $(".changemap").on("click",function()
     if(!mapSelect)return;
     mapSelect.classList.toggle("hide");
 });
+$(".addPoke").on("click",function()
+{
+    var display= document.querySelector("#addPokeSelect");
+    if(!display)return;
+    display.classList.toggle("hide");
+});
+NawaNawa.mapMove=
 function mapMove(mapName,x,y)
 {
     var mapSelect= document.querySelector("#mapSelect");
@@ -226,4 +233,30 @@ function mapMove(mapName,x,y)
     mainChar.position=new Position(x,y);
     mainChar.atMap=mapName;
     mapSelect.classList.toggle("hide");
+}
+NawaNawa.storyLine=
+function(index)
+{
+    var display= document.querySelector("#storyLineSelect");
+    if(!display)return;
+    if(!GameSystem){console.warn("請等待載入");return;}
+    var mainChar=GameSystem.protagonist;if(!mainChar){console.warn("請等待載入");return;}
+    mainChar.storyLineIndex=index;
+    display.classList.toggle("hide");
+}
+NawaNawa.addPoke=
+function(name)
+{
+    var display= document.querySelector("#addPokeSelect");if(!display)return;
+    var GS=GameSystem;if(!GS){console.warn("請等待載入");return;};
+    var CS=GS.Classes;if(!CS){console.warn("請等待載入");return;};
+    var Pokemon=CS.Pokemon;if(!Pokemon){console.warn("請等待載入");return;};
+    var PT=CS.PokemonType;if(!PT){console.warn("請等待載入");return;};
+    var DEX=PT.Dictionary;if(!DEX){console.warn("請等待載入");return;};
+    var mainChar=GS.protagonist;if(!mainChar){console.warn("請等待載入");return;};
+    if(!DEX[name]){console.warn("查無該種寶可夢");return;};
+    var poke=new Pokemon(name,DEX[name]);
+    poke.updateAbilities();
+    mainChar.addPokemon(poke);
+    display.classList.toggle("hide");
 }

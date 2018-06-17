@@ -117,7 +117,7 @@ class HTMLObjectContainer
             container.visible=false;
             options.visible=false;
         }));
-        this.options.push(new GameSystem.Classes.Option("回選單",()=>Framework.Game.goToLevel("menu")));
+        this.options.push(new GameSystem.Classes.Option("回選單",()=>{this.options.hide();this.hide();Framework.Game.goToLevel("menu")}));
         this.options.push(new GameSystem.Classes.Option("商店",function(){ GameSystem.HTMLObjectContainer.buySellDialog.show();}));
         this.options.push(new GameSystem.Classes.Option("寶可夢醫院",()=>{
             var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;

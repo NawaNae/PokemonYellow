@@ -16,16 +16,19 @@
             <img class="icon" alt="攻略" title="攻略" src="https://nawanae.github.io/PokemonWebV2/image/raiders.png">
         </a>
         <img class="webLinks developer icon"  title="開發人員" alt="開發人員" src="images/developer.png">
-         <button class="visibleBtn wButton" data-visible="true"><</button>
-</div>
-<div id="webLinksContainer2"class="webLinksContainer">
         <img src="images/delete.png" alt="刪除所有存檔" title="刪除所有存檔" class="webLinks  removeRecords">
         <!-- <img src="images/zombie.png" alt="BFS walk殭屍測試" title="BFS walk殭屍測試" class="webLinks  zombieMode"> -->
         <img src="images/debugDefine.png" alt="debugDefine" title="定義Debug用縮寫" class="webLinks  debugDefine">
+         <button class="visibleBtn wButton" data-visible="true"><</button>
+</div>
+<div id="webLinksContainer2"class="webLinksContainer">
         <img src="images/avoid.png" alt="避開遇怪" title="避開遇怪" class="webLinks  avoidMonster">
         <img src="images/levelup.png" alt="升等" title="升等" class="webLinks  levelup">
         <img src="images/money.png" alt="加錢" title="加錢" class="webLinks  moneyup">
         <img src="images/travel.png" alt="傳送" title="傳送" class="webLinks  changemap">
+        <img src="images/storyLineJump.png" alt="跳劇情" title="跳劇情" onclick='var display= document.querySelector("#storyLineSelect");
+        display.classList.toggle("hide");' class="webLinks  stroyLineJump">
+        <img src="images/addPoke.png" alt="新增寶可夢" title="新增寶可夢" class="webLinks addPoke">
 <button class="visibleBtn wButton" data-visible="false"><</button>
 </div>
 <div id="playHelp" class="coverBackground">
@@ -48,15 +51,37 @@
 <div id="mapSelect" class="visualNovel hide">
     <div class="voptions show">
             <ul >
-                    <li class="option" onclick="mapMove('palletTown',4,4);">口袋鎮</li>
-                    <li class="option" onclick="mapMove('viridianCity',20,31);" >常磐市</li>
-                    <li class="option" onclick="mapMove('pewterCity',18,34);">深灰市</li>
-                    <li class="option" onclick="mapMove('pewterCityGym',4,13);">深灰道館</li>
-                    <li class="option" onclick="mapMove('route01',10,39);">道路1</li>
-                    <li class="option" onclick="mapMove('route02',10,30);">道路2-1</li>
-                    <li class="option" onclick="mapMove('route02Part2',5,13);">道路2-2</li>
+                    <li class="option" onclick="NawaNawa.mapMove('palletTown',4,4);">口袋鎮</li>
+                    <li class="option" onclick="NawaNawa.mapMove('viridianCity',20,31);" >常磐市</li>
+                    <li class="option" onclick="NawaNawa.mapMove('pewterCity',18,34);">深灰市</li>
+                    <li class="option" onclick="NawaNawa.mapMove('pewterCityGym',4,13);">深灰道館</li>
+                    <li class="option" onclick="NawaNawa.mapMove('route01',10,39);">道路1</li>
+                    <li class="option" onclick="NawaNawa.mapMove('route02',10,30);">道路2-1</li>
+                    <li class="option" onclick="NawaNawa.mapMove('route02Part2',5,13);">道路2-2</li>
                 </ul>
     </div>
-    
+</div>
+<div id="storyLineSelect" class="visualNovel hide">
+    <div class="voptions show">
+            <ul >
+                    <li class="option" onclick="NawaNawa.storyLine(0);     ">0初始</li>
+                    <li class="option" onclick="NawaNawa.storyLine(1);    " >1博士草叢攔截</li>
+                    <li class="option" onclick="NawaNawa.storyLine(2);   ">2與小茂對話後</li>
+                    <li class="option" onclick="NawaNawa.storyLine(3);">3與小茂戰鬥後</li>
+                    <li class="option" onclick="NawaNawa.storyLine(4);     ">4與露營青年戰鬥後</li>
+                    <li class="option" onclick="NawaNawa.storyLine(5);     ">5與小剛戰鬥後</li>
+                </ul>
+    </div>
+</div>
+<div id="addPokeSelect" class="visualNovel hide">
+    <div class="voptions show">
+            <ul >
+                    <li class="option" onclick="NawaNawa.addPoke(this.innerText);">皮卡丘</li>
+                    <li class="option" onclick="NawaNawa.addPoke(this.innerText);">波波</li>
+                    <li class="option" onclick="NawaNawa.addPoke(this.innerText);">小拉達</li>
+                    <li class="option" onclick="NawaNawa.addPoke(this.innerText);">尼多蘭</li>
+                    <li class="option" onclick="NawaNawa.addPoke(this.innerText);">尼多朗</li>
+                </ul>
+    </div>
 </div>
 <script src="js/normal.js"></script>
