@@ -218,7 +218,7 @@ class Gym extends GameSystem.Classes.Level
         let daIanSir=new Pokemon("大魯蛇",DEX["大岩蛇"]);
         daIanSir.level=12;
         daIanSir._moves=[mDEX["撞擊"],mDEX["刺耳聲"],mDEX["綁緊"]];
-        var littleGan=new NPC("小剛",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"));
+        var littleGan=new NPC("小剛",Face.Up,new Position(4, 1),new Image(define.characterImagePath + "littleGan.png"),x,x,x,x,[shauChanSi,daIanSir],new Image(define.characterImagePath + "littleGan_InBattle.png"),1188);
         this.npcs.push(littleGan);
         littleGan.plots=[
             new Plot("FightFinal",[new Paragraph("小剛:『$MY_NAME董ㄟ，你又來了阿"),new Paragraph("那麼就開始吧』"),new Script(()=>mainChar.storyLineIndex=6),new Fight(littleGan)],()=>mainChar.storyLineIndex>=5),
@@ -232,7 +232,7 @@ class Gym extends GameSystem.Classes.Level
         let chanSanSu=new Pokemon("穿山鼠",DEX["穿山鼠"]);
         chanSanSu.level=9;
         chanSanSu.updateMovesUntilFull();
-        let camper=new NPC("露營青年",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png"))
+        let camper=new NPC("露營青年",Face.Right,new Position(3, 6),new Image(define.characterImagePath + "girl1.png",{cutStartPosition:new Position(8,0),cutSize:new Position(1,1)}),10,x/*plot*/,x,x,[diSu,chanSanSu],new Image(define.characterImagePath + "camper_InBattle.png"),180);
         camper.plots=[
             new Plot("camperFight",
             [
