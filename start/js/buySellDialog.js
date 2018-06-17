@@ -15,6 +15,16 @@ class BuySellDialog extends GameSystem.Classes.Options
         this.push(new Option("取消",()=>{this.cancelSelectSend()}))
 
     }
+    onShow()
+    {
+        if(GameSystem.HTMLObjectContainer)
+        GameSystem.HTMLObjectContainer.moneyDialog.show();
+    }
+    onHide()
+    {
+        if(GameSystem.HTMLObjectContainer)
+        GameSystem.HTMLObjectContainer.moneyDialog.hide();
+    }
     buySelectSend()
     {
         GameSystem.HTMLObjectContainer.shoppingList.show();
