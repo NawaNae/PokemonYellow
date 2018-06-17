@@ -261,10 +261,12 @@ class Level extends Framework.Level
         var BR=GameSystem.Bridges.BattleResult;
         var BD=GameSystem.Bridges.BattleData;if(BD.opponent.constructor.name==="NPC")var opponent=BD.opponent;
         mainChar.meetPokemon(BR.fightedPokemonTypes);
-        for(var poke of opponent.pokemons)
-        {
-            poke.HP=poke.maxHP;
-        }
+        if(opponent)
+            if(opponent.pokemons)
+                for(var poke of opponent.pokemons)
+                {
+                    poke.HP=poke.maxHP;
+                }
         if(BR.isPlayerWon)
         {
             mainChar.rearrangePokemons();
