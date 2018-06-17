@@ -49,6 +49,7 @@ class Route02 extends GameSystem.Classes.Level
         this.obstacles.push(new CS.Rectangle({x:2,y:7},{x:9,y:7}));//上坎
         this.obstacles.push(new CS.Rectangle({x:2,y:7},{x:9,y:7}));//上坎
         this.obstacles.push(new CS.Rectangle({x:4,y:21},{x:8,y:21}));//下坎1
+        this.obstacles.push(new CS.Rectangle({x:10,y:21},{x:13,y:21}));//下坎2
         this.obstacles.push(new CS.Rectangle({x:13,y:11},{x:13,y:4}));//右上樹
 
     }

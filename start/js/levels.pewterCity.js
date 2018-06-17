@@ -51,6 +51,10 @@ class PewterCity extends GameSystem.Classes.Level {
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
+        /*sign boards */
+        this.obstacles.push(new CS.Rectangle({x:19,y:31},{x:19,y:31}));//welcome
+        this.obstacles.push(new CS.Rectangle({x:15,y:11},{x:15,y:11}));//common
+        this.obstacles.push(new CS.Rectangle({x:11,y:19},{x:11,y:19}));//gym
         /*左下角房屋 */
         this.obstacles.push(new CS.Rectangle({ x: 6, y: 31 }, { x: 9, y: 30 }));
         /*寶可夢醫院 */
@@ -110,8 +114,10 @@ class PewterCity extends GameSystem.Classes.Level {
         let Position = GameSystem.Classes.Position;
         let Polt = GameSystem.Classes.Polt;
         let Paragraph = GameSystem.Classes.Paragraph;
-        let Drama = GameSystem.Resource.Drama["Viridian City"];
-        this.signBoards.push(new SignBoard({ position: new Position(21, 29), content: Drama.WelcomeSign }));
+        let Drama = GameSystem.Resource.Drama["PewterCity"];
+        this.signBoards.push(new SignBoard({ position: new Position(19, 31), content: Drama.WelcomeSign }));
+        this.signBoards.push(new SignBoard({ position: new Position(15, 11), content: Drama.Common1 }));
+        this.signBoards.push(new SignBoard({ position: new Position(11,19), content: Drama.gym }));
     }
     load() {
         super.load();
@@ -194,6 +200,7 @@ class Gym extends GameSystem.Classes.Level
     {
         var GS = GameSystem,CS = GS.Classes,Rectangle=CS.Rectangle;
         var pushItem=(x1,y1,x2,y2)=>this.obstacles.push(new Rectangle({x:x1,y:y1},{x:x2,y:y2}));
+    
         pushItem(0,1,0,9);
         pushItem(1,9,3,9);
         pushItem(3,9,3,10);

@@ -445,12 +445,9 @@ class DoctorsHome extends GameSystem.Classes.Level {
             new Rectangle(new Position(5, 2),new Position(5,2)) ,
             new Plot("OakGivePokemon",
                 [
-                    new AddNpc(GS.rival),
                     new Script(()=>{GS.rival.facing="Up";GS.rival.position=new Position(4,2);GS.rival.updateImagePosition();}),
-                   
                     new Paragraph("$RIVAL_NAME:『爺爺，道路接通了』"),
-                    new Paragraph("大木博士:『$RIVAL_NAME你來拉?"),
-                    new Paragraph("$RIVAL_NAME你來拉?』"),
+                    new Paragraph("大木博士:『$RIVAL_NAME你來拉?』"),
                     new Paragraph("我不是叫你稍後再來嗎…既然來拉"),
                     new Paragraph("那就再等一下吧！』"),
                     new Paragraph("喔～！$MY_NAME給你一個寶可夢吧"),
@@ -460,7 +457,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
                     new Paragraph("大木博士:『唉呦！$RIVAL_NAME急甚麼！我等一下"),
                     new Paragraph("也會給你的』"),
                     new Paragraph("$RIVAL_NAME:『不管！是我的』"),
-                    new Paragraph("恭喜$MY_NAME的寶可夢球被強走了"),
+                    new Paragraph("恭喜$MY_NAME的寶可夢球被搶走了"),
                     new Paragraph("大木博士:『畏！$RIVAL_NAME死因仔！你在做啥』"),
                     new Paragraph("$RIVAL_NAME:『爺爺！人家就是想要這個嘛！』"),
                     new Paragraph("大木博士:『真拿你沒辦法！好吧那個就給你"),
@@ -495,9 +492,10 @@ class DoctorsHome extends GameSystem.Classes.Level {
         this.obstacles.push(new CS.Rectangle({ x: 6, y: 3 }, { x: 9, y: 3 }));
         this.obstacles.push(new CS.Rectangle({ x: 6, y: 6 }, { x: 9, y: 7 }));
         this.obstacles.push(new CS.Rectangle({ x: 7, y: 6 }, { x: 7, y: 7 }));
+        this.obstacles.push(new CS.Rectangle({ x: 3, y: 6 }, { x: 0, y: 7 }));
     }
     initNpcs() {
-        var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position, NPC = CS.NPC, Drama = GameSystem.Resource.Drama.PalletTown, Item = CS.AnimationItem;
+        var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position, NPC = CS.NPC, Drama = GameSystem.Resource.Drama.PalletTown, Item = CS.AnimationItem,mainChar=GS.protagonist;
         this.npcs.push(
             new NPC(
                 "doctorOak",
@@ -508,14 +506,22 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 Drama.OakNormal
             )
         );
+
  
     }
     load()
     {
+        var CS=GameSystem.Classes;
+        var GS=GameSystem,mainChar=GS.protagonist,Position=CS.Position;
+        if(mainChar.storyLineIndex===1||mainChar.storyLineIndex===2)
+            if(!this.npcs.find(npc=>npc===GS.rival))
+            {
+                GS.rival.position=new Position(4,2);
+                this.npcs.push(GS.rival)
+            }
         super.load();
         this.music.play();
-        var CS=GameSystem.Classes;
-        var GS=GameSystem;
+
 
         this.mapImage=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
 
