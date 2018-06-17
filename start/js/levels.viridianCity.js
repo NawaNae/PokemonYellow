@@ -74,6 +74,10 @@ class ViridianCity extends GameSystem.Classes.Level {
         /*上方樹*/
         this.obstacles.push(new CS.Rectangle({ x: 20, y: 3 }, { x: 23, y: 2 }));
         this.obstacles.push(new CS.Rectangle({ x: 20, y: 1 }, { x: 35, y: 0 }));
+        /*sign board to forest */
+        this.obstacles.push(new CS.Rectangle({ x: 19, y: 1 }, { x: 19, y: 1 }));
+        this.obstacles.push(new CS.Rectangle({ x: 17, y: 17 }, { x: 17, y: 17 }));
+        this.obstacles.push(new CS.Rectangle({ x: 21, y: 29 }, { x: 21, y: 29 }));
         /*左上方 */
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 3 }, { x: 16, y: 0 }));
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 13 }, { x: 5, y: 4 }));
@@ -104,6 +108,8 @@ class ViridianCity extends GameSystem.Classes.Level {
         let Paragraph = GameSystem.Classes.Paragraph;
         let Drama = GameSystem.Resource.Drama["Viridian City"];
         this.signBoards.push(new SignBoard({ position: new Position(21, 29), content: Drama.WelcomeSign }));
+        this.signBoards.push(new SignBoard({ position: new Position(17, 17), content: Drama.Common1 }));
+        this.signBoards.push(new SignBoard({ position: new Position(19, 1), content: Drama.Route02 }));
     }
     load() {
         super.load();
