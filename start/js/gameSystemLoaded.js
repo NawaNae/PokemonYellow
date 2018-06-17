@@ -14,6 +14,7 @@ GameSystem.loaded=function ()
     GS.rival=new CS.NPC(x,x,x,new Image(define.characterImagePath+"rival.png",{cutStartPosition:new Position(0,0),cutSize:new Position(1,1)}),4,x,x,x,[ibu],new Image(define.characterImagePath+"Rival_InBattle.png"));
     GS.rival.fightEndPlot=FightEndP.Rival;
     GS.rival.money=87;
+    GS.rival.plot=GameSystem.Resource.Drama.PalletTown["Rival"];
     let protagonist=GS.protagonist;
     protagonist.initialize();
     protagonist.image.addToAllLevels();
@@ -155,8 +156,8 @@ var defPlot=()=>{
             new Paragraph("經常在一起能與寶可夢建立良好關係"),
             new Paragraph("$MY_NAME『Madam, 我比較想與你建立良好關係』")
         ]),
-        "Gary_First": new Plot("Gary_First", [
-            new Paragraph("嘿! 我正在等大木伯伯過來這裡，我要領我的寶可夢球了！")
+        "Rival": new Plot("Rival", [
+            new Paragraph("我是$RIVAL_NAME，你已經輸了")
         ]),
         "Common": new Plot("Common", [
             new Paragraph("真新鎮雖然一座人口很少的小鎮，不過卻是一個新鮮又平靜的鎮，小小又漂亮的地方。")
@@ -206,8 +207,28 @@ var defPlot=()=>{
             new Paragraph("歡迎你來到「常磐市」！"),
             new Paragraph("在這個市中有寶可夢中心、寶可夢商店以及道館"),
             new Paragraph("都可以到處去看一看喔！")
-        ])
+        ]),
+        'Route02':new Plot("Route02", [
+            new Paragraph("通往Route02"),
+            new Paragraph("繼續走可以到比尼市"),
+        ]),
     };
+    Drama["PewterCity"]={
+        'WelcomeSign': new Plot("WelcomeSign", [
+            new Paragraph("歡迎來到「比尼市」！"),
+            new Paragraph("整個都是灰階的喔！")
+        ]),
+        'Common1': new Plot("Common1", [
+            new Paragraph("歡迎你來到「比尼市」！"),
+            new Paragraph("在這個市中有寶可夢中心、寶可夢商店以及道館"),
+            new Paragraph("都可以到處去看一看喔！")
+        ]),
+        'gym': new Plot("gym", [
+            new Paragraph("這裡是比尼道館！"),
+            new Paragraph("裡面住著小剛"),
+            new Paragraph("裡面充斥著石頭屬性的訓練家呢"),
+        ])
+    }
     Drama["Mart"]={
         'Seller':new Plot("Seller",[
         new Script(function(){
