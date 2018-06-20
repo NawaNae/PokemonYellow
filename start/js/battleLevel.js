@@ -33,7 +33,6 @@ class BattleLevel extends Framework.Level {
     constructor() {
         super();
     }
-
     /**
      * 當此戰鬥關卡被讀取時所做的動作。
      */
@@ -42,13 +41,11 @@ class BattleLevel extends Framework.Level {
         this.enableDraw();
         this._originalKeyHandler = GameSystem.Manager.Key.keyInput;
         GameSystem.Manager.Key.keyInput = (e) => { this._keyInputHandler(e); };
-
         // 取得在 GameSystem.Bridges.BattleData 的橋接資料與 GameSystem.protagonist 主人公資料。
         this._protagonist = GameSystem.protagonist;
         this._playerPokemon = GameSystem.Bridges.BattleData.selectPokemon;
         this._opponent = GameSystem.Bridges.BattleData.opponent;
         this._isOpponentPokemon = this._opponent instanceof GameSystem.Classes.Pokemon;
-
         // 判斷是否為對手(opponent)是否為「寶可夢」或「NPC」
         if (this._isOpponentPokemon) {
             this._battleStage = new GameSystem.Classes.BattleStage(this._playerPokemon, this._opponent);
@@ -57,11 +54,9 @@ class BattleLevel extends Framework.Level {
             this._opponentSelect = 0;
             this._battleStage = new GameSystem.Classes.BattleStage(this._playerPokemon, this._opponent.pokemons[0]);
         }
-        
         // 讀取寶可夢圖像資料
         this._playerPokemonImage = Load.image(this._playerPokemon.getBackImagePath());
         this._opponentPokemonImage = this._isOpponentPokemon ? Load.image(this._opponent.getImagePath()) : Load.image(this._opponent.pokemons[0].getImagePath());
-
         // 初始化選單參數
         this._inputMode = BattleLevel.InputMode.Empty;
         this._keyInputHandler = this.keyInput_Empty;
@@ -75,13 +70,10 @@ class BattleLevel extends Framework.Level {
         this._pokemonInfoPage = false;
         this._messagingQueue = [];
         this._playerPokemonList = GameSystem.protagonist.pokemons.slice(0);
-
         // 初始化資料橋接處GameSystem.Bridges.BattleResult
         GameSystem.Bridges.BattleResult.fightedPokemonTypes = [];
-
         // 確保 HTMLObjectContainer 有顯示
         document.querySelector(".HTMLObjectContainer").classList.remove('hide');
-
         // 開啟UI 並 更新UI上的資料
         this.resetDataOnUI();
         GameSystem.BattlePad.setVisible(true);
@@ -94,15 +86,11 @@ class BattleLevel extends Framework.Level {
         else {
             GameSystem.BattlePad.setOpponentPokemonBallsView(this._opponent.getFaintPokemonCount(), this._opponent.getAlivePokemonCount());
         }
-
         // 播放進場動畫
         this.introAnimation(this._isOpponentPokemon ? undefined : this._opponent.getBattleImagePath());
     }
-
     // #region ============================== KeyInput Handlers ==============================
-
     keyInput(e) { /* 轉移至 this._keyInputHander 作為替代方案 */ }
-
     /**
      * 在戰鬥版面中的選單之下的按鍵處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -181,7 +169,6 @@ class BattleLevel extends Framework.Level {
                 }
         }
     }
-
     /**
      * 在戰鬥版面中的招式清單之下的按鍵處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -218,7 +205,6 @@ class BattleLevel extends Framework.Level {
                 GameSystem.BattlePad.hideMoveInfoPad();
         }
     }
-
     /**
      * 在戰鬥版面中的背包物品清單之下的按鍵處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -269,7 +255,6 @@ class BattleLevel extends Framework.Level {
                 GameSystem.BattlePad.hideBackpackPad();
         }
     }
-
     /**
      * 在戰鬥版面中回應訊息的輸入處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -283,7 +268,6 @@ class BattleLevel extends Framework.Level {
             throw new Error("Unended message events.");
         }
     }
-
     /**
      * 在寶可夢清單版面之下的按鍵處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -318,7 +302,6 @@ class BattleLevel extends Framework.Level {
                 }
         }
     }
-
     /**
      * 在寶可夢清單版面中的選單之下的按鍵處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -357,7 +340,6 @@ class BattleLevel extends Framework.Level {
                 GameSystem.BattlePad.hidePokemonListPadMenu();
         }
     }
-    
     /**
      * 在寶可夢資訊版面之下的按鍵處理。
      * @param {KeyboardEvent} e 事件物件。
@@ -373,17 +355,13 @@ class BattleLevel extends Framework.Level {
             GameSystem.BattlePad.showPokemonInfoPad(true);
         }
     }
-
     /**
      * 案件按下處理函式。此函式表示不處理任何按下的
      * @param {KeyboardEvent} e 事件物件。
      */
     keyInput_Empty(e) {}
-
     // #endregion ============================================================================
-
     // #region ============================= Game Handler ====================================
-
     /**
      * 重置畫面上的資料。
      */
@@ -408,7 +386,6 @@ class BattleLevel extends Framework.Level {
         }
         GameSystem.BattlePad.setVisibleMenu(true);
     }
-
     /**
      * 更新畫面上的資料。
      */
@@ -430,7 +407,6 @@ class BattleLevel extends Framework.Level {
             );
         }
     }
-
     /**
      * 實作一回合的寶可夢戰鬥。
      */
@@ -439,7 +415,6 @@ class BattleLevel extends Framework.Level {
         let result = this._battleStage.doOneRoundBattle(selectedMove);
         this.executeAnimationQueue(result);
     }
-
     /**
      * 當玩家贏了這一回合時的處理。
      * *** Bug: 沒有「真正」更換到對手的寶可夢於BattleStage中
@@ -487,7 +462,6 @@ class BattleLevel extends Framework.Level {
             else {
                 let opponentPokemon = this._opponent.pokemons[this._opponentSelect];
                 this._opponentPokemonImage = Load.image(opponentPokemon.getImagePath());  // 更換寶可夢圖片
-
                 // 顯示對手更換寶可夢的訊息以及進場動畫
                 this._messagingQueue.push(next => {
                     GameSystem.BattlePad.setBattleMessage(this._opponent.name + " 派出了 " + opponentPokemon.name);
@@ -521,7 +495,6 @@ class BattleLevel extends Framework.Level {
         this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
         this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
     }
-
     /**
      * 我方寶可夢贏了對手寶可夢時所會做的必要流程。
      * @param {GameSystem.Classes.Pokemon} opponentPokemon 對手寶可夢。
@@ -531,18 +504,15 @@ class BattleLevel extends Framework.Level {
         let exp = this._battleStage.getExperience(!this._isOpponentPokemon, false); // 取得這一場戰鬥之經驗值
         let updateLevels = this._playerPokemon.gainExperience(exp);                 // 將經驗值增加至寶可夢上
         this._playerPokemon.gainEffortValue(opponentPokemon.getPokemonType());       // 取得對手寶可夢之總族值，將其各項值增加至玩家寶可夢之努力值上
-
         // 顯示經驗值訊息
         this._messagingQueue.push(next => {
             GameSystem.BattlePad.setBattleMessage(this._playerPokemon.name + "獲得了 " + exp + "經驗值點數！");
             next();
         });
-
         // 若有升級的話，顯示升級資訊與可能習得的新招式
         if (updateLevels > 0) {
             let pokemonType = this._playerPokemon.getPokemonType();
             let moves = this._playerPokemon.getMoves();
-
             // 顯示升級訊息
             this._messagingQueue.push(next => {
                 GameSystem.BattlePad.setBattleMessage(this._playerPokemon.name + "升級至等級" + this._playerPokemon.level + "了！");
@@ -550,7 +520,6 @@ class BattleLevel extends Framework.Level {
                 GameSystem.BattlePad.setVisibleLevelUpStatPad(true);
                 next();
             });
-
             // 檢查是否有可習得的招式
             while (updateLevels > 0) {
                 let levelDiff = this._playerPokemon.level + (--updateLevels);           // 取得升級的等級
@@ -562,7 +531,6 @@ class BattleLevel extends Framework.Level {
                         // 若該寶可夢擁有的招式量小於4，則直接加入新招式並輸出訊息
                         if (moves.length < 4) {
                             moves.push(newMove);
-
                             // 提示寶可夢已經習得了新的招式
                             this._messagingQueue.push(next => {
                                 GameSystem.BattlePad.setBattleMessage("你的寶可夢已經習得了「" + newMove.name + "」招式。");
@@ -573,14 +541,12 @@ class BattleLevel extends Framework.Level {
                         // 若否，則詢問是否習得與撤換招式
                         else {
                             let yesNoSelect = true;
-
                             // 顯示招式上限的提示
                             this._messagingQueue.push(next => {
                                 GameSystem.BattlePad.setBattleMessage("您的寶可夢所擁有之招式量已達上限！");
                                 GameSystem.BattlePad.setVisibleLevelUpStatPad(false);
                                 next();
                             });
-
                             // 詢問是否捨棄招式來習得新招式
                             this._messagingQueue.push(next => {
                                 GameSystem.BattlePad.setBattleMessage("是否遺忘一項舊有招式來習得新招式呢？");
@@ -588,7 +554,6 @@ class BattleLevel extends Framework.Level {
                                 GameSystem.BattlePad.setYesNoPadSelection(true);
                                 next();
                             });
-
                             // 對使用者輸入的結果來判斷下一步動作
                             this._messagingQueue.push((next, e) => {
                                 let key=GameSystem.Manager.Key.keyMapping[e.key];
@@ -622,7 +587,6 @@ class BattleLevel extends Framework.Level {
                                         next();
                                 }
                             });
-
                             // 在使用者回應「是」的情況下，顯示招式選單，讓使用者選則欲捨棄的招式。
                             this._messagingQueue.push((next, e) => {
                                   let key=GameSystem.Manager.Key.keyMapping[e.key];switch(key) {
@@ -652,7 +616,6 @@ class BattleLevel extends Framework.Level {
             }
         }
     }
-
     /**
      * 當玩家輸了這一回合時的處理。
      */
@@ -670,7 +633,6 @@ class BattleLevel extends Framework.Level {
                 this._keyInputHandler = this.keyInput_OnPokemonList;
                 next();
             });
-
             this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
             this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
         }
@@ -693,12 +655,10 @@ class BattleLevel extends Framework.Level {
                 Framework.Game.goToLevel(this._protagonist.atMap);
                 Framework.Game._currentLevel._fightEnd();
             });
-
             this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
             this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
         }
     }
-
     /**
      * 使用者更換寶可夢。
      * @param {number} index 使用者指定的寶可夢清單中的索引。
@@ -739,7 +699,6 @@ class BattleLevel extends Framework.Level {
             this.executeAnimationQueue(battleResult);
         }
     }
-
     /**
      * 玩家以「使用道具」來推進這一回合的戰鬥。
      * @param {GameSystem.Classes.PropItem} propItem 要使用的道具。
@@ -760,7 +719,6 @@ class BattleLevel extends Framework.Level {
                     this._keyInputHandler = this.keyInput_OnBattlePad_Menu;
                     next();
                 });
-
                 this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
                 this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
                 return;
@@ -769,7 +727,6 @@ class BattleLevel extends Framework.Level {
         let battleResult = this._battleStage.doOneRoundBattle(propItem);
         this.executeAnimationQueue(battleResult);
     }
-
     /**
      * 玩家抓到了野生寶可夢後的動作。
      */
@@ -782,14 +739,11 @@ class BattleLevel extends Framework.Level {
             Framework.Game.goToLevel(this._protagonist.atMap);
             Framework.Game._currentLevel._fightEnd();
         });
-
         // 將新的寶可夢加入至玩家的寶可夢清單中
         this._protagonist.pokemons.push(this._opponent);
-
         this._inputMode = BattleLevel.InputMode.BattlePad_Messaging;
         this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
     }
-
     /**
      * 玩家嘗試「逃跑」動作。
      */
@@ -814,7 +768,6 @@ class BattleLevel extends Framework.Level {
             this._keyInputHandler = this.keyInput_OnBattlePad_Messaging;
         }
     }
-
     /**
      * 當玩家成功逃跑時的處理動作。
      */
@@ -823,11 +776,8 @@ class BattleLevel extends Framework.Level {
         Framework.Game.goToLevel(this._protagonist.atMap);
         Framework.Game._currentLevel._fightEnd();
     }
-
     // #endregion ============================================================================
-
     // #region ============================== Animation Actions ==============================
-
     /**
      * 進場動畫。
      * @param {string?} opponentTrainerImagePath 對手訓練師的圖片。若無責直接使用野生寶可夢圖示。
@@ -843,7 +793,6 @@ class BattleLevel extends Framework.Level {
             // 將入場動畫設定至動畫集(animationSet)中
             this.animationSet.main = (ctx) => {
                 ticks += 1;
-
                 if (ticks < 200) {                      // 主角訓練師 與 對手訓練師
                     ctx.drawImage(playerTrainerImage, playerPos.x, playerPos.y);
                     ctx.drawImage(opponentTrainerImage, opponentPos.x, opponentPos.y);
@@ -896,7 +845,6 @@ class BattleLevel extends Framework.Level {
             this.animationSet.main = (ctx) => {
                 ctx.drawImage(this._opponentPokemonImage, opponentPos.x, opponentPos.y);
                 ticks += 1;
-                
                 if (ticks < 200) {                      // 玩家訓練師
                     ctx.drawImage(playerTrainerImage, playerPos.x, playerPos.y);
                 }
@@ -931,7 +879,6 @@ class BattleLevel extends Framework.Level {
             };
         }
     }
-
     /**
      * 執行戰鬥動畫、動作。以BattleResult作為根據來執行一系列的動作。
      * @param {GameSystem.Classes.BattleResult} battleResult 戰鬥結果。要執行的動畫以此作為根據。
@@ -942,7 +889,6 @@ class BattleLevel extends Framework.Level {
         // 暫時取消使用者的輸入處理
         this._inputMode = BattleLevel.InputMode.Empty;
         this._keyInputHandler = this.keyInput_Empty;
-
         // 定義動畫師
         function Animator() {
             let action = battleResult.dequeueAction();      // 取得動畫動作
@@ -958,7 +904,6 @@ class BattleLevel extends Framework.Level {
         // 執行動畫師
         Animator();
     }
-
     /**
      * 當完成動畫時的還原動作。
      * @param {GameSystem.Classes.BattleResult.State} state 戰鬥完一輪後的狀態。
@@ -986,7 +931,6 @@ class BattleLevel extends Framework.Level {
             GameSystem.BattlePad.setVisibleMenu(true);
         }
     }
-
     /**
      * 常態繪製玩家寶可夢的方法。
      * @static
@@ -996,7 +940,6 @@ class BattleLevel extends Framework.Level {
     static drawPlayersPokemon(ctx, image) {
         ctx.drawImage(image, 10, 40);
     }
-
     /**
      * 常態繪製對手寶可夢的方法。
      * @static
@@ -1006,7 +949,6 @@ class BattleLevel extends Framework.Level {
     static drawOpponentPokemon(ctx, image) {
         ctx.drawImage(image, 95, 5);
     }
-
     /**
      * 繪製抓到寶可夢球後的寶可夢球繪圖方法。
      * @static
@@ -1015,9 +957,7 @@ class BattleLevel extends Framework.Level {
     static drawOpponentPokemonBall(ctx) {
         ctx.drawImage(BattleLevel.pokemonBallImage, 120, 33);
     }
-
     // #endregion ============================================================================
-
     /**
      * 當離開BattleLevel時的處理。
      */
@@ -1025,7 +965,6 @@ class BattleLevel extends Framework.Level {
         GameSystem.BattlePad.setVisible(false);
         GameSystem.Manager.Key.keyInput = this._originalKeyHandler;     // 還原上一個Level的按鍵輸入處理
     }
-
     /**
      * 啟用繪圖。
      */
@@ -1034,17 +973,14 @@ class BattleLevel extends Framework.Level {
         this.__enableDraw.position = { x: -1, y: -1 };
         this.rootScene.attach(this.__enableDraw);
     }
-
     update() {
         this.__enableDraw.position.x += this.__enableDraw.position.x < -2 ? 1 : -1;
     }
-
     draw(ctx) {
         this.animationSet.playerPokemon(ctx, this._playerPokemonImage);
         this.animationSet.opponentPokemon(ctx, this._opponentPokemonImage);
         this.animationSet.main(ctx);
     }
-
     /**
      * 判斷是否為方向按鍵。
      * @param {string} key 要判斷的按鍵名稱。
@@ -1053,7 +989,6 @@ class BattleLevel extends Framework.Level {
     static isDirectionKey(key) {
         return key === 'Up' || key === 'Down' || key === 'Left' || key === 'Right';
     }
-
     /**
      * 判斷是否為按鍵B。
      * @param {string} key 要判斷的按鍵名稱。
@@ -1062,7 +997,6 @@ class BattleLevel extends Framework.Level {
     static isKeyB(key) {
         return key === 'B';
     }
-
     /**
      * 判斷是否為按鍵K。
      * @param {string} key 要判斷的按鍵名稱。
@@ -1071,20 +1005,16 @@ class BattleLevel extends Framework.Level {
     static isKeyK(key) {
         return key === 'A';
     }
-
     /* 空的動畫函式。 */
     static emptyAnimation() {  }
-
     /* 黑掉的動畫函式 */
     static blackOutAnimation(ctx) {
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, 1000, 1000);
     }
 }
-
 /** 寶可夢球圖片 */
 BattleLevel.pokemonBallImage = Load.image(define.imagePath + "AlivePokemonBall.png");
-
 /**
  * @typedef BattleDate.InputMode
  * @description 輸入模式之定義。
@@ -1094,25 +1024,18 @@ BattleLevel.pokemonBallImage = Load.image(define.imagePath + "AlivePokemonBall.p
 BattleLevel.InputMode = Object.freeze({
     /** 戰鬥版面下的主選單。 */
     BattlePad_Menu: Symbol("BattlePad_Menu"),
-
     /** 戰鬥版面下的招式清單 */
     BattlePad_MoveList: Symbol("BattlePad_MoveList"),
-
     /** 戰鬥版面下的背包物品清單 */
     BattlePad_Backpack: Symbol("BattlePad_Backpack"),
-
     /** 戰鬥版面下的訊息顯示 */
     BattlePad_Messaging: Symbol("BattlePad_Message"),
-
     /** 寶可夢清單 */
     PokemonList: Symbol("PokemonList"),
-
     /** 寶可夢清單下的子選單 */
     PokemonList_Menu: Symbol("PokemonList_Menu"),
-
     /** 寶可夢資訊版面 */
     PokemonInfo: Symbol("PokemonInfo"),
-
     /** 空處理 */
     Empty: Symbol("Empty")
 });

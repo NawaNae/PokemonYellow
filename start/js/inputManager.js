@@ -20,6 +20,5 @@ class InputManager
     {this.level=level||this.currentLevel;}
     keyInput(e)
     {
-        
     }
 }

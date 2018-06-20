@@ -22,8 +22,5 @@ class GiveProp extends GameSystem.Classes.PlotContents.Paragraph
             this._content="找不到主角";
         }
         super.start();
-
-
     }
-    
 }

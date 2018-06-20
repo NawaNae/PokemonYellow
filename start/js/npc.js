@@ -28,7 +28,6 @@ class NPC extends GameSystem.Classes.Character {
     constructor(name, face, position, image, cutFunctionIndex, plot, randomlyWalk=false, behavior, pokemons, battleImage, money = 0) {
         super(name, face, position, image, cutFunctionIndex);
         this.isRandomlyWalk=randomlyWalk;
-
         this._behavior = behavior||function(){};
         this._plotController=new GameSystem.Classes.PlotsController(plot,this);
         this._timeNumber;
@@ -55,30 +54,22 @@ class NPC extends GameSystem.Classes.Character {
     randomlyWalk()
     {
         var i=Math.floor((Math.random() * 4));
-        
         var dir=["Up","Down","Left","Right"];//0~3是走路 
         if(i!==4)//4不走
             this.walk(dir[i]);
     }
-
     set behavior(newBehavior) { this._behavior = newBehavior; }
     get behavior() { return this._behavior; }
-    
     get plots(){return this._plotController.plots;}
     set plots(val){this._plotController.plots=val}
-
     set plot(newPlot) { this._plotController.plot=newPlot; }
     get plot() { return this._plotController.plot; }
-
     set pokemons(newPokemons) { this._pokemons = newPokemons; }
     get pokemons() { return this._pokemons; }
-
     set battleImage(newBattleImage) { this._battleImage = newBattleImage; }
     get battleImage() { return this._battleImage; }
-
     set money(newMoney) { this._money = newMoney; }
     get money() { return this._money; }
-
     /**
      * 取得角色圖片路徑。
      * @return {string} 角色圖片路徑。
@@ -86,7 +77,6 @@ class NPC extends GameSystem.Classes.Character {
     getBattleImagePath() {
         return this._battleImage.src;
     }
-
     /**
      * 取得可戰鬥的寶可夢數量。
      * @return {number} 可戰鬥的寶可夢數量。
@@ -94,7 +84,6 @@ class NPC extends GameSystem.Classes.Character {
     getAlivePokemonCount() {
         return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP > 0 ? 1 : 0), 0);
     }
-
     /**
      * 取得昏厥的寶可夢數量。
      * @return {number} 昏厥的寶可夢數量。

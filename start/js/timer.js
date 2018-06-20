@@ -7,11 +7,9 @@ class Timer extends DisplayInformation.Digit //Must load displayInformation.js f
         this._timeVariable;
         this.max = maxValue;
         this.min = minValue;
-
         this._waitTime = waitms;
         this.endFunc = endFunction || function end() { };
         this.tickFunc = tickFunction || function tick() {  };
-
         this.value = this.max;
     }
     reset()
@@ -40,14 +38,9 @@ class Timer extends DisplayInformation.Digit //Must load displayInformation.js f
     {
         this.start();
     }
-
 }
 /*timer by nawanawa*/
 //example
- 
 //var timer = new Timer();
 //timer.appendTo(document.body);
 //timer.start();
-
-
-

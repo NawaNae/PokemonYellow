@@ -16,7 +16,6 @@ class PalletTown extends GameSystem.Classes.Level {
         var e0=new Event(new Position(12,10),()=>{for(let i=0;i<this.npcs.length;i++)this.npcs[i].moveTo(GameSystem.protagonist.position)});
         this.events.push(e0);
         var oak=new NPC("doctorOak",CS.Character.Face.Down,new Position(14, 9),new Image(define.characterImagePath + "oak.png", { cutStartPosition: new Position(1, 0), cutSize: new Position(1, 1) }),4, Drama.OakNormal);
-        
         var e1=new Event
         (
             new Rectangle(new Position(13, 4),new Position(14, 4)),
@@ -38,7 +37,6 @@ class PalletTown extends GameSystem.Classes.Level {
             ,()=>mainChar.storyLineIndex===0
         )
         this.events.push(e1);
-        
     }
     initGates()
     {
@@ -141,7 +139,6 @@ class PalletTown extends GameSystem.Classes.Level {
         this.loadNPCs();
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;
-
         this.rootScene.attach(GS.protagonist.image);
         GS.protagonist.position=GS.protagonist.position;
     }
@@ -223,12 +220,10 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         this.npcs.push(mom);
         mom.initializeAnimationLists4PbySrc();
         mom.facing=GameSystem.Classes.Character.Face.Left;
-    
     }
     load()
     {
         super.load();
-  
         this.music.play();
         var CS=GameSystem.Classes;
         var GS=GameSystem;
@@ -251,7 +246,6 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.size.pos1=new CS.Position(0, 1);
         this.isSubLevel = true;
     }
-
     initGates() {
         var CS = GameSystem.Classes;
         this.gates.push(new CS.Connection
@@ -271,7 +265,6 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         var GS = GameSystem, CS = GS.Classes;
         var SignBoard = CS.SignBoard, Position = CS.Position, Polt = CS.Polt, Paragraph = CS.Paragraph, Drama = GS.Resource.Drama.PalletTown;
         this.signBoards.push(new SignBoard({ position: new Position(0, 7), content: Drama.PronBooks }));
-
     }
     initObstacles()
     {
@@ -321,7 +314,6 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
                 [Drama.RivalsSisterMap,Drama.RivalsSister]
             )
         );
-
     }
     initGates()
     {
@@ -363,18 +355,15 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.obstacles.push(new CS.Rectangle({ x: 0, y: 6 }, { x: 0, y: 7 }));
         this.obstacles.push(new CS.Rectangle({ x: 7, y: 6 }, { x: 7, y: 7 }));
      }
-
     load()
     {
         super.load();
-   
         this.music.play();
         var CS=GameSystem.Classes;
         var KM=GameSystem.Manager.Key;
         var GS=GameSystem;
         this.keyInput=this.normalKeyInput;
         KM.keyInput=(e)=>{this.keyInput(e);}
-       
         this.map=new Framework.Scene;
         this.mapImage=new CS.Image(define.imagePath+"palletTownHouse1.png");
         this.walker=new CS.MapWalker({ mapRef: this.map });
@@ -384,7 +373,6 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
         this.rootScene.attach(this.map);
         this.loadNPCs();
         this.rootScene.attach(GS.protagonist.image);
-
     }
     loadNPCs() {
         for (let npc of this.npcs)
@@ -481,7 +469,6 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 new Fight(GS.rival),
             ]),()=>mainChar.storyLineIndex===2);
         this.events.push(e2);
-        
     }
     initObstacles()
     {
@@ -506,8 +493,6 @@ class DoctorsHome extends GameSystem.Classes.Level {
                 Drama.OakNormal
             )
         );
-
- 
     }
     load()
     {
@@ -521,10 +506,7 @@ class DoctorsHome extends GameSystem.Classes.Level {
             }
         super.load();
         this.music.play();
-
-
         this.mapImage=new CS.Image(define.imagePath+"palletTownDoctorsHome.png");
-
         this.map=new Framework.Scene;
         this.map.x = GS.protagonist._screenPosition.toPoint().x - GS.protagonist.position.toPoint().x;
         this.map.y = GS.protagonist._screenPosition.toPoint().y - GS.protagonist.position.toPoint().y;

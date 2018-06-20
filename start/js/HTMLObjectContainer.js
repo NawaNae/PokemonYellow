@@ -12,9 +12,7 @@ class HTMLObjectContainer
 {
     constructor(visible)
     {
-
         this.displayClassName=["hide","show"];
-       
         this.initContainer(); 
         this.visible=visible||false;//初始化可不可視
         this.childrenList=[];
@@ -23,7 +21,6 @@ class HTMLObjectContainer
         this.initDialog();
         this.initMoneyDialog();
         this.initBuySellDialog();
-
         this.initIllustration();
         this.initIllustrationList();
         this.initItemNumber();
@@ -126,7 +123,6 @@ class HTMLObjectContainer
                 new Paragraph("給你治療一下好惹"),
                 new Script(function()
                 {
-                    
                     var dialog = GameSystem.HTMLObjectContainer.yesNoDialog;
                     var script=this;
                     dialog.yesOption.selectSend=()=>{
@@ -144,7 +140,6 @@ class HTMLObjectContainer
                 new CureAll(),
                 new Paragraph("¡Adios!",undefined,undefined,"es",false)
             ])).start();
-
         }));
         this.options.options[0].select=true;
         this.options.optionsLoop=true;
@@ -173,7 +168,6 @@ class HTMLObjectContainer
                     option.prop=prop;
                     this.push(option);
                 }
-                    
             this.push(new Option("離開",()=>{this.hide();}))
         }
         this.sellList.onShow=function()
@@ -186,14 +180,10 @@ class HTMLObjectContainer
     {
         let Option=GameSystem.Classes.Option;
         let container=this;
-        
-
         this.shoppingList=new GameSystem.Classes.Options({className:"shoppingList"});
         this.shoppingList.autoChangeInputMode=true;
-
         this.shoppingList.push(new Option("200円 女僕咖啡廳的紅藥水",function(){
             var GR=GameSystem.Resource,Dictionary=GR.PropDictionary,mainChar=GameSystem.protagonist;
-            
             if(mainChar.money<200)
             {
                 alert("餘額不足");return;
@@ -247,7 +237,6 @@ class HTMLObjectContainer
         {
             propList.update();
         }
-       
         this.addChild(this.propList);
     }
     initCharacterInfo()
@@ -269,7 +258,6 @@ class HTMLObjectContainer
         characterInfo.hide();
         this.characterInfo=characterInfo;
     }
-    
     get visible()
     {
         return !this.container.classList.contains(this.displayClassName[0]);
@@ -299,5 +287,3 @@ class HTMLObjectContainer
     prependTo(father)
     {father.prepend(this.container);}
 }
-
-

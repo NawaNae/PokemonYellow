@@ -11,7 +11,6 @@ class FText extends Framework.GameObject
         this._textAlign=textAlign;
         if(typeof width!=='undefined')
             this._maxWidth=width;
-        
     }
     draw(context)
     {

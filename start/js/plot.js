@@ -15,7 +15,6 @@ class Plot {
      * @param {boolean function(void)} (Optional) conditionFunc 給Plot管理器判斷是否應該使用該Plot的Func 回傳true或者未設置會執行，不可以有參數輸入
      */
     constructor(name, content = [],conditionFunc=undefined) {
-        
         this._name = name;
         this._content = content;
         this._type;
@@ -51,14 +50,12 @@ class Plot {
                 this.lastContent.end();//結束上一個內容
         if(this.currentContent)
         {
-
             var content=this.currentContent;
             if(content.type)
                 this.type=this.currentContent.type;
             this.index++;
             if(content.start)//如果有定義開始 
                 content.start();
-            
         }
         else
         {
@@ -70,7 +67,6 @@ class Plot {
      */
     keyInput(e)
     {
-        
     }
      /**
       * @description 執行Plot 取得KeyInput
@@ -82,8 +78,6 @@ class Plot {
         GameSystem.Manager.Key.keyInput=this._keyInput;
         for(let content of this._content)
             content.plot=this;
-        
-        
         this.step();
     }
     set index(value){
@@ -97,10 +91,6 @@ class Plot {
     get type(){return this._type;}
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
-
     set content(newContent) { this._content = newContent; }
     get content() { return this._content; }
 }
-
-
-

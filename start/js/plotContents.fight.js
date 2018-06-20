@@ -13,7 +13,5 @@ class Fight extends GameSystem.Classes.PlotContent
         BD.selectPokemon=GameSystem.protagonist.pokemons[0];
         this.plot.end();
         Framework.Game.goToLevel('battleLevel');
-      
     }
-    
 }

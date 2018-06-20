@@ -39,7 +39,6 @@ class Options extends DisplayInformation.AutoKeyInput.Text
                 options.visible=false;
                 break;
             }
-          
     }
     clear()
     {
@@ -137,7 +136,6 @@ class Options extends DisplayInformation.AutoKeyInput.Text
                 if(obj.text==item)
                 {
                     obj.select=true;
-
                     obj._display.scrollIntoView({block: "end", behavior: "smooth"});
                 }
         else if(item.constructor.name=="Number")
@@ -146,5 +144,4 @@ class Options extends DisplayInformation.AutoKeyInput.Text
              obj._display.focus();
         }   
     }
-
 }

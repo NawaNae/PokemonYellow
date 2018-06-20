@@ -53,7 +53,6 @@ class KeyManagerClass
             D:"Right",
             Right:"Right"
         };
- 
         this.lockOneKeyEveryTime=true;
         this.lockTime=350;//按一次鍵延遲(ms)
         this.lockPressKey="";//延遲結束前的鍵
@@ -102,10 +101,8 @@ class KeyManagerClass
     {
         var me=GameSystem.Manager.Key;
         var key=me.keyProcess(e);
-
         if(me.isGameKey(key))
         {
-            
             me.nowPressKey=key;
             if(me.lockPressKey=="")    
             {
@@ -114,20 +111,15 @@ class KeyManagerClass
                 setTimeout(me._lockTimeOut,me.lockTime);
             }
         }
-        
-        
     }
     _keyup(e)
     {
         var me=GameSystem.Manager.Key;
-       
         var key=me.keyProcess(e);
         if(me.isGameKey(key))
             if(me.nowPressKey==key)
                 me.nowPressKey="";
-
     }
-
 };
 GameSystem.Manager.Key=new  GameSystem.Manager._KeyManagerClass();
 GameSystem.Classes.XYBase=
@@ -188,7 +180,6 @@ class XYBase
     set abs(useless){console.log("abs is a read only getter")}
     set normalize(useless){console.log("normaliize is a read only getter")}
     set neg(useless){console.log("neg is read only getter")}
-
     set x(value){this._x=value;}
     get x(){return this._x;}
     set y(value){this._y=value;}
@@ -235,7 +226,6 @@ class Rectangle
     set bottomRightPos(value){this.pos2=value;}
     get bottomRightPos(){return this.pos2;}
 }
-
 /**
  * 初始化橋接「地圖走路」與「戰鬥階段」的資料模型。
  * @prop {GameSystem.Classes.NPC | GameSystem.Classes.Pokemon} opponent 為對手NPC或寶可夢。
@@ -245,7 +235,6 @@ GameSystem.Bridges.BattleData = {
     opponent: null,
     selectPokemon: null
 };
-
 /**
  * 初始化戰鬥結果的橋接：「輸贏結果」與「遇到的寶可夢」之資料模型。
  * @prop {boolean} isPlayerWon 是否玩家贏了戰鬥。

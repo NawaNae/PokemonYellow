@@ -13,5 +13,4 @@ class Script extends GameSystem.Classes.PlotContent
         if(this.autoNext)
             this.next();
     }
-    
 }

@@ -25,16 +25,12 @@ class Occurrence {
         }
         this._probabilty = probabilty;
     }
-
     get pokemonType() { return this._pokemonType; }
     set pokemonType(newPokemonType) { this._pokemonType = newPokemonType; }
-
     get minLevel() { return this._minLevel; }
     set minLevel(newMinLevel) { this._minLevel = newMinLevel; }
-
     get maxLevel() { return this._maxLevel; }
     set maxLevel(newMaxLevel) { this._maxLevel = newMaxLevel; }
-    
     get probabilty() { return this._probabilty; }
     set probabilty(newProbabilty) {
         if (probabilty <= 0 || probabilty > 100)
@@ -42,7 +38,6 @@ class Occurrence {
         else                               
             this._probabilty = newProbabilty;
     }
-
     /**
      * 取得在最低等級(minLevel)與最高等級(maxLevel)區間的隨機整數。
      * @return {number} 區間的隨機等級。

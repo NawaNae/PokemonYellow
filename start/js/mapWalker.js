@@ -33,9 +33,7 @@ class MapWalker
             Left:new GameSystem.Classes.Point(+1,0),
         }
         this.characterMoveVector=CS.Character.MovePointVector;//地圖移動向量陣列
-        
         this.timeout;
-        
         this.keyInput=(e)=>//keyInput的事件
         {
             let key = GS.Manager.Key.moveKeys[e.key];
@@ -47,10 +45,8 @@ class MapWalker
                     //console.log("frame"+this.walkCounter[key]);
                     if(this.walkCounter[key]==0)//initialize(first loop)
                     {
-       
                         var protagonistNewPoint=GS.protagonist.position.toPoint();
                         var protagonistScreenPoint=GS.protagonist._screenPosition.toPoint();
-      
                         this.map.game.newPoint=new PT(
                             protagonistScreenPoint.x-protagonistNewPoint.x,
                             protagonistScreenPoint.y-protagonistNewPoint.y
@@ -90,7 +86,5 @@ class MapWalker
         moveVector=moveVector||this.characterMoveVector;
         var aimVector=moveVector[key];
         return new GameSystem.Classes.Point(aimVector.x*value/this._timesPerPixel,aimVector.y*value/this._timesPerPixel);
-
     }
-    
 }

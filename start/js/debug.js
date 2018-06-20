@@ -1,4 +1,3 @@
-
 GameSystem.debugDefine=function()
 {
     GS=GameSystem;

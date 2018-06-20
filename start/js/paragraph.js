@@ -32,12 +32,10 @@ class Paragraph extends GameSystem.Classes.PlotContent {
         dialog.text=this.text;
         if(this.isSpeak)
             this.speakAudio=speak(dialog.text,this.speakLang);
-        
     }
     end()
     {
         let dialog=GameSystem.HTMLObjectContainer.dialog,container=GameSystem.HTMLObjectContainer;
-
             dialog.plot=undefined;
             dialog.hide();
             dialog.text="";
@@ -49,10 +47,7 @@ class Paragraph extends GameSystem.Classes.PlotContent {
                 container.hide();
             if(this.fatherPlot&&this.fatherPlot.npc)
                 this.fatherPlot.npc.isPlayBehavior=true;
-        
     }
     set text(newContent) { this._content = newContent; }
     get text() { return this._content; }
-
-
 }

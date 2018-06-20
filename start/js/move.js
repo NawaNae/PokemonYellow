@@ -51,7 +51,6 @@ class Move {
                 this._priority = priority; 
             }
         }
-        
     }
     copyFrom(move)
     {
@@ -81,37 +80,26 @@ class Move {
     }
     set name(newName) { this._name = newName; }
     get name() { return this._name; }
-
     set description(newDescription) { this._description = newDescription; }
     get description() { return this._description; }
-
     set type(newType) { this._type = newType; }
     get type() { return this._type; }
-
     get moveType() { return this._moveType; }
-
     set power(newPower) { this._power = newPower; }
     get power() { return this._power; }
-
     set accuracy(newAccuracy) { this._accuracy = newAccuracy; }
     get accuracy() { return this._accuracy; }
-
     set priority(newPriority) { this._priority = newPriority; }
     get priority() { return this._priority; }
-
     /** 能力階級變化 */
     get levelChange() { return this._levelChange; }
-
     /** 階級變更的目標狀態 */
     get statType() { return this._statType; }
-
     /** 是否施用對象為對手 */
     get isEffectToOpponent() { return this._isOpponent; }
-
     /** 設定特殊動作 */
     set specailAction(action) { this._specailAction = action; }
     get specailAction() { return this._specailAction; }
-
     /**
      * 取得狀態效果的文字敘述。
      * @param {GameSystem.Classes.Move.StatType} statType 狀態種類。
@@ -137,7 +125,6 @@ class Move {
             return "能力變化解除了！";
     }
 }
-
 /** 招式的種類列舉
  * @enum
  * @readonly
@@ -147,7 +134,6 @@ GameSystem.Classes.Move.Types = Object.freeze({
     Status: Symbol("Status"),
     Special: Symbol("Special")
 });
-
 /** 變化類招式所要變更的目標
  * @enum
  * @readonly
@@ -164,7 +150,6 @@ GameSystem.Classes.Move.StatType = Object.freeze({
     /** 迴避率 */
     EvasionRate: Symbol("EvasionRate")
 });
-
 /** 新增每個狀態相對應的中文名稱。 */
 GameSystem.Classes.Move.StatTypeName = {
     [GameSystem.Classes.Move.StatType.Attack]: "攻擊力",
@@ -173,7 +158,6 @@ GameSystem.Classes.Move.StatTypeName = {
     [GameSystem.Classes.Move.StatType.Accuracy]: "精準度",
     [GameSystem.Classes.Move.StatType.EvasionRate]: "迴避率"
 }
-
 /** 命中率階級所對應的計算值。
  * @readonly
  */
@@ -181,10 +165,8 @@ GameSystem.Classes.Move.AccuracyTable = Object.freeze({
     100: 255, 95: 242, 90: 229, 85: 216, 80: 204, 
     75:  191, 70: 178, 60: 153, 55: 140, 50: 127
 });
-
 /** 所有招式集 */
 GameSystem.Classes.Move.Dictionary = {};
-
 // 初始化所有可用的招式
 (() => {
     let Move = GameSystem.Classes.Move;
@@ -192,7 +174,6 @@ GameSystem.Classes.Move.Dictionary = {};
     let StatusTypes = GameSystem.Classes.Move.StatType;
     let Types = GameSystem.Classes.StandardStat.Type;
     let DEX = GameSystem.Classes.Move.Dictionary;
-    
     // 初始化所有可用的「一般」屬性招式
     DEX["投球"] = new Move("投球", "向對手投擲球狀物體進行攻擊。可連續攻擊２～５次。", Types.Normal, MoveTypes.Physical, 15, 85);
     DEX["連續拳"] = new Move("連續拳", "用怒濤般的拳頭毆打對手進行攻擊。連續攻擊２～５次。", Types.Normal, MoveTypes.Physical, 18, 85);
@@ -268,7 +249,6 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["夾住"] = new Move("夾住", "從兩側夾住對手，給予傷害。", Types.Normal, MoveTypes.Physical, 55, 100);
     DEX["吹飛"] = new Move("吹飛", "吹飛對手，強制讓後備寶可夢上場。對手為野生寶可夢時，戰鬥將直接結束。", Types.Normal, MoveTypes.Status, undefined, 100, -6);           // 效果特殊
     DEX["緊束"] = new Move("緊束", "使用長長的身體或藤蔓等，在４～５回合內緊束對手進行攻擊。", Types.Normal, MoveTypes.Physical, 15, 90);
-
     // 初始化所有可用的「格鬥」屬性招式
     DEX["雙倍奉還"] = new Move("雙倍奉還", "將來自對手的物理攻擊傷害加倍後，返還給該對手。", Types.Fighting, MoveTypes.Physical, undefined, 100, -5);
     DEX["二連踢"] = new Move("二連踢", "用２隻腳踢飛對手進行攻擊。連續２次給予傷害。", Types.Fighting, MoveTypes.Physical, 30, 100);
@@ -279,7 +259,6 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["迴旋踢"] = new Move("迴旋踢", "一邊使身體快速旋轉，一邊踢飛對手進行攻擊。有時會使對手畏縮。", Types.Fighting, MoveTypes.Physical, 60, 85);
     DEX["地球上投"] = new Move("地球上投", "利用引力將對手甩飛出去。給予對手和自己等級相同的傷害。", Types.Fighting, MoveTypes.Physical, undefined, 100);
     DEX["地獄翻滾"] = new Move("地獄翻滾", "將對手連同自己一起摔向地面進行攻擊。自己也會受到少許傷害。", Types.Fighting, MoveTypes.Physical, 80, 80);
-
     // 初始化所有可用的「飛行」屬性招式
     DEX["翅膀攻擊"] = new Move("翅膀攻擊", "用大大伸展開來的美麗翅膀，撞向對手進行攻擊。", Types.Flying, MoveTypes.Physical, 60, 100);
     DEX["啄鑽"] = new Move("啄鑽", "一邊旋轉，一邊將尖喙刺進對手進行攻擊。", Types.Flying, MoveTypes.Physical, 80, 100);
@@ -288,7 +267,6 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["鸚鵡學舌"] = new Move("鸚鵡學舌", "模仿對手使用的招式，自己也使用相同招式。", Types.Flying, MoveTypes.Status, undefined, 100);
     DEX["啄"] = new Move("啄", "用尖銳的喙或角刺向對手進行攻擊。", Types.Flying, MoveTypes.Physical, 35, 100);
     DEX["神鳥猛擊"] = new Move("神鳥猛擊", "在使用後的下一回合進行攻擊。有時會使對手畏縮。且容易擊中要害。", Types.Flying, MoveTypes.Physical, 140, 90);
-
     // 初始化所有可用的「毒」屬性招式
     DEX["溶解液"] = new Move("溶解液", "將強酸潑向對手進行攻擊。有時會降低對手的特防。", Types.Poison, MoveTypes.Special, 40, 100);
     DEX["溶化"] = new Move("溶化", "藉由細胞的變化讓身體液化，大幅提高自己的防禦。", Types.Poison, MoveTypes.Status, undefined, undefined);
@@ -298,7 +276,6 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["污泥攻擊"] = new Move("污泥攻擊", "向對手投擲污泥進行攻擊。有時會讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Special, 65, 100);
     DEX["濁霧"] = new Move("濁霧", "將骯髒的濃霧吹向對手進行攻擊。有時會讓對手陷入中毒狀態。", Types.Poison, MoveTypes.Special, 20, 70);
     DEX["劇毒"] = new Move("劇毒", "讓對手陷入劇毒狀態。中毒傷害會隨著回合的進行而增加。", Types.Poison, MoveTypes.Status, undefined, 90);
-
     // 初始化所有可用的「地面」屬性招式
     DEX["骨棒"] = new Move("骨棒", "用手中的骨頭毆打對手進行攻擊。有時會使對手畏縮。", Types.Ground, MoveTypes.Physical, 65, 85);
     DEX["骨頭回力鏢"] = new Move("骨頭回力鏢", "向對手投擲手中的骨頭，來回連續２次給予傷害。", Types.Ground, MoveTypes.Physical, 50, 90);
@@ -306,29 +283,24 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["地震"] = new Move("地震", "用地震的衝擊，攻擊自己周圍所有的寶可夢。", Types.Ground, MoveTypes.Physical, 100, 100);
     DEX["地裂"] = new Move("地裂", "讓對手掉進地面的裂縫中進行攻擊。只要命中就會一擊瀕死。", Types.Ground, MoveTypes.Physical, undefined, 30);
     DEX["潑沙"] = new Move("潑沙", "向對手的臉上潑沙，降低對手的命中率。", Types.Ground, MoveTypes.Status, -1, StatusTypes.Accuracy, true);                         // Done
-
     // 初始化所有可用的「岩石」屬性招式
     DEX["岩崩"] = new Move("岩崩", "將大岩石猛烈地砸向對手進行攻擊。有時會讓對手畏縮。", Types.Rock, MoveTypes.Physical, 75, 90);
     DEX["落石"] = new Move("落石", "舉起小岩石，向對手投擲進行攻擊。", Types.Rock, MoveTypes.Physical, 50, 90);
-
     // 初始化所有可用的「蟲」屬性招式
     DEX["吸血"] = new Move("吸血", "吸取對手的血液進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Bug, MoveTypes.Physical, 80, 100);
     DEX["飛彈針"] = new Move("飛彈針", "向對手發射銳利的針進行攻擊。可連續攻擊２～５次。", Types.Bug, MoveTypes.Physical, 25, 95);
     DEX["吐絲"] = new Move("吐絲", "用口中吐出的絲纏繞對手，大幅降低對手的速度。", Types.Bug, MoveTypes.Status, -2, StatusTypes.Speed, true);                         // Done
     DEX["雙針"] = new Move("雙針", "將２根針刺進對手，連續２次給予傷害。有時會讓對手陷入中毒狀態。", Types.Bug, MoveTypes.Physical, 25, 100);
-
     // 初始化所有可用的「幽靈」屬性招式
     DEX["奇異之光"] = new Move("奇異之光", "讓對手看奇怪的光線擾亂對手。使對手混亂。", Types.Ghost, MoveTypes.Status, undefined, 100);
     DEX["舌舔"] = new Move("舌舔", "用長長的舌頭，舔遍對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Ghost, MoveTypes.Physical, 30, 100);
     DEX["黑夜魔影"] = new Move("黑夜魔影", "讓對手看見恐怖幻影，給予對手和自己等級相同的傷害。", Types.Ghost, MoveTypes.Special, undefined, 100);
-
     // 初始化所有可用的「火」屬性招式
     DEX["火花"] = new Move("火花", "向對手發射小火焰進行攻擊。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 40, 100);
     DEX["大字爆炎"] = new Move("大字爆炎", "用大字形狀的火焰燒盡對手。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 110, 85);
     DEX["火焰拳"] = new Move("火焰拳", "用帶有火焰的拳頭攻擊對手。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Physical, 75, 100);
     DEX["火焰旋渦"] = new Move("火焰旋渦", "將對手困在熊熊燃燒的火焰旋渦中，在４～５回合內進行攻擊。", Types.Fire, MoveTypes.Special, 35, 85);
     DEX["噴射火焰"] = new Move("噴射火焰", "向對手發射強烈火焰進行攻擊。有時會讓對手陷入灼傷狀態。", Types.Fire, MoveTypes.Special, 90, 100);
-
     // 初始化所有可用的「水」屬性招式
     DEX["泡沫"] = new Move("泡沫", "將無數的泡泡吹向對手進行攻擊。有時會降低對手的速度。", Types.Water, MoveTypes.Special, 40, 100);
     DEX["泡沫光線"] = new Move("泡沫光線", "向對手猛烈地噴射泡沫進行攻擊。有時會降低對手的速度。", Types.Water, MoveTypes.Special, 65, 100);
@@ -339,7 +311,6 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["水槍"] = new Move("水槍", "向對手噴射強烈水流進行攻擊。", Types.Water, MoveTypes.Special, 40, 100);
     DEX["縮入殼中"] = new Move("縮入殼中", "縮入殼中保護身體，提高自己的防禦。", Types.Water, MoveTypes.Status, undefined, undefined);
     DEX["攀瀑"] = new Move("攀瀑", "以驚人的氣勢撲向對手。有時會讓對手畏縮。", Types.Water, MoveTypes.Physical, 80, 100);
-
     // 初始化所有可用的「草」屬性招式
     DEX["吸取"] = new Move("吸取", "吸取對手的養分進行攻擊。可以回復給予對手傷害的一半ＨＰ。", Types.Grass, MoveTypes.Special, 20, 100);
     DEX["寄生種子"] = new Move("寄生種子", "在對手身上植入種子，每回合吸取對手少許的ＨＰ，用來回復自己的ＨＰ。", Types.Grass, MoveTypes.Status, undefined, 90);
@@ -351,14 +322,12 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["蘑菇孢子"] = new Move("蘑菇孢子", "大把撒出有催眠效果的孢子，讓對手陷入睡眠狀態。", Types.Grass, MoveTypes.Status, undefined, 100);
     DEX["麻痺粉"] = new Move("麻痺粉", "撒出大量令人麻痺的粉末，讓對手陷入麻痺狀態。", Types.Grass, MoveTypes.Status, undefined, 75);
     DEX["藤鞭"] = new Move("藤鞭", "將如同鞭子般彎曲而細長的藤蔓甩向對手進行攻擊。", Types.Grass, MoveTypes.Physical, 35, 100);
-
     // 初始化所有可用的「電」屬性招式
     DEX["打雷"] = new Move("打雷", "向對手劈下暴雷進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 110, 70);
     DEX["電磁波"] = new Move("電磁波", "放出微弱的電流。讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Status, -1, StatusTypes.Speed, true);                                // Tricky done
     DEX["十萬伏特"] = new Move("十萬伏特", "向對手放出強力電流進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 90, 100);
     DEX["雷電拳"] = new Move("雷電拳", "用帶有電流的拳頭攻擊對手。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Physical, 75, 100);
     DEX["電擊"] = new Move("電擊", "發出電流刺激對手進行攻擊。有時會讓對手陷入麻痺狀態。", Types.Electric, MoveTypes.Special, 40, 100);
-
     // 初始化所有可用的「超能力」屬性招式
     DEX["高速移動"] = new Move("高速移動", "放鬆身體，讓自己變得輕盈以進行高速移動。可大幅提高自己的速度。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
     DEX["瞬間失憶"] = new Move("瞬間失憶", "將頭腦清空，藉由在一瞬間遺忘某些事大幅提高自己的特防。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
@@ -375,7 +344,6 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["反射壁"] = new Move("反射壁", "利用神奇的屏障，在５回合內減輕來自對手的物理攻擊傷害。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
     DEX["睡覺"] = new Move("睡覺", "連續睡２回合。回復自己的全部ＨＰ以及治癒所有異常狀態。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
     DEX["瞬間移動"] = new Move("瞬間移動", "停止和野生寶可夢戰鬥並逃走。", Types.Phycsic, MoveTypes.Status, undefined, undefined);
-
     // 初始化所有可用的「冰」屬性招式
     DEX["極光束"] = new Move("極光束", "向對手發射七彩光束進行攻擊。有時會降低對手的攻擊。", Types.Ice, MoveTypes.Special, 65, 100);
     DEX["暴風雪"] = new Move("暴風雪", "將猛烈的暴風雪吹向對手進行攻擊。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Special, 110, 70);
@@ -383,15 +351,11 @@ GameSystem.Classes.Move.Dictionary = {};
     DEX["冰凍光束"] = new Move("冰凍光束", "向對手發射冰凍光束進行攻擊。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Special, 90, 100);
     DEX["冰凍拳"] = new Move("冰凍拳", "用帶有寒氣的拳頭攻擊對手。有時會讓對手陷入冰凍狀態。", Types.Ice, MoveTypes.Physical, 75, 100);
     DEX["白霧"] = new Move("白霧", "用白霧覆蓋身體。在５回合內不會讓對手降低自己的能力。", Types.Ice, MoveTypes.Status, undefined, 100);
-
     // 初始化所有可用的「龍」屬性招式
     DEX["龍之怒"] = new Move("龍之怒", "向對手發射憤怒的衝擊波進行攻擊。固定給予４０的傷害。", Types.Dragon, MoveTypes.Special, undefined, 100);
-
 })();
-
 /** 定義有特殊動作的招式 */
 (() => {
     DEX["電磁波"].specailAction = function () {
-        
     };
 });

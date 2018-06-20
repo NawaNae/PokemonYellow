@@ -13,8 +13,6 @@ class Route01 extends GameSystem.Classes.Level
         var GS=GameSystem;
         var CS=GS.Classes;
         var KM=GS.Manager.Key;
-
-
         this.mapImage=new CS.Image(define.imagePath + 'route01.png');
         this.map =new  Framework.Scene();
         this.map.attach(this.mapImage);
@@ -23,7 +21,6 @@ class Route01 extends GameSystem.Classes.Level
         this.music.autoplay=true;
         this.music.loop=true;
         this.size.pos1=new CS.Position(4,0);
-
         this.map.x=GS.protagonist._screenPosition.toPoint().x-GS.protagonist.position.toPoint().x;
         this.map.y=GS.protagonist._screenPosition.toPoint().y-GS.protagonist.position.toPoint().y;
         this.keyInput = (e) => {
@@ -31,8 +28,6 @@ class Route01 extends GameSystem.Classes.Level
         };
         GS.Manager.Key.keyInput=this.keyInput;
         this.rootScene.attach(GS.protagonist.image);
-        
-            
     }
     initBattleFields(){
         var GS=GameSystem,CS=GS.Classes,Rectangle=CS.Rectangle,Position=CS.Position,Occurrence=CS.Occurrence,BattleField=CS.BattleField,DEX=GameSystem.Classes.PokemonType.Dictionary;
@@ -67,7 +62,6 @@ class Route01 extends GameSystem.Classes.Level
         this.obstacles.push(new CS.Rectangle({x:4,y:11},{x:8,y:11}));
         this.obstacles.push(new CS.Rectangle({x:12,y:0},{x:17,y:3}));
         this.obstacles.push(new CS.Rectangle({x:4,y:0},{x:9,y:3}));
-
     }
     initGates()
     {

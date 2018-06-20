@@ -46,5 +46,4 @@ class LoadRecord extends GameSystem.Classes.Level
         this.options.hide();
         this.options.remove();
     }
-
 }

@@ -18,13 +18,9 @@ DisplayInformation.Text = class Text
         this._onHide=()=>{this.onHide();}
     }
     onShow()
-    {
-
-    }
+    {}
     onHide()
-    {
-        
-    }
+    {}
     updateText()
     {this._display.innerText = DisplayInformation.gameTextProcess(this._prefixString + this._displayProcessFunction(this._text) + this._postfixString);}
     set prefixString(str)
@@ -68,7 +64,6 @@ DisplayInformation.Text = class Text
     {
         this._display.remove(this._display);
     }
- 
     append(child)
     {
         if(child._display&&child._display.__proto__&&child._display.__proto__.__proto__&&child._display.__proto__.__proto__.constructor.name==="HTMLElement")
@@ -98,7 +93,6 @@ DisplayInformation.Text.OutputFunctions =
     {
         Normal: (text) => { return text }
     };
-
 DisplayInformation.Digit = class Digit extends DisplayInformation.Text
 {
     constructor(value = 0, prefixString = "", postfixString = "", displayHTMLClass , createElementTypeString = "div",father, textOutputProcessFunction = DisplayInformation.Digit.OutputFunctions.Normal)
@@ -106,7 +100,6 @@ DisplayInformation.Digit = class Digit extends DisplayInformation.Text
         super("", prefixString, postfixString, displayHTMLClass ,createElementTypeString,father, textOutputProcessFunction);
         this.digitOutputProcessFunction = DisplayInformation.Digit.OutputFunctions.Normal;
         this.value = value;
-        
     }
     get value()
     {

@@ -1,7 +1,6 @@
 //ref: http://blog.darkthread.net/blogs/darkthreadtw/archive/2009/01/15/4061.aspx
 var _isTestMode = false;
 var _isRecordMode = false;
-
 var Load=new (
     class Loader
     {
@@ -106,21 +105,12 @@ var Load=new (
             {
                 result= intervalFunc();//成功返回True
             }
-               
             if(!result)//未設定 或 失敗 則檢查
                 var interval = setInterval(intervalFunc, 50);
         }
     })();
-
     Load.js.import(
     [
        { src: 'start/js/define.js', lookFor: 'define' },
        { src: 'start/js/load.js'.replace(/.js$/,'2.js')}
     ]);//先載入定義檔 取得其他路徑
-
-
-
-
-
-
-    

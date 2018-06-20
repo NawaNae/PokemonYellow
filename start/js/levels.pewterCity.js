@@ -17,7 +17,6 @@ class PewterCity extends GameSystem.Classes.Level {
         var Event=CS.Event, Plot=CS.Plot, Position=CS.Position, MoveChar=PC.MoveCharacter;
         // var e0=new Event(new Position(12,10),()=>{for(let i=0;i<this.npcs.length;i++)this.npcs[i].moveTo(GameSystem.protagonist.position)});
         // this.events.push(e0);
-        
     } 
     initGates()
     {
@@ -30,7 +29,6 @@ class PewterCity extends GameSystem.Classes.Level {
         pushItem("pewterCityMart",3,7,"pewterCity",23,19);
         pushItem("pewterCityGym",4,13,"pewterCity",16,19);
      //   pushItem("route01",11,0,"viridianCity",21,31);
-
     }
     initSubLevels()
     {
@@ -51,7 +49,6 @@ class PewterCity extends GameSystem.Classes.Level {
         var GS = GameSystem;
         var CS = GS.Classes;
         var KM = GS.Manager.Key;
-
         this.obstacles.push(new CS.Rectangle({x:27,y:8},{x:27,y:7}));
         this.obstacles.push(new CS.Rectangle({x:26,y:7},{x:26,y:6}));
         this.obstacles.push(new CS.Rectangle({x:27,y:5},{x:24,y:5}));
@@ -128,10 +125,8 @@ class PewterCity extends GameSystem.Classes.Level {
         super.load();
         var GS = GameSystem,CS = GS.Classes, KM = GS.Manager.Key,Position=CS.Position;
         this.music.play();
-
         this.map=new Framework.Scene();
         this.mapImage = new CS.Image(define.mapImagePath + 'pewterCity/gen1.png',{cutStartPosition:new Position(0,0),cutSize:new Position(39,38)});
-
         this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
         this.loadNPCs();
@@ -140,7 +135,6 @@ class PewterCity extends GameSystem.Classes.Level {
         this.rootScene.attach(GS.protagonist.image);
         GS.protagonist.position=GS.protagonist.position;
     }
-
 }
 GameSystem.Classes.Levels.PewterCity.Hospital=
 class Hospital extends GameSystem.Classes.Levels.Hospital {
@@ -162,7 +156,6 @@ class Mart extends GameSystem.Classes.Levels.Mart {
         pushItem("pewterCityMart",3,7,"pewterCity",23,19);
         pushItem("pewterCityMart",4,7,"pewterCity",23,19);
     }
-    
 }
 GameSystem.Classes.Levels.PewterCity.Gym=
 class Gym extends GameSystem.Classes.Level
@@ -189,10 +182,8 @@ class Gym extends GameSystem.Classes.Level
         super.load();
         var GS = GameSystem,CS = GS.Classes, KM = GS.Manager.Key,Position=CS.Position;
         this.music.play();
-
         this.map=new Framework.Scene();
         this.mapImage = new CS.Image(define.mapImagePath + 'pewterCity/gen1.png',{cutStartPosition:new Position(40,0),cutSize:new Position(10,14)});
-
         this.map.attach(this.mapImage);
         this.rootScene.attach(this.map);
         this.loadNPCs();
@@ -205,7 +196,6 @@ class Gym extends GameSystem.Classes.Level
     {
         var GS = GameSystem,CS = GS.Classes,Rectangle=CS.Rectangle;
         var pushItem=(x1,y1,x2,y2)=>this.obstacles.push(new Rectangle({x:x1,y:y1},{x:x2,y:y2}));
-        
         pushItem(0,1,0,9);
         pushItem(1,9,3,9);
         pushItem(3,9,3,10);

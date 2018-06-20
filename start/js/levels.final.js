@@ -27,8 +27,6 @@ class Final extends GameSystem.Classes.Level
         };
         GS.Manager.Key.keyInput=this.keyInput;
         this.rootScene.attach(GS.protagonist.image);
-        
-            
     }
     initObstacles()
     {
@@ -44,5 +42,4 @@ class Final extends GameSystem.Classes.Level
         pushItem(13,7,13,7);
         pushItem(4,7,4,7);
     }
-
 }

@@ -47,7 +47,6 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
     {
         this.description=new DisplayInformation.Text("","","","description");
         this.description.appendTo(this._display);
-        
     }
     set setInfo(pokemonTypeObj)
     {

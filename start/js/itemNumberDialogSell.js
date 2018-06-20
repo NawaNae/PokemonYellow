@@ -1,4 +1,3 @@
-
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
  GameSystem.Classes.ItemNumberDialogSell=
 class ItemNumberDialogSell extends GameSystem.Classes.ItemNumberDialog

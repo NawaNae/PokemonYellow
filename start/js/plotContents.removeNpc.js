@@ -35,7 +35,6 @@ class RemoveNpc extends GameSystem.Classes.PlotContent
         if(index!==-1)index=npcs.indexOf(npcs.find(ele=>ele.name===this.npc.name));
         if(index===-1){console.warn("無法取得index (該NPC不在"+level.constructor.name+"中)");}
         npcs.splice(index,1);
-         
         this.next();
     }
 }

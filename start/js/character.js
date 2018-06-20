@@ -100,7 +100,6 @@ class Character {
                         else
                         {console.log("You cannot input a position is without normalized, or try to using 'Up', 'Down', 'Left', 'Right' to replace it.");return;}
                 }
-               
             let move = this.movePositionVector[moveKey];
             this.facing=moveKey;
             if (!level) {
@@ -132,7 +131,6 @@ class Character {
                     }
                 }
                 timeout();
-    
             }
             }
         }
@@ -154,13 +152,11 @@ class Character {
                     end();
                 this.isPlayBehavior=true;
             }
-            
         }
         timeout();
     }
     findRoad( to,from=this.position)
     {
-       
         var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel,levelName=Framework.Game._findLevelNameByLevel(gameLevel);
         var size={x:gameLevel.size.pos2.x+1,y:gameLevel.size.pos2.y+1};
         var map=new Array(size.x);
@@ -177,8 +173,6 @@ class Character {
                 for(let i=0;i<size.y;i++)
                     map[x][i]={t:Enum.R,visit:false};
             }
-            
-            
         for(var i of gameLevel.obstacles)
             for(var x=i.pos1.x;x<=i.pos2.x;x++)
                 for(var y=i.pos1.y;y<=i.pos2.y;y++)
@@ -277,7 +271,6 @@ class Character {
             this.playList=undefined;
             this.timeNumber=undefined;
         }
-
     }
     playEndAnimation()
     {
@@ -306,7 +299,6 @@ class Character {
     get y() { return this.point.y;}
     set position(newPosition) 
     {
- 
         newPosition=new GameSystem.Classes.Position(newPosition);
          this._position = newPosition;
      }
@@ -329,7 +321,6 @@ class Character {
         this._facing=newDirection;
         let returnVal;
         this.stopPlayAnimation();
-        
         if(this.animationLists[this.facing]&&this.animationLists[this.facing].length>0)
             this.playListAnimation(this.animationLists[this.facing]);
     }
@@ -338,7 +329,6 @@ class Character {
     {
         let GS=GameSystem;
         let CS=GS.Classes;
-
         return new CS.Position(
             this.position.x+this.movePositionVector[this.facing].x,
             this.position.y+this.movePositionVector[this.facing].y
@@ -403,15 +393,12 @@ class Character {
         this.animationLists.Up.push(nitem(1));
         this.animationLists.Up.push(nitem(0));
         this.animationLists.Up.push(nitem(2));
-
         this.animationLists.Down.push(nitem(3));
         this.animationLists.Down.push(nitem(4));
         this.animationLists.Down.push(nitem(3));
         this.animationLists.Down.push(nitem(5));
-
         this.animationLists.Left.push(nitem(6));
         this.animationLists.Left.push(nitem(7));
-        
         this.animationLists.Right.push(nitem(8));
         this.animationLists.Right.push(nitem(9));
     }
@@ -426,24 +413,20 @@ class Character {
         this.animationLists.Up.push(nitem(1));
         this.animationLists.Up.push(nitem(0));
         this.animationLists.Up.push(nitem(2));
-
         this.animationLists.Down.push(nitem(3));
         this.animationLists.Down.push(nitem(4));
         this.animationLists.Down.push(nitem(3));
         this.animationLists.Down.push(nitem(5));
-
         this.animationLists.Left.push(nitem(6));
         this.animationLists.Left.push(nitem(7));
         this.animationLists.Left.push(nitem(6));
         this.animationLists.Left.push(nitem(8));
-        
         this.animationLists.Right.push(nitem(9));
         this.animationLists.Right.push(nitem(10));
         this.animationLists.Right.push(nitem(9));
         this.animationLists.Right.push(nitem(11));
     }
 };
-
 /**
  * 列舉。表示角色的面朝方向。
  * @readonly
@@ -452,13 +435,10 @@ class Character {
 GameSystem.Classes.Character.Face = Object.freeze({
     /** 角色的面向為「上」 */
     Up: Symbol("Up"),
-
     /** 角色的面向為「右」 */
     Right: Symbol("Right"),
-
     /** 角色的面向為「下」 */
     Down: Symbol("Down"),
-
     /** 角色的面相為「左」 */
     Left: Symbol("Left")
 });

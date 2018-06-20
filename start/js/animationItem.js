@@ -18,7 +18,6 @@ class AnimationItem
         this.cutSize=option.cutSize;
         if(option.displaySize&&option.displaySize.constructor.name=="Position")
             option.displaySize=option.displaySize.toPoint();
-        
         this.displaySize=option.displaySize;
         if(!this.displaySize&&option.scale)
             if(option.scale.constructor.name=="Position")
@@ -26,5 +25,4 @@ class AnimationItem
         this.scale=option.scale;
         this.group=option.group;
     }
-
 }

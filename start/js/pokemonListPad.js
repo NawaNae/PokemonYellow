@@ -15,7 +15,7 @@ var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 GameSystem.Classes.PokemonInfoBar =
 class PokemonInfoBar {
     /**
-     * 建立一個新的寶可夢資訊條物件，並連同內容物也一起建立。
+     * 。
      * 有: 小圖示、名稱、等級、血量條與血量數值。
      * @param {string} name 寶可夢的名稱。
      * @param {number} level 寶可夢的等級。
@@ -49,7 +49,6 @@ class PokemonInfoBar {
         this.textHP = document.createElement('span');
         this.textHP.innerText = HP + '/ ' + maxHP;
         this.textHP.classList.add('player-hp-value');
-    
         this.pokemonInfoBar.appendChild(this.img);
         this.pokemonInfoBar.appendChild(this.pokemonName);
         this.pokemonInfoBar.appendChild(this.HPBar.getHTMLElement());
@@ -58,7 +57,6 @@ class PokemonInfoBar {
         this.pokemonInfoBar.appendChild(this.textHP);
         this.isSelected = false;
     }
-
     /**
      * 更新資料。
      * @param {string} name 寶可夢的名稱。
@@ -75,7 +73,6 @@ class PokemonInfoBar {
             this.img.src = image;
         }
     }
-
     /**
      * 更新寶可夢的生命值資訊。
      * @param {number} HP 當前生命值。
@@ -85,21 +82,18 @@ class PokemonInfoBar {
         this.HPBar.updateHP(HP, maxHP);
         this.textHP.innerText = this.HPBar.HP + '/ ' + this.HPBar.MaxHP;
     }
-
     /**
      * 顯示寶可夢資訊條物件。
      */
     show() {
         this.pokemonInfoBar.classList.remove('hide');
     }
-
     /**
      * 隱藏寶可夢資訊條物件。
      */
     hide() {
         this.pokemonInfoBar.classList.add('hide');
     }
-
     /**
      * 選擇此項。
      */
@@ -107,7 +101,6 @@ class PokemonInfoBar {
         this.isSelected = true;
         this.pokemonInfoBar.classList.add('select');
     }
-
     /**
      * 取消選擇此項。
      */
@@ -115,7 +108,6 @@ class PokemonInfoBar {
         this.isSelected = false;
         this.pokemonInfoBar.classList.remove('select');
     }
-
     /**
      * 取得HTML元素。
      */
@@ -123,7 +115,6 @@ class PokemonInfoBar {
         return this.pokemonInfoBar;
     }
 };
-
 /** @typedef MenuSet 選單的HTML物件集合。
  * @prop {HTMLDivElement} divMenu 選單的HTML母容器。
  * @prop {HTMLSpanElement} spanStats 選項「狀態」。
@@ -132,8 +123,8 @@ class PokemonInfoBar {
  */
 //
 /**
- * @class PokemonListPad
- * @classdesc HTML元件，「寶可夢清單」版面的控制物件。
+ * @class 
+ * @classdesc 
  * 
  * @prop {HTMLDivElement} pokemonListPad 「寶可夢清單」版面的主HTML物件。
  * @prop {HTMLDivElement} messageBar 「訊息」版面的HTML物件。
@@ -162,17 +153,14 @@ class PokemonListPad {
             new GameSystem.Classes.PokemonInfoBar('Pokemon E', 5, 30, 25),
             new GameSystem.Classes.PokemonInfoBar('Pokemon F', 5, 30, 25)
         ];
-        
         this.pokemonInfoBars.forEach(element => this.pokemonListPad.appendChild(element.getHTMLElement())); // 將六個「寶可夢訊息條」加入至母版面中。
         this.pokemonListPad.appendChild(this.initMessageBar());   // 將「訊息」版面加入至母版面中。
         this.pokemonListPad.appendChild(this.initMenu());         // 將「控制選單」版面加入至母版面中。
-        
         this.pokemonsCount = 6;
         this.setPokemonListCursor(0);
         this.setMenuCursor(0);
         this.hideMenu();
     }
-
     /**
      * 建立新的「訊息」版面。並將其加入至 this.messageBar 中。
      * @return {HTMLDivElement} 「訊息」版面的HTML元件。
@@ -184,7 +172,6 @@ class PokemonListPad {
         this.messageBar.innerText = "請選擇一隻寶可夢";
         return this.messageBar;
     }
-
     /**
      * 設定訊息至訊息版面中。
      * @param {string} message 要設定的訊息。
@@ -192,7 +179,6 @@ class PokemonListPad {
     setMessage(message) {
         this.messageBar.innerText = message;
     }
-
     /**
      * 設定寶可夢的資料。
      * @prop {GameSystem.Classes.Pokemon[]} pokemons 指定要設置的寶可夢資料。
@@ -210,7 +196,6 @@ class PokemonListPad {
             }
         }
     }
-
     /**
      * 設定寶可夢清單中的選擇。
      * @param {number} select 指定的選項。為0 ~ N-1，其中N為清單中現有寶可夢數量。超過此範圍則不設置三角選擇。
@@ -224,7 +209,6 @@ class PokemonListPad {
         }
         this.pokemonSelection = select;
     }
-
     /**
      * 建立一個新的「選單」HTML元件。連同內部的元件初始化。
      * 有: 選項「狀態」、「切換」、「取消」。
@@ -247,28 +231,24 @@ class PokemonListPad {
         let spanCancel = document.createElement('span');
         spanCancel.classList.add('menu-item');
         spanCancel.innerText = '取消';
-
         this.menuSet = { divMenu, spanStats, spanSwitch, spanCancel };
         divMenu.appendChild(spanStats);
         divMenu.appendChild(spanSwitch);
         divMenu.appendChild(spanCancel);
         return divMenu;
     }
-
     /**
      * 顯示控制選單。
      */
     showMenu() {
         this.menuSet.divMenu.classList.remove('hide');
     }
-
     /**
      * 隱藏控制選單。
      */
     hideMenu() {
         this.menuSet.divMenu.classList.add('hide');
     }
-
     /**
      * 設定選單的選擇。
      * @param {number} select 目標選擇。
@@ -290,21 +270,18 @@ class PokemonListPad {
         }
         this.menuSelection = select;
     }
-
     /**
      * 顯示「寶可夢清單」版面。
      */
     show() {
         this.pokemonListPad.classList.remove('hide');
     }
-
     /**
      * 隱藏「寶可夢清單」版面。
      */
     hide() {
         this.pokemonListPad.classList.add('hide');
     }
-
     /**
      * 取得HTML元件。
      * @return {HTMLDivElement} 寶可夢清單面板之HTML元件。

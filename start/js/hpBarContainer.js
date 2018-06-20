@@ -23,13 +23,10 @@ class HPBarContainer {
         this.divHP = document.createElement('div');         // 建立HP條
         this.divHP.classList.add('hp-bar');                 // 加入 class : hp-bar
         this.divHPBar.appendChild(this.divHP);              // 將 divHP 加入至 divHPBar 中
-        
         this.updateHP(HP);
     }
-
     get HP() { return this._HP; }
     get MaxHP() { return this._maxHP; }
-
     /**
      * 設定血量。若兩參數皆不給，則刷新上一次所儲存的HP與maxHP。
      * @prop {number?} newHP 新的當前生命值。
@@ -40,7 +37,6 @@ class HPBarContainer {
         if (typeof newMaxHP == 'number') {
             this._maxHP = newMaxHP;
         }
-
         // 設定HP
         if (typeof newHP == 'number')
             if (newHP > this._maxHP) 
@@ -49,12 +45,10 @@ class HPBarContainer {
                 this._HP = 0;
             else
                 this._HP = newHP;
-
         // 更新顯示
         this._percent = Math.ceil((this._HP / this._maxHP) * 100);
         this._updateStyle();
     }
-
     /**
      * 生命條增加1%。此動作不會影響到HP與maxHP的紀錄。
      * 若百分比為0則不動作。
@@ -65,7 +59,6 @@ class HPBarContainer {
             this._updateStyle();
         }
     }
-
     /**
      * 生命條減少1%。此動作不會影響到HP與maxHP的紀錄。
      * 若百分比為100則不動作。
@@ -76,7 +69,6 @@ class HPBarContainer {
             this._updateStyle();
         }
     }
-
     /**
      * 顯示HP條。
      */
@@ -84,7 +76,6 @@ class HPBarContainer {
         this.divHPBar.classList.remove('hide');
         this.divHP.classList.remove('hide');
     }
-
     /**
      * 隱藏HP條。
      */
@@ -92,7 +83,6 @@ class HPBarContainer {
         this.divHPBar.classList.add('hide');
         this.divHP.classList.add('hide');
     }
-
     /**
      * 更新生命條樣式。
      * @private
@@ -105,7 +95,6 @@ class HPBarContainer {
         else
             this.divHP.style = 'width: ' + this._percent + '%; ' + 'background: red;';
     }
-
     /**
      * 取得HTML元素。
      */

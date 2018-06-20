@@ -22,7 +22,6 @@ class PropItem {
      * 
      */
     constructor(name, count, use, isAutoDecreasing=true ,selectSend,price,inBattleUse) {
-       
         this._name = name;
         this._count = count;
         this.use=use;
@@ -42,7 +41,6 @@ class PropItem {
                 else
                     this.count--;
             if(this.use)this.use(param1);
-                
         }
         this._inBattleUse = inBattleUse;
         this.isDecreasing=isAutoDecreasing;
@@ -86,12 +84,9 @@ class PropItem {
     }
     set isDecreasing(bool){if(typeof this._count==="undefined"){console.warn("請確保有count的情況下再設定");return;}this._isDecreasing=bool;}
     get isDecreasing(){return this._isDecreasing;}
-    
     get name() { return this._name; }
     set name(newName) { this._name = newName; }
-
     get count() { return this._count; }
     set count(newCount) { this._count = newCount; }
-
     get battleAction() { return this._inBattleUse; }
 };

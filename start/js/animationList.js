@@ -16,7 +16,6 @@ class AnimationList extends Array
             this.length=list.length;
         for(let i=0;i<list.length; i++)
             this[i]=new Item(list[i]);
-        
     }
     getEletmentByGroupName(name)
     {

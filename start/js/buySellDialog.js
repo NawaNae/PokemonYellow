@@ -13,7 +13,6 @@ class BuySellDialog extends GameSystem.Classes.Options
         this.options[0].select=true;
         this.push(new Option("賣",()=>{this.sellSelectSend()}))
         this.push(new Option("取消",()=>{this.cancelSelectSend()}))
-
     }
     onShow()
     {

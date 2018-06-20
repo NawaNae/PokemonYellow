@@ -22,10 +22,8 @@ class BattleField {
             throw new Error("BattleField constructor: the sum of pokemon's occuring probability must less than or equal to 100.");
         }
     }
-
     get area() { return this._area; }
     set area(newArea) { this._area = newArea; }
-    
     get occurrences() { return this._events; }
     set occurrences(newOccurrences) {
         if (BattleField.isCompleteProbability(newOccurrences)) {
@@ -35,7 +33,6 @@ class BattleField {
             throw new Error("BattleField setter: the sum of pokemon's occuring probability must less than or equal to 100.");
         }
     }
-
     /**
      * 新增寶可夢出現機率。
      * 若原先就有相同寶可夢種類的出現機率物件在清單中，則會以新的機率覆蓋它。
@@ -59,7 +56,6 @@ class BattleField {
             throw new Error("BattleField addOccurrence: the sum of pokemon's occuring probability must less than or equal to 100.");
         }
     }
-
     /**
      * 透過寶可夢種類(PokemonType)來尋找，刪除指定的寶可夢發生機率物件。
      * @param {string} name 指定的寶可夢種族名稱。
@@ -75,7 +71,6 @@ class BattleField {
             return false;
         }
     }
-
     /**
      * 觸發野生寶可夢出現的方法。
      * @param {GameSystem.Classes.Position?} position 玩家的位置。若未傳入此參數則視為玩家有在此出現野生寶可夢範圍內。
@@ -86,7 +81,6 @@ class BattleField {
         const x=30;
         if (position && !position.isIn(this._area))
             return undefined;
-
         this._steps += 1;
         let test = Math.random();
         if (test <= BattleField.probabilityFormula(x) * 2) {
@@ -122,7 +116,6 @@ class BattleField {
             return undefined;
         }
     }
-
     /**
      * 檢查是否為完整機率。
      * @param {GameSystem.Classes.Occurrence[]} list 寶可夢遭遇機率清單。
@@ -131,7 +124,6 @@ class BattleField {
     static isCompleteProbability(list) {
         return list.reduce((sum, ocur) => sum + ocur.probabilty, 0) <= 100;
     }
-
     /**
      * 寶可夢出現機率的公式。
      * @param {number} x 影響因素。

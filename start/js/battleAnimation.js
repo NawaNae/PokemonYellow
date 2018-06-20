@@ -39,13 +39,10 @@ class BattleAnimation {
         this._state = GameSystem.Classes.BattleAnimation.State.Ready;
         this._promiseResolve = null;
     }
-
     get name() { return this._name; }
     set name(newName) { this._name = newName; }
-
     get mainAnim() { return this._mainAnim; }
     set mainAnim(newMainAnim) { this._mainAnim = newMainAnim.bind(this); }
-
     /**
      * 重置動畫參數。
      */
@@ -53,7 +50,6 @@ class BattleAnimation {
         this._animVars = JSON.parse(JSON.stringify(this._initialAnimVars));
         this._state = GameSystem.Classes.BattleAnimation.State.Ready;
     }
-
     /**
      * 取得動畫播放函式。
      * @return {Function} 啟動動畫的函式。
@@ -75,7 +71,6 @@ class BattleAnimation {
             return new Promise(res => { self._promiseResolve = res; });
         };
     }
-
     /**
      * 動畫完成時所會呼叫的函式。
      */
@@ -89,13 +84,11 @@ class BattleAnimation {
         this._animationSet = null;
         this._originalMain = null;
     }
-
     /** 
      * 空白的動畫。
      */
     static emptyAnimation() {}
 }
-
 /** @typedef BattleAnimation.State
  * @description 定義動畫狀態。
  * @enum
@@ -104,14 +97,11 @@ class BattleAnimation {
 GameSystem.Classes.BattleAnimation.State = Object.freeze({
     /** 表示動畫已經準備好可以被播送。 */
     Ready: Symbol("Ready"),
-
     /** 動畫正在執行中。 */
     Running: Symbol("Running"),
-
     /** 動畫已經結束。 */
     Finished: Symbol("Finished")
 });
-
 /** 定義戰鬥時「我方攻擊敵方」與「敵方攻擊我方」的動畫字典 */
 GameSystem.Classes.BattleAnimation.Dictionary = {
     AttackTo: {},
@@ -120,12 +110,10 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     OpponentEffect: {},
     MiscEffect: {}
 };
-
 (() => {
     const player = {x: 10, y: 40}, opponent = {x: 95, y: 5}, PI2 = 2 * Math.PI;
     let BattleAnimation = GameSystem.Classes.BattleAnimation;
     let DEX = BattleAnimation.Dictionary.AttackTo;
-
     // Unlity math function
     function grab_fx(x) { return x * Math.cos(0.375 * PI2); }
     function grab_fy(y) { return -y * Math.sin(0.375 * PI2); }
@@ -133,9 +121,7 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
     function grab_fdy(y) { return -y * Math.sin(0.125 * PI2); }
     function sand_path(x, x0, y0) { return -0.4117 * (x - x0) + y0; }
     function sand_particle_sizing(x) { return 10 - ((x - 80) ** 2) / 260; }
-
     // #region ==================== 初始化 AttackTo ==================== //
-
     // Done
     DEX['投球'] = new BattleAnimation('投球',
         { x: 25, y: 75 },
@@ -156,7 +142,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // Done
     DEX["電擊"] = new BattleAnimation("電擊",
         { times: 400, r: 30, isInc: false },
@@ -173,10 +158,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 ctx.arc(120, 35, animVars.r - 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
-                
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
-
                 animVars.times -= 1;
             }
             else {
@@ -184,7 +167,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // Done
     DEX["撞擊"] = new BattleAnimation("撞擊",
         { R: 5, r: 2, delay: 0 },
@@ -215,7 +197,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["起風"] = new BattleAnimation("起風",
         { R: 5, r: 2, delay: 0 },
         function(ctx) {
@@ -245,7 +226,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["搖尾巴"] = new BattleAnimation("搖尾巴", 
         { times: 400, r: 30, isInc: false },
         function(ctx) {
@@ -261,10 +241,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 ctx.arc(120, 35, animVars.r - 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
-                
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
-
                 animVars.times -= 1;
             }
             else {
@@ -272,7 +250,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["叫聲"] = new BattleAnimation("叫聲", 
         { times: 400, r: 30, isInc: false },
         function(ctx) {
@@ -288,10 +265,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 ctx.arc(120, 35, animVars.r - 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
-                
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
-
                 animVars.times -= 1;
             }
             else {
@@ -299,7 +274,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["電光一閃"] = new BattleAnimation("電光一閃",
         { x: 123, y: 33, times: 300 },
         function (ctx) {
@@ -322,7 +296,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["抓"] = new BattleAnimation("抓",
         { x: 123, y: 33, t1: 30, t2: 30, startT: 30, endT: -30, d: 5, times: 3 },
         function (ctx) {
@@ -356,7 +329,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["綁緊"] = new BattleAnimation("綁緊", 
         { x: 123, y: 33, r1: 40, r2: 40, minr: 5, maxr: 40, times: 3 },
         function(ctx) {
@@ -393,12 +365,9 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // #endregion ==================================================== //
-
     // #region =================== 初始化 AttackedBy =================== //
     DEX = BattleAnimation.Dictionary.AttackedBy;
-
     // Done
     DEX["電擊"] = new BattleAnimation("電擊",
         { times: 400, r: 30, isInc: false },
@@ -415,10 +384,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 ctx.arc(40, 70, animVars.r - 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
-                
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
-
                 animVars.times -= 1;
             }
             else {
@@ -426,7 +393,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // Done
     DEX["撞擊"] = new BattleAnimation("撞擊",
         { R: 5, r: 2, delay: 0 },
@@ -457,7 +423,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["起風"] = new BattleAnimation("起風",
         { R: 5, r: 2, delay: 0 },
         function(ctx) {
@@ -487,7 +452,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["搖尾巴"] = new BattleAnimation("搖尾巴", 
         { times: 400, r: 30, isInc: false },
         function(ctx) {
@@ -503,10 +467,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 ctx.arc(40, 70, animVars.r - 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
-                
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
-
                 animVars.times -= 1;
             }
             else {
@@ -514,7 +476,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["叫聲"] = new BattleAnimation("叫聲", 
         { times: 400, r: 30, isInc: false },
         function(ctx) {
@@ -530,10 +491,8 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
                 ctx.arc(40, 70, animVars.r - 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
-                
                 animVars.r += animVars.isInc ? 4 : -4;
                 animVars.isInc = (animVars.r <= 10) ? true : (animVars.r >= 30 ? false : animVars.isInc);
-
                 animVars.times -= 1;
             }
             else {
@@ -541,7 +500,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["電光一閃"] = new BattleAnimation("電光一閃",
         { x: 38, y: 68, times: 300 },
         function (ctx) {
@@ -564,7 +522,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["抓"] = new BattleAnimation("抓",
         { x: 38, y: 68, t1: 30, t2: 30, startT: 30, endT: -30, d: 5, times: 3 },
         function (ctx) {
@@ -598,7 +555,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["綁緊"] = new BattleAnimation("綁緊", 
         { x: 38, y: 68, r1: 40, r2: 40, minr: 5, maxr: 40, times: 3 },
         function(ctx) {
@@ -635,12 +591,9 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // #endregion ======================================================== //
-
     // #region ================== 初始化 PlayerEffect ================== //
     DEX = BattleAnimation.Dictionary.PlayerEffect;
-
     DEX["搖尾巴"] = new BattleAnimation("搖尾巴", 
         { r: Math.PI, doneCircle: false },
         function(ctx) {
@@ -662,7 +615,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["叫聲"] = new BattleAnimation("叫聲",
         { times: 3, r: 5, delay: 0 },
         function (ctx) {
@@ -691,7 +643,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["電磁波"] = new BattleAnimation("電磁波", 
         { waveList: [0, -5, -10, -15, -20, -25, -30, -35], times: 5 },
         function (ctx) {
@@ -723,7 +674,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["瞪眼"] = new BattleAnimation("瞪眼", 
         { x: 38, y: 68, times: 300 },
         function (ctx) {
@@ -751,7 +701,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["潑沙"] = new BattleAnimation("潑沙",
         { phase: 0, x: 35, startX: 38, startY: 68, endX: 130, endY: 30, particles: []},
         function (ctx) {
@@ -791,7 +740,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["刺耳聲"] = new BattleAnimation("刺耳聲",
         { x: 38, y: 68, r1: 5, r2: 5, minr: 5, maxr: 40, times: 3 },
         function(ctx) {
@@ -828,12 +776,9 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // #endregion ===================================================== //
-
     // #region ================= 初始化 OpponentEffect ================= //
     DEX = BattleAnimation.Dictionary.OpponentEffect;
-
     DEX["搖尾巴"] = new BattleAnimation("搖尾巴", 
         { r: Math.PI / 2, doneCircle: false },
         function(ctx) {
@@ -856,7 +801,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["叫聲"] = new BattleAnimation("叫聲", 
         { times: 3, r: 5, delay: 0 },
         function (ctx) {
@@ -885,7 +829,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["瞪眼"] = new BattleAnimation("瞪眼", 
         { x: 123, y: 33, times: 300 },
         function (ctx) {
@@ -913,7 +856,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["潑沙"] = new BattleAnimation("潑沙",
         { phase: 0, x: 130, startX: 130, startY: 30, endX: 35, endY: 70, particles: []},
         function (ctx) {
@@ -953,7 +895,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     DEX["刺耳聲"] = new BattleAnimation("刺耳聲",
         { x: 123, y: 33, r1: 5, r2: 5, minr: 5, maxr: 40, times: 3 },
         function(ctx) {
@@ -990,14 +931,10 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // #endregion ======================================================== //
-
     // #region =================== 初始化 MiscEffect =================== //
     DEX = BattleAnimation.Dictionary.MiscEffect;
-
     const pokemonBallImage = Load.image(define.imagePath + "AlivePokemonBall.png");
-
     // Done
     DEX["藥水"] = new BattleAnimation("藥水",
         { r: 1 },
@@ -1016,7 +953,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // Done
     DEX['收服成功'] = new BattleAnimation('收服成功',
         { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
@@ -1096,7 +1032,6 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // Done
     DEX['收服失敗'] = new BattleAnimation('收服失敗',
         { phase: 1, x: 25, y: 75, shaking: 19, dx: 1, delay: 200, particle_r: 1,
@@ -1191,7 +1126,5 @@ GameSystem.Classes.BattleAnimation.Dictionary = {
             }
         }
     );
-
     // #endregion ====================================================== //
-
 })();

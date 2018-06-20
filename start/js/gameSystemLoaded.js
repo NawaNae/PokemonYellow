@@ -1,7 +1,5 @@
-
 GameSystem.loaded=function ()
 {
-   
     defPlot();
     defProp();
     var GS=GameSystem,CS=GS.Classes,Image=CS.Image,Position=CS.Position,Pokemon=CS.Pokemon,DEX=CS.PokemonType.Dictionary,GR=GS.Resource,Drama=GR.Drama,FightEndP=Drama.FightEnd;
@@ -20,7 +18,6 @@ GameSystem.loaded=function ()
     protagonist.image.addToAllLevels();
     GameSystem.HTMLObjectContainer=new GameSystem.Classes.HTMLObjectContainer;
     GameSystem.Classes.BattlePad.initBattlePad();
-
 }
 var defProp=()=>
 {
@@ -28,7 +25,6 @@ var defProp=()=>
     var GR=GameSystem.Resource;GR.PropDictionary=GR.PropDictionary||{};
     var Prop=GameSystem.Classes.PropItem;
     var x;
-
     // Note:
     // The form of battlePackage is:
     // battlePackage = {player: this._player, opponent: this._opponent, battleResult: battleResult}
@@ -47,7 +43,6 @@ var defProp=()=>
         battlePackage.battleResult.addMessage(battlePackage.player.name + "恢復了" + diff + "點生命值");
         GameSystem.protagonist.decreaseSpecifiedPropItem(this);
     }
-
     // Note: not a complete original formula
     function UsePokemonBall(battlePackage) {
         const MiscAnim = GameSystem.Classes.BattleAnimation.Dictionary.MiscEffect;
@@ -77,7 +72,6 @@ var defProp=()=>
         GameSystem.protagonist.decreaseSpecifiedPropItem(this);
         return isCaught;
     }
-
     /*所有物品的陣列 請在此定義物品 */
     GR.PropDictionary=
     {
@@ -166,9 +160,7 @@ var defPlot=()=>{
             new Paragraph("這表示了我們有可能走在草叢中會遇到野生的寶可夢。"),
             new Paragraph("記得！帶上你自己的寶可夢，讓牠來保護你！")
         ]),
-        
     };
-
     /** 「一號道路」的 */
     Drama["Route 1"] = {
         'WelcomeSign': new Plot('WelcomeSign', [
@@ -190,7 +182,6 @@ var defPlot=()=>{
             new Paragraph("記得確認你的寶可夢的HP是否是足夠的！")
         ])
     };
- 
     Drama["Others"] = {
         '卡迪諾狂新聞':new Plot("卡迪諾狂新聞",[
             new Paragraph("歡迎來到本周的卡迪諾狂新聞",undefined,undefined,undefined,false),
@@ -313,7 +304,6 @@ var defPlot=()=>{
                     timeout();
                     this.plot.end();
                     mainChar.atMap="final";
-                    
                 },{autoNext:false})
         ]),
     }
@@ -332,10 +322,5 @@ var defPlot=()=>{
             new Paragraph("$MY_NAME『嘔嘔嘔嘔嘔嘔』")
         ]),
     }
-
 }
 GameSystem.loaded();
-
-
-
-

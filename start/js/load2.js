@@ -10,7 +10,3 @@ Load.js.import(
     var item=document.getElementById("loadItemText");
     item.innerText="Game System";
 })();
-
-
-
-    

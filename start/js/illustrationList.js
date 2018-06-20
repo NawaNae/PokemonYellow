@@ -8,7 +8,6 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
 {
     constructor()
     {
-
         super("","","","illustrationList");
         this.initList();
         this.initNumber();
@@ -57,7 +56,6 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
             if(key!=="length")
             list.push(new Option(dictionary[key].id+"????",function() {}));
         }
-       
         list.push(new Option("length",function(){var GS=GameSystem,CS=GS.Classes,GR=GS.Resource,Position=CS.Position,PC=CS.PlotContents;
             var Drama=GR.Drama;Drama.Others.卡迪諾狂新聞.start();}));
         this.list.appendTo(this._display);
@@ -96,5 +94,4 @@ class Illustration extends DisplayInformation.AutoKeyInput.Text
     }
     get visible()
     {return super.visible;}
- 
 }

@@ -36,9 +36,6 @@
 			value: mainPath + 'image/characters/',
 			writable: false
 		}
-
 	});
-
 	window.define = define;
 })(window)
-

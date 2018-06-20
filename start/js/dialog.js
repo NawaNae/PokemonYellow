@@ -14,7 +14,6 @@ class Dialog extends DisplayInformation.AutoKeyInput.Text
 {
     constructor(text="",elementTypeString='div')
     {
-
         let skip;
         super(text,skip,skip,"dialog",elementTypeString);
         this.plot;

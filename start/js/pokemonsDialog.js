@@ -15,7 +15,6 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
         this.selectOrWatchOptions.push(new Option("觀看",function(){}));
         this.infoPad=new GameSystem.Classes.PokemonInfoPad();
         this.infoPad.index=0;
-    
         this.infoPad.hide();
     }
     set pokemonsData(pokemons)
@@ -38,7 +37,6 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
     }
     listKeyInput(key)
     {
-   
         switch(key)
         {
             case 'Up':
@@ -67,7 +65,6 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
                             {
                                 alert("無法選擇血量=0的寶可夢");
                             }
-
                 }
                 watchOption.selectSend=()=>
                 {
@@ -81,7 +78,6 @@ class PokemonsDialog extends GameSystem.Classes.PokemonListPad
                             this.keyInputMode=1;
                         }
                 }
-                
             break;
             case 'B':
                 this.hide();

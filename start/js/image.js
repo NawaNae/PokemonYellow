@@ -28,9 +28,7 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
         this._src=src;
         this.image=Load.image(src);
         this.visible=true;
-     
     }
-
     addToLevelByLevelName(name)
     {
         let level=Framework.Game._findLevel(name);
@@ -76,7 +74,6 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
         this._src=value;
         this.image=Load.image(value);
     }   
-       
 }
    get scale()
    {
@@ -128,11 +125,9 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
                 x,y,
             );
     }
-    
     get x(){return this.position.x;}
     set x(value){this.position.x=value;}
     get y(){return this.position.y;}
     set y(value){this.position.y=value;}
-
     get src() { return this._src; }
 }

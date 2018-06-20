@@ -16,10 +16,8 @@ class GradingMove {
         this._minLevel = minLevel;
         this._move = move;
     }
-
     set minLevel(newMinLevel) { this._minLevel = newMinLevel; }
     get minLevel() { return this._minLevel; }
-
     set move(newMove) { this._move = newMove; }
     get move() { return this._move; }
 }

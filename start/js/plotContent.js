@@ -18,7 +18,6 @@ class PlotContent
     }
     start()
     {
-        
     }
     next()
     {
@@ -32,7 +31,6 @@ class PlotContent
     {
         this.fatherPlot=fatherPlot;
     }
-
 }
 GameSystem.Classes.PlotContents={};
 GameSystem.Classes.PlotContents.Base=GameSystem.Classes.PlotContent;

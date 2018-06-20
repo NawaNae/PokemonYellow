@@ -27,10 +27,8 @@ class Event
         var nplot=plot;
         if(plot.constructor.name==="Function")
             plot=new Plot("event",[new Script(plot)]);
-
         this._plotController.push(plot);
         this.condition=conditionFunc;
-            
     }
     start()
     { if((!this.condition)||(this.condition&&this.condition()))this.plot.start();}

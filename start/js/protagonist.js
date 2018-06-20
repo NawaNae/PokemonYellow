@@ -1,4 +1,3 @@
-
 /**
  * @class Protagonist
  * @classdesc 主人公。表示玩家操縱的角色。
@@ -32,22 +31,17 @@ class Protagonist extends GameSystem.Classes.Character {
         lada.level=5;
         lada.updateAbilities();
         lada.HP=lada.maxHP;
-
         let pikC = new GameSystem.Classes.Pokemon("皮可西",DEX["皮可西"]);
         pikC.level=200;
         pikC.HP=0;
-
         let nineTails = new GameSystem.Classes.Pokemon("九尾",DEX["九尾"]);
         nineTails.HP=0;
-
         let fatD = new GameSystem.Classes.Pokemon("胖丁",DEX["胖丁"]);
         fatD.HP=0;
-
         let sixTails=new GameSystem.Classes.Pokemon("六尾",DEX["六尾"]);
         sixTails.level=15;
         sixTails.updateAbilities();
         sixTails.HP=lada.maxHP;
-
         let fatKeD = new GameSystem.Classes.Pokemon("胖可丁",DEX["胖可丁"]);
         fatKeD.HP=0;*/
         // ******************* //
@@ -133,7 +127,6 @@ class Protagonist extends GameSystem.Classes.Character {
         }
         else if(pokemon.pokemons)
             this.meetPokemon(pokemon.pokemons);
-        
     }
      /**
      * 新增道具至角色上。
@@ -147,7 +140,6 @@ class Protagonist extends GameSystem.Classes.Character {
         if(prop.constructor.name==="String")
             prop=Dictionary[prop];
         var findItem=this.props.find(item=>prop.name===item.name)
-        
         if(!findItem)
         {
             this.props.push(new Prop(prop));
@@ -156,7 +148,6 @@ class Protagonist extends GameSystem.Classes.Character {
         {
             findItem.count+=prop.count;
         }
-            
     }
     copyFrom(mainChar)
     {
@@ -191,8 +182,6 @@ class Protagonist extends GameSystem.Classes.Character {
             }    
         }   
         this.metPokemons=mainChar.metPokemons;
-            
-
     }
     walk(moveKey,end=()=>{},options={walkSpeed:1,blockWidth:16})
     {
@@ -262,7 +251,6 @@ class Protagonist extends GameSystem.Classes.Character {
                     }
                 }
                 timeout();
-    
             }
             }
         }
@@ -282,8 +270,6 @@ class Protagonist extends GameSystem.Classes.Character {
             this.image.position.y=pos.y;
         }
     }
-    
-
     get pokemons() { return this._pokemons; }
     set pokemons(val){this._pokemons=val;}
     get props() { return this._props; }
@@ -292,12 +278,10 @@ class Protagonist extends GameSystem.Classes.Character {
         Framework.Game.goToLevel(newMap);
     }
     get atMap() { return this._atMap; }
-
     set position(np){super.position=np;this.updateImagePosition();}
     get position(){return super.position;}
     set money(newMoney) { this._money = newMoney; if(this._money<0)this._money=0; }
     get money() { return this._money; }
-
     /**
      * 減少目前身上的金錢量。
      * @param {number} cost 花費、減少的金額量。
@@ -312,7 +296,6 @@ class Protagonist extends GameSystem.Classes.Character {
             return false;
         }
     }
-
     /**
      * 增加目前身上的金錢量。
      * @param {number} money 增加的金錢量。
@@ -330,7 +313,6 @@ class Protagonist extends GameSystem.Classes.Character {
         }
         mapPos.x = -val + screenPoint.x;
     }
-
     get y() { return this.point.y; }
     set y(val) {
         var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=(Framework&&Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.map)?Framework.Game._currentLevel.map.position:undefined;
@@ -339,7 +321,6 @@ class Protagonist extends GameSystem.Classes.Character {
         }
         mapPos.y=-val+screenPoint.y;
     }
-
     get point() {
         var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),mapPos=(Framework&&Framework.Game&&Framework.Game._currentLevel&&Framework.Game._currentLevel.map)?Framework.Game._currentLevel.map.position:undefined;
         if(!mapPos) { 
@@ -348,14 +329,12 @@ class Protagonist extends GameSystem.Classes.Character {
         }
         return new Point(screenPoint.x-mapPos.x,screenPoint.y-mapPos.y);
     }
-
     set point(val) {
         var Point=GameSystem.Classes.Point,screenPoint=this._screenPosition.toPoint(),map=Framework.Game._currentLevel.map;
         val = val.constructor.name === "Position" ? val.toPoint() : val;
         map.x = -val.x + screenPoint.x;
         map.y = -val.y + screenPoint.y;
     }
-
     /**
      * 新增一個新的寶可夢至主人公上。
      * @param {GameSystem.Classes.Pokemon} newPokemon 新的寶可夢。
@@ -363,10 +342,6 @@ class Protagonist extends GameSystem.Classes.Character {
     addPokemon(newPokemon) {
         this._pokemons.push(newPokemon);
     }
-
-   
-
-
     /**
      * 減少指定道具的堆疊數量。
      * @param {GameSystem.Classes.PropItem | number} specify 指定要減少的道具。
@@ -404,7 +379,6 @@ class Protagonist extends GameSystem.Classes.Character {
             }
         }
     }
-
     /**
      * 以名稱來尋找指定的道具，並回傳其索引。
      * @param {string} propName 欲尋找的道具之名稱。
@@ -413,7 +387,6 @@ class Protagonist extends GameSystem.Classes.Character {
     indexOfPropItemName(propName) {
         return this._props.reduce((prop, targetIndex, index) => targetIndex < 0 && propName == prop.name ? index : targetIndex, -1);
     }
-
     /**
      * 取得可戰鬥的寶可夢數量。
      * @return {number} 可戰鬥的寶可夢數量。
@@ -421,7 +394,6 @@ class Protagonist extends GameSystem.Classes.Character {
     getAlivePokemonCount() {
         return this._pokemons.reduce((count, pokemon) => count + (pokemon.HP > 0 ? 1 : 0), 0);
     }
-
     /**
      * 取得昏厥的寶可夢數量。
      * @return {number} 昏厥的寶可夢數量。

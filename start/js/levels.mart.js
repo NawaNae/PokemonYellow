@@ -48,7 +48,6 @@ class Mart extends GameSystem.Classes.Level {
     {
         super.load();
         this.music.play();
-    
         var CS=GameSystem.Classes,GS=GameSystem,Position=CS.Position;
         this.mapImage=new CS.Image(define.mapImagePath + 'viridianCity/gen1.png',{cutStartPosition:new Position(54,26),cutSize:new Position(8,8)});
         this.map=new Framework.Scene();

@@ -17,7 +17,6 @@ class IndividualValue extends GameSystem.Classes.StandardStat {
     constructor(maxHP = 8, attack = 1, defense = 1, special = 1, speed = 1) {
         super(maxHP, attack, defense, special, speed);
     }
-
     /**
      * 取得個體值的副本。
      * @return {GameSystem.Classes.IndividualValue} 此個體值的副本。
@@ -25,7 +24,6 @@ class IndividualValue extends GameSystem.Classes.StandardStat {
     clone() {
         return new GameSystem.Classes.IndividualValue(this._maxHP, this._attack, this._defense, this._special, this._speed);
     }
-
     /**
      * 取得新的、隨機生成的個體數值。
      * @return {IndividualValue} 一個新的、隨機生成過的個體數值。
@@ -36,7 +34,6 @@ class IndividualValue extends GameSystem.Classes.StandardStat {
                                         Math.floor(Math.random() * 16),
                                         Math.floor(Math.random() * 16),
                                         Math.floor(Math.random() * 16));
-        
         newIV.maxHP = (newIV.attack  % 2) ? 8 : 0 +
                       (newIV.defnese % 2) ? 4 : 0 +
                       (newIV.special % 2) ? 2 : 0 +

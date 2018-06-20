@@ -17,22 +17,16 @@ class StandardStat {
         this._special = special;
         this._speed = speed;
     }
-
     set maxHP(newMaxHP) { this._maxHP = newMaxHP; }
     get maxHP() { return this._maxHP; }
-
     set attack(newAttack) { this._attack = newAttack;  }
     get attack() { return this._attack; }
-
     set defense(newDefense) { this._defense = newDefense; }
     get defense() { return this._defense; }
-
     set special(newSpecial) { this._special = newSpecial; }
     get special() { return this._defense; }
-
     set speed(newSpeed) { this._speed = newSpeed; }
     get speed() { return this._speed; }
-
     copyFrom(staSta)
     {
       this._maxHP=staSta._maxHP||staSta.maxHP||this._maxHP;
@@ -42,7 +36,6 @@ class StandardStat {
       this._speed=staSta._speed||staSta.speed||this._speed;
     }
 }
-
 /**
  * 列舉。為寶可夢或招式的「屬性」。
  * @readonly
@@ -51,50 +44,35 @@ class StandardStat {
 GameSystem.Classes.StandardStat.Type = Object.freeze({
     /** 「一般」屬性 */
     Normal: Symbol("Normal"),
-
     /** 「格鬥」屬性 */
     Fighting: Symbol("Fighting"),
-
     /** 「飛行」屬性 */
     Flying: Symbol("Flying"),
-
     /** 「毒」屬性 */
     Poison: Symbol("Poison"),
-
     /** 「地面」屬性 */
     Ground: Symbol("Ground"),
-
     /** 「岩石」屬性 */
     Rock: Symbol("Rock"),
-
     /** 「蟲」屬性 */
     Bug: Symbol("Bug"),
-
     /** 「幽靈」屬性 */
     Ghost: Symbol("Ghost"),
-
     /** 「火」屬性 */
     Fire: Symbol("Fire"),
-
     /** 「水」屬性 */
     Water: Symbol("Water"),
-
     /** 「草」屬性 */
     Grass: Symbol("Grass"),
-
     /** 「電」屬性 */
     Electric: Symbol("Electric"),
-
     /** 「超能力」屬性 */
     Phycsic: Symbol("Phycsic"),
-
     /** 「冰」屬性 */
     Ice: Symbol("Ice"),
-
     /** 「龍」屬性 */
     Dragon: Symbol("Dragon")
 });
-
 /**
  * 屬性相對應的「屬性名稱」字串對應表。
  */
@@ -115,7 +93,6 @@ GameSystem.Classes.StandardStat.TypeName = {
     [GameSystem.Classes.StandardStat.Type.Ice]: "Ice",
     [GameSystem.Classes.StandardStat.Type.Dragon]: "Dragon"
 };
-
 /** 初始化「屬性相剋表」 */
 (() => {
     let T = GameSystem.Classes.StandardStat.Type;
@@ -376,6 +353,5 @@ GameSystem.Classes.StandardStat.TypeName = {
               [T.Dragon]: 2
         }
     };
-
     GameSystem.Classes.StandardStat.AgainstTable = table;
 })();

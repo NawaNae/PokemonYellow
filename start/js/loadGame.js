@@ -72,7 +72,6 @@ Load.js.import(
         { src: define.jsPath + 'levels.route02.js'  },
         { src: define.jsPath + 'levels.final.js'},
         { src: define.jsPath + 'battleLevel.js'},
-
         { src: define.jsPath + 'levels.viridianCity.js',waitFor:['GameSystem.Classes.Levels.Hospital','GameSystem.Classes.Levels.Mart']},
         { src: define.jsPath + 'levels.pewterCity.js'},
         { src: define.jsPath + 'gameSystemLoaded.js', waitFor:
@@ -140,9 +139,3 @@ Load.js.import(
                 'GameSystem.Classes.Levels.LoadRecord'
         ]}                                  //請最後載入mainGame
 ]);
-
-
-
-
-
-    

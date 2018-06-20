@@ -68,6 +68,5 @@ class Records
         if(records)
             this.records=JSON.parse(records);
     }
-
 }
 GameSystem.Manager.Records=new GameSystem.Classes.Records();

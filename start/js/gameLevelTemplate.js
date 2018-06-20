@@ -27,13 +27,8 @@ var GameLevelN= Framework.Class(Framework.Level, {
         this.nullSprite.position = { x: 0, y: 0 };
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */ 
-
-       
 	},
-
     initialize: function () {
-       
-       
     },
     update: function() {
         /*bug 去除 */ 
@@ -41,13 +36,10 @@ var GameLevelN= Framework.Class(Framework.Level, {
         if (this.nullSprite.position.x < -2)
             this.nullSprite.position.x =-1;
         /*bug 去除 */ 
-
     },
-
     draw: function (parentCtx) 
     {
     },
-
     keydown:function(e, list)
     {
         //GameSystem.Manager.Key.pressList[e.key]=true;
@@ -57,19 +49,14 @@ var GameLevelN= Framework.Class(Framework.Level, {
         //GameSystem.Manager.Key.pressList[e.key]=false;
     }
     ,
-
-
     touchstart: function (e) {
         //為了要讓Mouse和Touch都有一樣的事件
         //又要減少Duplicated code, 故在Touch事件被觸發時, 去Trigger Mouse事件
         this.click({ x: e.touches[0].clientX, y: e.touches[0].clientY });
     },
-    
     click: function (e) {  
-
         if (!this.rectPosition) {
             return;
         }  
-        
     },
 });

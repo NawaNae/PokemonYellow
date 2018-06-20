@@ -59,7 +59,6 @@
  * @prop {HTMLSpanElement[]} movePPs 第一至第四招式的PP。
  */
 //
-
 /**
  * @class PokemonInfoPad
  * @classdesc 寶可夢資訊介面的控制。
@@ -82,11 +81,9 @@ class PokemonInfoPad {
         this.pokemonInfoPad.appendChild(this.initStatValuePad());
         this.pokemonInfoPad.appendChild(this.initTypeInfoPad());
         this.pokemonInfoPad.appendChild(this.initMoveListPad());
-
         this.statusParts.part2.divPart2.classList.add('hide');
         this.moveListSet.moveListPad.classList.add('hide');
     }
-
     //#region 初始化所用的函式
     /**
      * 新增「寶可夢圖畫與編號」，並初始化其中的物件。
@@ -103,13 +100,11 @@ class PokemonInfoPad {
         let spanNumber = document.createElement('span');
         spanNumber.innerText = 'No. 025';
         spanNumber.classList.add('pokemon-number');
-
         this.illustrationSet = {illustration, imgPokemon, spanNumber};
         illustration.appendChild(imgPokemon);
         illustration.appendChild(spanNumber);
         return illustration;
     }
-
     /**
      * 新增「寶可夢狀態」版面，並初始化其中的物件。
      * 可以分兩部分:
@@ -127,13 +122,11 @@ class PokemonInfoPad {
         this.statusParts.pokemonName = document.createElement('span');
         this.statusParts.pokemonName.innerText = 'Pokemon\' Name';
         this.statusParts.pokemonName.classList.add('pokemon-name');
-
         this.statusParts.pokemonStatusPad.appendChild(this.statusParts.pokemonName);
         this.statusParts.pokemonStatusPad.appendChild(this.initPokemonStatusPad_Part1());
         this.statusParts.pokemonStatusPad.appendChild(this.initPokemonStatusPad_Part2());
         return this.statusParts.pokemonStatusPad;
     }
-
     /**
      * 初始化「寶可夢狀態」版面中的第一部分。
      * @return {HTMLDivElement} 「第一部分」的HTML元件。
@@ -159,10 +152,8 @@ class PokemonInfoPad {
         let spanStatus = document.createElement('span');
         spanStatus.innerText = 'STATUS/ OK';
         spanStatus.classList.add('status');
-        
         this.statusParts = this.statusParts || {};
         this.statusParts.part1 = {divPart1, spanLevel, labelHP, HPBar, spanHPValue, spanStatus};
-
         divPart1.appendChild(spanLevel);
         divPart1.appendChild(labelHP);
         divPart1.appendChild(HPBar.getHTMLElement());
@@ -170,7 +161,6 @@ class PokemonInfoPad {
         divPart1.appendChild(spanStatus);
         return divPart1;
     }
-
     /**
      * 初始化「寶可夢狀態」版面中的第二部分。
      * @return {HTMLDivElement} 「第二部分」的HTML元件。
@@ -194,17 +184,14 @@ class PokemonInfoPad {
         let spanLevelUp = document.createElement('span');
         spanLevelUp.classList.add('levelup');
         spanLevelUp.innerText = '65535 to :L12';
-
         this.statusParts = this.statusParts || {};
         this.statusParts.part2 = {divPart2, labelExp, spanExp, labelLevelUp, spanLevelUp};
-
         divPart2.appendChild(labelExp);
         divPart2.appendChild(spanExp);
         divPart2.appendChild(labelLevelUp);
         divPart2.appendChild(spanLevelUp);
         return divPart2;
     }
-
     /**
      * 新增「寶可夢數值能力」版面，並初始化其中的物件。
      * 有: 攻擊力、防禦力、速度值、特殊值。
@@ -226,7 +213,6 @@ class PokemonInfoPad {
         spanDefense.classList.add('stat');      spanDefense.innerText = '10';
         spanSpeed.classList.add('stat');        spanSpeed.innerText = '19';
         spanSpecial.classList.add('stat');      spanSpecial.innerText = '13';
-
         this.statValueSet = {statValuePad, labelAttack, spanAttack, labelDefense, spanDefense, labelSpeed, spanSpeed, labelSpecial, spanSpecial};
         statValuePad.appendChild(labelAttack);      statValuePad.appendChild(spanAttack);
         statValuePad.appendChild(labelDefense);     statValuePad.appendChild(spanDefense);
@@ -234,7 +220,6 @@ class PokemonInfoPad {
         statValuePad.appendChild(labelSpecial);     statValuePad.appendChild(spanSpecial);
         return statValuePad;
     }
-
     /**
      * 新增「寶可夢屬性」版面，並初始化其中的物件。
      * 有: 屬性1、屬性2、IDNo、OT
@@ -276,7 +261,6 @@ class PokemonInfoPad {
         let spanOT = document.createElement('span');
         spanOT.classList.add('ot');
         spanOT.innerText = "NAME";
-
         this.typeInfoSet = {typeInfoPad, labelType1, spanType1, labelType2, spanType2, labelIDNo, spanIDNo, labelOT, spanOT};
         typeInfoPad.appendChild(labelType1);    typeInfoPad.appendChild(spanType1);
         typeInfoPad.appendChild(labelType2);    typeInfoPad.appendChild(spanType2);
@@ -284,7 +268,6 @@ class PokemonInfoPad {
         typeInfoPad.appendChild(labelOT);       typeInfoPad.appendChild(spanOT);
         return typeInfoPad;
     }
-
     /**
      * 新增「招式清單」版面，並初始化其中的物件。
      * 有: 招式1~4 與 PP1~4
@@ -310,12 +293,10 @@ class PokemonInfoPad {
             element.innerText = "PP 30/30";
             moveListPad.appendChild(element);
         });
-        
         this.moveListSet = {moveListPad, moveNames, movePPs};
         return moveListPad;
     }
     //#endregion 初始化所用的函式
-
     /** 
      * 以寶可夢的資料來設定。
      * @param {GameSystem.Classes.Pokemon} pokemon 目標寶可夢。
@@ -363,7 +344,6 @@ class PokemonInfoPad {
             this.moveListSet.movePPs[i].innerText = move ? "PP 30/30" : "--";  // ! 尚未實裝 !
         }
     }
-
     /**
      * 顯示第一部分的資訊。
      */
@@ -374,7 +354,6 @@ class PokemonInfoPad {
         this.typeInfoSet.typeInfoPad.classList.remove('hide');
         this.moveListSet.moveListPad.classList.add('hide');
     }
-
     /**
      * 顯示第二部分的資訊。
      */
@@ -385,21 +364,18 @@ class PokemonInfoPad {
         this.typeInfoSet.typeInfoPad.classList.add('hide');
         this.moveListSet.moveListPad.classList.remove('hide');
     }
-
     /**
      * 顯示此「寶可夢資訊」版面。
      */
     show() { 
         this.pokemonInfoPad.classList.remove('hide');
     }
-
     /**
      * 隱藏此「寶可夢資訊」版面。
      */
     hide() {
         this.pokemonInfoPad.classList.add('hide');
     }
-
     /**
      * 取得此物件所在管理的HTML標籤物件。
      * @return {HTMLDivElement} 「寶可夢資訊」版面的HTML元件。

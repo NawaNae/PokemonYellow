@@ -1,6 +1,5 @@
 function speak(s,lang="zh-tw") {
     var protocol=location.protocol;
-    
     if(location.hostname==="nawanae.github.io"&&protocol==="https:")
         s="https://myweb.ntut.edu.tw/~t105590029/php/googleTTSproxy.php?Text="+s+"&Lang="+lang;//proxy
     else

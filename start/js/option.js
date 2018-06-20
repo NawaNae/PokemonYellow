@@ -9,13 +9,10 @@ class Option extends DisplayInformation.Text
         let selectSend=()=>{
             while(confirm("你確定要開"+this.text+"?"));};
         this.selectSend=selectSendFunction||selectSend;
-        
     }
     checkChanged()
     {
-
     }
-
     set select(value)
     {
         if(this._display.classList.contains("select")&&!value)

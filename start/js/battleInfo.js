@@ -33,40 +33,28 @@ class BattleInfo {
         this._isAsleep = false;
         this._asleepTime = 0;
     }
-    
     /** 寶可夢本身的資訊。 */
     get pokemon() { return this._pokemon; }
-
     /** 寶可夢的名稱。 */
     get name() { return this._pokemon.name; }
-
     /** 寶可夢的當前生命值 */
     get HP() { return this._pokemon.HP; }
     set HP(newHP) { this._pokemon.HP = newHP; }
-
     /** 寶可夢的最大血量。 */
     get maxHP() { return this._pokemon.maxHP; }
-
     /** 寶可夢的等級。 */
     get level() { return this._pokemon.level; }
-
     /** 寶可夢的第一屬性。 */
     get typeA() { return this._pokemon.typeA; }
-
     /** 寶可夢的第二屬性。 */
     get typeB() { return this._pokemon.typeB; }
-
     /** 取得寶可夢正面圖片 */
     get imagePath() { return this._pokemon.getImagePath(); }
-
     /** 取得寶可夢背部圖片 */
     get backImagePath() { return this._pokemon.getBackImagePath(); }
-
     /** 取的此寶可夢的捕獲率 */
     get catchRate() { return this._pokemon.getPokemonType().catchRate; }
-
     // #region ======================================== 階級變換類 ========================================
-
     /**
      * 指定能力種類，對其進行階級變化。
      * @param {GameSystem.Classes.Move} statusMove 變化的招式。
@@ -88,7 +76,6 @@ class BattleInfo {
                 return this._changeEvasionLevel(statusMove.levelChange);;
         }
     }
-
     /**
      * 變更攻擊階級。
      * @private
@@ -100,7 +87,6 @@ class BattleInfo {
         this._attackLevel = this._levelFilter(this._attackLevel + diff);
         return this._attackLevel - originalLevel;
     }
-
     /**
      * 變更防禦階級。
      * @private
@@ -112,7 +98,6 @@ class BattleInfo {
         this._defenseLevel = this._levelFilter(this._defenseLevel + diff);
         return this._defenseLevel - originalLevel;
     }
-
     /**
      * 變更速度階級。
      * @private
@@ -124,7 +109,6 @@ class BattleInfo {
         this._speedLevel = this._levelFilter(this._speedLevel + diff);
         return this._speedLevel - originalLevel;
     }
-
     /**
      * 變更精精準階級。
      * @private
@@ -136,7 +120,6 @@ class BattleInfo {
         this._accuracyLevel = this._levelFilter(this._accuracyLevel + diff);
         return this._accuracyLevel - originalLevel;
     }
-
     /**
      * 變更迴避階級。
      * @private
@@ -148,7 +131,6 @@ class BattleInfo {
         this._evasionRateLevel = this._levelFilter(this._evasionRateLevel + diff);
         return this._evasionRateLevel - originalLevel;
     }
-
     /**
      * 等級過濾器。檢查等級是否有在[-6,6]之間的範圍，若有則修正之。
      * @private
@@ -163,11 +145,8 @@ class BattleInfo {
         else
             return level;
     }
-
     // #endregion ==========================================================================================
-
     // #region ======================================== 取得能力值 ========================================
-
     /** 
      * 取得寶可夢在戰鬥台上的攻擊力。
      * @return {number} 在戰鬥台上的攻擊力。
@@ -175,7 +154,6 @@ class BattleInfo {
     get attack() {
         return (2 + Math.max(0, this._attackLevel)) / (2 + Math.max(0, -this._attackLevel)) * this._pokemon.attack;
     }
-
     /**
      * 取得寶可夢在戰鬥台上的防禦力。
      * @return {number} 在戰鬥台上的防禦力。
@@ -183,7 +161,6 @@ class BattleInfo {
     get defense() {
         return (2 + Math.max(0, this._defenseLevel)) / (2 + Math.max(0, -this._defenseLevel)) * this._pokemon.defense;
     }
-
     /**
      * 取得寶可夢在戰鬥台上的速度值。
      * @return {number} 在戰鬥台上的速度值。
@@ -192,7 +169,6 @@ class BattleInfo {
         let value = (2 + Math.max(0, this._speedLevel)) / (2 + Math.max(0, -this._speedLevel)) * this.pokemon.speed;
         return value / (this._isParalysis ? 2 : 1);
     }
-
     /**
      * 取得寶可夢在戰鬥台上的命中機率。
      * @return {number} 在戰鬥台上的命中機率。
@@ -200,7 +176,6 @@ class BattleInfo {
     get accuracy() {
         return (2 + Math.max(0, this._accuracyLevel)) / (2 + Math.max(0, -this._accuracyLevel));
     }
-
     /**
      * 取得寶可夢在戰鬥台上的閃避率。
      * @return {number} 在戰鬥台上的閃避率。
@@ -208,31 +183,21 @@ class BattleInfo {
     get evasion() {
         return (2 + Math.max(0, this._evasionRateLevel)) / (2 + Math.max(0, -this._evasionRateLevel));
     }
-
     // #endregion ============================================================================================
-
     // #region ======================================== 特殊狀態類 ========================================
-
     get isBurned() { return this._isBurned; }
     set isBurned(bool) { this._isBurned = bool; }
-
     get isForzen() { return this._isForzen; }
     set isForzen(bool) { this._isForzen = bool; }
-    
     get isParalysis() { return this._isParalysis; }
     set isParalysis(bool) { this._isParalysis = bool; }
-
     get isPoisoned() { return this._isPoisoned; }
     set isPoisoned(bool) { this._isPoisoned = bool; }
-
     get isAsleep() { return this._isAsleep; }
     set isAsleep(bool) { this._isAsleep = bool; }
-
     get asleepTimes() { return this._asleepTime; }
     set asleepTimes(times) { this._asleepTime = times; }
-
     // #endregion =======================================================================================
-
     /**
      * 實作「寶可夢接受傷害」的動作
      * @param {number} damage 傷害數值。
@@ -248,7 +213,6 @@ class BattleInfo {
             return false;
         }
     }
-
     /**
      * 進行變更寶可夢的動作。
      * @param {GameSystem.Classes.Pokemon} pokemon 上場的寶可夢。

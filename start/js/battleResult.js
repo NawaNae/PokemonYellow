@@ -12,41 +12,31 @@ class BattleResult {
         this._actionList = [];
         this._state = GameSystem.Classes.BattleResult.State.Draw;
     }
-
     get state() { return this._state; }
-
     /** 判別結果，玩家是否贏了戰鬥。
      * @return {boolean} 玩家是否贏了戰鬥。
      */
     isPlayerWin() { return this._state == GameSystem.Classes.BattleResult.State.PlayerWin; }
-
     /** 判斷結果，對手是否贏了戰鬥。
      * @return {boolean} 對手是否贏了戰鬥。
      */
     isOpponentWin() { return this._state == GameSystem.Classes.BattleResult.State.OpponentWin; }
-
     /** 判斷結果，是否雙方都可以再進行戰鬥。
      * @return {boolean} 是否雙方都可以再進行戰鬥
      */
     isDraw() { return this._state == GameSystem.Classes.BattleResult.State.Draw; }
-
     /** 判斷結果，是否玩家逃跑了。
      *  @return {boolean} 是否玩家逃跑了。
      */
     isPlayerEscaped() { return this._state == GameSystem.Classes.BattleResult.State.Escape; }
-
     /** 設定結果: 玩家贏了這場戰鬥。*/
     playerWins() { this._state = GameSystem.Classes.BattleResult.State.PlayerWin; }
-
     /** 設定結果: 對手贏了這場戰鬥。*/
     opponentWins() { this._state = GameSystem.Classes.BattleResult.State.OpponentWin; }
-
     /** 設定結果: 玩家抓到了寶可夢。 */
     caughtPokemon() { this._state = GameSystem.Classes.BattleResult.State.CaughtPokemon; }
-
     /** 設定結果: 玩家逃跑了。 */
     playerEscaped() { this._state = GameSystem.Classes.BattleResult.State.Escape; }
-
     /** 
      * 將訊息新增至「戰鬥結果」中。
      * @param {string} message 要新增的訊息。
@@ -61,7 +51,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * 新增指定的戰鬥動畫。
      * @param {GameSystem.Classes.BattleAnimation} animation 指定的戰鬥動畫。
@@ -72,7 +61,6 @@ class BattleResult {
             animation: animation.getAnimationStarter()
         });
     }
-
     /**
      * 將「生命值條」動畫加入至「戰鬥結果」中。
      * @param {number} diff 血條的差值。可為正值也可為負值。
@@ -108,7 +96,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * 將「等待」加入至「戰鬥結果」中。
      * @param {number} millisecond 表示等待的時間。
@@ -121,7 +108,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * 新增對手寶可夢昏厥的動畫。
      * @param {string} pokemonName 寶可夢的名稱。
@@ -145,7 +131,6 @@ class BattleResult {
                 resolve(true);
             }
         }
-
         this._actionList.push({
             type: GameSystem.Classes.BattleResult.ActionType.OpponentPokemonFaint,
             animation: (animationSet) => new Promise(res => {
@@ -157,7 +142,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * 新增我方寶可夢移出的動畫。
      * @param {string} pokemonName 寶可夢的名稱。
@@ -168,7 +152,6 @@ class BattleResult {
         let playerPos = {x: 10, y: 40};     // 設定我方寶可夢的繪製位置
         let delay = 250;                    // 延遲 與 預延遲
         let battleLevel_animationSet;       // 紀錄 BattleLevel 上的 animationSet
-
         /** 移動玩家寶可夢的函式：「更換寶可夢」 */
         function MovingOut_Changing(ctx) {
             if (delay > 0) {                // 預延遲
@@ -194,7 +177,6 @@ class BattleResult {
                 setTimeout(() => resolve(true), 500);
             }
         }
-
         this._actionList.push({
             type: GameSystem.Classes.BattleResult.ActionType.PlayerPokemonFaint,
             animation: (animationSet) => new Promise(res => {
@@ -206,7 +188,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * 新增我方寶可夢進入戰鬥的動畫。
      * @param {string} pokemonName 換上場的寶可夢名稱。
@@ -230,7 +211,6 @@ class BattleResult {
             }
             ctx.drawImage(image, playerPos.x, playerPos.y);
         }
-
         this._actionList.push({
             type: GameSystem.Classes.BattleResult.ActionType.PlayerPokemonFaint,
             animation: (animationSet) => new Promise(res => {
@@ -242,7 +222,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * 抓完寶可夢之後的繪圖處理。
      */
@@ -255,7 +234,6 @@ class BattleResult {
             })
         });
     }
-
     /**
      * @typedef AnimationAction
      * @prop {GameSystem.Classes.BattleResult.ActionType} type 表示戰鬥動畫的動作種類。
@@ -276,52 +254,39 @@ class BattleResult {
         }
     }
 }
-
 /** @enum 戰鬥結果的動作種類
  * @readonly
  */
 GameSystem.Classes.BattleResult.ActionType = Object.freeze({
     /** 顯示訊息 */
     ShowMessage: Symbol('ShowMessage'),
-
     /** 運行戰鬥動畫 */
     BattleAnimation: Symbol('BattleAnimation'),
-
     /** 運行HP條動畫 */
     HPBarAnimation: Symbol('HPBarAnimation'),
-
     /** 等待個幾秒 */
     Waiting: Symbol('Waiting'),
-
     /** 對手寶可夢昏厥 */
     OpponentPokemonFaint: Symbol('OpponentPokemonFaint'),
-
     /** 玩家寶可夢昏厥 */
     PlayerPokemonFaint: Symbol('PlayerPokemonFaint'),
-
     /** 玩家寶可夢移入 */
     PlayerPokemonMovingIn: Symbol('PlayerPokemonMovingIn'),
-
     /** 抓完野生寶可夢 */
     AfterCaughtPokemon: Symbol('AfterCaughtPokemon')
 });
-
 /** @enum 戰鬥結果的狀態種類列舉。
  * @readonly
  */
 GameSystem.Classes.BattleResult.State = Object.freeze({
     /** 勝負未分 */
     Draw: Symbol('Draw'),
-
     /** 玩家方勝利 */
     PlayerWin: Symbol('PlayerWin'),
-
     /** 對手方勝利 */
     OpponentWin: Symbol('OpponentWin'),
-
     /** 玩家進行逃跑 */
     Escape: Symbol('Escape'),
-
     /** 抓到野生寶可夢 */
     CaughtPokemon: Symbol('CaughtPokemon')
 });
