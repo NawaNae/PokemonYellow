@@ -17,6 +17,7 @@ class Character {
      * @param {GameSystem.Classes.Character.Face} face 角色的面朝方向
      * @param {GameSystem.Classes.Position} position 角色的位置
      * @param {GameSystem.Classes.Image} image 角色的圖片
+     * @param {int} autoCutFunctionIndex 自動切圖片並放入animation的數量 可以是 undefined 4 10 12
      */
     constructor(name, face, position, image, autoCutFunctionIndex) {
         this._name = name;
@@ -50,6 +51,7 @@ class Character {
         this.movePositionVector=GameSystem.Classes.Character.MovePositionVector;//地圖移動向量陣列
         this.MovePointVector=GameSystem.Classes.Character.MovePointVector;
     }
+    //複製一個角色到本角色，用於還原JSON時
     copyFrom(char)
     {
         if(!char)return;
@@ -74,6 +76,7 @@ class Character {
     teardown()
     {
     }
+    //取得posCmp位於本角色的哪個方向
     getDirection(posCmp)
     {
         let position=this.position;
@@ -88,6 +91,7 @@ class Character {
         let pos=new GameSystem.Classes.Position(posCmp.x,posCmp.y);
         return pos.x===position.x&&pos.y<position.y?"Up":pos.x===position.x&&pos.y>position.y?"Down":pos.x<position.x&&pos.y===position.y?"Left":pos.x>position.x&&pos.y===position.y?"Right":undefined;
     }
+    //使用 Up、Down、Left、Right等moveKey控制角色走一格
     walk(moveKey,end=()=>{})
     {
         var waitForWalk=()=>{if(this.isWalk)setTimeout(waitForWalk,100);else
@@ -136,7 +140,9 @@ class Character {
         }
         waitForWalk();
     }
+    //moveTo的別稱
     walkTo(position,end=()=>{}){this.moveTo(position,end);}
+    //用BFS計算角色與目標 並且走過去
     moveTo(position,end=()=>{})
     {
         this.isPlayBehavior=false;
@@ -155,6 +161,7 @@ class Character {
         }
         timeout();
     }
+    //BFS尋路並且回傳路的陣列
     findRoad( to,from=this.position)
     {
         var GS = GameSystem, CS = GS.Classes, Position = CS.Position, gameLevel = Framework.Game._currentLevel,levelName=Framework.Game._findLevelNameByLevel(gameLevel);
@@ -230,6 +237,7 @@ class Character {
         }
         return reduce();
     }
+    //更新角色圖片位置
     updateImagePosition()
     {
         let myPos=this.position.toPoint();
@@ -239,6 +247,7 @@ class Character {
             this.image.position.y=myPos.y;
         }
     }
+    //播放Animation陣列
     playListAnimation(list)
     {
         let period=GameSystem.Manager.Key.lockTime/2;
@@ -370,6 +379,7 @@ class Character {
         );
         return ansFunc;
     }
+    //預設位置的切圖函數 4張 (僅上下左右)
     initializeAnimationLists4PbyFilename(filename,pathname=define.characterImagePath)
     {this.initializeAnimationLists4PbySrc(pathname+filename);}
     initializeAnimationLists4PbySrc(src)
@@ -382,6 +392,7 @@ class Character {
         this.animationLists.Left.push(nitem(2));
         this.animationLists.Right.push(nitem(3));
     }
+    //預設位置的切圖函數 10張 含動畫
     initializeAnimationLists10PbyFilename(filename,pathname=define.characterImagePath)
     {this.initializeAnimationLists10PbySrc(pathname+filename);}
     initializeAnimationLists10PbySrc(src)
@@ -402,6 +413,7 @@ class Character {
         this.animationLists.Right.push(nitem(8));
         this.animationLists.Right.push(nitem(9));
     }
+    //預設位置的切圖函數 12張 多餘的動畫
     initializeAnimationLists12PbyFilename(filename,pathname=define.characterImagePath)
     {this.initializeAnimationLists12PbySrc(pathname+filename);}
     initializeAnimationLists12PbySrc(src)

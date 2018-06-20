@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 道路一
+ * @class Route01
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Route01=
 class Route01 extends GameSystem.Classes.Level
 {

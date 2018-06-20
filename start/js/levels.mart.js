@@ -1,4 +1,10 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 商店的BaseClass
+ * 使用需重新定義gates
+ * @class Mart
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Mart=
 class Mart extends GameSystem.Classes.Level {
     constructor(name) {

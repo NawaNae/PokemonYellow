@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 是否的選擇框
+ * @class YesNoDialog
+ */
 GameSystem.Classes.YesNoDialog=
 class YesNoDialog extends GameSystem.Classes.Options
 {

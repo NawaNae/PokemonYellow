@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 載入存檔 或 直接開始的畫面
+ * @class LoadRecord
+ * @extends Level
+ */
 GameSystem.Classes.Levels.LoadRecord=
 class LoadRecord extends GameSystem.Classes.Level
 {

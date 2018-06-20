@@ -29,15 +29,18 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
         this.image=Load.image(src);
         this.visible=true;
     }
+    //新增這張圖到某個Level的Scene
     addToLevelByLevelName(name)
     {
         let level=Framework.Game._findLevel(name);
         level._allGameElement.push(this);
     }
+    //新增這張圖到當前Level的Scene
     addToCurrentLevel()
     {
         Framework.Game._currentLevel._allGameElement.push(this);
     }
+    //新增這張圖到每個Level的Scene
     addToAllLevels()
     {
         Framework.Game._levels.forEach((ele)=>
@@ -45,6 +48,7 @@ GameSystem.Classes.Image=class GameImage extends GameSystem.Classes.GameObject
             ele.level._allGameElement.push(this);
         });
     }
+    //複製圖片到這個圖，多載
     copy(image)
     {
         if(!image)

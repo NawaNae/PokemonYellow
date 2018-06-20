@@ -1,4 +1,10 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 顯示金錢的對話方框
+ * 會自動更新金錢數量
+ * @class MoneyDialog
+ * @extends Digit
+ */
 GameSystem.Classes.MoneyDialog=
 class MoneyDialog extends DisplayInformation.Digit
 {

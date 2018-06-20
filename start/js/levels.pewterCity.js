@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 尼比市
+ * @class PewterCity
+ * @extends Level
+ */
 GameSystem.Classes.Levels.PewterCity=
 class PewterCity extends GameSystem.Classes.Level {
     constructor()
@@ -96,21 +101,6 @@ class PewterCity extends GameSystem.Classes.Level {
         /*左上砍*/
         this.obstacles.push(new CS.Rectangle({ x: 4, y: 9 }, { x: 6, y: 9 }));     
     }
-    initNpcs()
-    {
-        // var GS = GameSystem, CS = GS.Classes, Image = CS.Image, Position = CS.Position, NPC = CS.NPC, Drama = GameSystem.Resource.Drama.PalletTown, Item = CS.AnimationItem;
-        // this.npcs.push(
-        //     new NPC(
-        //         "girl1",
-        //         CS.Character.Face.Up,
-        //         new Position(5, 8),
-        //         new CS.Image(define.characterImagePath + "girl1.png", { cutStartPosition: new Position(0, 0), cutSize: new Position(1, 1) }),
-        //         10,
-        //         Drama.Girl1,
-        //         true
-        //     )
-        // );
-    }
     initSignBoards() {
         let SignBoard = GameSystem.Classes.SignBoard;
         let Position = GameSystem.Classes.Position;
@@ -136,6 +126,11 @@ class PewterCity extends GameSystem.Classes.Level {
         GS.protagonist.position=GS.protagonist.position;
     }
 }
+/**
+ * 尼比市寶可夢中心
+ * @class Hospital
+ * @extends Level
+ */
 GameSystem.Classes.Levels.PewterCity.Hospital=
 class Hospital extends GameSystem.Classes.Levels.Hospital {
     initGates()
@@ -147,6 +142,11 @@ class Hospital extends GameSystem.Classes.Levels.Hospital {
         pushItem("pewterCityHospital",4,7,"pewterCity",13,27);
     }
 }
+/**
+ * 尼比市商店
+ * @class Mart
+ * @extends Level
+ */
 GameSystem.Classes.Levels.PewterCity.Mart=
 class Mart extends GameSystem.Classes.Levels.Mart {
     initGates() {
@@ -157,6 +157,11 @@ class Mart extends GameSystem.Classes.Levels.Mart {
         pushItem("pewterCityMart",4,7,"pewterCity",23,19);
     }
 }
+/**
+ * 尼比道館
+ * @class Gym
+ * @extends Level
+ */
 GameSystem.Classes.Levels.PewterCity.Gym=
 class Gym extends GameSystem.Classes.Level
 {

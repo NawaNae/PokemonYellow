@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 買賣時顯示買、賣、取消的對話框
+ * @class BuySellDialog
+ */
 GameSystem.Classes.BuySellDialog=
 class BuySellDialog extends GameSystem.Classes.Options
 {

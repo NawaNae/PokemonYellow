@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 常磐市
+ * @class ViridianCity
+ * @extends Level
+ */
 GameSystem.Classes.Levels.ViridianCity=
 class ViridianCity extends GameSystem.Classes.Level {
     constructor()
@@ -136,6 +141,11 @@ class ViridianCity extends GameSystem.Classes.Level {
             }
     }
 }
+/**
+ * 常磐市寶可夢中心
+ * @class Hospital
+ * @extends Level
+ */
 GameSystem.Classes.Levels.ViridianCity.Hospital=
 class Hospital extends GameSystem.Classes.Levels.Hospital {
     initGates()
@@ -147,6 +157,11 @@ class Hospital extends GameSystem.Classes.Levels.Hospital {
         pushItem("viridianCityHospital",4,7,"viridianCity",23,25);
     }
 }
+/**
+ * 常磐市商店
+ * @class Mart
+ * @extends Level
+ */
 GameSystem.Classes.Levels.ViridianCity.Mart=
 class Mart extends GameSystem.Classes.Levels.Mart {
     initGates() {

@@ -1,4 +1,9 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 賣東西的時候的數字選擇框
+ * @class ItemNumberDialogSell
+ * @extends ItemNumberDialog
+ */
  GameSystem.Classes.ItemNumberDialogSell=
 class ItemNumberDialogSell extends GameSystem.Classes.ItemNumberDialog
 {

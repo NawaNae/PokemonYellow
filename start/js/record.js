@@ -1,4 +1,9 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 紀錄
+ * 用來去除不必要的部分及無法轉換成JSON的部分
+ * @class Record
+ */
 GameSystem.Classes.Record=
 class Record
 {

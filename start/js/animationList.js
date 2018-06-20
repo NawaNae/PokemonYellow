@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 重新定義，播放圖片的Animation陣列
+ * @class AnimationList
+ */
 GameSystem.Classes.AnimationList =
 class AnimationList extends Array
 {

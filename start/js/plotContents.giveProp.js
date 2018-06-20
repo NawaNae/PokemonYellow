@@ -1,3 +1,8 @@
+/**
+ * @class GiveProp
+ * @extends Paragraph
+ * @classdesc 給東西的劇情內容
+ */
 GameSystem.Classes.PlotContents.GiveProp=
 class GiveProp extends GameSystem.Classes.PlotContents.Paragraph
 {

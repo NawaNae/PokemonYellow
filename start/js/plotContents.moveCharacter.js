@@ -1,3 +1,8 @@
+/**
+ * @class MoveCharacter
+ * @extends PlotContent
+ * @classdesc 移動角色或衍生類的劇情內容
+ */
 GameSystem.Classes.PlotContents.MoveCharacter=
 class MoveCharacter extends GameSystem.Classes.PlotContent
 {

@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 儲存地圖與座標
+ * @class MapPosition
+ */
 GameSystem.Classes.MapPosition=
 class MapPosition
 {

@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 傳送門，內含兩個MapPostion
+ * @class Connection
+ */
 GameSystem.Classes.Connection=
 class Connection 
 {

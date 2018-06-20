@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 一個選項清單
+ * @class Options
+ */
 GameSystem.Classes.Options=
 class Options extends DisplayInformation.AutoKeyInput.Text
 {

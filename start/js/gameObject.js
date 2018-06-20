@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 遊戲物件，用於接合Framework與自己實作的物品
+ * @class GameObject
+ */
 GameSystem.Classes.GameObject=
 class GameObject
 {

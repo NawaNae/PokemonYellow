@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 真新鎮
+ * @class PalletTown
+ * @extends Level
+ */
 GameSystem.Classes.Levels.PalletTown=
 class PalletTown extends GameSystem.Classes.Level {
     constructor()
@@ -143,6 +148,11 @@ class PalletTown extends GameSystem.Classes.Level {
         GS.protagonist.position=GS.protagonist.position;
     }
 }
+/**
+ * 主角家一樓
+ * @class ProtagonistHome1F
+ * @extends Level
+ */
 GameSystem.Classes.Levels.ProtagonistHome1F=
 class ProtagonistHome1F extends GameSystem.Classes.Level {
     constructor() {
@@ -238,6 +248,11 @@ class ProtagonistHome1F extends GameSystem.Classes.Level {
         this.rootScene.attach(GS.protagonist.image);
     }
 }
+/**
+ * 主角家二樓
+ * @class ProtagonistHome2F
+ * @extends Level
+ */
 GameSystem.Classes.Levels.ProtagonistHome2F=
 class ProtagonistHome2F extends GameSystem.Classes.Level {
     constructor() {
@@ -292,6 +307,11 @@ class ProtagonistHome2F extends GameSystem.Classes.Level {
         this.rootScene.attach(GS.protagonist.image);
     }
 }
+/**
+ * 對手家
+ * @class PalletTownHouse1
+ * @extends Level
+ */
 GameSystem.Classes.Levels.PalletTownHouse1=
 class PalletTownHouse1 extends GameSystem.Classes.Level {
     constructor() {
@@ -382,6 +402,11 @@ class PalletTownHouse1 extends GameSystem.Classes.Level {
             }
     }
 }
+/**
+ * 博士研究所
+ * @class DoctorsHome
+ * @extends Level
+ */
 GameSystem.Classes.Levels.DoctorsHome=
 class DoctorsHome extends GameSystem.Classes.Level {
     constructor() {

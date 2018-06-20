@@ -1,3 +1,8 @@
+/**
+ * 執行JS腳本的劇情內容
+ * @class Script
+ * @extends PlotContent
+ */
 GameSystem.Classes.PlotContents.Script=
 class Script extends GameSystem.Classes.PlotContent
 {

@@ -2,6 +2,10 @@
 var _isTestMode = false;
 var _isRecordMode = false;
 var Load=new (
+/**
+ * 載入 css 、 Image、 Audio載入器
+ * @class Loader
+ */
     class Loader
     {
         audio(src,callback)
@@ -30,6 +34,10 @@ var Load=new (
         }
     })();
     Load.js=new (
+/**
+ * 載入 JS載入器、排程器
+ * @class JsLoader
+ */
     class JsLoader
     {
         import (jsConf,loadFuncName="load")

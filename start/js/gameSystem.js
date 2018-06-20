@@ -5,11 +5,16 @@ var GameSystem =
     Resource:{},
     Bridges:{}
 };
+/**
+ * 一次性使用 即為Manager.Key之class
+ * @class _KeyManagerClass
+ */
 GameSystem.Manager._KeyManagerClass=
 class KeyManagerClass 
 {
     constructor()
     {
+        //按下的key
         this.pressList=
         {
             W:false,
@@ -26,6 +31,7 @@ class KeyManagerClass
             J:false,
             B:false
         };
+        //key對應
         this.keyMapping=
         {
             W:"Up",
@@ -42,6 +48,7 @@ class KeyManagerClass
             J:"B",
             B:"Start",
         };
+        //移動的key列表
         this.moveKeys=
         {
             W:"Up",
@@ -70,6 +77,7 @@ class KeyManagerClass
     {
         return typeof this.pressList[key] !=='undefined';
     }
+    //key event之key字串處理
     keyProcess(keyEvent)
     {
         var key=keyEvent.key;
@@ -82,7 +90,6 @@ class KeyManagerClass
     }
     _keyInput(e)
     {
-        //console.log(e.pressList);
         this.keyInput(e);
     }
     _lockTimeOut()
@@ -122,6 +129,10 @@ class KeyManagerClass
     }
 };
 GameSystem.Manager.Key=new  GameSystem.Manager._KeyManagerClass();
+/**
+ * 座標的BaseClass，提供運算跟基本功能及copyConstructor
+ * @class XYBase
+ */
 GameSystem.Classes.XYBase=
 class XYBase
 {
@@ -189,6 +200,11 @@ class XYBase
         return new this.constructor(this._x,this._y);
     }
 }
+/**
+ * 實際的一點座標
+ * @class Point
+ * @extends XYBase
+ */
 GameSystem.Classes.Point=
 class Point extends GameSystem.Classes.XYBase
 {
@@ -197,6 +213,11 @@ class Point extends GameSystem.Classes.XYBase
        return new GameSystem.Classes.Position(this._x/16,this._y/16);
    }
 }
+/**
+ * 遊戲中座標單位 為16個Point
+ * @class Position
+ * @extends XYBase
+ */
 GameSystem.Classes.Position=
 class Position  extends GameSystem.Classes.XYBase/*block 位置*/ 
 {
@@ -209,6 +230,10 @@ class Position  extends GameSystem.Classes.XYBase/*block 位置*/
         return rectangle.topLeftPos.x <= this._x &&rectangle.topLeftPos.y <= this._y &&rectangle.bottomRightPos.x >= this._x &&rectangle.bottomRightPos.y >= this._y ;
     }
 }
+/**
+ * 兩個Position形成的選取區域
+ * @class Rectangle
+ */
 GameSystem.Classes.Rectangle=
 class Rectangle
 {

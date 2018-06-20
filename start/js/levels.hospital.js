@@ -1,4 +1,10 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 寶可夢中心的BaseClass
+ * 使用需重新定義gates來連接外面
+ * @class Hospital
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Hospital=
 class Hospital extends GameSystem.Classes.Level {
     constructor(name) {

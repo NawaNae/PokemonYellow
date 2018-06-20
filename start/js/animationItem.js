@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 用於AnimationList的其中一個項目，基本相容Image
+ * @class AnimationItem
+ */
 GameSystem.Classes.AnimationItem=
 class AnimationItem 
 {

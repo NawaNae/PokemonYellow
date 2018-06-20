@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 道路二第一部分
+ * @class Route02
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Route02=
 class Route02 extends GameSystem.Classes.Level
 {
@@ -66,6 +71,11 @@ class Route02 extends GameSystem.Classes.Level
             level.parentLevel=this;
     }
 }
+/**
+ * 道路二的房屋
+ * @class Route02
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Route02.House=
 class House extends GameSystem.Classes.Level
 {
@@ -107,6 +117,11 @@ class House extends GameSystem.Classes.Level
         this.obstacles.push(new CS.Rectangle({x:9,y:2},{x:9,y:7}));//右中樹
     }
 }
+/**
+ * 道路二第二部分
+ * @class Route02Part2
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Route02.Part2=
 class Route02Part2 extends GameSystem.Classes.Level
 {

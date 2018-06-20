@@ -1,3 +1,8 @@
+/**
+ * @class Fight
+ * @extends PlotContent
+ * @classdesc 觸發戰鬥的劇情內容
+ */
 GameSystem.Classes.PlotContents.Fight=
 class Fight extends GameSystem.Classes.PlotContent
 {

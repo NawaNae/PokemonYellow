@@ -1,4 +1,9 @@
 GameSystem.Classes.Levels=GameSystem.Classes.Levels||{};
+/**
+ * 最終關卡
+ * @class Final
+ * @extends Level
+ */
 GameSystem.Classes.Levels.Final=
 class Final extends GameSystem.Classes.Level
 {

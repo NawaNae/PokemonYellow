@@ -1,4 +1,8 @@
 var DisplayInformation = DisplayInformation || {};
+/**
+ * Html容器對應JS字串變數的類別外部UI的BaseClass
+ * @class DisplayInformation
+ */
 DisplayInformation.Text = class Text
 {
     constructor(text = "", prefixString = "", postfixString = "", displayHTMLClass, createElementTypeString = "div", father, textOutputProcessFunction = DisplayInformation.Text.OutputFunctions.Normal)
@@ -17,6 +21,7 @@ DisplayInformation.Text = class Text
         this._onShow=()=>{this.onShow();}
         this._onHide=()=>{this.onHide();}
     }
+    //事件 顯示或隱藏時被呼叫
     onShow()
     {}
     onHide()
@@ -93,6 +98,11 @@ DisplayInformation.Text.OutputFunctions =
     {
         Normal: (text) => { return text }
     };
+/**
+ * Html容器對應數字變數的類別
+ * @class Digit
+ * @extends Text
+ */
 DisplayInformation.Digit = class Digit extends DisplayInformation.Text
 {
     constructor(value = 0, prefixString = "", postfixString = "", displayHTMLClass , createElementTypeString = "div",father, textOutputProcessFunction = DisplayInformation.Digit.OutputFunctions.Normal)
@@ -111,6 +121,7 @@ DisplayInformation.Digit = class Digit extends DisplayInformation.Text
         this.text = this.digitOutputProcessFunction(this._value);
     }
 };
+//輸出處理函數
 DisplayInformation.Digit.OutputFunctions =
     {
         Normal: (value) => { return value },
@@ -121,6 +132,11 @@ DisplayInformation.Digit.OutputFunctions =
         roundNthDigitAfterPoint: (digits) => { return (value) => { return parseFloat(value).toFixed(digits); }; }
     };
 DisplayInformation.AutoKeyInput={};
+/**
+ * 提供遊戲輸入函數備份及覆蓋的UI Text baseclass
+ * @class Text
+ * @extends DisplayInformation.Text
+ */
 DisplayInformation.AutoKeyInput.Text=
 class Text extends DisplayInformation.Text
 {
@@ -154,6 +170,11 @@ class Text extends DisplayInformation.Text
         }
     }
 }
+/**
+ * 提供遊戲輸入函數備份及覆蓋的UI 數字的 baseclass
+ * @class Digit
+ * @extends DisplayInformation.Digit
+ */
  DisplayInformation.AutoKeyInput.Digit=
  class Digit extends DisplayInformation.Digit
  {
@@ -180,6 +201,7 @@ class Text extends DisplayInformation.Text
     }
  }
  DisplayInformation.gameTextMappping={};
+ //處理含變數的字串的處理含數
 DisplayInformation.gameTextProcess=function(text)
 {
     if(!GameSystem||!GameSystem.protagonist)

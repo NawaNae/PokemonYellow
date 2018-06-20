@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 劇情的控制器，可以找出符合情況的劇情
+ * @class PlotsController
+ */
 GameSystem.Classes.PlotsController=
 class PlotsController
 {

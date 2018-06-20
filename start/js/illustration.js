@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 圖鑑內頁顯示的內容 提供置入寶可夢更新UI
+ * @class Illustration
+ */
 GameSystem.Classes.Illustration=
 class Illustration extends DisplayInformation.AutoKeyInput.Text
 {

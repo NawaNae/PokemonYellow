@@ -1,3 +1,8 @@
+/**
+ * 主選單
+ * @class MyMenu
+ * @extends GameMainMenu
+ */
 var MyMenu = Framework.exClass(Framework.GameMainMenu , {
             //初始化loadingProgress需要用到的圖片
     initializeProgressResource: function() {

@@ -1,4 +1,10 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 一次用class
+ * 多筆存檔管理器
+ * 可操作存讀黨
+ * @class Records
+ */
 GameSystem.Classes.Records=
 class Records
 {

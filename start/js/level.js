@@ -1,4 +1,9 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 重新定義的遊戲關卡，並且隱藏bug
+ * @class Level
+ * @extends Framework.Level
+ */
 GameSystem.Classes.Level=
 class Level extends Framework.Level
 {
@@ -209,6 +214,7 @@ class Level extends Framework.Level
            // this.inputMode=this.inputModes.options;
         }
     }
+    //戰鬥完的事件
     fightEnd()
     {
         var mainChar=GameSystem.protagonist;

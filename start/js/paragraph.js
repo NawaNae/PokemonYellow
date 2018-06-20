@@ -2,7 +2,6 @@
  * @class Paragraph
  * @extends PlotContent
  * @classdesc 作為對話框系列動作的劇情文字內容
- * 
  * @prop {string} content 段落的內容。
  * 
  */

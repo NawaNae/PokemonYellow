@@ -1,3 +1,8 @@
+/**
+ * 使用JS特性
+ * 不使用任何前墜宣告為全域
+ * 呼叫此含數，自動縮短常見NameSpace
+ */
 GameSystem.debugDefine=function()
 {
     GS=GameSystem;

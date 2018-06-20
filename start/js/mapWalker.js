@@ -1,4 +1,8 @@
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
+/**
+ * 操控走路播放的class 已棄用 移至主人公
+ * @class MapWalker
+ */
 GameSystem.Classes.MapWalker=
 class MapWalker
 {
