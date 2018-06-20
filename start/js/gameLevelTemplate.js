@@ -27,7 +27,7 @@ var GameLevelN= Framework.Class(Framework.Level, {
         this.nullSprite.position = { x: 0, y: 0 };
         this.rootScene.attach(this.nullSprite);
         /*bug 去除 */ 
-	},
+    },
     initialize: function () {
     },
     update: function() {

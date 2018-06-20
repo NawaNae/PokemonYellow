@@ -455,16 +455,16 @@ GameSystem.Classes.Character.Face = Object.freeze({
     Left: Symbol("Left")
 });
 GameSystem.Classes.Character.MovePositionVector=Object.freeze(
-    {
-        Up:new GameSystem.Classes.Position(0,-1),
-        Down:new GameSystem.Classes.Position(0,+1),
-        Right:new GameSystem.Classes.Position(+1,0),
-        Left:new GameSystem.Classes.Position(-1,0),
-    })
-    GameSystem.Classes.Character.MovePointVector=Object.freeze(
-        {
-            Up:new GameSystem.Classes.Point(0,-1),
-            Down:new GameSystem.Classes.Point(0,+1),
-            Right:new GameSystem.Classes.Point(+1,0),
-            Left:new GameSystem.Classes.Point(-1,0),
-        })
+{
+    Up:new GameSystem.Classes.Position(0,-1),
+    Down:new GameSystem.Classes.Position(0,+1),
+    Right:new GameSystem.Classes.Position(+1,0),
+    Left:new GameSystem.Classes.Position(-1,0),
+})
+GameSystem.Classes.Character.MovePointVector=Object.freeze(
+{
+    Up:new GameSystem.Classes.Point(0,-1),
+    Down:new GameSystem.Classes.Point(0,+1),
+    Right:new GameSystem.Classes.Point(+1,0),
+    Left:new GameSystem.Classes.Point(-1,0),
+})

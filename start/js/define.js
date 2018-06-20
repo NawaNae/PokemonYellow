@@ -1,5 +1,5 @@
-(function(window){	
-	var define ={}, mainPath = 'start/',frameWorkPath='src/';
+(function(window){    
+    var define ={}, mainPath = 'start/',frameWorkPath='src/';
     Object.defineProperties(define, {
         'frameworkPath':
         {
@@ -11,31 +11,31 @@
             value: mainPath + 'css/',
             writable: false
         },
-		'mainPath': {
-			value: mainPath,
-			writable: false
-		},
-		'jsPath': {
-			value: mainPath + 'js/',
-			writable: false
-		},
-		'musicPath': {
-			value: mainPath + 'music/',
-			writable: false
-		},
-		'imagePath': {
-			value: mainPath + 'image/',
-			writable: false
-		},
-		'mapImagePath':
-		{
-			value:mainPath + 'image/maps/',
-			writable:false
-		},
-		'characterImagePath': {
-			value: mainPath + 'image/characters/',
-			writable: false
-		}
-	});
-	window.define = define;
+        'mainPath': {
+            value: mainPath,
+            writable: false
+        },
+        'jsPath': {
+            value: mainPath + 'js/',
+            writable: false
+        },
+        'musicPath': {
+            value: mainPath + 'music/',
+            writable: false
+        },
+        'imagePath': {
+            value: mainPath + 'image/',
+            writable: false
+        },
+        'mapImagePath':
+        {
+            value:mainPath + 'image/maps/',
+            writable:false
+        },
+        'characterImagePath': {
+            value: mainPath + 'image/characters/',
+            writable: false
+        }
+    });
+    window.define = define;
 })(window)

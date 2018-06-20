@@ -202,9 +202,15 @@ $(".avoidMonster").on("click",function()
     var GS=GameSystem;if(!GS){console.log("請等待載入");return;}
     var mainChar=GameSystem.protagonist;if(!mainChar){console.log("請等待載入");return;}
     if(typeof mainChar.avoidFight === "undefined")
+    {
         mainChar.avoidFight=true;
+        this.dataset.used=true;
+    }
     else
+    {
         mainChar.avoidFight=undefined;
+        this.dataset.used=false;
+    }
 });
 $(".changemap").on("click",function()
 {

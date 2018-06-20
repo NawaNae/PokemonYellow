@@ -32,7 +32,7 @@ class GameLevelN extends Framework.Level
         this.oneStepCount=new GameSystem.Classes.OneBlockCount();
         this.oneStepCount.lastTimeOutCount=0;
         this.rootScene.attach(this.map);
-	}
+    }
     initialize() {
     }
     update() {
