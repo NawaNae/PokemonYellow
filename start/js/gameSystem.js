@@ -27,6 +27,10 @@ class KeyManagerClass
             Right:false,
             Space:false,
             Enter:false,
+            Escape:false,
+            "'":false,
+            Shift:false,
+            Backspace:false,
             K:false,
             J:false,
             B:false
@@ -45,6 +49,10 @@ class KeyManagerClass
             Space:"Start",
             Enter:"A",
             K:"A",
+            Escape:"B",
+            Backspace:"B",
+            Shift:"B",
+            "'":"B",
             J:"B",
             B:"Start",
         };
