@@ -27,6 +27,8 @@
  * @prop {Image} opponentPokemonImage 對手的寶可夢之圖像。
  * @prop {AnimationSet} animationSet 動畫繪製方法集合。
  * @prop {Function[]} messagingQueue 訊息佇列。
+ * 
+ * @prop {Audio} audioBackgroundMusic 背景音樂播放物件。
  */
 var GameSystem=GameSystem||{};GameSystem.Classes=GameSystem.Classes||{};
 class BattleLevel extends Framework.Level {
@@ -88,6 +90,13 @@ class BattleLevel extends Framework.Level {
         }
         // 播放進場動畫
         this.introAnimation(this._isOpponentPokemon ? undefined : this._opponent.getBattleImagePath());
+        // 播放背景音樂
+        this._audioBackgroundMusic = new Audio(define.musicPath + "BattleBackgroundMusic.mp3"); 
+        this._audioBackgroundMusic.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+        this._audioBackgroundMusic.play();
     }
     // #region ============================== KeyInput Handlers ==============================
     keyInput(e) { /* 轉移至 this._keyInputHander 作為替代方案 */ }
@@ -964,6 +973,7 @@ class BattleLevel extends Framework.Level {
      */
     teardown() {
         GameSystem.BattlePad.setVisible(false);
+        this._audioBackgroundMusic.pause();
         GameSystem.Manager.Key.keyInput = this._originalKeyHandler;     // 還原上一個Level的按鍵輸入處理
     }
     /**
