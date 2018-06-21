@@ -684,6 +684,7 @@ class BattleLevel extends Framework.Level {
             this._playerPokemon = this._playerPokemonList[index];                           // 紀錄目前所選的寶可夢並交換先後順序位置
             this._playerPokemonList[index] = this._playerPokemonList[0]
             this._playerPokemonList[0] = this._playerPokemon;
+            this._moveListCount = this._playerPokemon.moves.length;                         // 更新招式數量
             this._playerPokemonImage = Load.image(this._playerPokemon.getBackImagePath());  // 讀取寶可夢圖片
             this._isForceToChangePokemon = false;                                           // 關閉「強制選擇寶可夢」
             this._pokemonListSelection = 0;                                                 // 重置游標
