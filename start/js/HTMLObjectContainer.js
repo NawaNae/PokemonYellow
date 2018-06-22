@@ -36,7 +36,7 @@ class HTMLObjectContainer
         }
         Framework.Game.resizeCanvas=this.resizeCanvas;
     }
-    initPokemonsDialog()
+    initPokemonsDialog()//
     {
         this.pokemonsDialog=new GameSystem.Classes.PokemonsDialog();
         this.pokemonsDialog.appendTo(this.container);
