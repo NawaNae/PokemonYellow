@@ -1,7 +1,7 @@
 口袋怪獸 黃
 ===
 Design Diagram:
-https://www.draw.io/#G11WgDSW_0WGY7z4X81yKVyr9OROx6sTLA
+https://drive.google.com/file/d/11WgDSW_0WGY7z4X81yKVyr9OROx6sTLA/view?usp=sharing
 ===
 Exp:
 https://wiki.52poke.com/wiki/%E7%BB%8F%E9%AA%8C%E5%80%BC
